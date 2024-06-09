@@ -1,0 +1,32 @@
+# Visual Studio specific files
+.vs/
+*.vcxproj.user
+*.vcxproj.filters
+*.user
+*.suo
+*.ncb
+*.log
+*.sdf
+*.opensdf
+*.tlog/
+*.obj
+*.pch
+*.idb
+*.pdb
+*.ipch/
+*.aps
+*.ncb
+*.res
+*.bsc
+*.ilk
+*.exp
+*.lib
+*.exe
+*.dll
+
+# Build directories
+Debug/
+Release/
+x64/
+build/
+bin/
