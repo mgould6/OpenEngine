@@ -92,6 +92,23 @@ int main() {
     // Set the camera for InputManager
     InputManager::setCamera(&camera);
 
+    // Register input callbacks
+    InputManager::registerKeyCallback(GLFW_KEY_W, []() {
+        camera.ProcessKeyboard(FORWARD, deltaTime);
+        });
+
+    InputManager::registerKeyCallback(GLFW_KEY_S, []() {
+        camera.ProcessKeyboard(BACKWARD, deltaTime);
+        });
+
+    InputManager::registerKeyCallback(GLFW_KEY_A, []() {
+        camera.ProcessKeyboard(LEFT, deltaTime);
+        });
+
+    InputManager::registerKeyCallback(GLFW_KEY_D, []() {
+        camera.ProcessKeyboard(RIGHT, deltaTime);
+        });
+
     // Render loop
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = glfwGetTime();

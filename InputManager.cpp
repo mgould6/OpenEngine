@@ -1,28 +1,21 @@
-// InputManager.cpp
 #include "InputManager.h"
-#include "Camera.h"
 
 Camera* InputManager::camera = nullptr;
+float InputManager::lastX = 400.0f;
+float InputManager::lastY = 300.0f;
 bool InputManager::firstMouse = true;
-float InputManager::lastX = 800 / 2.0f;
-float InputManager::lastY = 600 / 2.0f;
-
-void InputManager::setCamera(Camera* cam) {
-    camera = cam;
-}
+std::map<int, std::function<void()>> InputManager::keyCallbacks;
+std::map<int, std::function<void()>> InputManager::mouseButtonCallbacks;
 
 void InputManager::processInput(GLFWwindow* window, float deltaTime) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        camera->ProcessKeyboard(FORWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        camera->ProcessKeyboard(BACKWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        camera->ProcessKeyboard(LEFT, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        camera->ProcessKeyboard(RIGHT, deltaTime);
+    // Process registered key callbacks
+    for (const auto& callback : keyCallbacks) {
+        if (glfwGetKey(window, callback.first) == GLFW_PRESS)
+            callback.second();
+    }
 }
 
 void InputManager::mouseCallback(GLFWwindow* window, double xpos, double ypos) {
@@ -33,7 +26,8 @@ void InputManager::mouseCallback(GLFWwindow* window, double xpos, double ypos) {
     }
 
     float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos;
+    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
     lastX = xpos;
     lastY = ypos;
 
@@ -42,4 +36,12 @@ void InputManager::mouseCallback(GLFWwindow* window, double xpos, double ypos) {
 
 void InputManager::scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
     camera->ProcessMouseScroll(yoffset);
+}
+
+void InputManager::registerKeyCallback(int key, std::function<void()> callback) {
+    keyCallbacks[key] = callback;
+}
+
+void InputManager::registerMouseButtonCallback(int button, std::function<void()> callback) {
+    mouseButtonCallbacks[button] = callback;
 }
