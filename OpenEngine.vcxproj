@@ -148,9 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="debug_quad.fs" />
+    <None Include="debug_quad.vs" />
     <None Include="fragment_shader.fs" />
     <None Include="Object.h" />
     <None Include="packages.config" />
+    <None Include="shadow_fragment_shader.fs" />
+    <None Include="shadow_vertex_shader.vs" />
     <None Include="vertex_shader.vs" />
   </ItemGroup>
   <ItemGroup>

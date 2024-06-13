@@ -65,14 +65,16 @@ int main() {
     // Configure global OpenGL state
     glEnable(GL_DEPTH_TEST);
 
-    // Build and compile our shader program
-    Shader shader("vertex_shader.vs", "fragment_shader.fs");
+    // Build and compile our shader programs
+    Shader lightingShader("vertex_shader.vs", "fragment_shader.fs");
+    Shader shadowShader("shadow_vertex_shader.vs", "shadow_fragment_shader.fs");
 
     // Setup vertex data and buffers
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
+        // positions         // normals
+        -0.5f, -0.5f, 0.0f,  0.0f,  0.0f, 1.0f,
+         0.5f, -0.5f, 0.0f,  0.0f,  0.0f, 1.0f,
+         0.0f,  0.5f, 0.0f,  0.0f,  0.0f, 1.0f
     };
 
     unsigned int VBO, VAO;
@@ -84,8 +86,10 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -110,27 +114,35 @@ int main() {
         camera.ProcessKeyboard(RIGHT, deltaTime);
         });
 
-    // Render loop
+    // Main render loop
     while (!glfwWindowShouldClose(window)) {
-        float currentFrame = glfwGetTime();
+        float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
         InputManager::processInput(window, deltaTime);
 
+        // Clear the screen
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shader.use();
+        // Render the scene with lighting
+        lightingShader.use();
         glm::mat4 view = camera.GetViewMatrix();
-        shader.setMat4("view", view);
+        lightingShader.setMat4("view", view);
 
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        shader.setMat4("projection", projection);
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT), 0.1f, 100.0f);
+        lightingShader.setMat4("projection", projection);
 
         // Model matrix for the triangle
         glm::mat4 model = glm::mat4(1.0f);
-        shader.setMat4("model", model);
+        lightingShader.setMat4("model", model);
+
+        // Set lighting uniforms
+        lightingShader.setVec3("lightPos", glm::vec3(1.2f, 1.0f, 2.0f));
+        lightingShader.setVec3("viewPos", camera.Position);
+        lightingShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+        lightingShader.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
 
         // Debugging output for view and model matrices
         printMatrix(view, "View");
