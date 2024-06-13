@@ -149,6 +149,7 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="fragment_shader.fs" />
+    <None Include="Object.h" />
     <None Include="packages.config" />
     <None Include="vertex_shader.vs" />
   </ItemGroup>
@@ -157,6 +158,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>

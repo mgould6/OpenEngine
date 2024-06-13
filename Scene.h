@@ -1,17 +1,16 @@
-// Scene.h
 #pragma once
 
 #include <vector>
 #include "Shader.h"
-#include "Camera.h"
-#include <glm/glm.hpp>
+#include "Object.h"
 
 class Scene {
 public:
-    void addObject(const glm::vec3& position);
-    void render(Shader& shader, Camera& camera);
+    void addObject(const Object& object);
+    void removeObject(int index);
+    void updateObjects(float deltaTime);
+    void render(Shader& shader);
 
 private:
-    std::vector<glm::vec3> objects;
+    std::vector<Object> objects;
 };
-

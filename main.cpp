@@ -1,7 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <iomanip> // Include for formatted output
+#include <iomanip>
 #include "Shader.h"
 #include "Camera.h"
 #include "InputManager.h"
@@ -60,6 +60,7 @@ int main() {
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, InputManager::mouseCallback);
     glfwSetScrollCallback(window, InputManager::scrollCallback);
+    glfwSetMouseButtonCallback(window, InputManager::mouseButtonCallback);
 
     // Configure global OpenGL state
     glEnable(GL_DEPTH_TEST);

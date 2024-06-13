@@ -1,17 +1,23 @@
-// Scene.cpp
 #include "Scene.h"
-#include <glm/gtc/matrix_transform.hpp>
 
-void Scene::addObject(const glm::vec3& position) {
-    objects.push_back(position);
+void Scene::addObject(const Object& object) {
+    objects.push_back(object);
 }
 
-void Scene::render(Shader& shader, Camera& camera) {
-    for (const auto& position : objects) {
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, position);
-        shader.setMat4("model", model);
+void Scene::removeObject(int index) {
+    if (index >= 0 && index < objects.size()) {
+        objects.erase(objects.begin() + index);
+    }
+}
 
-        // Render your object here
+void Scene::updateObjects(float deltaTime) {
+    for (Object& object : objects) {
+        object.update(deltaTime);
+    }
+}
+
+void Scene::render(Shader& shader) {
+    for (const Object& object : objects) {
+        object.render(shader);
     }
 }
