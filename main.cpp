@@ -66,8 +66,7 @@ int main() {
     glEnable(GL_DEPTH_TEST);
 
     // Build and compile our shader programs
-    Shader lightingShader("vertex_shader.vs", "fragment_shader.fs");
-    Shader shadowShader("shadow_vertex_shader.vs", "shadow_fragment_shader.fs");
+    Shader lightingShader("lighting_vertex_shader.vs", "lighting_fragment_shader.fs");
 
     // Setup vertex data and buffers
     float vertices[] = {
@@ -139,14 +138,17 @@ int main() {
         lightingShader.setMat4("model", model);
 
         // Set lighting uniforms
-        lightingShader.setVec3("lightPos", glm::vec3(1.2f, 1.0f, 2.0f));
         lightingShader.setVec3("viewPos", camera.Position);
-        lightingShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
-        lightingShader.setVec3("objectColor", glm::vec3(1.0f, 0.5f, 0.31f));
+        lightingShader.setVec3("light.position", glm::vec3(1.2f, 1.0f, 2.0f));
+        lightingShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
+        lightingShader.setVec3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
+        lightingShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
 
-        // Debugging output for view and model matrices
-        printMatrix(view, "View");
-        printMatrix(model, "Model");
+        // Set material properties
+        lightingShader.setVec3("material.ambient", glm::vec3(1.0f, 0.5f, 0.31f));
+        lightingShader.setVec3("material.diffuse", glm::vec3(1.0f, 0.5f, 0.31f));
+        lightingShader.setVec3("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+        lightingShader.setFloat("material.shininess", 32.0f);
 
         // Render the triangle
         glBindVertexArray(VAO);

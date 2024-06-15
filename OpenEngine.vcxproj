@@ -151,6 +151,8 @@
     <None Include="debug_quad.fs" />
     <None Include="debug_quad.vs" />
     <None Include="fragment_shader.fs" />
+    <None Include="lighting_fragment_shader.fs" />
+    <None Include="lighting_vertex_shader.vs" />
     <None Include="Object.h" />
     <None Include="packages.config" />
     <None Include="shadow_fragment_shader.fs" />
