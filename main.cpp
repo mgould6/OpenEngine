@@ -28,6 +28,14 @@ void printMatrix(const glm::mat4& matrix, const std::string& name) {
     }
 }
 
+void renderScene(const Shader& shader, unsigned int VAO) {
+    glBindVertexArray(VAO);
+    glm::mat4 model = glm::mat4(1.0f);
+    shader.setMat4("model", model);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glBindVertexArray(0);
+}
+
 int main() {
     // Initialize GLFW
     if (!glfwInit()) {
@@ -65,8 +73,33 @@ int main() {
     // Configure global OpenGL state
     glEnable(GL_DEPTH_TEST);
 
+    // Initialize depth map FBO
+    const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
+    unsigned int depthMapFBO;
+    glGenFramebuffers(1, &depthMapFBO);
+
+    // Create depth texture
+    unsigned int depthMap;
+    glGenTextures(1, &depthMap);
+    glBindTexture(GL_TEXTURE_2D, depthMap);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+    // Attach depth texture as FBO's depth buffer
+    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+    glDrawBuffer(GL_NONE); // No color buffer is drawn to
+    glReadBuffer(GL_NONE);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
     // Build and compile our shader programs
     Shader lightingShader("lighting_vertex_shader.vs", "lighting_fragment_shader.fs");
+    Shader depthShader("depth_vertex_shader.vs", "depth_fragment_shader.fs");
 
     // Setup vertex data and buffers
     float vertices[] = {
@@ -113,6 +146,13 @@ int main() {
         camera.ProcessKeyboard(RIGHT, deltaTime);
         });
 
+    // Define light space transformation matrices
+    glm::mat4 lightProjection, lightView, lightSpaceMatrix;
+    float near_plane = 1.0f, far_plane = 7.5f;
+    lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+    lightView = glm::lookAt(glm::vec3(1.2f, 1.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    lightSpaceMatrix = lightProjection * lightView;
+
     // Main render loop
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -121,44 +161,32 @@ int main() {
 
         InputManager::processInput(window, deltaTime);
 
-        // Clear the screen
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        // 1. Render depth of scene to texture (from light's perspective)
+        glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+        glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+        glClear(GL_DEPTH_BUFFER_BIT);
+        depthShader.use();
+        depthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+        renderScene(depthShader, VAO);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-        // Render the scene with lighting
+        // 2. Render scene as normal with shadow mapping
+        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         lightingShader.use();
         glm::mat4 view = camera.GetViewMatrix();
         lightingShader.setMat4("view", view);
-
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT), 0.1f, 100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         lightingShader.setMat4("projection", projection);
+        lightingShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-        // Model matrix for the triangle
-        glm::mat4 model = glm::mat4(1.0f);
-        lightingShader.setMat4("model", model);
-
-        // Set lighting uniforms
         lightingShader.setVec3("viewPos", camera.Position);
-        lightingShader.setVec3("light.position", glm::vec3(1.2f, 1.0f, 2.0f));
-        lightingShader.setVec3("light.ambient", glm::vec3(0.2f, 0.2f, 0.2f));
-        lightingShader.setVec3("light.diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
-        lightingShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f));
+        lightingShader.setVec3("lightPos", glm::vec3(1.2f, 1.0f, 2.0f));
+        lightingShader.setInt("shadowMap", 1);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, depthMap);
 
-        // Set material properties
-        lightingShader.setVec3("material.ambient", glm::vec3(1.0f, 0.5f, 0.31f));
-        lightingShader.setVec3("material.diffuse", glm::vec3(1.0f, 0.5f, 0.31f));
-        lightingShader.setVec3("material.specular", glm::vec3(0.5f, 0.5f, 0.5f));
-        lightingShader.setFloat("material.shininess", 32.0f);
-
-        // Render the triangle
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
-        // Check for OpenGL errors
-        GLenum error = glGetError();
-        if (error != GL_NO_ERROR) {
-            std::cerr << "OpenGL Error: " << error << std::endl;
-        }
+        renderScene(lightingShader, VAO);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
