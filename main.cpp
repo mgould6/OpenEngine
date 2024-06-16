@@ -36,6 +36,35 @@ void renderScene(const Shader& shader, unsigned int VAO) {
     glBindVertexArray(0);
 }
 
+void renderQuad() {
+    static unsigned int quadVAO = 0;
+    static unsigned int quadVBO;
+    if (quadVAO == 0) {
+        float quadVertices[] = {
+            // positions        // texture Coords
+            -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+            -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+             1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+
+            -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+             1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+             1.0f,  1.0f, 0.0f, 1.0f, 1.0f
+        };
+        glGenVertexArrays(1, &quadVAO);
+        glGenBuffers(1, &quadVBO);
+        glBindVertexArray(quadVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    }
+    glBindVertexArray(quadVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0);
+}
+
 int main() {
     // Initialize GLFW
     if (!glfwInit()) {
@@ -100,6 +129,7 @@ int main() {
     // Build and compile our shader programs
     Shader lightingShader("lighting_vertex_shader.vs", "lighting_fragment_shader.fs");
     Shader depthShader("depth_vertex_shader.vs", "depth_fragment_shader.fs");
+    Shader debugDepthQuad("depth_debug.vs", "depth_debug.fs");  // Debug shader
 
     // Setup vertex data and buffers
     float vertices[] = {
@@ -187,6 +217,19 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, depthMap);
 
         renderScene(lightingShader, VAO);
+
+        // Debug: render the depth map to a small quad on the screen
+        glViewport(0, 0, SCR_WIDTH / 4, SCR_HEIGHT / 4); // Bottom-left corner
+        glDisable(GL_DEPTH_TEST);
+        debugDepthQuad.use();
+        debugDepthQuad.setInt("depthMap", 1);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, depthMap);
+        renderQuad();
+        glEnable(GL_DEPTH_TEST);
+
+        // Reset viewport
+        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

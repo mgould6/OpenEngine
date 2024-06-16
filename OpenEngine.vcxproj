@@ -150,6 +150,8 @@
     <None Include=".gitignore" />
     <None Include="debug_quad.fs" />
     <None Include="debug_quad.vs" />
+    <None Include="depth_debug.fs" />
+    <None Include="depth_debug.vs" />
     <None Include="depth_fragment_shader.fs" />
     <None Include="depth_vertex_shader.vs" />
     <None Include="fragment_shader.fs" />
