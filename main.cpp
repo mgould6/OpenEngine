@@ -65,6 +65,32 @@ void renderQuad() {
     glBindVertexArray(0);
 }
 
+void checkGLError(const std::string& message) {
+    GLenum error;
+    while ((error = glGetError()) != GL_NO_ERROR) {
+        std::cerr << "OpenGL Error (" << message << "): " << error << std::endl;
+    }
+}
+
+void checkShaderCompileErrors(unsigned int shader, std::string type) {
+    int success;
+    char infoLog[1024];
+    if (type != "PROGRAM") {
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            glGetShaderInfoLog(shader, 1024, NULL, infoLog);
+            std::cerr << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+        }
+    }
+    else {
+        glGetProgramiv(shader, GL_LINK_STATUS, &success);
+        if (!success) {
+            glGetProgramInfoLog(shader, 1024, NULL, infoLog);
+            std::cerr << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+        }
+    }
+}
+
 int main() {
     // Initialize GLFW
     if (!glfwInit()) {
@@ -124,12 +150,21 @@ int main() {
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
     glDrawBuffer(GL_NONE); // No color buffer is drawn to
     glReadBuffer(GL_NONE);
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+        std::cerr << "ERROR::FRAMEBUFFER:: Depth framebuffer is not complete!" << std::endl;
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    checkGLError("Depth Map FBO");
 
     // Build and compile our shader programs
     Shader lightingShader("lighting_vertex_shader.vs", "lighting_fragment_shader.fs");
     Shader depthShader("depth_vertex_shader.vs", "depth_fragment_shader.fs");
     Shader debugDepthQuad("depth_debug.vs", "depth_debug.fs");  // Debug shader
+    Shader postProcessingShader("post_processing.vs", "post_processing.fs");
+
+    checkShaderCompileErrors(lightingShader.ID, "PROGRAM");
+    checkShaderCompileErrors(depthShader.ID, "PROGRAM");
+    checkShaderCompileErrors(debugDepthQuad.ID, "PROGRAM");
+    checkShaderCompileErrors(postProcessingShader.ID, "PROGRAM");
 
     // Setup vertex data and buffers
     float vertices[] = {
@@ -183,6 +218,35 @@ int main() {
     lightView = glm::lookAt(glm::vec3(1.2f, 1.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     lightSpaceMatrix = lightProjection * lightView;
 
+    // Post-Processing FBO
+    unsigned int postProcessingFBO;
+    glGenFramebuffers(1, &postProcessingFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, postProcessingFBO);
+
+    // Create a color attachment texture
+    unsigned int textureColorbuffer;
+    glGenTextures(1, &textureColorbuffer);
+    glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
+
+    // Create a renderbuffer object for depth and stencil attachment (we don't plan on sampling these)
+    unsigned int rbo;
+    glGenRenderbuffers(1, &rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCR_WIDTH, SCR_HEIGHT);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+    // Check if framebuffer is complete
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+        std::cerr << "ERROR::FRAMEBUFFER:: Post-processing framebuffer is not complete!" << std::endl;
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    checkGLError("Post-Processing FBO");
+
     // Main render loop
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -199,9 +263,11 @@ int main() {
         depthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
         renderScene(depthShader, VAO);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        checkGLError("Depth Map Rendering");
 
-        // 2. Render scene as normal with shadow mapping
-        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+        // 2. Render scene as normal with shadow mapping to the post-processing framebuffer
+        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Ensure the viewport is set to the whole window size
+        glBindFramebuffer(GL_FRAMEBUFFER, postProcessingFBO);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         lightingShader.use();
         glm::mat4 view = camera.GetViewMatrix();
@@ -217,6 +283,20 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, depthMap);
 
         renderScene(lightingShader, VAO);
+        checkGLError("Scene Rendering");
+
+        // 3. Apply post-processing effects
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glDisable(GL_DEPTH_TEST);
+        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Ensure the viewport is set to the whole window size
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        postProcessingShader.use();
+        postProcessingShader.setInt("screenTexture", 0);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureColorbuffer); // Use the color attachment texture as the quad's texture
+        renderQuad();
+        checkGLError("Post-Processing");
 
         // Debug: render the depth map to a small quad on the screen
         glViewport(0, 0, SCR_WIDTH / 4, SCR_HEIGHT / 4); // Bottom-left corner
@@ -228,15 +308,14 @@ int main() {
         renderQuad();
         glEnable(GL_DEPTH_TEST);
 
-        // Reset viewport
-        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
+    // Cleanup
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
+    glDeleteFramebuffers(1, &postProcessingFBO);
 
     glfwTerminate();
     return 0;

@@ -159,6 +159,8 @@
     <None Include="lighting_vertex_shader.vs" />
     <None Include="Object.h" />
     <None Include="packages.config" />
+    <None Include="post_processing.fs" />
+    <None Include="post_processing.vs" />
     <None Include="shadow_fragment_shader.fs" />
     <None Include="shadow_vertex_shader.vs" />
     <None Include="vertex_shader.vs" />
