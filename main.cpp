@@ -5,6 +5,11 @@
 #include "Shader.h"
 #include "Camera.h"
 #include "InputManager.h"
+#include "Engine.h"
+#include "ShaderManager.h"
+#include "Logger.h"
+#include "Utils.h"
+#include "RenderUtils.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -28,73 +33,30 @@ void printMatrix(const glm::mat4& matrix, const std::string& name) {
     }
 }
 
-void renderScene(const Shader& shader, unsigned int VAO) {
-    glBindVertexArray(VAO);
+void setUniforms(const Shader& shader) {
+    // Set uniform values
     glm::mat4 model = glm::mat4(1.0f);
+    glm::mat4 view = camera.GetViewMatrix();
+    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+
+    glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 7.5f);
+    glm::mat4 lightView = glm::lookAt(glm::vec3(1.2f, 1.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+
+    shader.use();
     shader.setMat4("model", model);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glBindVertexArray(0);
-}
-
-void renderQuad() {
-    static unsigned int quadVAO = 0;
-    static unsigned int quadVBO;
-    if (quadVAO == 0) {
-        float quadVertices[] = {
-            // positions        // texture Coords
-            -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-            -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-             1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-
-            -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-             1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-             1.0f,  1.0f, 0.0f, 1.0f, 1.0f
-        };
-        glGenVertexArrays(1, &quadVAO);
-        glGenBuffers(1, &quadVBO);
-        glBindVertexArray(quadVAO);
-        glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    }
-    glBindVertexArray(quadVAO);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    glBindVertexArray(0);
-}
-
-void checkGLError(const std::string& message) {
-    GLenum error;
-    while ((error = glGetError()) != GL_NO_ERROR) {
-        std::cerr << "OpenGL Error (" << message << "): " << error << std::endl;
-    }
-}
-
-void checkShaderCompileErrors(unsigned int shader, std::string type) {
-    int success;
-    char infoLog[1024];
-    if (type != "PROGRAM") {
-        glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-        if (!success) {
-            glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-            std::cerr << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-        }
-    }
-    else {
-        glGetProgramiv(shader, GL_LINK_STATUS, &success);
-        if (!success) {
-            glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-            std::cerr << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-        }
-    }
+    shader.setMat4("view", view);
+    shader.setMat4("projection", projection);
+    shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+    shader.setVec3("viewPos", camera.Position);
+    shader.setVec3("lightPos", glm::vec3(1.2f, 1.0f, 2.0f));
+    shader.setInt("shadowMap", 1);
 }
 
 int main() {
     // Initialize GLFW
     if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW" << std::endl;
+        Logger::log("Failed to initialize GLFW", Logger::ERROR);
         return -1;
     }
 
@@ -106,7 +68,7 @@ int main() {
     // Create a GLFWwindow object
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL Game Engine", NULL, NULL);
     if (window == NULL) {
-        std::cerr << "Failed to create GLFW window" << std::endl;
+        Logger::log("Failed to create GLFW window", Logger::ERROR);
         glfwTerminate();
         return -1;
     }
@@ -114,7 +76,7 @@ int main() {
 
     // Load OpenGL function pointers using GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cerr << "Failed to initialize GLAD" << std::endl;
+        Logger::log("Failed to initialize GLAD", Logger::ERROR);
         return -1;
     }
 
@@ -128,43 +90,16 @@ int main() {
     // Configure global OpenGL state
     glEnable(GL_DEPTH_TEST);
 
+    // Initialize shaders
+    ShaderManager::initShaders();
+
     // Initialize depth map FBO
-    const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
-    unsigned int depthMapFBO;
-    glGenFramebuffers(1, &depthMapFBO);
+    unsigned int depthMapFBO, depthMap;
+    initDepthMapFBO(depthMapFBO, depthMap);
 
-    // Create depth texture
-    unsigned int depthMap;
-    glGenTextures(1, &depthMap);
-    glBindTexture(GL_TEXTURE_2D, depthMap);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-    float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-
-    // Attach depth texture as FBO's depth buffer
-    glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
-    glDrawBuffer(GL_NONE); // No color buffer is drawn to
-    glReadBuffer(GL_NONE);
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        std::cerr << "ERROR::FRAMEBUFFER:: Depth framebuffer is not complete!" << std::endl;
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    checkGLError("Depth Map FBO");
-
-    // Build and compile our shader programs
-    Shader lightingShader("lighting_vertex_shader.vs", "lighting_fragment_shader.fs");
-    Shader depthShader("depth_vertex_shader.vs", "depth_fragment_shader.fs");
-    Shader debugDepthQuad("depth_debug.vs", "depth_debug.fs");  // Debug shader
-    Shader postProcessingShader("post_processing.vs", "post_processing.fs");
-
-    checkShaderCompileErrors(lightingShader.ID, "PROGRAM");
-    checkShaderCompileErrors(depthShader.ID, "PROGRAM");
-    checkShaderCompileErrors(debugDepthQuad.ID, "PROGRAM");
-    checkShaderCompileErrors(postProcessingShader.ID, "PROGRAM");
+    // Post-Processing FBO
+    unsigned int postProcessingFBO, textureColorbuffer, rbo;
+    initPostProcessingFBO(postProcessingFBO, textureColorbuffer, rbo);
 
     // Setup vertex data and buffers
     float vertices[] = {
@@ -211,42 +146,6 @@ int main() {
         camera.ProcessKeyboard(RIGHT, deltaTime);
         });
 
-    // Define light space transformation matrices
-    glm::mat4 lightProjection, lightView, lightSpaceMatrix;
-    float near_plane = 1.0f, far_plane = 7.5f;
-    lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-    lightView = glm::lookAt(glm::vec3(1.2f, 1.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    lightSpaceMatrix = lightProjection * lightView;
-
-    // Post-Processing FBO
-    unsigned int postProcessingFBO;
-    glGenFramebuffers(1, &postProcessingFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, postProcessingFBO);
-
-    // Create a color attachment texture
-    unsigned int textureColorbuffer;
-    glGenTextures(1, &textureColorbuffer);
-    glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
-
-    // Create a renderbuffer object for depth and stencil attachment (we don't plan on sampling these)
-    unsigned int rbo;
-    glGenRenderbuffers(1, &rbo);
-    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCR_WIDTH, SCR_HEIGHT);
-    glBindRenderbuffer(GL_RENDERBUFFER, 0);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
-
-    // Check if framebuffer is complete
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-        std::cerr << "ERROR::FRAMEBUFFER:: Post-processing framebuffer is not complete!" << std::endl;
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    checkGLError("Post-Processing FBO");
-
     // Main render loop
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -256,12 +155,12 @@ int main() {
         InputManager::processInput(window, deltaTime);
 
         // 1. Render depth of scene to texture (from light's perspective)
-        glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+        glViewport(0, 0, 1024, 1024);
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
         glClear(GL_DEPTH_BUFFER_BIT);
-        depthShader.use();
-        depthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-        renderScene(depthShader, VAO);
+        ShaderManager::depthShader->use();
+        setUniforms(*ShaderManager::depthShader);
+        renderScene(*ShaderManager::depthShader, VAO);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         checkGLError("Depth Map Rendering");
 
@@ -269,20 +168,11 @@ int main() {
         glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Ensure the viewport is set to the whole window size
         glBindFramebuffer(GL_FRAMEBUFFER, postProcessingFBO);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        lightingShader.use();
-        glm::mat4 view = camera.GetViewMatrix();
-        lightingShader.setMat4("view", view);
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        lightingShader.setMat4("projection", projection);
-        lightingShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-
-        lightingShader.setVec3("viewPos", camera.Position);
-        lightingShader.setVec3("lightPos", glm::vec3(1.2f, 1.0f, 2.0f));
-        lightingShader.setInt("shadowMap", 1);
+        ShaderManager::lightingShader->use();
+        setUniforms(*ShaderManager::lightingShader);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, depthMap);
-
-        renderScene(lightingShader, VAO);
+        renderScene(*ShaderManager::lightingShader, VAO);
         checkGLError("Scene Rendering");
 
         // 3. Apply post-processing effects
@@ -291,8 +181,8 @@ int main() {
         glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Ensure the viewport is set to the whole window size
         glClear(GL_COLOR_BUFFER_BIT);
 
-        postProcessingShader.use();
-        postProcessingShader.setInt("screenTexture", 0);
+        ShaderManager::postProcessingShader->use();
+        ShaderManager::postProcessingShader->setInt("screenTexture", 0);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureColorbuffer); // Use the color attachment texture as the quad's texture
         renderQuad();
@@ -301,8 +191,8 @@ int main() {
         // Debug: render the depth map to a small quad on the screen
         glViewport(0, 0, SCR_WIDTH / 4, SCR_HEIGHT / 4); // Bottom-left corner
         glDisable(GL_DEPTH_TEST);
-        debugDepthQuad.use();
-        debugDepthQuad.setInt("depthMap", 1);
+        ShaderManager::debugDepthQuad->use();
+        ShaderManager::debugDepthQuad->setInt("depthMap", 1);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, depthMap);
         renderQuad();
