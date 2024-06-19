@@ -20,8 +20,8 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-float deltaTime = 0.0f;  // Time between current frame and last frame
-float lastFrame = 0.0f;  // Time of last frame
+float deltaTime = 0.0f;
+float lastFrame = 0.0f;
 
 void printMatrix(const glm::mat4& matrix, const std::string& name) {
     std::cout << name << " Matrix:" << std::endl;
@@ -34,7 +34,6 @@ void printMatrix(const glm::mat4& matrix, const std::string& name) {
 }
 
 void setUniforms(const Shader& shader) {
-    // Set uniform values
     glm::mat4 model = glm::mat4(1.0f);
     glm::mat4 view = camera.GetViewMatrix();
     glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
@@ -54,7 +53,6 @@ void setUniforms(const Shader& shader) {
 }
 
 void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShader, const Shader& combineShader, unsigned int hdrBuffer, unsigned int bloomBuffer, unsigned int* pingpongFBO, unsigned int* pingpongBuffer) {
-    // 1. Extract bright areas
     glBindFramebuffer(GL_FRAMEBUFFER, bloomBuffer);
     glClear(GL_COLOR_BUFFER_BIT);
     brightExtractShader.use();
@@ -64,7 +62,6 @@ void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShade
     glBindTexture(GL_TEXTURE_2D, hdrBuffer);
     renderQuad();
 
-    // 2. Apply Gaussian blur
     bool horizontal = true, first_iteration = true;
     unsigned int amount = 10;
     blurShader.use();
@@ -78,7 +75,6 @@ void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShade
             first_iteration = false;
     }
 
-    // 3. Combine with original scene
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     combineShader.use();
@@ -92,18 +88,16 @@ void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShade
 }
 
 int main() {
-    // Initialize GLFW
     if (!glfwInit()) {
         Logger::log("Failed to initialize GLFW", Logger::ERROR);
         return -1;
     }
 
-    // Set GLFW context version
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // Make the window resizable
 
-    // Create a GLFWwindow object
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL Game Engine", NULL, NULL);
     if (window == NULL) {
         Logger::log("Failed to create GLFW window", Logger::ERROR);
@@ -112,40 +106,35 @@ int main() {
     }
     glfwMakeContextCurrent(window);
 
-    // Load OpenGL function pointers using GLAD
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         Logger::log("Failed to initialize GLAD", Logger::ERROR);
         return -1;
     }
 
-    // Set the viewport
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, InputManager::mouseCallback);
     glfwSetScrollCallback(window, InputManager::scrollCallback);
     glfwSetMouseButtonCallback(window, InputManager::mouseButtonCallback);
 
-    // Configure global OpenGL state
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+
     glEnable(GL_DEPTH_TEST);
 
-    // Initialize shaders
     ShaderManager::initShaders();
 
-    // Load bloom shaders
     Shader brightExtractShader("bright_extract.vs", "bright_extract.fs");
     Shader blurShader("blur.vs", "blur.fs");
     Shader combineShader("combine.vs", "combine.fs");
 
-    // Initialize depth map FBO
     unsigned int depthMapFBO, depthMap;
     initDepthMapFBO(depthMapFBO, depthMap);
 
-    // HDR Framebuffer
     unsigned int hdrFBO;
     glGenFramebuffers(1, &hdrFBO);
     glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
 
-    // Create HDR color buffer
     unsigned int colorBuffers[2];
     glGenTextures(2, colorBuffers);
     for (unsigned int i = 0; i < 2; i++) {
@@ -156,14 +145,12 @@ int main() {
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, colorBuffers[i], 0);
     }
 
-    // Create and attach depth buffer (renderbuffer)
     unsigned int rboDepth;
     glGenRenderbuffers(1, &rboDepth);
     glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, SCR_WIDTH, SCR_HEIGHT);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
 
-    // Tell OpenGL which color attachments we'll use (of this framebuffer) for rendering 
     unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
     glDrawBuffers(2, attachments);
 
@@ -171,7 +158,6 @@ int main() {
         Logger::log("Framebuffer not complete!", Logger::ERROR);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    // Ping-pong framebuffers for blurring
     unsigned int pingpongFBO[2];
     unsigned int pingpongBuffer[2];
     glGenFramebuffers(2, pingpongFBO);
@@ -188,7 +174,6 @@ int main() {
             Logger::log("Pingpong framebuffer not complete!", Logger::ERROR);
     }
 
-    // Setup vertex data and buffers
     float vertices[] = {
         // positions         // normals
         -0.5f, -0.5f, 0.0f,  0.0f,  0.0f, 1.0f,
@@ -213,10 +198,8 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    // Set the camera for InputManager
     InputManager::setCamera(&camera);
 
-    // Register input callbacks
     InputManager::registerKeyCallback(GLFW_KEY_W, []() {
         camera.ProcessKeyboard(FORWARD, deltaTime);
         });
@@ -233,7 +216,14 @@ int main() {
         camera.ProcessKeyboard(RIGHT, deltaTime);
         });
 
-    // Main render loop
+    InputManager::registerKeyCallback(GLFW_KEY_E, []() {
+        camera.ProcessKeyboard(UP, deltaTime);
+        });
+
+    InputManager::registerKeyCallback(GLFW_KEY_C, []() {
+        camera.ProcessKeyboard(DOWN, deltaTime);
+        });
+
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
@@ -241,7 +231,6 @@ int main() {
 
         InputManager::processInput(window, deltaTime);
 
-        // 1. Render depth of scene to texture (from light's perspective)
         glViewport(0, 0, 1024, 1024);
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
         glClear(GL_DEPTH_BUFFER_BIT);
@@ -251,8 +240,7 @@ int main() {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         checkGLError("Depth Map Rendering");
 
-        // 2. Render scene as normal with shadow mapping to the HDR framebuffer
-        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Ensure the viewport is set to the whole window size
+        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
         glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         ShaderManager::lightingShader->use();
@@ -262,11 +250,9 @@ int main() {
         renderScene(*ShaderManager::lightingShader, VAO);
         checkGLError("Scene Rendering");
 
-        // 3. Apply bloom effect
         applyBloomEffect(brightExtractShader, blurShader, combineShader, colorBuffers[0], colorBuffers[1], pingpongFBO, pingpongBuffer);
 
-        // 4. Debug: render the depth map to a small quad on the screen
-        glViewport(0, 0, SCR_WIDTH / 4, SCR_HEIGHT / 4); // Bottom-left corner
+        glViewport(0, 0, SCR_WIDTH / 4, SCR_HEIGHT / 4);
         glDisable(GL_DEPTH_TEST);
         ShaderManager::debugDepthQuad->use();
         ShaderManager::debugDepthQuad->setInt("depthMap", 1);
@@ -279,7 +265,6 @@ int main() {
         glfwPollEvents();
     }
 
-    // Cleanup
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteFramebuffers(1, &hdrFBO);
