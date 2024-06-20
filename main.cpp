@@ -87,6 +87,7 @@ void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShade
     renderQuad();
 }
 
+
 int main() {
     if (!glfwInit()) {
         Logger::log("Failed to initialize GLFW", Logger::ERROR);
@@ -117,8 +118,7 @@ int main() {
     glfwSetScrollCallback(window, InputManager::scrollCallback);
     glfwSetMouseButtonCallback(window, InputManager::mouseButtonCallback);
 
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -231,6 +231,7 @@ int main() {
 
         InputManager::processInput(window, deltaTime);
 
+        // 1. Render depth map
         glViewport(0, 0, 1024, 1024);
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
         glClear(GL_DEPTH_BUFFER_BIT);
@@ -240,18 +241,23 @@ int main() {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         checkGLError("Depth Map Rendering");
 
+        // 2. Render scene with lighting and shadows
         glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
         glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         ShaderManager::lightingShader->use();
+        ShaderManager::lightingShader->setFloat("shadowBias", 0.005f);
+        ShaderManager::lightingShader->setInt("pcfKernelSize", 1);
         setUniforms(*ShaderManager::lightingShader);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, depthMap);
         renderScene(*ShaderManager::lightingShader, VAO);
         checkGLError("Scene Rendering");
 
+        // 3. Apply bloom effect
         applyBloomEffect(brightExtractShader, blurShader, combineShader, colorBuffers[0], colorBuffers[1], pingpongFBO, pingpongBuffer);
 
+        // 4. Visualize depth map for debugging
         glViewport(0, 0, SCR_WIDTH / 4, SCR_HEIGHT / 4);
         glDisable(GL_DEPTH_TEST);
         ShaderManager::debugDepthQuad->use();

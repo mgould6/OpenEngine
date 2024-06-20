@@ -154,6 +154,8 @@
     <None Include="bright_extract.vs" />
     <None Include="combine.fs" />
     <None Include="combine.vs" />
+    <None Include="debug_depth_quad.fs" />
+    <None Include="debug_depth_quad.vs" />
     <None Include="debug_quad.fs" />
     <None Include="debug_quad.vs" />
     <None Include="depth_debug.fs" />

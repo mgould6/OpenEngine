@@ -9,6 +9,9 @@ uniform vec3 lightPos;
 uniform vec3 viewPos;
 uniform sampler2D shadowMap;
 
+uniform float shadowBias = 0.005;
+uniform int pcfKernelSize = 1;  // Uniform for kernel size
+
 float ShadowCalculation(vec4 fragPosLightSpace)
 {
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
@@ -16,20 +19,21 @@ float ShadowCalculation(vec4 fragPosLightSpace)
 
     float closestDepth = texture(shadowMap, projCoords.xy).r;
     float currentDepth = projCoords.z;
-    float bias = 0.005;
 
-    // PCF
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
-    for(int x = -1; x <= 1; ++x)
+    for (int x = -pcfKernelSize; x <= pcfKernelSize; ++x)
     {
-        for(int y = -1; y <= 1; ++y)
+        for (int y = -pcfKernelSize; y <= pcfKernelSize; ++y)
         {
             float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
-            shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
+            shadow += currentDepth - shadowBias > pcfDepth ? 1.0 : 0.0;
         }
     }
-    shadow /= 9.0;
+    shadow /= pow((pcfKernelSize * 2 + 1), 2);
+
+    if (projCoords.z > 1.0)
+        shadow = 0.0;
 
     return shadow;
 }
