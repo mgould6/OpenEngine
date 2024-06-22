@@ -19,7 +19,7 @@ public:
 
 private:
     static void checkShaderCompileErrors(unsigned int shader, const std::string& type);
-    static bool fileExists(const std::string& path); // Ensure this is static
+    static bool fileExists(const std::string& path);
 };
 
 #endif // SHADER_MANAGER_H

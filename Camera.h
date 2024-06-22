@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
+#include "Model.h"
 
 enum Camera_Movement {
     FORWARD,
@@ -32,10 +33,16 @@ public:
     float MovementSpeed;
     float MouseSensitivity;
     float Zoom;
+    glm::mat4 ProjectionMatrix;
+
 
     Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
 
     Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch);
+
+
+    void setCameraToFitModel(const Model& model);
+
 
     glm::mat4 GetViewMatrix();
 
@@ -44,7 +51,8 @@ public:
     void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);
 
     void ProcessMouseScroll(float yoffset);
+    void updateCameraVectors();
+
 
 private:
-    void updateCameraVectors();
 };

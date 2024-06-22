@@ -6,6 +6,8 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
     WorldUp = up;
     Yaw = yaw;
     Pitch = pitch;
+    ProjectionMatrix = glm::perspective(glm::radians(Zoom), 4.0f / 3.0f, 0.1f, 100.0f); // Default aspect ratio
+
     updateCameraVectors();
 }
 
@@ -62,6 +64,8 @@ void Camera::ProcessMouseScroll(float yoffset) {
         Zoom = 1.0f;
     if (Zoom >= 45.0f)
         Zoom = 45.0f;
+    ProjectionMatrix = glm::perspective(glm::radians(Zoom), 4.0f / 3.0f, 0.1f, 100.0f); // Update projection matrix
+
 }
 
 void Camera::updateCameraVectors() {
@@ -72,4 +76,16 @@ void Camera::updateCameraVectors() {
     Front = glm::normalize(front);
     Right = glm::normalize(glm::cross(Front, WorldUp));
     Up = glm::normalize(glm::cross(Right, Front));
+}
+
+void Camera::setCameraToFitModel(const Model& model) {
+    glm::vec3 center = model.getBoundingBoxCenter();
+    float radius = model.getBoundingBoxRadius();
+
+    // Position the camera so the entire model fits in view
+    float distance = radius / glm::tan(glm::radians(this->Zoom / 2.0f));
+    this->Position = center + glm::vec3(0.0f, 0.0f, distance);
+
+    this->Front = glm::normalize(center - this->Position);
+    this->updateCameraVectors();
 }

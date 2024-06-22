@@ -13,6 +13,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include "Model.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
@@ -22,6 +26,8 @@ const unsigned int SCR_HEIGHT = 600;
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
+
+Model* myModel = nullptr;
 
 void printMatrix(const glm::mat4& matrix, const std::string& name) {
     std::cout << name << " Matrix:" << std::endl;
@@ -36,21 +42,22 @@ void printMatrix(const glm::mat4& matrix, const std::string& name) {
 void setUniforms(const Shader& shader) {
     glm::mat4 model = glm::mat4(1.0f);
     glm::mat4 view = camera.GetViewMatrix();
-    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+    glm::mat4 projection = camera.ProjectionMatrix;  // Use the updated projection matrix
 
     glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 7.5f);
-    glm::mat4 lightView = glm::lookAt(glm::vec3(1.2f, 1.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    glm::mat4 lightView = glm::lookAt(glm::vec3(2.0f, 4.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 
     shader.use();
     shader.setMat4("model", model);
     shader.setMat4("view", view);
-    shader.setMat4("projection", projection);
+    shader.setMat4("projection", projection);  // Set the updated projection matrix
     shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
     shader.setVec3("viewPos", camera.Position);
-    shader.setVec3("lightPos", glm::vec3(1.2f, 1.0f, 2.0f));
+    shader.setVec3("lightPos", glm::vec3(2.0f, 4.0f, 2.0f));  // Adjust light position
     shader.setInt("shadowMap", 1);
 }
+
 
 void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShader, const Shader& combineShader, unsigned int hdrBuffer, unsigned int bloomBuffer, unsigned int* pingpongFBO, unsigned int* pingpongBuffer) {
     glBindFramebuffer(GL_FRAMEBUFFER, bloomBuffer);
@@ -86,6 +93,8 @@ void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShade
     glBindTexture(GL_TEXTURE_2D, pingpongBuffer[!horizontal]);
     renderQuad();
 }
+
+
 
 
 int main() {
@@ -198,6 +207,12 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
+    // Initialize the model
+    myModel = new Model("C:/OpenGL/models/FinalBaseMesh.obj");
+
+    // Adjust the camera to fit the model
+    camera.setCameraToFitModel(*myModel);
+
     InputManager::setCamera(&camera);
 
     InputManager::registerKeyCallback(GLFW_KEY_W, []() {
@@ -246,13 +261,16 @@ int main() {
         glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         ShaderManager::lightingShader->use();
-        ShaderManager::lightingShader->setFloat("shadowBias", 0.005f);
-        ShaderManager::lightingShader->setInt("pcfKernelSize", 1);
         setUniforms(*ShaderManager::lightingShader);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, depthMap);
         renderScene(*ShaderManager::lightingShader, VAO);
         checkGLError("Scene Rendering");
+
+        // Draw the loaded model
+        if (myModel) {
+            myModel->Draw(*ShaderManager::lightingShader);
+        }
 
         // 3. Apply bloom effect
         applyBloomEffect(brightExtractShader, blurShader, combineShader, colorBuffers[0], colorBuffers[1], pingpongFBO, pingpongBuffer);
@@ -271,6 +289,8 @@ int main() {
         glfwPollEvents();
     }
 
+    // Clean up
+    delete myModel;
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteFramebuffers(1, &hdrFBO);
@@ -282,4 +302,21 @@ int main() {
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
+
+    float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
+    camera.ProjectionMatrix = glm::perspective(glm::radians(camera.Zoom), aspectRatio, 0.1f, 100.0f);
+}
+
+
+void setCameraToFitModel(Camera& camera, const Model& model) {
+    glm::vec3 center = model.getBoundingBoxCenter();
+    float radius = model.getBoundingBoxRadius();
+
+    // Position the camera so the entire model fits in view
+    float distance = radius / glm::tan(glm::radians(camera.Zoom / 2.0f));
+    glm::vec3 position = center + glm::vec3(0.0f, 0.0f, distance);
+
+    camera.Position = position;
+    camera.Front = glm::normalize(center - position);
+    camera.updateCameraVectors();
 }
