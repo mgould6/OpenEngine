@@ -70,6 +70,18 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>C:\Program Files\Assimp\lib\x64;C:\Program Files\Assimp\bin\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryPath>C:\Program Files\Assimp\lib\x64;C:\Program Files\Assimp\bin\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>C:\Program Files\Assimp\lib\x64;C:\Program Files\Assimp\bin\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryPath>C:\Program Files\Assimp\lib\x64;C:\Program Files\Assimp\bin\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -140,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="assimp-vc143-mt.dll" />
     <None Include="blur.fs" />
     <None Include="blur.vs" />
     <None Include="bright_extract.fs" />
@@ -159,6 +172,32 @@
     <None Include="post_processing.vs" />
     <None Include="shadow_fragment_shader.fs" />
     <None Include="shadow_vertex_shader.vs" />
+    <None Include="vcpkg\installed\x64-windows\bin\assimp-vc143-mt.dll" />
+    <None Include="vcpkg\installed\x64-windows\bin\assimp-vc143-mt.pdb" />
+    <None Include="vcpkg\installed\x64-windows\bin\draco.dll" />
+    <None Include="vcpkg\installed\x64-windows\bin\draco.pdb" />
+    <None Include="vcpkg\installed\x64-windows\bin\glfw3.dll" />
+    <None Include="vcpkg\installed\x64-windows\bin\glfw3.pdb" />
+    <None Include="vcpkg\installed\x64-windows\bin\minizip.dll" />
+    <None Include="vcpkg\installed\x64-windows\bin\minizip.pdb" />
+    <None Include="vcpkg\installed\x64-windows\bin\poly2tri.dll" />
+    <None Include="vcpkg\installed\x64-windows\bin\pugixml.dll" />
+    <None Include="vcpkg\installed\x64-windows\bin\pugixml.pdb" />
+    <None Include="vcpkg\installed\x64-windows\bin\zlib.pdb" />
+    <None Include="vcpkg\installed\x64-windows\bin\zlib1.dll" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\assimp-vc143-mtd.dll" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\assimp-vc143-mtd.pdb" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\draco.dll" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\draco.pdb" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\glfw3.dll" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\glfw3.pdb" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\minizip.dll" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\minizip.pdb" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\poly2tri.dll" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\pugixml.dll" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\pugixml.pdb" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\zlibd.pdb" />
+    <None Include="vcpkg\installed\x64-windows\debug\bin\zlibd1.dll" />
     <None Include="vertex_shader.vs" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +228,28 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\assimp-vc143-mtd.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\Bullet3Common_Debug.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\BulletCollision_Debug.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\BulletDynamics_Debug.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\BulletInverseDynamics_Debug.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\BulletSoftBody_Debug.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\draco.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\glad.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\glfw3dll.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\imguid.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\kubazip.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\LinearMath_Debug.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\minizip.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\poly2tri.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\polyclipping.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\pugixml.lib" />
+    <Library Include="vcpkg\installed\x64-windows\debug\lib\zlibd.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
