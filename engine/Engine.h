@@ -1,7 +1,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "Shader.h"
+#include "../shaders/Shader.h"
 
 void initDepthMapFBO(unsigned int& depthMapFBO, unsigned int& depthMap);
 void initPostProcessingFBO(unsigned int& postProcessingFBO, unsigned int& textureColorbuffer, unsigned int& rbo);

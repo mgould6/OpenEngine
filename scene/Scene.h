@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "Shader.h"
-#include "Object.h"
+#include "../shaders/Shader.h"
+#include "../model/Object.h"
 
 class Scene {
 public:

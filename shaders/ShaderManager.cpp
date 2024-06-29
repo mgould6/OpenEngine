@@ -1,6 +1,6 @@
 #include "ShaderManager.h"
-#include "Logger.h"
-#include "Utils.h"
+#include "../common_utils/Logger.h"
+#include "../common_utils/Utils.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -23,13 +23,13 @@ Shader* ShaderManager::loadShader(const char* vertexPath, const char* fragmentPa
 void ShaderManager::initShaders() {
     // Verify shader files exist
     std::string shaderPaths[] = {
-        "lighting_vertex_shader.vs", "lighting_fragment_shader.fs",
-        "depth_vertex_shader.vs", "depth_fragment_shader.fs",
-        "depth_debug.vs", "depth_debug.fs",
-        "post_processing.vs", "post_processing.fs",
-        "bright_extract.vs", "bright_extract.fs",
-        "blur.vs", "blur.fs",
-        "combine.vs", "combine.fs"
+        "shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs",
+        "shaders/depth/depth_vertex_shader.vs", "shaders/depth/depth_fragment_shader.fs",
+        "shaders/debug/depth_debug.vs", "shaders/debug/depth_debug.fs",
+        "shaders/post_processing/post_processing.vs", "shaders/post_processing/post_processing.fs",
+        "shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs",
+        "shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs",
+        "shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs"
     };
 
     for (const auto& path : shaderPaths) {
@@ -40,13 +40,13 @@ void ShaderManager::initShaders() {
     }
 
     // Initialize shaders
-    lightingShader = loadShader("lighting_vertex_shader.vs", "lighting_fragment_shader.fs");
-    depthShader = loadShader("depth_vertex_shader.vs", "depth_fragment_shader.fs");
-    debugDepthQuad = loadShader("depth_debug.vs", "depth_debug.fs");
-    postProcessingShader = loadShader("post_processing.vs", "post_processing.fs");
-    brightExtractShader = loadShader("bright_extract.vs", "bright_extract.fs");
-    blurShader = loadShader("blur.vs", "blur.fs");
-    combineShader = loadShader("combine.vs", "combine.fs");
+    lightingShader = loadShader("shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs");
+    depthShader = loadShader("shaders/depth/depth_vertex_shader.vs", "shaders/depth/depth_fragment_shader.fs");
+    debugDepthQuad = loadShader("shaders/debug/depth_debug.vs", "shaders/debug/depth_debug.fs");
+    postProcessingShader = loadShader("shaders/post_processing/post_processing.vs", "shaders/post_processing/post_processing.fs");
+    brightExtractShader = loadShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
+    blurShader = loadShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
+    combineShader = loadShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
 }
 
 void ShaderManager::checkShaderCompileErrors(unsigned int shader, const std::string& type) {

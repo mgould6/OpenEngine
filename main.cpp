@@ -2,21 +2,24 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <iomanip>
-#include "Shader.h"
-#include "Camera.h"
-#include "InputManager.h"
-#include "Engine.h"
-#include "ShaderManager.h"
-#include "Logger.h"
-#include "Utils.h"
-#include "RenderUtils.h"
+
+// Updated include paths based on the new structure
+#include "common_utils/Logger.h"
+#include "common_utils/Utils.h"
+#include "input/InputManager.h"
+#include "engine/Engine.h"
+#include "render_utils/RenderUtils.h"
+#include "model/Camera.h"
+#include "model/Model.h"
+#include "shaders/Shader.h"
+#include "shaders/ShaderManager.h"
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include "Model.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
@@ -58,7 +61,6 @@ void setUniforms(const Shader& shader) {
     shader.setInt("shadowMap", 1);
 }
 
-
 void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShader, const Shader& combineShader, unsigned int hdrBuffer, unsigned int bloomBuffer, unsigned int* pingpongFBO, unsigned int* pingpongBuffer) {
     glBindFramebuffer(GL_FRAMEBUFFER, bloomBuffer);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -93,9 +95,6 @@ void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShade
     glBindTexture(GL_TEXTURE_2D, pingpongBuffer[!horizontal]);
     renderQuad();
 }
-
-
-
 
 int main() {
     if (!glfwInit()) {
@@ -133,9 +132,9 @@ int main() {
 
     ShaderManager::initShaders();
 
-    Shader brightExtractShader("bright_extract.vs", "bright_extract.fs");
-    Shader blurShader("blur.vs", "blur.fs");
-    Shader combineShader("combine.vs", "combine.fs");
+    Shader brightExtractShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
+    Shader blurShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
+    Shader combineShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
 
     unsigned int depthMapFBO, depthMap;
     initDepthMapFBO(depthMapFBO, depthMap);
@@ -306,7 +305,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     float aspectRatio = static_cast<float>(width) / static_cast<float>(height);
     camera.ProjectionMatrix = glm::perspective(glm::radians(camera.Zoom), aspectRatio, 0.1f, 100.0f);
 }
-
 
 void setCameraToFitModel(Camera& camera, const Model& model) {
     glm::vec3 center = model.getBoundingBoxCenter();

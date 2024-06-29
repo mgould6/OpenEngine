@@ -6,7 +6,7 @@
 #include <string>
 #include <functional>
 #include <vector>
-#include "Camera.h"
+#include "../model/Camera.h"
 
 class InputManager {
 public:

@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <vector>
-#include "Shader.h"
+#include "../shaders/Shader.h"
 
 // Define a texture struct
 struct Texture {

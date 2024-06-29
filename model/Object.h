@@ -1,7 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include "Shader.h"
+#include "../shaders/Shader.h"
 
 class Object {
 public:

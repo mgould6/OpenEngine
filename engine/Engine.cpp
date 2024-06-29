@@ -1,9 +1,9 @@
 #include "Engine.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "RenderUtils.h"
-#include "Logger.h"
-#include "Utils.h"
+#include "../render_utils/RenderUtils.h"
+#include "../common_utils/Logger.h"
+#include "../common_utils/Utils.h"
 
 void initDepthMapFBO(unsigned int& depthMapFBO, unsigned int& depthMap) {
     const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
