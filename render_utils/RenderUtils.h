@@ -1,7 +1,9 @@
-#pragma once
 #ifndef RENDERUTILS_H
 #define RENDERUTILS_H
 
-void renderQuad();
+#include "../shaders/Shader.h"
 
-#endif // RENDERUTILS_H
+void renderScene(const Shader& shader, unsigned int VAO);
+void renderQuad(); // Make sure this is declared if it's used in your rendering functions
+
+#endif

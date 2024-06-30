@@ -65,15 +65,7 @@ void renderDepthMap(const Shader& shader, unsigned int VAO, unsigned int depthMa
     checkGLError("Depth Map Rendering");
 }
 
-void renderScene(const Shader& shader, unsigned int VAO) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    shader.use();
-    // set uniforms here if needed
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glBindVertexArray(0);
-    checkGLError("Scene Rendering");
-}
+
 
 void applyPostProcessing(const Shader& shader, unsigned int textureColorbuffer) {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);

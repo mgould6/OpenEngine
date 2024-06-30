@@ -1,6 +1,13 @@
 #include "RenderUtils.h"
 #include <glad/glad.h>
 
+void renderScene(const Shader& shader, unsigned int VAO) {
+    shader.use();
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glBindVertexArray(0);
+}
+
 void renderQuad() {
     static unsigned int quadVAO = 0;
     static unsigned int quadVBO;
