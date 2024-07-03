@@ -202,7 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\OpenGL\glad\src\glad.c" />
-    <ClCompile Include="Cleanup.cpp" />
+    <ClCompile Include="cleanup\Cleanup.cpp" />
     <ClCompile Include="model\Camera.cpp" />
     <ClCompile Include="engine\Engine.cpp" />
     <ClCompile Include="input\InputManager.cpp" />
@@ -211,26 +211,26 @@
     <ClCompile Include="model\Mesh.cpp" />
     <ClCompile Include="model\Model.cpp" />
     <ClCompile Include="model\Object.cpp" />
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="render_utils\Renderer.cpp" />
     <ClCompile Include="render_utils\RenderUtils.cpp" />
     <ClCompile Include="scene\Scene.cpp" />
-    <ClCompile Include="Setup.cpp" />
+    <ClCompile Include="setup\Setup.cpp" />
     <ClCompile Include="shaders\Shader.cpp" />
     <ClCompile Include="shaders\ShaderManager.cpp" />
     <ClCompile Include="common_utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cleanup.h" />
+    <ClInclude Include="cleanup\Cleanup.h" />
     <ClInclude Include="model\Camera.h" />
     <ClInclude Include="engine\Engine.h" />
     <ClInclude Include="input\InputManager.h" />
     <ClInclude Include="common_utils\Logger.h" />
     <ClInclude Include="model\Mesh.h" />
     <ClInclude Include="model\Model.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="render_utils\Renderer.h" />
     <ClInclude Include="render_utils\RenderUtils.h" />
     <ClInclude Include="scene\Scene.h" />
-    <ClInclude Include="Setup.h" />
+    <ClInclude Include="setup\Setup.h" />
     <ClInclude Include="shaders\Shader.h" />
     <ClInclude Include="shaders\ShaderManager.h" />
     <ClInclude Include="common_utils\Utils.h" />

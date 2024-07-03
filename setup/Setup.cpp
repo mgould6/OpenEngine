@@ -1,7 +1,7 @@
 #include "Setup.h"
-#include "common_utils/Logger.h"
-#include "input/InputManager.h"
-#include "model/Camera.h"
+#include "../common_utils/Logger.h"
+#include "../input/InputManager.h"
+#include "../model/Camera.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>

@@ -8,12 +8,12 @@
 #include "model/Camera.h"
 #include "model/Model.h"
 #include "shaders/ShaderManager.h"
-#include "Setup.h"
-#include "Renderer.h"
-#include "Cleanup.h"
+#include "setup/Setup.h"
+#include "render_utils/Renderer.h"
+#include "cleanup/Cleanup.h"
 
-unsigned int SCR_WIDTH = 800; // Define here
-unsigned int SCR_HEIGHT = 600; // Define here
+unsigned int SCR_WIDTH = 800;
+unsigned int SCR_HEIGHT = 600;
 
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float deltaTime = 0.0f;
@@ -21,9 +21,9 @@ float lastFrame = 0.0f;
 
 Model* myModel = nullptr;
 
-unsigned int depthMapFBO, hdrFBO, depthMap;
+unsigned int depthMapFBO[Renderer::NUM_CASCADES], hdrFBO, depthMap[Renderer::NUM_CASCADES];
 unsigned int colorBuffers[2], pingpongFBO[2], pingpongBuffer[2];
-unsigned int VAO, VBO; // Add VBO here
+unsigned int VAO, VBO;
 
 int main() {
     GLFWwindow* window;
@@ -33,12 +33,11 @@ int main() {
     }
 
     ShaderManager::initShaders();
+    Renderer::initShadowMapping();
 
     Shader brightExtractShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
     Shader blurShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
     Shader combineShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
-
-    initDepthMapFBO(depthMapFBO, depthMap);
 
     glGenFramebuffers(1, &hdrFBO);
     glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
@@ -61,8 +60,9 @@ int main() {
     unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
     glDrawBuffers(2, attachments);
 
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         Logger::log("Framebuffer not complete!", Logger::ERROR);
+    }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     glGenFramebuffers(2, pingpongFBO);
@@ -75,8 +75,9 @@ int main() {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pingpongBuffer[i], 0);
 
-        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
             Logger::log("Pingpong framebuffer not complete!", Logger::ERROR);
+        }
     }
 
     float vertices[] = {
@@ -86,7 +87,7 @@ int main() {
     };
 
     glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO); // Ensure VBO is generated
+    glGenBuffers(1, &VBO);
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -117,6 +118,7 @@ int main() {
 
         InputManager::processInput(window, deltaTime);
 
+        Renderer::renderSceneWithShadows();
         render(window, deltaTime);
     }
 
