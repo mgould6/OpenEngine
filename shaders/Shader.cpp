@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath) {
+Shader::Shader(const char* vertexPath, const char* fragmentPath) : compiled(false) {
     std::string vertexCode;
     std::string fragmentCode;
     std::ifstream vShaderFile;
@@ -33,6 +33,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     }
     catch (std::ifstream::failure& e) {
         std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+        return;
     }
 
     const char* vShaderCode = vertexCode.c_str();
@@ -60,6 +61,15 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     // Delete the shaders as they're linked into our program now and no longer necessary
     glDeleteShader(vertex);
     glDeleteShader(fragment);
+
+    // Set compiled flag based on the shader compilation and linking status
+    int success;
+    glGetProgramiv(ID, GL_LINK_STATUS, &success);
+    compiled = success == GL_TRUE;
+}
+
+bool Shader::isCompiled() const {
+    return compiled;
 }
 
 void Shader::use() const {

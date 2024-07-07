@@ -3,18 +3,16 @@
 
 #include "Shader.h"
 
-
 class ShaderManager {
 public:
     static Shader* lightingShader;
     static Shader* depthShader;
-    static Shader* debugDepthQuad;
     static Shader* postProcessingShader;
     static Shader* brightExtractShader;
     static Shader* blurShader;
     static Shader* combineShader;
 
-    static void initShaders();
+    static bool initShaders();
     static Shader* loadShader(const char* vertexPath, const char* fragmentPath);
 
 private:

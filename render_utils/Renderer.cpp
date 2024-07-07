@@ -41,7 +41,7 @@ std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& proj, const 
     return frustumCorners;
 }
 
-void Renderer::initShadowMapping() {
+bool Renderer::initShadowMapping() {
     glGenFramebuffers(NUM_CASCADES, depthMapFBO);
     glGenTextures(NUM_CASCADES, depthMap);
 
@@ -61,9 +61,11 @@ void Renderer::initShadowMapping() {
         glReadBuffer(GL_NONE);
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
             Logger::log("Framebuffer not complete!", Logger::ERROR);
+            return false;
         }
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    return true;
 }
 
 std::vector<glm::mat4> Renderer::getLightSpaceMatrices(const glm::mat4& viewMatrix, const glm::vec3& lightDir) {
@@ -131,11 +133,11 @@ void Renderer::renderSceneWithShadows() {
 void render(GLFWwindow* window, float deltaTime) {
     // 1. Render depth map
     glViewport(0, 0, 1024, 1024);
-    glBindFramebuffer(GL_FRAMEBUFFER, Renderer::depthMapFBO[0]);  // Correctly reference the first FBO in array
+    glBindFramebuffer(GL_FRAMEBUFFER, Renderer::depthMapFBO[0]);
     glClear(GL_DEPTH_BUFFER_BIT);
     ShaderManager::depthShader->use();
     setUniforms(*ShaderManager::depthShader);
-    renderScene(*ShaderManager::depthShader, VAO);  // Render the scene for depth map
+    renderScene(*ShaderManager::depthShader, VAO);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     // 2. Render scene with lighting and shadows
@@ -145,8 +147,8 @@ void render(GLFWwindow* window, float deltaTime) {
     ShaderManager::lightingShader->use();
     setUniforms(*ShaderManager::lightingShader);
     glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, Renderer::depthMap[0]);  // Correctly reference the first depth map in array
-    renderScene(*ShaderManager::lightingShader, VAO);  // Render the scene with lighting and shadows
+    glBindTexture(GL_TEXTURE_2D, Renderer::depthMap[0]);
+    renderScene(*ShaderManager::lightingShader, VAO);
 
     // Draw the loaded model
     if (myModel) {
@@ -156,15 +158,7 @@ void render(GLFWwindow* window, float deltaTime) {
     // 3. Apply bloom effect
     applyBloomEffect(*ShaderManager::brightExtractShader, *ShaderManager::blurShader, *ShaderManager::combineShader, colorBuffers[0], colorBuffers[1], pingpongFBO, pingpongBuffer);
 
-    // 4. Visualize depth map for debugging
-    glViewport(0, 0, SCR_WIDTH / 4, SCR_HEIGHT / 4);
-    glDisable(GL_DEPTH_TEST);
-    ShaderManager::debugDepthQuad->use();
-    ShaderManager::debugDepthQuad->setInt("depthMap", 1);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, Renderer::depthMap[0]);  // Correctly reference the first depth map in array
-    renderQuad();
-    glEnable(GL_DEPTH_TEST);
+    // No longer visualize depth map for debugging since debugDepthQuad is not used
 
     glfwSwapBuffers(window);
     glfwPollEvents();

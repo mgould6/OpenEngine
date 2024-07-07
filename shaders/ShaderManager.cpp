@@ -8,7 +8,6 @@
 // Static shader pointers
 Shader* ShaderManager::lightingShader = nullptr;
 Shader* ShaderManager::depthShader = nullptr;
-Shader* ShaderManager::debugDepthQuad = nullptr;
 Shader* ShaderManager::postProcessingShader = nullptr;
 Shader* ShaderManager::brightExtractShader = nullptr;
 Shader* ShaderManager::blurShader = nullptr;
@@ -20,12 +19,11 @@ Shader* ShaderManager::loadShader(const char* vertexPath, const char* fragmentPa
     return shader;
 }
 
-void ShaderManager::initShaders() {
+bool ShaderManager::initShaders() {
     // Verify shader files exist
     std::string shaderPaths[] = {
         "shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs",
         "shaders/depth/depth_vertex_shader.vs", "shaders/depth/depth_fragment_shader.fs",
-        "shaders/debug/depth_debug.vs", "shaders/debug/depth_debug.fs",
         "shaders/post_processing/post_processing.vs", "shaders/post_processing/post_processing.fs",
         "shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs",
         "shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs",
@@ -35,18 +33,19 @@ void ShaderManager::initShaders() {
     for (const auto& path : shaderPaths) {
         if (!fileExists(path)) {
             std::cerr << "Error: Shader file not found at: " << path << std::endl;
-            return;
+            return false;
         }
     }
 
     // Initialize shaders
     lightingShader = loadShader("shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs");
     depthShader = loadShader("shaders/depth/depth_vertex_shader.vs", "shaders/depth/depth_fragment_shader.fs");
-    debugDepthQuad = loadShader("shaders/debug/depth_debug.vs", "shaders/debug/depth_debug.fs");
     postProcessingShader = loadShader("shaders/post_processing/post_processing.vs", "shaders/post_processing/post_processing.fs");
     brightExtractShader = loadShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
     blurShader = loadShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
     combineShader = loadShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
+
+    return true;
 }
 
 void ShaderManager::checkShaderCompileErrors(unsigned int shader, const std::string& type) {

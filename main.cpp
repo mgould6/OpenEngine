@@ -32,12 +32,24 @@ int main() {
         return -1;
     }
 
-    ShaderManager::initShaders();
-    Renderer::initShadowMapping();
+    if (!ShaderManager::initShaders()) {  // Check if shaders are initialized properly
+        Logger::log("Failed to initialize shaders", Logger::ERROR);
+        return -1;
+    }
+
+    if (!Renderer::initShadowMapping()) {  // Check if shadow mapping is initialized properly
+        Logger::log("Failed to initialize shadow mapping", Logger::ERROR);
+        return -1;
+    }
 
     Shader brightExtractShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
     Shader blurShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
     Shader combineShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
+
+    if (!brightExtractShader.isCompiled() || !blurShader.isCompiled() || !combineShader.isCompiled()) {
+        Logger::log("Shader compilation failed", Logger::ERROR);
+        return -1;
+    }
 
     glGenFramebuffers(1, &hdrFBO);
     glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
@@ -62,6 +74,7 @@ int main() {
 
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         Logger::log("Framebuffer not complete!", Logger::ERROR);
+        return -1;
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -77,6 +90,7 @@ int main() {
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
             Logger::log("Pingpong framebuffer not complete!", Logger::ERROR);
+            return -1;
         }
     }
 
@@ -101,6 +115,10 @@ int main() {
     glBindVertexArray(0);
 
     myModel = new Model("C:/OpenGL/models/FinalBaseMesh.obj");
+    if (!myModel) {
+        Logger::log("Failed to load model", Logger::ERROR);
+        return -1;
+    }
     camera.setCameraToFitModel(*myModel);
     InputManager::setCamera(&camera);
 
