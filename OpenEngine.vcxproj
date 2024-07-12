@@ -162,6 +162,8 @@
     <None Include="shaders\depth\depth_fragment_shader.fs" />
     <None Include="shaders\depth\depth_vertex_shader.vs" />
     <None Include="shaders\basic\fragment_shader.fs" />
+    <None Include="shaders\post_processing\ssao.fs" />
+    <None Include="shaders\post_processing\ssao.vs" />
     <None Include="shaders\shadow\lighting_fragment_shader.fs" />
     <None Include="shaders\shadow\lighting_vertex_shader.vs" />
     <None Include="shaders\model\model.fs" />
@@ -212,7 +214,6 @@
     <ClCompile Include="model\Model.cpp" />
     <ClCompile Include="model\Object.cpp" />
     <ClCompile Include="render_utils\Renderer.cpp" />
-    <ClCompile Include="render_utils\RenderUtils.cpp" />
     <ClCompile Include="scene\Scene.cpp" />
     <ClCompile Include="setup\Setup.cpp" />
     <ClCompile Include="shaders\Shader.cpp" />
@@ -228,7 +229,6 @@
     <ClInclude Include="model\Mesh.h" />
     <ClInclude Include="model\Model.h" />
     <ClInclude Include="render_utils\Renderer.h" />
-    <ClInclude Include="render_utils\RenderUtils.h" />
     <ClInclude Include="scene\Scene.h" />
     <ClInclude Include="setup\Setup.h" />
     <ClInclude Include="shaders\Shader.h" />

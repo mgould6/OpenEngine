@@ -11,6 +11,7 @@ public:
     static Shader* brightExtractShader;
     static Shader* blurShader;
     static Shader* combineShader;
+    static Shader* ssaoShader; // Add SSAO shader
 
     static bool initShaders();
     static Shader* loadShader(const char* vertexPath, const char* fragmentPath);

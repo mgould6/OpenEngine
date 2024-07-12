@@ -12,6 +12,7 @@ Shader* ShaderManager::postProcessingShader = nullptr;
 Shader* ShaderManager::brightExtractShader = nullptr;
 Shader* ShaderManager::blurShader = nullptr;
 Shader* ShaderManager::combineShader = nullptr;
+Shader* ShaderManager::ssaoShader = nullptr; // Initialize SSAO shader
 
 Shader* ShaderManager::loadShader(const char* vertexPath, const char* fragmentPath) {
     Shader* shader = new Shader(vertexPath, fragmentPath);
@@ -27,7 +28,8 @@ bool ShaderManager::initShaders() {
         "shaders/post_processing/post_processing.vs", "shaders/post_processing/post_processing.fs",
         "shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs",
         "shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs",
-        "shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs"
+        "shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs",
+        "shaders/post_processing/ssao.vs", "shaders/post_processing/ssao.fs" // Add SSAO shaders
     };
 
     for (const auto& path : shaderPaths) {
@@ -44,6 +46,7 @@ bool ShaderManager::initShaders() {
     brightExtractShader = loadShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
     blurShader = loadShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
     combineShader = loadShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
+    ssaoShader = loadShader("shaders/post_processing/ssao.vs", "shaders/post_processing/ssao.fs"); // Initialize SSAO shader
 
     return true;
 }

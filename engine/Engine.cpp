@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "../render_utils/RenderUtils.h"
+#include "../render_utils/Renderer.h"
 #include "../common_utils/Logger.h"
 #include "../common_utils/Utils.h"
 

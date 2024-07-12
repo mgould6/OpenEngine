@@ -22,12 +22,19 @@ public:
     static unsigned int depthMap[NUM_CASCADES];
     static glm::mat4 lightSpaceMatrices[NUM_CASCADES];
 
-private:
-    // Move any private members or methods here
+    static bool initSSAO();
+    static void renderSSAO();
+    static void renderLightingWithSSAO(unsigned int ssaoColorBuffer); // Add function to render lighting with SSAO
+
+    static unsigned int ssaoFBO, ssaoColorBuffer, noiseTexture;
+    static unsigned int gPositionDepth, gNormal; // Add gPositionDepth and gNormal
+    static std::vector<glm::vec3> ssaoKernel;
 };
 
 void render(GLFWwindow* window, float deltaTime);
 void setUniforms(const Shader& shader);
 void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShader, const Shader& combineShader, unsigned int hdrBuffer, unsigned int bloomBuffer, unsigned int* pingpongFBO, unsigned int* pingpongBuffer);
+void renderScene(const Shader& shader, unsigned int VAO);
+void renderQuad();
 
 #endif // RENDERER_H

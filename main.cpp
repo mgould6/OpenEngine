@@ -4,7 +4,6 @@
 #include "common_utils/Logger.h"
 #include "input/InputManager.h"
 #include "engine/Engine.h"
-#include "render_utils/RenderUtils.h"
 #include "model/Camera.h"
 #include "model/Model.h"
 #include "shaders/ShaderManager.h"
@@ -39,6 +38,11 @@ int main() {
 
     if (!Renderer::initShadowMapping()) {  // Check if shadow mapping is initialized properly
         Logger::log("Failed to initialize shadow mapping", Logger::ERROR);
+        return -1;
+    }
+
+    if (!Renderer::initSSAO()) {  // Check if SSAO is initialized properly
+        Logger::log("Failed to initialize SSAO", Logger::ERROR);
         return -1;
     }
 
