@@ -29,9 +29,10 @@ public:
     static unsigned int ssaoFBO, ssaoColorBuffer, noiseTexture;
     static unsigned int gPositionDepth, gNormal; // Add gPositionDepth and gNormal
     static std::vector<glm::vec3> ssaoKernel;
+
+    static void render(GLFWwindow* window, float deltaTime); // Changed this to static method
 };
 
-void render(GLFWwindow* window, float deltaTime);
 void setUniforms(const Shader& shader);
 void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShader, const Shader& combineShader, unsigned int hdrBuffer, unsigned int bloomBuffer, unsigned int* pingpongFBO, unsigned int* pingpongBuffer);
 void renderScene(const Shader& shader, unsigned int VAO);

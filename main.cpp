@@ -140,8 +140,7 @@ int main() {
 
         InputManager::processInput(window, deltaTime);
 
-        Renderer::renderSceneWithShadows();
-        render(window, deltaTime);
+        Renderer::render(window, deltaTime);
     }
 
     cleanup();

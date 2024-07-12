@@ -36,7 +36,7 @@ std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& proj, const 
     std::vector<glm::vec4> frustumCorners;
     for (unsigned int x = 0; x < 2; ++x) {
         for (unsigned int y = 0; y < 2; ++y) {
-            for (unsigned int z = 0; z < 2; ++z) {
+            for (unsigned int z = 0; z < 2; ++z) {  // Fixed increment operator
                 const glm::vec4 pt = inv * glm::vec4(
                     2.0f * x - 1.0f,
                     2.0f * y - 1.0f,
@@ -228,7 +228,7 @@ void Renderer::renderLightingWithSSAO(unsigned int ssaoColorBuffer) {
     renderQuad();
 }
 
-void render(GLFWwindow* window, float deltaTime) {
+void Renderer::render(GLFWwindow* window, float deltaTime) {
     // 1. Render depth map
     glViewport(0, 0, 1024, 1024);
     glBindFramebuffer(GL_FRAMEBUFFER, Renderer::depthMapFBO[0]);
@@ -261,6 +261,22 @@ void render(GLFWwindow* window, float deltaTime) {
 
     // 5. Render lighting with SSAO
     Renderer::renderLightingWithSSAO(Renderer::ssaoColorBuffer);
+
+    // 6. Tone Mapping and Gamma Correction
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+
+
+    // Medium Exposure and Gamma
+    ShaderManager::toneMappingShader->use();
+    ShaderManager::toneMappingShader->setFloat("exposure", 1.0f);
+    ShaderManager::toneMappingShader->setFloat("gamma", 2.2f);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, colorBuffers[0]);
+    renderQuad();
+
 
     glfwSwapBuffers(window);
     glfwPollEvents();

@@ -12,7 +12,8 @@ Shader* ShaderManager::postProcessingShader = nullptr;
 Shader* ShaderManager::brightExtractShader = nullptr;
 Shader* ShaderManager::blurShader = nullptr;
 Shader* ShaderManager::combineShader = nullptr;
-Shader* ShaderManager::ssaoShader = nullptr; // Initialize SSAO shader
+Shader* ShaderManager::ssaoShader = nullptr;
+Shader* ShaderManager::toneMappingShader = nullptr; // Add Tone Mapping shader
 
 Shader* ShaderManager::loadShader(const char* vertexPath, const char* fragmentPath) {
     Shader* shader = new Shader(vertexPath, fragmentPath);
@@ -29,7 +30,8 @@ bool ShaderManager::initShaders() {
         "shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs",
         "shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs",
         "shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs",
-        "shaders/post_processing/ssao.vs", "shaders/post_processing/ssao.fs" // Add SSAO shaders
+        "shaders/post_processing/ssao.vs", "shaders/post_processing/ssao.fs", // Add SSAO shaders
+        "shaders/post_processing/tone_mapping.vs", "shaders/post_processing/tone_mapping.fs" // Add Tone Mapping shaders
     };
 
     for (const auto& path : shaderPaths) {
@@ -47,6 +49,7 @@ bool ShaderManager::initShaders() {
     blurShader = loadShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
     combineShader = loadShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
     ssaoShader = loadShader("shaders/post_processing/ssao.vs", "shaders/post_processing/ssao.fs"); // Initialize SSAO shader
+    toneMappingShader = loadShader("shaders/post_processing/tone_mapping.vs", "shaders/post_processing/tone_mapping.fs"); // Initialize Tone Mapping shader
 
     return true;
 }
