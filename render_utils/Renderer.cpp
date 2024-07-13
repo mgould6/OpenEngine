@@ -266,9 +266,6 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-
-
     // Medium Exposure and Gamma
     ShaderManager::toneMappingShader->use();
     ShaderManager::toneMappingShader->setFloat("exposure", 1.0f);
@@ -276,7 +273,6 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, colorBuffers[0]);
     renderQuad();
-
 
     glfwSwapBuffers(window);
     glfwPollEvents();
