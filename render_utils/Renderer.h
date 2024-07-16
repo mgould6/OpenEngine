@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include "../shaders/Shader.h"
 #include <GLFW/glfw3.h>
+#include "../light/LightManager.h"
 
 extern unsigned int SCR_WIDTH;
 extern unsigned int SCR_HEIGHT;
@@ -24,13 +25,15 @@ public:
 
     static bool initSSAO();
     static void renderSSAO();
-    static void renderLightingWithSSAO(unsigned int ssaoColorBuffer); // Add function to render lighting with SSAO
+    static void renderLightingWithSSAO(unsigned int ssaoColorBuffer);
 
     static unsigned int ssaoFBO, ssaoColorBuffer, noiseTexture;
-    static unsigned int gPositionDepth, gNormal; // Add gPositionDepth and gNormal
+    static unsigned int gPositionDepth, gNormal;
     static std::vector<glm::vec3> ssaoKernel;
 
-    static void render(GLFWwindow* window, float deltaTime); // Changed this to static method
+    static void render(GLFWwindow* window, float deltaTime);
+
+    static LightManager lightManager; // Add LightManager instance
 };
 
 void setUniforms(const Shader& shader);

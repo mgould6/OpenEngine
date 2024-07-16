@@ -10,6 +10,7 @@
 #include "setup/Setup.h"
 #include "render_utils/Renderer.h"
 #include "cleanup/Cleanup.h"
+#include "Globals.h"
 
 unsigned int SCR_WIDTH = 800;
 unsigned int SCR_HEIGHT = 600;

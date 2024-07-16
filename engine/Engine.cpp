@@ -4,6 +4,7 @@
 #include "../render_utils/Renderer.h"
 #include "../common_utils/Logger.h"
 #include "../common_utils/Utils.h"
+#include "../Globals.h" 
 
 void initDepthMapFBO(unsigned int& depthMapFBO, unsigned int& depthMap) {
     const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
@@ -78,4 +79,38 @@ void applyPostProcessing(const Shader& shader, unsigned int textureColorbuffer) 
     glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
     renderQuad();
     checkGLError("Post-Processing");
+}
+
+LightManager Renderer::lightManager; // Define LightManager instance
+
+void initializeLights() {
+    DirectionalLight dirLight;
+    dirLight.direction = glm::vec3(-0.2f, -1.0f, -0.3f);
+    dirLight.ambient = glm::vec3(0.05f, 0.05f, 0.05f);
+    dirLight.diffuse = glm::vec3(0.4f, 0.4f, 0.4f);
+    dirLight.specular = glm::vec3(0.5f, 0.5f, 0.5f);
+    Renderer::lightManager.addDirectionalLight(dirLight);
+
+    PointLight pointLight;
+    pointLight.position = glm::vec3(1.2f, 1.0f, 2.0f);
+    pointLight.ambient = glm::vec3(0.05f, 0.05f, 0.05f);
+    pointLight.diffuse = glm::vec3(0.8f, 0.8f, 0.8f);
+    pointLight.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+    pointLight.constant = 1.0f;
+    pointLight.linear = 0.09f;
+    pointLight.quadratic = 0.032f;
+    Renderer::lightManager.addPointLight(pointLight);
+
+    Spotlight spotlight;
+    spotlight.position = camera.Position;
+    spotlight.direction = camera.Front;
+    spotlight.ambient = glm::vec3(0.0f, 0.0f, 0.0f);
+    spotlight.diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
+    spotlight.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+    spotlight.cutOff = glm::cos(glm::radians(12.5f));
+    spotlight.outerCutOff = glm::cos(glm::radians(15.0f));
+    spotlight.constant = 1.0f;
+    spotlight.linear = 0.09f;
+    spotlight.quadratic = 0.032f;
+    Renderer::lightManager.addSpotlight(spotlight);
 }

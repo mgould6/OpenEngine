@@ -207,6 +207,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\OpenGL\glad\src\glad.c" />
     <ClCompile Include="cleanup\Cleanup.cpp" />
+    <ClCompile Include="light\LightManager.cpp" />
     <ClCompile Include="model\Camera.cpp" />
     <ClCompile Include="engine\Engine.cpp" />
     <ClCompile Include="input\InputManager.cpp" />
@@ -224,6 +225,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cleanup\Cleanup.h" />
+    <ClInclude Include="Globals.h" />
+    <ClInclude Include="light\LightManager.h" />
     <ClInclude Include="model\Camera.h" />
     <ClInclude Include="engine\Engine.h" />
     <ClInclude Include="input\InputManager.h" />

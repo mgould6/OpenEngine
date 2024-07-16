@@ -8,6 +8,7 @@
 #include "../model/Model.h"
 #include "../shaders/ShaderManager.h"
 #include <random>
+#include "../Globals.h" 
 
 const int NUM_CASCADES = Renderer::NUM_CASCADES;
 float Renderer::cascadeSplits[NUM_CASCADES] = { 0.1f, 0.3f, 0.6f, 1.0f };
@@ -23,13 +24,48 @@ std::vector<glm::vec3> Renderer::ssaoKernel;
 unsigned int Renderer::gPositionDepth;
 unsigned int Renderer::gNormal;
 
-extern Camera camera;
 extern Model* myModel;
 extern unsigned int hdrFBO;
 extern unsigned int colorBuffers[2], pingpongFBO[2], pingpongBuffer[2];
 extern unsigned int SCR_WIDTH;
 extern unsigned int SCR_HEIGHT;
 extern unsigned int VAO;
+
+
+void setLightUniforms(const Shader& shader) {
+    shader.use();
+    for (int i = 0; i < Renderer::lightManager.getDirectionalLights().size(); ++i) {
+        const auto& light = Renderer::lightManager.getDirectionalLights()[i];
+        shader.setVec3("dirLights[" + std::to_string(i) + "].direction", light.direction);
+        shader.setVec3("dirLights[" + std::to_string(i) + "].ambient", light.ambient);
+        shader.setVec3("dirLights[" + std::to_string(i) + "].diffuse", light.diffuse);
+        shader.setVec3("dirLights[" + std::to_string(i) + "].specular", light.specular);
+    }
+    for (int i = 0; i < Renderer::lightManager.getPointLights().size(); ++i) {
+        const auto& light = Renderer::lightManager.getPointLights()[i];
+        shader.setVec3("pointLights[" + std::to_string(i) + "].position", light.position);
+        shader.setVec3("pointLights[" + std::to_string(i) + "].ambient", light.ambient);
+        shader.setVec3("pointLights[" + std::to_string(i) + "].diffuse", light.diffuse);
+        shader.setVec3("pointLights[" + std::to_string(i) + "].specular", light.specular);
+        shader.setFloat("pointLights[" + std::to_string(i) + "].constant", light.constant);
+        shader.setFloat("pointLights[" + std::to_string(i) + "].linear", light.linear);
+        shader.setFloat("pointLights[" + std::to_string(i) + "].quadratic", light.quadratic);
+    }
+    for (int i = 0; i < Renderer::lightManager.getSpotlights().size(); ++i) {
+        const auto& light = Renderer::lightManager.getSpotlights()[i];
+        shader.setVec3("spotlights[" + std::to_string(i) + "].position", light.position);
+        shader.setVec3("spotlights[" + std::to_string(i) + "].direction", light.direction);
+        shader.setVec3("spotlights[" + std::to_string(i) + "].ambient", light.ambient);
+        shader.setVec3("spotlights[" + std::to_string(i) + "].diffuse", light.diffuse);
+        shader.setVec3("spotlights[" + std::to_string(i) + "].specular", light.specular);
+        shader.setFloat("spotlights[" + std::to_string(i) + "].cutOff", light.cutOff);
+        shader.setFloat("spotlights[" + std::to_string(i) + "].outerCutOff", light.outerCutOff);
+        shader.setFloat("spotlights[" + std::to_string(i) + "].constant", light.constant);
+        shader.setFloat("spotlights[" + std::to_string(i) + "].linear", light.linear);
+        shader.setFloat("spotlights[" + std::to_string(i) + "].quadratic", light.quadratic);
+    }
+}
+
 
 std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view) {
     const glm::mat4 inv = glm::inverse(proj * view);
@@ -229,6 +265,10 @@ void Renderer::renderLightingWithSSAO(unsigned int ssaoColorBuffer) {
 }
 
 void Renderer::render(GLFWwindow* window, float deltaTime) {
+
+    // Set light uniforms
+    setLightUniforms(*ShaderManager::lightingShader);
+
     // 1. Render depth map
     glViewport(0, 0, 1024, 1024);
     glBindFramebuffer(GL_FRAMEBUFFER, Renderer::depthMapFBO[0]);
