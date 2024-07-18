@@ -11,6 +11,9 @@
 #include "render_utils/Renderer.h"
 #include "cleanup/Cleanup.h"
 #include "Globals.h"
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 unsigned int SCR_WIDTH = 800;
 unsigned int SCR_HEIGHT = 600;
@@ -24,6 +27,51 @@ Model* myModel = nullptr;
 unsigned int depthMapFBO[Renderer::NUM_CASCADES], hdrFBO, depthMap[Renderer::NUM_CASCADES];
 unsigned int colorBuffers[2], pingpongFBO[2], pingpongBuffer[2];
 unsigned int VAO, VBO;
+
+void InitializeImGui(GLFWwindow* window) {
+    // Setup Dear ImGui context
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+
+    // Setup Platform/Renderer bindings
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
+}
+
+void ShutdownImGui() {
+    // Cleanup
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
+
+void RenderImGui() {
+    // Start the ImGui frame
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    // Create a window for parameter tweaking
+    ImGui::Begin("Parameters");
+
+    static float lightIntensity = 1.0f;
+    ImGui::SliderFloat("Light Intensity", &lightIntensity, 0.0f, 10.0f);
+
+    static float cameraSpeed = 0.1f;
+    ImGui::SliderFloat("Camera Speed", &cameraSpeed, 0.0f, 1.0f);
+
+    // Add more sliders or input fields as needed
+
+    ImGui::End();
+
+    // Rendering
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
 
 int main() {
     GLFWwindow* window;
@@ -134,6 +182,9 @@ int main() {
     InputManager::registerKeyCallback(GLFW_KEY_E, []() { camera.ProcessKeyboard(UP, deltaTime); });
     InputManager::registerKeyCallback(GLFW_KEY_C, []() { camera.ProcessKeyboard(DOWN, deltaTime); });
 
+    // Initialize ImGui
+    InitializeImGui(window);
+
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
@@ -141,8 +192,21 @@ int main() {
 
         InputManager::processInput(window, deltaTime);
 
+        // Clear the screen before rendering
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // Render the 3D model
         Renderer::render(window, deltaTime);
+
+        // Render ImGui elements
+        RenderImGui();
+
+        // Swap buffers
+        glfwSwapBuffers(window);
     }
+
+    // Cleanup ImGui
+    ShutdownImGui();
 
     cleanup();
     return 0;
