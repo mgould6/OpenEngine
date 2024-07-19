@@ -29,21 +29,15 @@ unsigned int colorBuffers[2], pingpongFBO[2], pingpongBuffer[2];
 unsigned int VAO, VBO;
 
 void InitializeImGui(GLFWwindow* window) {
-    // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-    // Setup Dear ImGui style
     ImGui::StyleColorsDark();
-
-    // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
 }
 
 void ShutdownImGui() {
-    // Cleanup
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
@@ -64,8 +58,6 @@ void RenderImGui() {
     static float cameraSpeed = 0.1f;
     ImGui::SliderFloat("Camera Speed", &cameraSpeed, 0.0f, 1.0f);
 
-    // Add more sliders or input fields as needed
-
     ImGui::End();
 
     // Rendering
@@ -80,17 +72,17 @@ int main() {
         return -1;
     }
 
-    if (!ShaderManager::initShaders()) {  // Check if shaders are initialized properly
+    if (!ShaderManager::initShaders()) {
         Logger::log("Failed to initialize shaders", Logger::ERROR);
         return -1;
     }
 
-    if (!Renderer::initShadowMapping()) {  // Check if shadow mapping is initialized properly
+    if (!Renderer::initShadowMapping()) {
         Logger::log("Failed to initialize shadow mapping", Logger::ERROR);
         return -1;
     }
 
-    if (!Renderer::initSSAO()) {  // Check if SSAO is initialized properly
+    if (!Renderer::initSSAO()) {
         Logger::log("Failed to initialize SSAO", Logger::ERROR);
         return -1;
     }
@@ -182,7 +174,6 @@ int main() {
     InputManager::registerKeyCallback(GLFW_KEY_E, []() { camera.ProcessKeyboard(UP, deltaTime); });
     InputManager::registerKeyCallback(GLFW_KEY_C, []() { camera.ProcessKeyboard(DOWN, deltaTime); });
 
-    // Initialize ImGui
     InitializeImGui(window);
 
     while (!glfwWindowShouldClose(window)) {
@@ -192,20 +183,25 @@ int main() {
 
         InputManager::processInput(window, deltaTime);
 
-        // Clear the screen before rendering
+        // Bind the main framebuffer
+        glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Render the 3D model
         Renderer::render(window, deltaTime);
 
-        // Render ImGui elements
+        // Bind the default framebuffer
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // Render ImGui
         RenderImGui();
 
         // Swap buffers
         glfwSwapBuffers(window);
+        glfwPollEvents();
     }
 
-    // Cleanup ImGui
     ShutdownImGui();
 
     cleanup();
