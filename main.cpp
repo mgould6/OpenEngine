@@ -44,12 +44,10 @@ void ShutdownImGui() {
 }
 
 void RenderImGui() {
-    // Start the ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    // Create a window for parameter tweaking
     ImGui::Begin("Parameters");
 
     static float lightIntensity = 1.0f;
@@ -60,7 +58,6 @@ void RenderImGui() {
 
     ImGui::End();
 
-    // Rendering
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
@@ -183,19 +180,20 @@ int main() {
 
         InputManager::processInput(window, deltaTime);
 
-        // Bind the main framebuffer
+        // Bind the main framebuffer for rendering the scene and ImGui
         glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Render the 3D model
         Renderer::render(window, deltaTime);
 
-        // Bind the default framebuffer
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         // Render ImGui
         RenderImGui();
+
+        // Bind the default framebuffer and blit the HDR buffer to the default framebuffer
+        glBindFramebuffer(GL_READ_FRAMEBUFFER, hdrFBO);
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+        glBlitFramebuffer(0, 0, SCR_WIDTH, SCR_HEIGHT, 0, 0, SCR_WIDTH, SCR_HEIGHT, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 
         // Swap buffers
         glfwSwapBuffers(window);
@@ -203,7 +201,6 @@ int main() {
     }
 
     ShutdownImGui();
-
     cleanup();
     return 0;
 }
