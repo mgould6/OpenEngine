@@ -34,6 +34,10 @@ public:
     static void render(GLFWwindow* window, float deltaTime);
 
     static LightManager lightManager; // Add LightManager instance
+
+    static void InitializeImGui(GLFWwindow* window);
+    static void RenderImGui();
+    static void ShutdownImGui();
 };
 
 void setUniforms(const Shader& shader);

@@ -9,6 +9,9 @@
 #include "../shaders/ShaderManager.h"
 #include <random>
 #include "../Globals.h" 
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 const int NUM_CASCADES = Renderer::NUM_CASCADES;
 float Renderer::cascadeSplits[NUM_CASCADES] = { 0.1f, 0.3f, 0.6f, 1.0f };
@@ -30,7 +33,6 @@ extern unsigned int colorBuffers[2], pingpongFBO[2], pingpongBuffer[2];
 extern unsigned int SCR_WIDTH;
 extern unsigned int SCR_HEIGHT;
 extern unsigned int VAO;
-
 
 void setLightUniforms(const Shader& shader) {
     shader.use();
@@ -65,7 +67,6 @@ void setLightUniforms(const Shader& shader) {
         shader.setFloat("spotlights[" + std::to_string(i) + "].quadratic", light.quadratic);
     }
 }
-
 
 std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view) {
     const glm::mat4 inv = glm::inverse(proj * view);
@@ -265,11 +266,16 @@ void Renderer::renderLightingWithSSAO(unsigned int ssaoColorBuffer) {
 }
 
 void Renderer::render(GLFWwindow* window, float deltaTime) {
+    std::cout << "Renderer::render - Start" << std::endl;
 
-    // Set light uniforms
+    // Ensure the correct OpenGL context is bound
+    glfwMakeContextCurrent(window);
+
+    std::cout << "Renderer::render - Set Light Uniforms" << std::endl;
     setLightUniforms(*ShaderManager::lightingShader);
 
     // 1. Render depth map
+    std::cout << "Renderer::render - Render Depth Map" << std::endl;
     glViewport(0, 0, 1024, 1024);
     glBindFramebuffer(GL_FRAMEBUFFER, Renderer::depthMapFBO[0]);
     glClear(GL_DEPTH_BUFFER_BIT);
@@ -279,6 +285,7 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     // 2. Render scene with lighting and shadows
+    std::cout << "Renderer::render - Render Scene with Lighting and Shadows" << std::endl;
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -294,15 +301,19 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     }
 
     // 3. Apply bloom effect
+    std::cout << "Renderer::render - Apply Bloom Effect" << std::endl;
     applyBloomEffect(*ShaderManager::brightExtractShader, *ShaderManager::blurShader, *ShaderManager::combineShader, colorBuffers[0], colorBuffers[1], pingpongFBO, pingpongBuffer);
 
     // 4. Render SSAO
+    std::cout << "Renderer::render - Render SSAO" << std::endl;
     Renderer::renderSSAO();
 
     // 5. Render lighting with SSAO
+    std::cout << "Renderer::render - Render Lighting with SSAO" << std::endl;
     Renderer::renderLightingWithSSAO(Renderer::ssaoColorBuffer);
 
     // 6. Tone Mapping and Gamma Correction
+    std::cout << "Renderer::render - Tone Mapping and Gamma Correction" << std::endl;
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -314,8 +325,14 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     glBindTexture(GL_TEXTURE_2D, colorBuffers[0]);
     renderQuad();
 
+    // 7. Render ImGui
+    std::cout << "Renderer::render - Render ImGui" << std::endl;
+    Renderer::RenderImGui();
+
     glfwSwapBuffers(window);
     glfwPollEvents();
+
+    std::cout << "Renderer::render - End" << std::endl;
 }
 
 void renderScene(const Shader& shader, unsigned int VAO) {
@@ -407,4 +424,38 @@ void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShade
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, pingpongBuffer[!horizontal]);
     renderQuad();
+}
+
+void Renderer::InitializeImGui(GLFWwindow* window) {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
+}
+
+void Renderer::RenderImGui() {
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    ImGui::Begin("Parameters");
+
+    static float lightIntensity = 1.0f;
+    ImGui::SliderFloat("Light Intensity", &lightIntensity, 0.0f, 10.0f);
+
+    static float cameraSpeed = 0.1f;
+    ImGui::SliderFloat("Camera Speed", &cameraSpeed, 0.0f, 1.0f);
+
+    ImGui::End();
+
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void Renderer::ShutdownImGui() {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 }

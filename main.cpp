@@ -11,6 +11,9 @@
 #include "render_utils/Renderer.h"
 #include "cleanup/Cleanup.h"
 #include "Globals.h"
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 unsigned int SCR_WIDTH = 800;
 unsigned int SCR_HEIGHT = 600;
@@ -32,17 +35,17 @@ int main() {
         return -1;
     }
 
-    if (!ShaderManager::initShaders()) {  // Check if shaders are initialized properly
+    if (!ShaderManager::initShaders()) {
         Logger::log("Failed to initialize shaders", Logger::ERROR);
         return -1;
     }
 
-    if (!Renderer::initShadowMapping()) {  // Check if shadow mapping is initialized properly
+    if (!Renderer::initShadowMapping()) {
         Logger::log("Failed to initialize shadow mapping", Logger::ERROR);
         return -1;
     }
 
-    if (!Renderer::initSSAO()) {  // Check if SSAO is initialized properly
+    if (!Renderer::initSSAO()) {
         Logger::log("Failed to initialize SSAO", Logger::ERROR);
         return -1;
     }
@@ -134,6 +137,9 @@ int main() {
     InputManager::registerKeyCallback(GLFW_KEY_E, []() { camera.ProcessKeyboard(UP, deltaTime); });
     InputManager::registerKeyCallback(GLFW_KEY_C, []() { camera.ProcessKeyboard(DOWN, deltaTime); });
 
+    // Initialize ImGui
+    Renderer::InitializeImGui(window);
+
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
@@ -141,8 +147,12 @@ int main() {
 
         InputManager::processInput(window, deltaTime);
 
+        // Render using Renderer class
         Renderer::render(window, deltaTime);
     }
+
+    // Shutdown ImGui
+    Renderer::ShutdownImGui();
 
     cleanup();
     return 0;
