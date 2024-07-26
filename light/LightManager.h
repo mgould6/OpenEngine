@@ -1,4 +1,3 @@
-#pragma once
 #ifndef LIGHTMANAGER_H
 #define LIGHTMANAGER_H
 

@@ -91,7 +91,7 @@ int main() {
     for (unsigned int i = 0; i < 2; i++) {
         glBindFramebuffer(GL_FRAMEBUFFER, pingpongFBO[i]);
         glBindTexture(GL_TEXTURE_2D, pingpongBuffer[i]);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGBA, GL_FLOAT, 0);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pingpongBuffer[i], 0);
@@ -137,7 +137,6 @@ int main() {
     InputManager::registerKeyCallback(GLFW_KEY_E, []() { camera.ProcessKeyboard(UP, deltaTime); });
     InputManager::registerKeyCallback(GLFW_KEY_C, []() { camera.ProcessKeyboard(DOWN, deltaTime); });
 
-    // Initialize ImGui
     Renderer::InitializeImGui(window);
 
     while (!glfwWindowShouldClose(window)) {
@@ -147,11 +146,11 @@ int main() {
 
         InputManager::processInput(window, deltaTime);
 
-        // Render using Renderer class
+        camera.MovementSpeed = Renderer::getCameraSpeed();
+
         Renderer::render(window, deltaTime);
     }
 
-    // Shutdown ImGui
     Renderer::ShutdownImGui();
 
     cleanup();

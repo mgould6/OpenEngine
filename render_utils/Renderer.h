@@ -33,11 +33,21 @@ public:
 
     static void render(GLFWwindow* window, float deltaTime);
 
-    static LightManager lightManager; // Add LightManager instance
+    static LightManager lightManager;
 
     static void InitializeImGui(GLFWwindow* window);
     static void RenderImGui();
     static void ShutdownImGui();
+
+    static float getCameraSpeed();
+    static void setCameraSpeed(float speed);
+
+    static float getLightIntensity();
+    static void setLightIntensity(float intensity);
+
+private:
+    static float cameraSpeed;
+    static float lightIntensity;
 };
 
 void setUniforms(const Shader& shader);

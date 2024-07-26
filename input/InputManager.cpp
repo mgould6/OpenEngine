@@ -41,14 +41,13 @@ void InputManager::mouseCallback(GLFWwindow* window, double xpos, double ypos) {
     }
 
     float xoffset = xpos - lastX;
-    float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+    float yoffset = lastY - ypos;
 
     lastX = xpos;
     lastY = ypos;
 
     camera->ProcessMouseMovement(xoffset, yoffset);
 
-    // Handle drag events
     for (const auto& buttonCallback : mouseButtonCallbacks) {
         if (mouseButtonState[buttonCallback.first]) {
             buttonCallback.second();
@@ -96,7 +95,6 @@ void InputManager::loadInputMappings(const std::string& configFile) {
         while (ss >> key) {
             keys.push_back(std::stoi(key));
         }
-        // Implement logic to load the mappings and register callbacks
     }
 
     file.close();

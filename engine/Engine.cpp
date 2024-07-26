@@ -4,7 +4,7 @@
 #include "../render_utils/Renderer.h"
 #include "../common_utils/Logger.h"
 #include "../common_utils/Utils.h"
-#include "../Globals.h" 
+#include "../Globals.h"
 
 void initDepthMapFBO(unsigned int& depthMapFBO, unsigned int& depthMap) {
     const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
@@ -66,8 +66,6 @@ void renderDepthMap(const Shader& shader, unsigned int VAO, unsigned int depthMa
     checkGLError("Depth Map Rendering");
 }
 
-
-
 void applyPostProcessing(const Shader& shader, unsigned int textureColorbuffer) {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glDisable(GL_DEPTH_TEST);
@@ -80,8 +78,6 @@ void applyPostProcessing(const Shader& shader, unsigned int textureColorbuffer) 
     renderQuad();
     checkGLError("Post-Processing");
 }
-
-LightManager Renderer::lightManager; // Define LightManager instance
 
 void initializeLights() {
     DirectionalLight dirLight;

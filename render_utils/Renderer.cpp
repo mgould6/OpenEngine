@@ -8,7 +8,7 @@
 #include "../model/Model.h"
 #include "../shaders/ShaderManager.h"
 #include <random>
-#include "../Globals.h" 
+#include "../Globals.h"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
@@ -27,6 +27,11 @@ std::vector<glm::vec3> Renderer::ssaoKernel;
 unsigned int Renderer::gPositionDepth;
 unsigned int Renderer::gNormal;
 
+LightManager Renderer::lightManager;
+
+float Renderer::cameraSpeed = SPEED;
+float Renderer::lightIntensity = 1.0f;
+
 extern Model* myModel;
 extern unsigned int hdrFBO;
 extern unsigned int colorBuffers[2], pingpongFBO[2], pingpongBuffer[2];
@@ -39,16 +44,16 @@ void setLightUniforms(const Shader& shader) {
     for (int i = 0; i < Renderer::lightManager.getDirectionalLights().size(); ++i) {
         const auto& light = Renderer::lightManager.getDirectionalLights()[i];
         shader.setVec3("dirLights[" + std::to_string(i) + "].direction", light.direction);
-        shader.setVec3("dirLights[" + std::to_string(i) + "].ambient", light.ambient);
-        shader.setVec3("dirLights[" + std::to_string(i) + "].diffuse", light.diffuse);
-        shader.setVec3("dirLights[" + std::to_string(i) + "].specular", light.specular);
+        shader.setVec3("dirLights[" + std::to_string(i) + "].ambient", light.ambient * Renderer::getLightIntensity());
+        shader.setVec3("dirLights[" + std::to_string(i) + "].diffuse", light.diffuse * Renderer::getLightIntensity());
+        shader.setVec3("dirLights[" + std::to_string(i) + "].specular", light.specular * Renderer::getLightIntensity());
     }
     for (int i = 0; i < Renderer::lightManager.getPointLights().size(); ++i) {
         const auto& light = Renderer::lightManager.getPointLights()[i];
         shader.setVec3("pointLights[" + std::to_string(i) + "].position", light.position);
-        shader.setVec3("pointLights[" + std::to_string(i) + "].ambient", light.ambient);
-        shader.setVec3("pointLights[" + std::to_string(i) + "].diffuse", light.diffuse);
-        shader.setVec3("pointLights[" + std::to_string(i) + "].specular", light.specular);
+        shader.setVec3("pointLights[" + std::to_string(i) + "].ambient", light.ambient * Renderer::getLightIntensity());
+        shader.setVec3("pointLights[" + std::to_string(i) + "].diffuse", light.diffuse * Renderer::getLightIntensity());
+        shader.setVec3("pointLights[" + std::to_string(i) + "].specular", light.specular * Renderer::getLightIntensity());
         shader.setFloat("pointLights[" + std::to_string(i) + "].constant", light.constant);
         shader.setFloat("pointLights[" + std::to_string(i) + "].linear", light.linear);
         shader.setFloat("pointLights[" + std::to_string(i) + "].quadratic", light.quadratic);
@@ -57,9 +62,9 @@ void setLightUniforms(const Shader& shader) {
         const auto& light = Renderer::lightManager.getSpotlights()[i];
         shader.setVec3("spotlights[" + std::to_string(i) + "].position", light.position);
         shader.setVec3("spotlights[" + std::to_string(i) + "].direction", light.direction);
-        shader.setVec3("spotlights[" + std::to_string(i) + "].ambient", light.ambient);
-        shader.setVec3("spotlights[" + std::to_string(i) + "].diffuse", light.diffuse);
-        shader.setVec3("spotlights[" + std::to_string(i) + "].specular", light.specular);
+        shader.setVec3("spotlights[" + std::to_string(i) + "].ambient", light.ambient * Renderer::getLightIntensity());
+        shader.setVec3("spotlights[" + std::to_string(i) + "].diffuse", light.diffuse * Renderer::getLightIntensity());
+        shader.setVec3("spotlights[" + std::to_string(i) + "].specular", light.specular * Renderer::getLightIntensity());
         shader.setFloat("spotlights[" + std::to_string(i) + "].cutOff", light.cutOff);
         shader.setFloat("spotlights[" + std::to_string(i) + "].outerCutOff", light.outerCutOff);
         shader.setFloat("spotlights[" + std::to_string(i) + "].constant", light.constant);
@@ -73,7 +78,7 @@ std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& proj, const 
     std::vector<glm::vec4> frustumCorners;
     for (unsigned int x = 0; x < 2; ++x) {
         for (unsigned int y = 0; y < 2; ++y) {
-            for (unsigned int z = 0; z < 2; ++z) {  // Fixed increment operator
+            for (unsigned int z = 0; z < 2; ++z) {
                 const glm::vec4 pt = inv * glm::vec4(
                     2.0f * x - 1.0f,
                     2.0f * y - 1.0f,
@@ -145,13 +150,10 @@ glm::mat4 Renderer::computeLightProjection(const std::vector<glm::vec4>& frustum
 }
 
 void Renderer::renderSceneWithShadows() {
-    // Get light direction
     glm::vec3 lightDir = glm::vec3(0.5f, 1.0f, 0.3f);
 
-    // Compute light space matrices
     std::vector<glm::mat4> lightSpaceMatrices = getLightSpaceMatrices(camera.GetViewMatrix(), lightDir);
 
-    // Render depth map for each cascade
     for (int i = 0; i < NUM_CASCADES; ++i) {
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO[i]);
         glViewport(0, 0, 1024, 1024);
@@ -176,8 +178,7 @@ void Renderer::renderSceneWithShadows() {
 }
 
 bool Renderer::initSSAO() {
-    // 1. Generate kernel
-    std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // random floats between 0.0 and 1.0
+    std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0);
     std::default_random_engine generator;
     for (unsigned int i = 0; i < 64; ++i) {
         glm::vec3 sample(
@@ -193,7 +194,6 @@ bool Renderer::initSSAO() {
         ssaoKernel.push_back(sample);
     }
 
-    // 2. Generate noise texture
     std::vector<glm::vec3> ssaoNoise;
     for (unsigned int i = 0; i < 16; i++) {
         glm::vec3 noise(
@@ -211,7 +211,6 @@ bool Renderer::initSSAO() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-    // 3. Framebuffer
     glGenFramebuffers(1, &ssaoFBO);
     glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO);
     glGenTextures(1, &ssaoColorBuffer);
@@ -268,13 +267,11 @@ void Renderer::renderLightingWithSSAO(unsigned int ssaoColorBuffer) {
 void Renderer::render(GLFWwindow* window, float deltaTime) {
     std::cout << "Renderer::render - Start" << std::endl;
 
-    // Ensure the correct OpenGL context is bound
     glfwMakeContextCurrent(window);
 
     std::cout << "Renderer::render - Set Light Uniforms" << std::endl;
     setLightUniforms(*ShaderManager::lightingShader);
 
-    // 1. Render depth map
     std::cout << "Renderer::render - Render Depth Map" << std::endl;
     glViewport(0, 0, 1024, 1024);
     glBindFramebuffer(GL_FRAMEBUFFER, Renderer::depthMapFBO[0]);
@@ -284,7 +281,6 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     renderScene(*ShaderManager::depthShader, VAO);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    // 2. Render scene with lighting and shadows
     std::cout << "Renderer::render - Render Scene with Lighting and Shadows" << std::endl;
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
@@ -295,29 +291,23 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     glBindTexture(GL_TEXTURE_2D, Renderer::depthMap[0]);
     renderScene(*ShaderManager::lightingShader, VAO);
 
-    // Draw the loaded model
     if (myModel) {
         myModel->Draw(*ShaderManager::lightingShader);
     }
 
-    // 3. Apply bloom effect
     std::cout << "Renderer::render - Apply Bloom Effect" << std::endl;
     applyBloomEffect(*ShaderManager::brightExtractShader, *ShaderManager::blurShader, *ShaderManager::combineShader, colorBuffers[0], colorBuffers[1], pingpongFBO, pingpongBuffer);
 
-    // 4. Render SSAO
     std::cout << "Renderer::render - Render SSAO" << std::endl;
     Renderer::renderSSAO();
 
-    // 5. Render lighting with SSAO
     std::cout << "Renderer::render - Render Lighting with SSAO" << std::endl;
     Renderer::renderLightingWithSSAO(Renderer::ssaoColorBuffer);
 
-    // 6. Tone Mapping and Gamma Correction
     std::cout << "Renderer::render - Tone Mapping and Gamma Correction" << std::endl;
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Medium Exposure and Gamma
     ShaderManager::toneMappingShader->use();
     ShaderManager::toneMappingShader->setFloat("exposure", 1.0f);
     ShaderManager::toneMappingShader->setFloat("gamma", 2.2f);
@@ -325,7 +315,6 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     glBindTexture(GL_TEXTURE_2D, colorBuffers[0]);
     renderQuad();
 
-    // 7. Render ImGui
     std::cout << "Renderer::render - Render ImGui" << std::endl;
     Renderer::RenderImGui();
 
@@ -338,7 +327,7 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
 void renderScene(const Shader& shader, unsigned int VAO) {
     shader.use();
     glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36); // Assuming you're rendering a cube; adjust if needed
+    glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
 }
 
@@ -347,7 +336,6 @@ void renderQuad() {
     static unsigned int quadVBO;
     if (quadVAO == 0) {
         float quadVertices[] = {
-            // positions        // texture Coords
             -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
             -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
              1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
@@ -442,11 +430,13 @@ void Renderer::RenderImGui() {
 
     ImGui::Begin("Parameters");
 
-    static float lightIntensity = 1.0f;
+    static float lightIntensity = Renderer::getLightIntensity();
     ImGui::SliderFloat("Light Intensity", &lightIntensity, 0.0f, 10.0f);
+    Renderer::setLightIntensity(lightIntensity);
 
-    static float cameraSpeed = 0.1f;
-    ImGui::SliderFloat("Camera Speed", &cameraSpeed, 0.0f, 1.0f);
+    static float cameraSpeed = Renderer::getCameraSpeed();
+    ImGui::SliderFloat("Camera Speed", &cameraSpeed, 0.0f, 10.0f);
+    Renderer::setCameraSpeed(cameraSpeed);
 
     ImGui::End();
 
@@ -458,4 +448,20 @@ void Renderer::ShutdownImGui() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+}
+
+float Renderer::getCameraSpeed() {
+    return cameraSpeed;
+}
+
+void Renderer::setCameraSpeed(float speed) {
+    cameraSpeed = speed;
+}
+
+float Renderer::getLightIntensity() {
+    return lightIntensity;
+}
+
+void Renderer::setLightIntensity(float intensity) {
+    lightIntensity = intensity;
 }

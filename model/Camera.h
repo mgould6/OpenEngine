@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -35,14 +36,11 @@ public:
     float Zoom;
     glm::mat4 ProjectionMatrix;
 
-
     Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
 
     Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch);
 
-
     void setCameraToFitModel(const Model& model);
-
 
     glm::mat4 GetViewMatrix();
 
@@ -53,6 +51,7 @@ public:
     void ProcessMouseScroll(float yoffset);
     void updateCameraVectors();
 
-
-private:
+    void setMovementSpeed(float speed);
 };
+
+#endif // CAMERA_H

@@ -12,7 +12,7 @@ public:
     static Shader* blurShader;
     static Shader* combineShader;
     static Shader* ssaoShader;
-    static Shader* toneMappingShader; // Add Tone Mapping shader
+    static Shader* toneMappingShader;
 
     static bool initShaders();
     static Shader* loadShader(const char* vertexPath, const char* fragmentPath);
