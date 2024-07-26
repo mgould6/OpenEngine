@@ -11,6 +11,7 @@ uniform sampler2D shadowMap;
 
 uniform float shadowBias = 0.005;
 uniform int pcfKernelSize = 1;  // Uniform for kernel size
+uniform float lightIntensity;   // Uniform for light intensity
 
 float ShadowCalculation(vec4 fragPosLightSpace)
 {
@@ -45,17 +46,17 @@ void main()
     vec3 materialSpecular = vec3(0.5, 0.5, 0.5);
     float materialShininess = 32.0;
 
-    vec3 ambient = 0.3 * materialAmbient;
+    vec3 ambient = 0.3 * materialAmbient * lightIntensity;
 
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(lightPos - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = diff * materialDiffuse;
+    vec3 diffuse = diff * materialDiffuse * lightIntensity;
 
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), materialShininess);
-    vec3 specular = spec * materialSpecular;
+    vec3 specular = spec * materialSpecular * lightIntensity;
 
     float shadow = ShadowCalculation(FragPosLightSpace);
 

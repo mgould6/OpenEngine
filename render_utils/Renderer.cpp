@@ -41,6 +41,8 @@ extern unsigned int VAO;
 
 void setLightUniforms(const Shader& shader) {
     shader.use();
+    shader.setFloat("lightIntensity", Renderer::getLightIntensity());
+
     for (int i = 0; i < Renderer::lightManager.getDirectionalLights().size(); ++i) {
         const auto& light = Renderer::lightManager.getDirectionalLights()[i];
         shader.setVec3("dirLights[" + std::to_string(i) + "].direction", light.direction);
