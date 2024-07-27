@@ -6,6 +6,7 @@
 #include "../shaders/Shader.h"
 #include <GLFW/glfw3.h>
 #include "../light/LightManager.h"
+#include "../physics/PhysicsManager.h"
 
 extern unsigned int SCR_WIDTH;
 extern unsigned int SCR_HEIGHT;
@@ -34,6 +35,7 @@ public:
     static void render(GLFWwindow* window, float deltaTime);
 
     static LightManager lightManager;
+    static PhysicsManager physicsManager; // Moved PhysicsManager to public
 
     static void InitializeImGui(GLFWwindow* window);
     static void RenderImGui();

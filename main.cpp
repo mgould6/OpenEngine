@@ -15,19 +15,6 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
-unsigned int SCR_WIDTH = 800;
-unsigned int SCR_HEIGHT = 600;
-
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-float deltaTime = 0.0f;
-float lastFrame = 0.0f;
-
-Model* myModel = nullptr;
-
-unsigned int depthMapFBO[Renderer::NUM_CASCADES], hdrFBO, depthMap[Renderer::NUM_CASCADES];
-unsigned int colorBuffers[2], pingpongFBO[2], pingpongBuffer[2];
-unsigned int VAO, VBO;
-
 int main() {
     GLFWwindow* window;
 
@@ -138,6 +125,8 @@ int main() {
     InputManager::registerKeyCallback(GLFW_KEY_C, []() { camera.ProcessKeyboard(DOWN, deltaTime); });
 
     Renderer::InitializeImGui(window);
+
+    Renderer::physicsManager.Initialize(); // Initialize PhysicsManager
 
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());

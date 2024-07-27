@@ -207,6 +207,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\OpenGL\glad\src\glad.c" />
     <ClCompile Include="cleanup\Cleanup.cpp" />
+    <ClCompile Include="Globals.cpp" />
     <ClCompile Include="light\LightManager.cpp" />
     <ClCompile Include="model\Camera.cpp" />
     <ClCompile Include="engine\Engine.cpp" />
@@ -216,6 +217,7 @@
     <ClCompile Include="model\Mesh.cpp" />
     <ClCompile Include="model\Model.cpp" />
     <ClCompile Include="model\Object.cpp" />
+    <ClCompile Include="physics\PhysicsManager.cpp" />
     <ClCompile Include="render_utils\Renderer.cpp" />
     <ClCompile Include="scene\Scene.cpp" />
     <ClCompile Include="setup\Setup.cpp" />
@@ -233,6 +235,7 @@
     <ClInclude Include="common_utils\Logger.h" />
     <ClInclude Include="model\Mesh.h" />
     <ClInclude Include="model\Model.h" />
+    <ClInclude Include="physics\PhysicsManager.h" />
     <ClInclude Include="render_utils\Renderer.h" />
     <ClInclude Include="scene\Scene.h" />
     <ClInclude Include="setup\Setup.h" />

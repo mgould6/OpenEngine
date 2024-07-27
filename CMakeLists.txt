@@ -65,6 +65,7 @@ else()
         Bullet::BulletDynamics
         Bullet::BulletCollision
         Bullet::LinearMath
+        ${BULLET_LIBRARIES}
     )
 endif()
 

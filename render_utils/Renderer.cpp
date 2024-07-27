@@ -31,6 +31,7 @@ LightManager Renderer::lightManager;
 
 float Renderer::cameraSpeed = SPEED;
 float Renderer::lightIntensity = 1.0f;
+PhysicsManager Renderer::physicsManager; // Added PhysicsManager
 
 extern Model* myModel;
 extern unsigned int hdrFBO;
@@ -324,6 +325,8 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     glfwPollEvents();
 
     std::cout << "Renderer::render - End" << std::endl;
+
+    physicsManager.Update(deltaTime); // Update physics simulation
 }
 
 void renderScene(const Shader& shader, unsigned int VAO) {
