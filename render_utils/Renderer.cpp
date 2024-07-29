@@ -40,6 +40,48 @@ extern unsigned int SCR_WIDTH;
 extern unsigned int SCR_HEIGHT;
 extern unsigned int VAO;
 
+void Renderer::createFramebuffer(unsigned int& framebuffer, unsigned int& texture, int width, int height, GLenum format) {
+    glGenFramebuffers(1, &framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
+
+    unsigned int rbo;
+    glGenRenderbuffers(1, &rbo);
+    glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        Logger::log("Framebuffer not complete!", Logger::ERROR);
+    }
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void Renderer::createPingPongFramebuffers(unsigned int* pingpongFBO, unsigned int* pingpongBuffer, int width, int height) {
+    glGenFramebuffers(2, pingpongFBO);
+    glGenTextures(2, pingpongBuffer);
+    for (unsigned int i = 0; i < 2; i++) {
+        glBindFramebuffer(GL_FRAMEBUFFER, pingpongFBO[i]);
+        glBindTexture(GL_TEXTURE_2D, pingpongBuffer[i]);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pingpongBuffer[i], 0);
+
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+            Logger::log("Pingpong framebuffer not complete!", Logger::ERROR);
+        }
+    }
+}
+
+
+
 void setLightUniforms(const Shader& shader) {
     shader.use();
     shader.setFloat("lightIntensity", Renderer::getLightIntensity());
@@ -270,47 +312,28 @@ void Renderer::renderLightingWithSSAO(unsigned int ssaoColorBuffer) {
 void Renderer::render(GLFWwindow* window, float deltaTime) {
     std::cout << "Renderer::render - Start" << std::endl;
 
-    glfwMakeContextCurrent(window);
-
-    std::cout << "Renderer::render - Set Light Uniforms" << std::endl;
     setLightUniforms(*ShaderManager::lightingShader);
 
-    std::cout << "Renderer::render - Render Depth Map" << std::endl;
-    glViewport(0, 0, 1024, 1024);
-    glBindFramebuffer(GL_FRAMEBUFFER, Renderer::depthMapFBO[0]);
-    glClear(GL_DEPTH_BUFFER_BIT);
-    ShaderManager::depthShader->use();
-    setUniforms(*ShaderManager::depthShader);
-    renderScene(*ShaderManager::depthShader, VAO);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    renderSceneWithShadows();
 
-    std::cout << "Renderer::render - Render Scene with Lighting and Shadows" << std::endl;
-    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     ShaderManager::lightingShader->use();
     setUniforms(*ShaderManager::lightingShader);
     glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, Renderer::depthMap[0]);
+    glBindTexture(GL_TEXTURE_2D, depthMap[0]);
     renderScene(*ShaderManager::lightingShader, VAO);
 
     if (myModel) {
         myModel->Draw(*ShaderManager::lightingShader);
     }
 
-    std::cout << "Renderer::render - Apply Bloom Effect" << std::endl;
     applyBloomEffect(*ShaderManager::brightExtractShader, *ShaderManager::blurShader, *ShaderManager::combineShader, colorBuffers[0], colorBuffers[1], pingpongFBO, pingpongBuffer);
+    renderSSAO();
+    renderLightingWithSSAO(ssaoColorBuffer);
 
-    std::cout << "Renderer::render - Render SSAO" << std::endl;
-    Renderer::renderSSAO();
-
-    std::cout << "Renderer::render - Render Lighting with SSAO" << std::endl;
-    Renderer::renderLightingWithSSAO(Renderer::ssaoColorBuffer);
-
-    std::cout << "Renderer::render - Tone Mapping and Gamma Correction" << std::endl;
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     ShaderManager::toneMappingShader->use();
     ShaderManager::toneMappingShader->setFloat("exposure", 1.0f);
     ShaderManager::toneMappingShader->setFloat("gamma", 2.2f);
@@ -318,16 +341,14 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     glBindTexture(GL_TEXTURE_2D, colorBuffers[0]);
     renderQuad();
 
-    std::cout << "Renderer::render - Render ImGui" << std::endl;
     Renderer::RenderImGui();
-
     glfwSwapBuffers(window);
     glfwPollEvents();
 
+    physicsManager.Update(deltaTime);
     std::cout << "Renderer::render - End" << std::endl;
-
-    physicsManager.Update(deltaTime); // Update physics simulation
 }
+
 
 void renderScene(const Shader& shader, unsigned int VAO) {
     shader.use();

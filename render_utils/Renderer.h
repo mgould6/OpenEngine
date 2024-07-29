@@ -47,6 +47,9 @@ public:
     static float getLightIntensity();
     static void setLightIntensity(float intensity);
 
+    static void createFramebuffer(unsigned int& framebuffer, unsigned int& texture, int width, int height, GLenum format);
+    static void createPingPongFramebuffers(unsigned int* pingpongFBO, unsigned int* pingpongBuffer, int width, int height);
+
 private:
     static float cameraSpeed;
     static float lightIntensity;

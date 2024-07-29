@@ -15,80 +15,81 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
+// Function Prototypes
+bool initializeGraphics(GLFWwindow*& window);
+void setupFramebuffers();
+void setupVertexData();
+void registerInputCallbacks();
+void cleanupResources();
+
 int main() {
     GLFWwindow* window;
 
-    if (!initialize(window, SCR_WIDTH, SCR_HEIGHT)) {
+    if (!initializeGraphics(window)) {
         return -1;
+    }
+
+    setupFramebuffers();
+    setupVertexData();
+    registerInputCallbacks();
+
+    myModel = new Model("C:/OpenGL/models/FinalBaseMesh.obj");
+    if (!myModel) {
+        Logger::log("Failed to load model", Logger::ERROR);
+        cleanupResources();
+        return -1;
+    }
+
+    camera.setCameraToFitModel(*myModel);
+    InputManager::setCamera(&camera);
+
+    Renderer::InitializeImGui(window);
+    Renderer::physicsManager.Initialize(); // Initialize PhysicsManager
+
+    while (!glfwWindowShouldClose(window)) {
+        float currentFrame = static_cast<float>(glfwGetTime());
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+        InputManager::processInput(window, deltaTime);
+        camera.MovementSpeed = Renderer::getCameraSpeed();
+        Renderer::render(window, deltaTime);
+    }
+
+    Renderer::ShutdownImGui();
+    cleanupResources();
+    return 0;
+}
+
+bool initializeGraphics(GLFWwindow*& window) {
+    if (!initialize(window, SCR_WIDTH, SCR_HEIGHT)) {
+        return false;
     }
 
     if (!ShaderManager::initShaders()) {
         Logger::log("Failed to initialize shaders", Logger::ERROR);
-        return -1;
+        return false;
     }
 
     if (!Renderer::initShadowMapping()) {
         Logger::log("Failed to initialize shadow mapping", Logger::ERROR);
-        return -1;
+        return false;
     }
 
     if (!Renderer::initSSAO()) {
         Logger::log("Failed to initialize SSAO", Logger::ERROR);
-        return -1;
+        return false;
     }
 
-    Shader brightExtractShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
-    Shader blurShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
-    Shader combineShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
+    return true;
+}
 
-    if (!brightExtractShader.isCompiled() || !blurShader.isCompiled() || !combineShader.isCompiled()) {
-        Logger::log("Shader compilation failed", Logger::ERROR);
-        return -1;
-    }
+void setupFramebuffers() {
+    Renderer::createFramebuffer(hdrFBO, colorBuffers[0], SCR_WIDTH, SCR_HEIGHT, GL_RGBA16F);
+    Renderer::createPingPongFramebuffers(pingpongFBO, pingpongBuffer, SCR_WIDTH, SCR_HEIGHT);
+}
 
-    glGenFramebuffers(1, &hdrFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
-
-    glGenTextures(2, colorBuffers);
-    for (unsigned int i = 0; i < 2; i++) {
-        glBindTexture(GL_TEXTURE_2D, colorBuffers[i]);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, colorBuffers[i], 0);
-    }
-
-    unsigned int rboDepth;
-    glGenRenderbuffers(1, &rboDepth);
-    glBindRenderbuffer(GL_RENDERBUFFER, rboDepth);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, SCR_WIDTH, SCR_HEIGHT);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepth);
-
-    unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
-    glDrawBuffers(2, attachments);
-
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        Logger::log("Framebuffer not complete!", Logger::ERROR);
-        return -1;
-    }
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    glGenFramebuffers(2, pingpongFBO);
-    glGenTextures(2, pingpongBuffer);
-    for (unsigned int i = 0; i < 2; i++) {
-        glBindFramebuffer(GL_FRAMEBUFFER, pingpongFBO[i]);
-        glBindTexture(GL_TEXTURE_2D, pingpongBuffer[i]);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGBA, GL_FLOAT, 0);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, pingpongBuffer[i], 0);
-
-        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-            Logger::log("Pingpong framebuffer not complete!", Logger::ERROR);
-            return -1;
-        }
-    }
-
+void setupVertexData() {
     float vertices[] = {
         -0.5f, -0.5f, 0.0f,  0.0f,  0.0f, 1.0f,
          0.5f, -0.5f, 0.0f,  0.0f,  0.0f, 1.0f,
@@ -108,40 +109,24 @@ int main() {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+}
 
-    myModel = new Model("C:/OpenGL/models/FinalBaseMesh.obj");
-    if (!myModel) {
-        Logger::log("Failed to load model", Logger::ERROR);
-        return -1;
-    }
-    camera.setCameraToFitModel(*myModel);
-    InputManager::setCamera(&camera);
-
+void registerInputCallbacks() {
     InputManager::registerKeyCallback(GLFW_KEY_W, []() { camera.ProcessKeyboard(FORWARD, deltaTime); });
     InputManager::registerKeyCallback(GLFW_KEY_S, []() { camera.ProcessKeyboard(BACKWARD, deltaTime); });
     InputManager::registerKeyCallback(GLFW_KEY_A, []() { camera.ProcessKeyboard(LEFT, deltaTime); });
     InputManager::registerKeyCallback(GLFW_KEY_D, []() { camera.ProcessKeyboard(RIGHT, deltaTime); });
     InputManager::registerKeyCallback(GLFW_KEY_E, []() { camera.ProcessKeyboard(UP, deltaTime); });
     InputManager::registerKeyCallback(GLFW_KEY_C, []() { camera.ProcessKeyboard(DOWN, deltaTime); });
+}
 
-    Renderer::InitializeImGui(window);
-
-    Renderer::physicsManager.Initialize(); // Initialize PhysicsManager
-
-    while (!glfwWindowShouldClose(window)) {
-        float currentFrame = static_cast<float>(glfwGetTime());
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-
-        InputManager::processInput(window, deltaTime);
-
-        camera.MovementSpeed = Renderer::getCameraSpeed();
-
-        Renderer::render(window, deltaTime);
-    }
-
-    Renderer::ShutdownImGui();
-
-    cleanup();
-    return 0;
+void cleanupResources() {
+    delete myModel;
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteFramebuffers(1, &hdrFBO);
+    glDeleteTextures(2, colorBuffers);
+    glDeleteFramebuffers(2, pingpongFBO);
+    glDeleteTextures(2, pingpongBuffer);
+    glfwTerminate();
 }

@@ -13,6 +13,7 @@ public:
     static Shader* combineShader;
     static Shader* ssaoShader;
     static Shader* toneMappingShader;
+    static Shader* loadAndCompileShader(const char* vertexPath, const char* fragmentPath);
 
     static bool initShaders();
     static Shader* loadShader(const char* vertexPath, const char* fragmentPath);
