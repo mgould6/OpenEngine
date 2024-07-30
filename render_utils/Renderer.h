@@ -10,6 +10,7 @@
 
 extern unsigned int SCR_WIDTH;
 extern unsigned int SCR_HEIGHT;
+extern unsigned int cubeVAO, planeVAO;
 
 class Renderer {
 public:
@@ -59,5 +60,8 @@ void setUniforms(const Shader& shader);
 void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShader, const Shader& combineShader, unsigned int hdrBuffer, unsigned int bloomBuffer, unsigned int* pingpongFBO, unsigned int* pingpongBuffer);
 void renderScene(const Shader& shader, unsigned int VAO);
 void renderQuad();
+void renderCube(const Shader& shader);
+void renderPlane(const Shader& shader);
+
 
 #endif // RENDERER_H

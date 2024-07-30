@@ -45,3 +45,23 @@ void PhysicsManager::AddRigidBody(btRigidBody* body) {
 void PhysicsManager::SetGravity(const btVector3& gravity) {
     dynamicsWorld->setGravity(gravity);
 }
+
+btRigidBody* PhysicsManager::CreateCube(float size, float mass, const btVector3& position) {
+    btCollisionShape* cubeShape = new btBoxShape(btVector3(size, size, size));
+    btDefaultMotionState* motionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), position));
+    btVector3 inertia(0, 0, 0);
+    if (mass != 0.0f) cubeShape->calculateLocalInertia(mass, inertia);
+    btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(mass, motionState, cubeShape, inertia);
+    btRigidBody* body = new btRigidBody(rigidBodyCI);
+    AddRigidBody(body);
+    return body;
+}
+
+btRigidBody* PhysicsManager::CreatePlane(const btVector3& normal, float constant) {
+    btCollisionShape* planeShape = new btStaticPlaneShape(normal, constant);
+    btDefaultMotionState* motionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
+    btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(0.0f, motionState, planeShape, btVector3(0, 0, 0));
+    btRigidBody* body = new btRigidBody(rigidBodyCI);
+    AddRigidBody(body);
+    return body;
+}

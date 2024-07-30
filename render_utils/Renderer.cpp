@@ -40,6 +40,10 @@ extern unsigned int SCR_WIDTH;
 extern unsigned int SCR_HEIGHT;
 extern unsigned int VAO;
 
+// Extern variables for cube and ground
+extern btRigidBody* cube;
+extern btRigidBody* ground;
+
 void Renderer::createFramebuffer(unsigned int& framebuffer, unsigned int& texture, int width, int height, GLenum format) {
     glGenFramebuffers(1, &framebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
@@ -309,6 +313,7 @@ void Renderer::renderLightingWithSSAO(unsigned int ssaoColorBuffer) {
     renderQuad();
 }
 
+
 void Renderer::render(GLFWwindow* window, float deltaTime) {
     std::cout << "Renderer::render - Start" << std::endl;
 
@@ -322,10 +327,25 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     setUniforms(*ShaderManager::lightingShader);
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, depthMap[0]);
-    renderScene(*ShaderManager::lightingShader, VAO);
 
-    if (myModel) {
-        myModel->Draw(*ShaderManager::lightingShader);
+    // Render cube
+    for (btRigidBody* body : physicsManager.rigidBodies) {
+        btTransform trans;
+        if (body && body->getMotionState()) {
+            body->getMotionState()->getWorldTransform(trans);
+            float matrix[16];
+            trans.getOpenGLMatrix(matrix);
+
+            glm::mat4 modelMatrix = glm::make_mat4(matrix);
+            ShaderManager::lightingShader->setMat4("model", modelMatrix);
+
+            if (body == cube) {
+                renderCube(*ShaderManager::lightingShader);
+            }
+            else if (body == ground) {
+                renderPlane(*ShaderManager::lightingShader);
+            }
+        }
     }
 
     applyBloomEffect(*ShaderManager::brightExtractShader, *ShaderManager::blurShader, *ShaderManager::combineShader, colorBuffers[0], colorBuffers[1], pingpongFBO, pingpongBuffer);
@@ -346,6 +366,7 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     glfwPollEvents();
 
     physicsManager.Update(deltaTime);
+
     std::cout << "Renderer::render - End" << std::endl;
 }
 
@@ -490,4 +511,18 @@ float Renderer::getLightIntensity() {
 
 void Renderer::setLightIntensity(float intensity) {
     lightIntensity = intensity;
+}
+
+void renderCube(const Shader& shader) {
+    shader.use();
+    glBindVertexArray(cubeVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glBindVertexArray(0);
+}
+
+void renderPlane(const Shader& shader) {
+    shader.use();
+    glBindVertexArray(planeVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0);
 }

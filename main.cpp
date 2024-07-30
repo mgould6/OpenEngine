@@ -5,7 +5,6 @@
 #include "input/InputManager.h"
 #include "engine/Engine.h"
 #include "model/Camera.h"
-#include "model/Model.h"
 #include "shaders/ShaderManager.h"
 #include "setup/Setup.h"
 #include "render_utils/Renderer.h"
@@ -18,10 +17,22 @@
 // Function Prototypes
 bool initializeGraphics(GLFWwindow*& window);
 void setupFramebuffers();
-void setupVertexData();
+void setupCubeVertexData();
+void setupPlaneVertexData();
 void registerInputCallbacks();
 void cleanupResources();
+void renderCube(const Shader& shader);
+void renderPlane(const Shader& shader);
 
+// Cube and Plane VAOs and VBOs
+unsigned int cubeVAO, cubeVBO;
+unsigned int planeVAO, planeVBO;
+
+// Physics objects
+btRigidBody* cube;
+btRigidBody* ground;
+
+// main.cpp
 int main() {
     GLFWwindow* window;
 
@@ -30,21 +41,22 @@ int main() {
     }
 
     setupFramebuffers();
-    setupVertexData();
+    setupCubeVertexData();
+    setupPlaneVertexData();
     registerInputCallbacks();
 
-    myModel = new Model("C:/OpenGL/models/FinalBaseMesh.obj");
-    if (!myModel) {
-        Logger::log("Failed to load model", Logger::ERROR);
-        cleanupResources();
-        return -1;
-    }
-
-    camera.setCameraToFitModel(*myModel);
+    // Adjust the camera to view the scene with the cube and plane
+    camera = Camera(glm::vec3(0.0f, 5.0f, 20.0f)); // Positioned to view the cube dropping onto the plane
     InputManager::setCamera(&camera);
 
     Renderer::InitializeImGui(window);
     Renderer::physicsManager.Initialize(); // Initialize PhysicsManager
+
+    // Create a plane
+    ground = Renderer::physicsManager.CreatePlane(btVector3(0, 1, 0), 1);
+
+    // Create a cube
+    cube = Renderer::physicsManager.CreateCube(1.0f, 1.0f, btVector3(0, 10, 0));
 
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -89,19 +101,84 @@ void setupFramebuffers() {
     Renderer::createPingPongFramebuffers(pingpongFBO, pingpongBuffer, SCR_WIDTH, SCR_HEIGHT);
 }
 
-void setupVertexData() {
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f,  0.0f,  0.0f, 1.0f,
-         0.5f, -0.5f, 0.0f,  0.0f,  0.0f, 1.0f,
-         0.0f,  0.5f, 0.0f,  0.0f,  0.0f, 1.0f
+void setupCubeVertexData() {
+    float cubeVertices[] = {
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
     };
 
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
+    glGenVertexArrays(1, &cubeVAO);
+    glGenBuffers(1, &cubeVBO);
 
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBindVertexArray(cubeVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+}
+
+void setupPlaneVertexData() {
+    float planeVertices[] = {
+        // positions            // normals
+        5.0f, -0.5f,  5.0f,  0.0f, 1.0f, 0.0f,
+       -5.0f, -0.5f,  5.0f,  0.0f, 1.0f, 0.0f,
+       -5.0f, -0.5f, -5.0f,  0.0f, 1.0f, 0.0f,
+
+        5.0f, -0.5f,  5.0f,  0.0f, 1.0f, 0.0f,
+       -5.0f, -0.5f, -5.0f,  0.0f, 1.0f, 0.0f,
+        5.0f, -0.5f, -5.0f,  0.0f, 1.0f, 0.0f
+    };
+
+    glGenVertexArrays(1, &planeVAO);
+    glGenBuffers(1, &planeVBO);
+
+    glBindVertexArray(planeVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, planeVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(planeVertices), planeVertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
@@ -121,9 +198,10 @@ void registerInputCallbacks() {
 }
 
 void cleanupResources() {
-    delete myModel;
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &cubeVAO);
+    glDeleteBuffers(1, &cubeVBO);
+    glDeleteVertexArrays(1, &planeVAO);
+    glDeleteBuffers(1, &planeVBO);
     glDeleteFramebuffers(1, &hdrFBO);
     glDeleteTextures(2, colorBuffers);
     glDeleteFramebuffers(2, pingpongFBO);
