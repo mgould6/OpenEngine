@@ -53,7 +53,7 @@ int main() {
     Renderer::physicsManager.Initialize(); // Initialize PhysicsManager
 
     // Create a plane
-    ground = Renderer::physicsManager.CreatePlane(btVector3(0, 1, 0), 1);
+    ground = Renderer::physicsManager.CreatePlane(btVector3(0, 1, 0), 0);
 
     // Create a cube
     cube = Renderer::physicsManager.CreateCube(1.0f, 1.0f, btVector3(0, 10, 0));
