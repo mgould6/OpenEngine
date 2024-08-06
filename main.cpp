@@ -13,6 +13,7 @@
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+#include <cstddef> // For std::size
 
 // Function Prototypes
 bool initializeGraphics(GLFWwindow*& window);
@@ -102,50 +103,6 @@ void setupFramebuffers() {
 }
 
 void setupCubeVertexData() {
-    float cubeVertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
-    };
-
     glGenVertexArrays(1, &cubeVAO);
     glGenBuffers(1, &cubeVBO);
 
@@ -162,17 +119,6 @@ void setupCubeVertexData() {
 }
 
 void setupPlaneVertexData() {
-    float planeVertices[] = {
-        // positions            // normals
-        5.0f, -0.5f,  5.0f,  0.0f, 1.0f, 0.0f,
-       -5.0f, -0.5f,  5.0f,  0.0f, 1.0f, 0.0f,
-       -5.0f, -0.5f, -5.0f,  0.0f, 1.0f, 0.0f,
-
-        5.0f, -0.5f,  5.0f,  0.0f, 1.0f, 0.0f,
-       -5.0f, -0.5f, -5.0f,  0.0f, 1.0f, 0.0f,
-        5.0f, -0.5f, -5.0f,  0.0f, 1.0f, 0.0f
-    };
-
     glGenVertexArrays(1, &planeVAO);
     glGenBuffers(1, &planeVBO);
 
@@ -187,7 +133,6 @@ void setupPlaneVertexData() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
-
 void registerInputCallbacks() {
     InputManager::registerKeyCallback(GLFW_KEY_W, []() { camera.ProcessKeyboard(FORWARD, deltaTime); });
     InputManager::registerKeyCallback(GLFW_KEY_S, []() { camera.ProcessKeyboard(BACKWARD, deltaTime); });
