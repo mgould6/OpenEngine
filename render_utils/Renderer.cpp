@@ -8,7 +8,7 @@
 #include "../model/Model.h"
 #include "../shaders/ShaderManager.h"
 #include <random>
-#include "../Globals.h"
+#include "../setup/Globals.h"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>

@@ -9,21 +9,13 @@
 #include "setup/Setup.h"
 #include "render_utils/Renderer.h"
 #include "cleanup/Cleanup.h"
-#include "Globals.h"
+#include "setup/Globals.h"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <cstddef> // For std::size
-
-// Function Prototypes
-bool initializeGraphics(GLFWwindow*& window);
-void setupFramebuffers();
-void setupCubeVertexData();
-void setupPlaneVertexData();
-void registerInputCallbacks();
-void cleanupResources();
-void renderCube(const Shader& shader);
-void renderPlane(const Shader& shader);
+#include "setup/GraphicsSetup.h"
+#include "setup/InputCallbacks.h"
 
 // Cube and Plane VAOs and VBOs
 unsigned int cubeVAO, cubeVBO;
@@ -72,84 +64,4 @@ int main() {
     Renderer::ShutdownImGui();
     cleanupResources();
     return 0;
-}
-
-bool initializeGraphics(GLFWwindow*& window) {
-    if (!initialize(window, SCR_WIDTH, SCR_HEIGHT)) {
-        return false;
-    }
-
-    if (!ShaderManager::initShaders()) {
-        Logger::log("Failed to initialize shaders", Logger::ERROR);
-        return false;
-    }
-
-    if (!Renderer::initShadowMapping()) {
-        Logger::log("Failed to initialize shadow mapping", Logger::ERROR);
-        return false;
-    }
-
-    if (!Renderer::initSSAO()) {
-        Logger::log("Failed to initialize SSAO", Logger::ERROR);
-        return false;
-    }
-
-    return true;
-}
-
-void setupFramebuffers() {
-    Renderer::createFramebuffer(hdrFBO, colorBuffers[0], SCR_WIDTH, SCR_HEIGHT, GL_RGBA16F);
-    Renderer::createPingPongFramebuffers(pingpongFBO, pingpongBuffer, SCR_WIDTH, SCR_HEIGHT);
-}
-
-void setupCubeVertexData() {
-    glGenVertexArrays(1, &cubeVAO);
-    glGenBuffers(1, &cubeVBO);
-
-    glBindVertexArray(cubeVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-}
-
-void setupPlaneVertexData() {
-    glGenVertexArrays(1, &planeVAO);
-    glGenBuffers(1, &planeVBO);
-
-    glBindVertexArray(planeVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, planeVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(planeVertices), planeVertices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-}
-void registerInputCallbacks() {
-    InputManager::registerKeyCallback(GLFW_KEY_W, []() { camera.ProcessKeyboard(FORWARD, deltaTime); });
-    InputManager::registerKeyCallback(GLFW_KEY_S, []() { camera.ProcessKeyboard(BACKWARD, deltaTime); });
-    InputManager::registerKeyCallback(GLFW_KEY_A, []() { camera.ProcessKeyboard(LEFT, deltaTime); });
-    InputManager::registerKeyCallback(GLFW_KEY_D, []() { camera.ProcessKeyboard(RIGHT, deltaTime); });
-    InputManager::registerKeyCallback(GLFW_KEY_E, []() { camera.ProcessKeyboard(UP, deltaTime); });
-    InputManager::registerKeyCallback(GLFW_KEY_C, []() { camera.ProcessKeyboard(DOWN, deltaTime); });
-}
-
-void cleanupResources() {
-    glDeleteVertexArrays(1, &cubeVAO);
-    glDeleteBuffers(1, &cubeVBO);
-    glDeleteVertexArrays(1, &planeVAO);
-    glDeleteBuffers(1, &planeVBO);
-    glDeleteFramebuffers(1, &hdrFBO);
-    glDeleteTextures(2, colorBuffers);
-    glDeleteFramebuffers(2, pingpongFBO);
-    glDeleteTextures(2, pingpongBuffer);
-    glfwTerminate();
 }

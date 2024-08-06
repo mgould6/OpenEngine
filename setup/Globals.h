@@ -1,8 +1,8 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-#include "model/Camera.h"
-#include "model/Model.h"
+#include "../model/Camera.h"
+#include "../model/Model.h"
 
 extern Camera camera;
 extern Model* myModel;

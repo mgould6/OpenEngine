@@ -1,5 +1,5 @@
 #include "Globals.h"
-#include "render_utils/Renderer.h"
+#include "../render_utils/Renderer.h"
 
 // Define other global variables
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
