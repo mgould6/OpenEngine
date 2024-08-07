@@ -4,7 +4,7 @@
 #include "../render_utils/Renderer.h"
 #include "../common_utils/Logger.h"
 #include "../common_utils/Utils.h"
-#include "../Globals.h"
+#include "../setup/Globals.h"
 
 void initDepthMapFBO(unsigned int& depthMapFBO, unsigned int& depthMap) {
     const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
