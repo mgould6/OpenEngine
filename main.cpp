@@ -51,10 +51,25 @@ int main() {
     // Create a cube
     cube = Renderer::physicsManager.CreateCube(1.0f, 1.0f, btVector3(0, 10, 0));
 
+    // Variables to keep track of FPS
+    int frameCount = 0;
+    double fpsStartTime = glfwGetTime();
+    const double fpsUpdateInterval = 0.01; // Update FPS every .1 seconds
+
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
+
+        frameCount++;
+
+        // Calculate and print FPS
+        if (currentFrame - fpsStartTime >= fpsUpdateInterval) {
+            double fps = frameCount / fpsUpdateInterval;
+            std::cout << "FPS: " << fps << std::endl;
+            frameCount = 0;
+            fpsStartTime = currentFrame;
+        }
 
         InputManager::processInput(window, deltaTime);
         camera.MovementSpeed = Renderer::getCameraSpeed();
