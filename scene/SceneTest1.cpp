@@ -3,7 +3,6 @@
 #include <GLFW/glfw3.h>
 #include "../common_utils/Logger.h"
 #include "../input/InputManager.h"
-#include "../engine/Engine.h"
 #include "../model/Camera.h"
 #include "../shaders/ShaderManager.h"
 #include "../setup/Setup.h"

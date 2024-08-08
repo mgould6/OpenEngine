@@ -213,7 +213,6 @@
     <ClCompile Include="setup\InputCallbacks.cpp" />
     <ClCompile Include="light\LightManager.cpp" />
     <ClCompile Include="model\Camera.cpp" />
-    <ClCompile Include="engine\Engine.cpp" />
     <ClCompile Include="input\InputManager.cpp" />
     <ClCompile Include="common_utils\Logger.cpp" />
     <ClCompile Include="main.cpp" />
@@ -235,7 +234,6 @@
     <ClInclude Include="setup\InputCallbacks.h" />
     <ClInclude Include="light\LightManager.h" />
     <ClInclude Include="model\Camera.h" />
-    <ClInclude Include="engine\Engine.h" />
     <ClInclude Include="input\InputManager.h" />
     <ClInclude Include="common_utils\Logger.h" />
     <ClInclude Include="model\Mesh.h" />
