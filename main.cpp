@@ -16,6 +16,7 @@
 #include <cstddef> // For std::size
 #include "setup/GraphicsSetup.h"
 #include "setup/InputCallbacks.h"
+#include "scene/SceneTest1.h"
 
 // Cube and Plane VAOs and VBOs
 unsigned int cubeVAO, cubeVBO;
@@ -33,23 +34,7 @@ int main() {
         return -1;
     }
 
-    setupFramebuffers();
-    setupCubeVertexData();
-    setupPlaneVertexData();
-    registerInputCallbacks();
-
-    // Adjust the camera to view the scene with the cube and plane
-    camera = Camera(glm::vec3(0.0f, 5.0f, 20.0f)); // Positioned to view the cube dropping onto the plane
-    InputManager::setCamera(&camera);
-
-    Renderer::InitializeImGui(window);
-    Renderer::physicsManager.Initialize(); // Initialize PhysicsManager
-
-    // Create a plane
-    ground = Renderer::physicsManager.CreatePlane(btVector3(0, 1, 0), 0);
-
-    // Create a cube
-    cube = Renderer::physicsManager.CreateCube(1.0f, 1.0f, btVector3(0, 10, 0));
+    SceneTest1(window);
 
     // Variables to keep track of FPS
     int frameCount = 0;

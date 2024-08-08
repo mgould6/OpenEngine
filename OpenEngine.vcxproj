@@ -207,6 +207,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\OpenGL\glad\src\glad.c" />
     <ClCompile Include="cleanup\Cleanup.cpp" />
+    <ClCompile Include="scene\SceneTest1.cpp" />
     <ClCompile Include="setup\Globals.cpp" />
     <ClCompile Include="setup\GraphicsSetup.cpp" />
     <ClCompile Include="setup\InputCallbacks.cpp" />
@@ -221,7 +222,6 @@
     <ClCompile Include="model\Object.cpp" />
     <ClCompile Include="physics\PhysicsManager.cpp" />
     <ClCompile Include="render_utils\Renderer.cpp" />
-    <ClCompile Include="scene\Scene.cpp" />
     <ClCompile Include="setup\Setup.cpp" />
     <ClCompile Include="shaders\Shader.cpp" />
     <ClCompile Include="shaders\ShaderManager.cpp" />
@@ -229,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cleanup\Cleanup.h" />
+    <ClInclude Include="scene\SceneTest1.h" />
     <ClInclude Include="setup\Globals.h" />
     <ClInclude Include="setup\GraphicsSetup.h" />
     <ClInclude Include="setup\InputCallbacks.h" />
@@ -241,7 +242,6 @@
     <ClInclude Include="model\Model.h" />
     <ClInclude Include="physics\PhysicsManager.h" />
     <ClInclude Include="render_utils\Renderer.h" />
-    <ClInclude Include="scene\Scene.h" />
     <ClInclude Include="setup\Setup.h" />
     <ClInclude Include="shaders\Shader.h" />
     <ClInclude Include="shaders\ShaderManager.h" />
