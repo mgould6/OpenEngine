@@ -1,6 +1,6 @@
 #include "InputCallbacks.h"
-#include "input/InputManager.h"
-#include "model/Camera.h"
+#include "../input/InputManager.h"
+#include "../model/Camera.h"
 #include "Globals.h"
 
 void registerInputCallbacks() {
