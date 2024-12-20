@@ -18,6 +18,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <direct.h> // For _getcwd on Windows
 
 extern unsigned int cubeVAO, cubeVBO;
 extern btRigidBody* cube;
@@ -40,11 +41,18 @@ void SceneTest2(GLFWwindow* window) {
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
         Logger::log("Failed to load model: " + std::string(importer.GetErrorString()), Logger::ERROR);
+
+        // Check the current working directory
+        char cwd[1024];
+        if (_getcwd(cwd, sizeof(cwd)) != NULL) {
+            Logger::log(std::string("Current working directory: ") + cwd, Logger::INFO);
+        }
+        else {
+            Logger::log("Failed to retrieve current working directory.", Logger::ERROR);
+        }
+
         return;
     }
-
-    // Load the model into a custom Model class for rendering
-    myModel = new Model("Character Template F.fbx");
 
     Logger::log("Successfully loaded Character Template F.fbx", Logger::INFO);
 

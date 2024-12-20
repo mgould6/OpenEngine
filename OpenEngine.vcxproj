@@ -208,7 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\OpenGL\glad\src\glad.c" />
     <ClCompile Include="cleanup\Cleanup.cpp" />
-    <ClCompile Include="scene\SceneTest1.cpp" />
     <ClCompile Include="scene\SceneTest2.cpp" />
     <ClCompile Include="setup\Globals.cpp" />
     <ClCompile Include="setup\GraphicsSetup.cpp" />
@@ -230,7 +229,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cleanup\Cleanup.h" />
-    <ClInclude Include="scene\SceneTest1.h" />
     <ClInclude Include="scene\SceneTest2.h" />
     <ClInclude Include="setup\Globals.h" />
     <ClInclude Include="setup\GraphicsSetup.h" />

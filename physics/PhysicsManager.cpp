@@ -28,10 +28,16 @@ void PhysicsManager::Initialize() {
     overlappingPairCache = new btDbvtBroadphase();
     solver = new btSequentialImpulseConstraintSolver();
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-    dynamicsWorld->setGravity(btVector3(0, -9.81f, 0));
 
-    Logger::log("PhysicsManager initialized successfully.", Logger::INFO);
+    if (!dynamicsWorld) {
+        Logger::log("Failed to initialize dynamicsWorld.", Logger::ERROR);
+    }
+    else {
+        Logger::log("PhysicsManager initialized successfully.", Logger::INFO);
+        dynamicsWorld->setGravity(btVector3(0, -9.81f, 0));
+    }
 }
+
 
 void PhysicsManager::Update(float deltaTime) {
     if (!dynamicsWorld) {
