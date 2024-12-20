@@ -466,17 +466,32 @@ void Renderer::InitializeImGui(GLFWwindow* window) {
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     ImGui::StyleColorsDark();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 330");
+
+    if (!ImGui_ImplGlfw_InitForOpenGL(window, true)) {
+        Logger::log("Failed to initialize ImGui for GLFW.", Logger::ERROR);
+        return;
+    }
+
+    if (!ImGui_ImplOpenGL3_Init("#version 330")) { // Adjust GLSL version if necessary
+        Logger::log("Failed to initialize ImGui for OpenGL3.", Logger::ERROR);
+        return;
+    }
+
+    Logger::log("ImGui initialized successfully.", Logger::INFO);
 }
 
+
 void Renderer::RenderImGui() {
+    if (!ImGui::GetCurrentContext()) {
+        Logger::log("ImGui context is not initialized. Skipping ImGui render.", Logger::ERROR);
+        return;
+    }
+
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
     ImGui::Begin("Parameters");
-
     static float lightIntensity = Renderer::getLightIntensity();
     ImGui::SliderFloat("Light Intensity", &lightIntensity, 0.0f, 10.0f);
     Renderer::setLightIntensity(lightIntensity);
@@ -484,7 +499,6 @@ void Renderer::RenderImGui() {
     static float cameraSpeed = Renderer::getCameraSpeed();
     ImGui::SliderFloat("Camera Speed", &cameraSpeed, 0.0f, 10.0f);
     Renderer::setCameraSpeed(cameraSpeed);
-
     ImGui::End();
 
     ImGui::Render();
@@ -492,10 +506,17 @@ void Renderer::RenderImGui() {
 }
 
 void Renderer::ShutdownImGui() {
+    if (!ImGui::GetCurrentContext()) {
+        Logger::log("ImGui context is not initialized. Skipping shutdown.", Logger::WARNING);
+        return;
+    }
+
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+    Logger::log("ImGui shutdown completed.", Logger::INFO);
 }
+
 
 float Renderer::getCameraSpeed() {
     return cameraSpeed;

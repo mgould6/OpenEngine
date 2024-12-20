@@ -39,6 +39,7 @@ void PhysicsManager::Initialize() {
 }
 
 
+
 void PhysicsManager::Update(float deltaTime) {
     if (!dynamicsWorld) {
         Logger::log("PhysicsManager::Update: dynamicsWorld is null.", Logger::ERROR);
@@ -46,10 +47,17 @@ void PhysicsManager::Update(float deltaTime) {
     }
 
     dynamicsWorld->stepSimulation(deltaTime);
+    Logger::log("PhysicsManager::Update: dynamicsWorld stepSimulation completed.", Logger::INFO);
 
+    Logger::log("PhysicsManager::Update: rigidBodies size: " + std::to_string(rigidBodies.size()), Logger::INFO);
     for (btRigidBody* body : rigidBodies) {
-        if (!body) continue; // Skip null bodies
-        // Update transformations for rendering if necessary
+        if (!body) {
+            Logger::log("PhysicsManager::Update: Skipping null rigidBody.", Logger::WARNING);
+            continue;
+        }
+
+        // Add any necessary transformations for rendering or additional physics logic
+        Logger::log("PhysicsManager::Update: Updated rigid body.", Logger::INFO);
     }
 }
 

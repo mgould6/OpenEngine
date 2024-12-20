@@ -36,7 +36,7 @@ void SceneTest2(GLFWwindow* window) {
 
     // Load the character model using Assimp
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile("Character Template F.fbx",
+    const aiScene* scene = importer.ReadFile("C:/Users/mjgou/source/repos/OpenEngine/Character Template F.fbx",
         aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_JoinIdenticalVertices | aiProcess_LimitBoneWeights);
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
@@ -56,6 +56,13 @@ void SceneTest2(GLFWwindow* window) {
 
     Logger::log("Successfully loaded Character Template F.fbx", Logger::INFO);
 
+    // Initialize the model
+    myModel = new Model("Character Template F.fbx");
+    if (!myModel) {
+        Logger::log("Failed to create Model object.", Logger::ERROR);
+        return;
+    }
+
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
@@ -69,7 +76,13 @@ void SceneTest2(GLFWwindow* window) {
         // Use the appropriate shader
         Shader* activeShader = ShaderManager::lightingShader;
         if (activeShader) {
-            myModel->Draw(*activeShader);
+            try {
+                myModel->Draw(*activeShader);
+                Logger::log("SceneTest2: Model drawn successfully.", Logger::INFO);
+            }
+            catch (std::exception& e) {
+                Logger::log(std::string("Exception during model draw: ") + e.what(), Logger::ERROR);
+            }
         }
         else {
             Logger::log("Shader not initialized.", Logger::ERROR);
