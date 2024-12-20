@@ -1,4 +1,5 @@
 #include "PhysicsManager.h"
+#include "../common_utils/Logger.h"
 
 PhysicsManager::PhysicsManager() :
     collisionConfiguration(nullptr),
@@ -10,7 +11,7 @@ PhysicsManager::PhysicsManager() :
 
 PhysicsManager::~PhysicsManager() {
     for (btRigidBody* body : rigidBodies) {
-        dynamicsWorld->removeRigidBody(body);
+        if (dynamicsWorld) dynamicsWorld->removeRigidBody(body);
         delete body->getMotionState();
         delete body;
     }
@@ -28,22 +29,42 @@ void PhysicsManager::Initialize() {
     solver = new btSequentialImpulseConstraintSolver();
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
     dynamicsWorld->setGravity(btVector3(0, -9.81f, 0));
+
+    Logger::log("PhysicsManager initialized successfully.", Logger::INFO);
 }
 
 void PhysicsManager::Update(float deltaTime) {
+    if (!dynamicsWorld) {
+        Logger::log("PhysicsManager::Update: dynamicsWorld is null.", Logger::ERROR);
+        return;
+    }
+
     dynamicsWorld->stepSimulation(deltaTime);
+
     for (btRigidBody* body : rigidBodies) {
-        // Update transformations for rendering
+        if (!body) continue; // Skip null bodies
+        // Update transformations for rendering if necessary
     }
 }
 
 void PhysicsManager::AddRigidBody(btRigidBody* body) {
-    dynamicsWorld->addRigidBody(body);
-    rigidBodies.push_back(body);
+    if (dynamicsWorld && body) {
+        dynamicsWorld->addRigidBody(body);
+        rigidBodies.push_back(body);
+        Logger::log("Rigid body added to PhysicsManager.", Logger::INFO);
+    }
+    else {
+        Logger::log("Failed to add rigid body: dynamicsWorld or body is null.", Logger::ERROR);
+    }
 }
 
 void PhysicsManager::SetGravity(const btVector3& gravity) {
-    dynamicsWorld->setGravity(gravity);
+    if (dynamicsWorld) {
+        dynamicsWorld->setGravity(gravity);
+    }
+    else {
+        Logger::log("Cannot set gravity: dynamicsWorld is null.", Logger::ERROR);
+    }
 }
 
 btRigidBody* PhysicsManager::CreateCube(float size, float mass, const btVector3& position) {

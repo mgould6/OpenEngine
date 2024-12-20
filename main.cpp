@@ -15,7 +15,7 @@
 #include <cstddef> // For std::size
 #include "setup/GraphicsSetup.h"
 #include "setup/InputCallbacks.h"
-#include "scene/SceneTest1.h"
+#include "scene/SceneTest2.h"
 
 // Cube and Plane VAOs and VBOs
 unsigned int cubeVAO, cubeVBO;
@@ -33,7 +33,8 @@ int main() {
         return -1;
     }
 
-    SceneTest1(window);
+    // Initialize Scene
+    SceneTest2(window);
 
     // Variables to keep track of FPS
     int frameCount = 0;

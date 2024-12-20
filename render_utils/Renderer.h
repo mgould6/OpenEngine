@@ -48,6 +48,9 @@ public:
     static float getLightIntensity();
     static void setLightIntensity(float intensity);
 
+    static void BeginFrame(); // Made static
+    static void EndFrame(GLFWwindow* window); // Made static
+
     static void createFramebuffer(unsigned int& framebuffer, unsigned int& texture, int width, int height, GLenum format);
     static void createPingPongFramebuffers(unsigned int* pingpongFBO, unsigned int* pingpongBuffer, int width, int height);
 
@@ -62,6 +65,5 @@ void renderScene(const Shader& shader, unsigned int VAO);
 void renderQuad();
 void renderCube(const Shader& shader);
 void renderPlane(const Shader& shader);
-
 
 #endif // RENDERER_H
