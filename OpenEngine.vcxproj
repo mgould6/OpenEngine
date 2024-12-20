@@ -153,6 +153,7 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="assimp-vc143-mt.dll" />
+    <None Include="Character Template F.fbx" />
     <None Include="shaders\post_processing\blur.fs" />
     <None Include="shaders\post_processing\blur.vs" />
     <None Include="shaders\post_processing\bright_extract.fs" />
@@ -208,6 +209,7 @@
     <ClCompile Include="..\..\..\..\..\OpenGL\glad\src\glad.c" />
     <ClCompile Include="cleanup\Cleanup.cpp" />
     <ClCompile Include="scene\SceneTest1.cpp" />
+    <ClCompile Include="scene\SceneTest2.cpp" />
     <ClCompile Include="setup\Globals.cpp" />
     <ClCompile Include="setup\GraphicsSetup.cpp" />
     <ClCompile Include="setup\InputCallbacks.cpp" />
@@ -229,6 +231,7 @@
   <ItemGroup>
     <ClInclude Include="cleanup\Cleanup.h" />
     <ClInclude Include="scene\SceneTest1.h" />
+    <ClInclude Include="scene\SceneTest2.h" />
     <ClInclude Include="setup\Globals.h" />
     <ClInclude Include="setup\GraphicsSetup.h" />
     <ClInclude Include="setup\InputCallbacks.h" />
