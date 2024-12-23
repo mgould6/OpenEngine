@@ -43,6 +43,7 @@ public:
     void setCameraToFitModel(const Model& model);
 
     glm::mat4 GetViewMatrix();
+    void SetPerspective(float fov, float aspectRatio, float nearPlane, float farPlane);
 
     void ProcessKeyboard(Camera_Movement direction, float deltaTime);
 

@@ -2,6 +2,14 @@
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 #include <limits>
+#include "../common_utils/Logger.h"
+
+Model::Model(const std::string& path) {
+    Logger::log("Loading model from path: " + path, Logger::INFO);
+    // Assume LoadModel(path) loads meshes into `meshes` vector
+    loadModel(path);
+    Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
+}
 
 void Model::loadModel(const std::string& path) {
     Assimp::Importer importer;

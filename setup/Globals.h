@@ -18,6 +18,7 @@ extern unsigned int SCR_WIDTH;
 extern unsigned int SCR_HEIGHT;
 extern unsigned int VAO;
 extern unsigned int VBO;
+extern unsigned int planeVAO, cubeVAO;
 
 constexpr float cubeVertices[] = {
     -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,

@@ -4,6 +4,7 @@
 #include "../common_utils/Logger.h"
 #include "Globals.h"
 #include "../setup/Setup.h"
+
 extern unsigned int planeVBO, cubeVBO;
 
 bool initializeGraphics(GLFWwindow*& window) {
@@ -32,6 +33,17 @@ bool initializeGraphics(GLFWwindow*& window) {
 void setupFramebuffers() {
     Renderer::createFramebuffer(hdrFBO, colorBuffers[0], SCR_WIDTH, SCR_HEIGHT, GL_RGBA16F);
     Renderer::createPingPongFramebuffers(pingpongFBO, pingpongBuffer, SCR_WIDTH, SCR_HEIGHT);
+
+    glGenTextures(1, &Renderer::shadowMapTexture);
+    glBindTexture(GL_TEXTURE_2D, Renderer::shadowMapTexture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, 1024, 1024, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void setupCubeVertexData() {

@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include <glad/glad.h>
+#include "../common_utils/Logger.h"
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
     : vertices(vertices), indices(indices), textures(textures) {
@@ -29,6 +30,7 @@ void Mesh::setupMesh() {
 }
 
 void Mesh::Draw(Shader& shader) {
+    Logger::log("Drawing mesh with VAO: " + std::to_string(VAO), Logger::INFO);
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);

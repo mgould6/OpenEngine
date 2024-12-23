@@ -11,9 +11,7 @@
 
 class Model {
 public:
-    Model(const std::string& path) {
-        loadModel(path);
-    }
+    Model(const std::string& path);
     void Draw(Shader& shader);
     glm::vec3 getBoundingBoxCenter() const;
     float getBoundingBoxRadius() const;

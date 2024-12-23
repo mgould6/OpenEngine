@@ -13,6 +13,7 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
+// Static variable definitions
 const int NUM_CASCADES = Renderer::NUM_CASCADES;
 float Renderer::cascadeSplits[NUM_CASCADES] = { 0.1f, 0.3f, 0.6f, 1.0f };
 unsigned int Renderer::depthMapFBO[NUM_CASCADES];
@@ -31,19 +32,28 @@ LightManager Renderer::lightManager;
 
 float Renderer::cameraSpeed = SPEED;
 float Renderer::lightIntensity = 1.0f;
-PhysicsManager Renderer::physicsManager; // Added PhysicsManager
+PhysicsManager Renderer::physicsManager;
 
-extern Model* myModel;
-extern unsigned int hdrFBO;
-extern unsigned int colorBuffers[2], pingpongFBO[2], pingpongBuffer[2];
-extern unsigned int SCR_WIDTH;
-extern unsigned int SCR_HEIGHT;
-extern unsigned int VAO;
+unsigned int Renderer::shadowMapTexture = 0;
 
-// Extern variables for cube and ground
-extern btRigidBody* cube;
-extern btRigidBody* ground;
+// Implementation for renderScene
+void Renderer::renderScene(const Shader& shader, unsigned int VAO) {
+    shader.use();
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 36); // Adjust vertex count if needed
+    glBindVertexArray(0);
+}
 
+// Implementation for setUniforms
+void Renderer::setUniforms(const Shader& shader, const glm::mat4& view, const glm::mat4& projection, const glm::vec3& viewPos) {
+    glm::mat4 model = glm::mat4(1.0f);
+    shader.setMat4("model", model);
+    shader.setMat4("view", view);
+    shader.setMat4("projection", projection);
+    shader.setVec3("viewPos", viewPos);
+}
+
+// Function Definitions
 void Renderer::createFramebuffer(unsigned int& framebuffer, unsigned int& texture, int width, int height, GLenum format) {
     glGenFramebuffers(1, &framebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
@@ -66,7 +76,6 @@ void Renderer::createFramebuffer(unsigned int& framebuffer, unsigned int& textur
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
-
 void Renderer::createPingPongFramebuffers(unsigned int* pingpongFBO, unsigned int* pingpongBuffer, int width, int height) {
     glGenFramebuffers(2, pingpongFBO);
     glGenTextures(2, pingpongBuffer);
@@ -83,8 +92,6 @@ void Renderer::createPingPongFramebuffers(unsigned int* pingpongFBO, unsigned in
         }
     }
 }
-
-
 
 void setLightUniforms(const Shader& shader) {
     shader.use();
@@ -121,7 +128,6 @@ void setLightUniforms(const Shader& shader) {
         shader.setFloat("spotlights[" + std::to_string(i) + "].quadratic", light.quadratic);
     }
 }
-
 std::vector<glm::vec4> getFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view) {
     const glm::mat4 inv = glm::inverse(proj * view);
     std::vector<glm::vec4> frustumCorners;
@@ -197,12 +203,13 @@ glm::mat4 Renderer::computeLightProjection(const std::vector<glm::vec4>& frustum
 
     return glm::ortho(min.x, max.x, min.y, max.y, min.z, max.z);
 }
-
 void Renderer::renderSceneWithShadows() {
     glm::vec3 lightDir = glm::vec3(0.5f, 1.0f, 0.3f);
 
+    // Calculate light-space matrices
     std::vector<glm::mat4> lightSpaceMatrices = getLightSpaceMatrices(camera.GetViewMatrix(), lightDir);
 
+    // Shadow pass
     for (int i = 0; i < NUM_CASCADES; ++i) {
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO[i]);
         glViewport(0, 0, 1024, 1024);
@@ -212,10 +219,12 @@ void Renderer::renderSceneWithShadows() {
         renderScene(*ShaderManager::depthShader, VAO);
     }
 
+    // Reset framebuffer
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // Lighting pass
     ShaderManager::lightingShader->use();
     for (int i = 0; i < NUM_CASCADES; ++i) {
         ShaderManager::lightingShader->setMat4("lightSpaceMatrix[" + std::to_string(i) + "]", lightSpaceMatrices[i]);
@@ -276,7 +285,6 @@ bool Renderer::initSSAO() {
 
     return true;
 }
-
 void Renderer::renderSSAO() {
     glBindFramebuffer(GL_FRAMEBUFFER, ssaoFBO);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -313,7 +321,6 @@ void Renderer::renderLightingWithSSAO(unsigned int ssaoColorBuffer) {
     renderQuad();
 }
 
-
 void Renderer::render(GLFWwindow* window, float deltaTime) {
     std::cout << "Renderer::render - Start" << std::endl;
 
@@ -324,31 +331,20 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     ShaderManager::lightingShader->use();
-    setUniforms(*ShaderManager::lightingShader);
+
+    // Define and calculate required matrices and vectors
+    glm::mat4 view = camera.GetViewMatrix(); // Ensure `camera` is accessible and initialized
+    glm::mat4 projection = camera.ProjectionMatrix;
+    glm::vec3 viewPos = camera.Position;
+
+    Renderer::setUniforms(*ShaderManager::lightingShader, view, projection, viewPos);
+
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, depthMap[0]);
 
-    // Render cube
-    for (btRigidBody* body : physicsManager.rigidBodies) {
-        btTransform trans;
-        if (body && body->getMotionState()) {
-            body->getMotionState()->getWorldTransform(trans);
-            float matrix[16];
-            trans.getOpenGLMatrix(matrix);
+    applyBloomEffect(*ShaderManager::brightExtractShader, *ShaderManager::blurShader, *ShaderManager::combineShader,
+        colorBuffers[0], colorBuffers[1], pingpongFBO, pingpongBuffer);
 
-            glm::mat4 modelMatrix = glm::make_mat4(matrix);
-            ShaderManager::lightingShader->setMat4("model", modelMatrix);
-
-            if (body == cube) {
-                renderCube(*ShaderManager::lightingShader);
-            }
-            else if (body == ground) {
-                renderPlane(*ShaderManager::lightingShader);
-            }
-        }
-    }
-
-    applyBloomEffect(*ShaderManager::brightExtractShader, *ShaderManager::blurShader, *ShaderManager::combineShader, colorBuffers[0], colorBuffers[1], pingpongFBO, pingpongBuffer);
     renderSSAO();
     renderLightingWithSSAO(ssaoColorBuffer);
 
@@ -370,13 +366,6 @@ void Renderer::render(GLFWwindow* window, float deltaTime) {
     std::cout << "Renderer::render - End" << std::endl;
 }
 
-
-void renderScene(const Shader& shader, unsigned int VAO) {
-    shader.use();
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    glBindVertexArray(0);
-}
 
 void renderQuad() {
     static unsigned int quadVAO = 0;
@@ -406,27 +395,9 @@ void renderQuad() {
     glBindVertexArray(0);
 }
 
-void setUniforms(const Shader& shader) {
-    glm::mat4 model = glm::mat4(1.0f);
-    glm::mat4 view = camera.GetViewMatrix();
-    glm::mat4 projection = camera.ProjectionMatrix;
 
-    glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.0f, 7.5f);
-    glm::vec3 lightPos = glm::vec3(2.0f, 4.0f, 2.0f);
-    glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    glm::mat4 lightSpaceMatrix = lightProjection * lightView;
-
-    shader.use();
-    shader.setMat4("model", model);
-    shader.setMat4("view", view);
-    shader.setMat4("projection", projection);
-    shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-    shader.setVec3("viewPos", camera.Position);
-    shader.setVec3("lightPos", lightPos);
-    shader.setInt("shadowMap", 1);
-}
-
-void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShader, const Shader& combineShader, unsigned int hdrBuffer, unsigned int bloomBuffer, unsigned int* pingpongFBO, unsigned int* pingpongBuffer) {
+void Renderer::applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShader, const Shader& combineShader,
+    unsigned int hdrBuffer, unsigned int bloomBuffer, unsigned int* pingpongFBO, unsigned int* pingpongBuffer) {
     glBindFramebuffer(GL_FRAMEBUFFER, bloomBuffer);
     glClear(GL_COLOR_BUFFER_BIT);
     brightExtractShader.use();
@@ -437,7 +408,7 @@ void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShade
     renderQuad();
 
     bool horizontal = true, first_iteration = true;
-    unsigned int amount = 10;
+    unsigned int amount = 10; // Adjust blur passes if needed
     blurShader.use();
     for (unsigned int i = 0; i < amount; i++) {
         glBindFramebuffer(GL_FRAMEBUFFER, pingpongFBO[horizontal]);
@@ -445,8 +416,7 @@ void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShade
         glBindTexture(GL_TEXTURE_2D, first_iteration ? bloomBuffer : pingpongBuffer[!horizontal]);
         renderQuad();
         horizontal = !horizontal;
-        if (first_iteration)
-            first_iteration = false;
+        if (first_iteration) first_iteration = false;
     }
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -461,7 +431,45 @@ void applyBloomEffect(const Shader& brightExtractShader, const Shader& blurShade
     renderQuad();
 }
 
+void Renderer::renderQuad() {
+    static unsigned int quadVAO = 0;
+    static unsigned int quadVBO;
+
+    if (quadVAO == 0) {
+        float quadVertices[] = {
+            // Positions          // Texture Coords
+            -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+            -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+             1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+
+            -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+             1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+             1.0f,  1.0f, 0.0f, 1.0f, 1.0f
+        };
+
+        glGenVertexArrays(1, &quadVAO);
+        glGenBuffers(1, &quadVBO);
+        glBindVertexArray(quadVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    }
+
+    glBindVertexArray(quadVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0);
+}
+
+
 void Renderer::InitializeImGui(GLFWwindow* window) {
+    if (ImGui::GetCurrentContext() != nullptr) {
+        Logger::log("ImGui already initialized. Skipping initialization.", Logger::WARNING);
+        return;
+    }
+
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -479,8 +487,6 @@ void Renderer::InitializeImGui(GLFWwindow* window) {
 
     Logger::log("ImGui initialized successfully.", Logger::INFO);
 }
-
-
 void Renderer::RenderImGui() {
     if (!ImGui::GetCurrentContext()) {
         Logger::log("ImGui context is not initialized. Skipping ImGui render.", Logger::ERROR);
@@ -517,7 +523,6 @@ void Renderer::ShutdownImGui() {
     Logger::log("ImGui shutdown completed.", Logger::INFO);
 }
 
-
 float Renderer::getCameraSpeed() {
     return cameraSpeed;
 }
@@ -534,19 +539,7 @@ void Renderer::setLightIntensity(float intensity) {
     lightIntensity = intensity;
 }
 
-void renderCube(const Shader& shader) {
-    shader.use();
-    glBindVertexArray(cubeVAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    glBindVertexArray(0);
-}
 
-void renderPlane(const Shader& shader) {
-    shader.use();
-    glBindVertexArray(planeVAO);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    glBindVertexArray(0);
-}
 void Renderer::BeginFrame() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

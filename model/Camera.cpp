@@ -91,3 +91,7 @@ void Camera::setCameraToFitModel(const Model& model) {
 void Camera::setMovementSpeed(float speed) {
     MovementSpeed = speed;
 }
+
+void Camera::SetPerspective(float fov, float aspectRatio, float nearPlane, float farPlane) {
+    ProjectionMatrix = glm::perspective(fov, aspectRatio, nearPlane, farPlane);
+}

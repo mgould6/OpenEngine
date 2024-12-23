@@ -31,7 +31,21 @@ Shader* ShaderManager::loadAndCompileShader(const char* vertexPath, const char* 
 }
 
 bool ShaderManager::initShaders() {
-    lightingShader = loadAndCompileShader("shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs");
+
+    if (lightingShader) {
+        Logger::log("lightingShader already initialized.", Logger::WARNING);
+        return true;
+    }
+    lightingShader = loadAndCompileShader("shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs");   
+    if (!lightingShader) {
+        Logger::log("Failed to initialize shaders.", Logger::ERROR);
+        return false;
+    }
+    Logger::log("lightingShader initialized successfully.", Logger::INFO);
+
+
+    brightExtractShader = loadAndCompileShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
+
     depthShader = loadAndCompileShader("shaders/depth/depth_vertex_shader.vs", "shaders/depth/depth_fragment_shader.fs");
     postProcessingShader = loadAndCompileShader("shaders/post_processing/post_processing.vs", "shaders/post_processing/post_processing.fs");
     brightExtractShader = loadAndCompileShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");

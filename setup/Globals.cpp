@@ -2,10 +2,7 @@
 #include "../render_utils/Renderer.h"
 
 // Define other global variables
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-Model* myModel = nullptr;
-float deltaTime = 0.0f;
-float lastFrame = 0.0f;
+
 unsigned int depthMapFBO[Renderer::NUM_CASCADES];
 unsigned int hdrFBO;
 unsigned int depthMap[Renderer::NUM_CASCADES];

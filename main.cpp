@@ -25,43 +25,65 @@ unsigned int planeVAO, planeVBO;
 btRigidBody* cube;
 btRigidBody* ground;
 
-// main.cpp
-int main() {
-    GLFWwindow* window;
+// Callback for window close event
+void windowCloseCallback(GLFWwindow* window) {
+    Logger::log("Window close event triggered.", Logger::INFO);
+    glfwSetWindowShouldClose(window, GLFW_TRUE);
+}
 
-    if (!initializeGraphics(window)) {
+int main() {
+    // Initialize GLFW
+    if (!glfwInit()) {
+        Logger::log("Failed to initialize GLFW.", Logger::ERROR);
         return -1;
     }
 
-    // Initialize Scene
-    SceneTest2(window);
+    // Set GLFW window hints
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    // Variables to keep track of FPS
-    int frameCount = 0;
-    double fpsStartTime = glfwGetTime();
-    const double fpsUpdateInterval = 0.01; // Update FPS every .1 seconds
-
-    while (!glfwWindowShouldClose(window)) {
-        float currentFrame = static_cast<float>(glfwGetTime());
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
-
-        frameCount++;
-
-        // Calculate and print FPS
-        if (currentFrame - fpsStartTime >= fpsUpdateInterval) {
-            double fps = frameCount / fpsUpdateInterval;
-            std::cout << "FPS: " << fps << std::endl;
-            frameCount = 0;
-            fpsStartTime = currentFrame;
-        }
-
-        InputManager::processInput(window, deltaTime);
-        camera.MovementSpeed = Renderer::getCameraSpeed();
-        Renderer::render(window, deltaTime);
+    // Create the window
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL Game Engine", nullptr, nullptr);
+    if (!window) {
+        Logger::log("Failed to create GLFW window.", Logger::ERROR);
+        glfwTerminate();
+        return -1;
     }
 
+    glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetWindowCloseCallback(window, windowCloseCallback);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        Logger::log("Failed to initialize GLAD.", Logger::ERROR);
+        return -1;
+    }
+
+    // Initialize ImGui (only once)
+    Renderer::InitializeImGui(window);
+
+    // Initialize Shaders
+    if (!ShaderManager::initShaders()) {
+        Logger::log("Shader initialization failed.", Logger::ERROR);
+        glfwDestroyWindow(window);
+        glfwTerminate();
+        return -1;
+    }
+
+    // Initialize Physics
+    PhysicsManager physicsManager;
+    physicsManager.Initialize();
+
+    // Run the scene
+    SceneTest2(window);
+
+    // Shutdown ImGui
     Renderer::ShutdownImGui();
-    cleanupResources();
+
+    // Cleanup
+    glfwDestroyWindow(window);
+    glfwTerminate();
+
     return 0;
 }
