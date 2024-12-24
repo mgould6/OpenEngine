@@ -54,6 +54,7 @@ int main() {
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetWindowCloseCallback(window, windowCloseCallback);
+    glfwSetCursorPosCallback(window, InputManager::mouseCallback);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         Logger::log("Failed to initialize GLAD.", Logger::ERROR);

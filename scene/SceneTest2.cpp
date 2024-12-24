@@ -7,8 +7,10 @@
 #include "../model/Model.h"
 #include "../render_utils/Renderer.h"
 #include "../setup/Globals.h"
+#include "../input/InputManager.h" // Include the InputManager
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+// Global variables
+Camera camera(glm::vec3(0.0f, 1.0f, 10.0f)); // Start further back to see the entire model
 float lastFrame = 0.0f;
 float deltaTime = 0.0f;
 Model* myModel = nullptr;
@@ -17,7 +19,7 @@ void SceneTest2(GLFWwindow* window) {
     Logger::log("Entering SceneTest2.", Logger::INFO);
 
     if (!myModel) {
-        myModel = new Model("Character Template F.fbx");
+        myModel = new Model("Character Template F new.fbx");
         if (!myModel) {
             Logger::log("Failed to load model.", Logger::ERROR);
             return;
@@ -26,6 +28,9 @@ void SceneTest2(GLFWwindow* window) {
             Logger::log("Model loaded successfully.", Logger::INFO);
         }
     }
+
+    // Set up InputManager with the camera
+    InputManager::setCamera(&camera);
 
     // Set up camera perspective
     camera.SetPerspective(glm::radians(45.0f), SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
@@ -36,10 +41,13 @@ void SceneTest2(GLFWwindow* window) {
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        Logger::log("Beginning frame.", Logger::INFO);
 
+        Logger::log("Processing input.", Logger::INFO);
+        InputManager::processInput(window, deltaTime); // Process camera controls
+
+        Logger::log("Beginning frame.", Logger::INFO);
         Renderer::BeginFrame();
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  // Clear buffers for the frame
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear buffers for the frame
         Renderer::RenderImGui();
 
         Shader* activeShader = ShaderManager::lightingShader;
