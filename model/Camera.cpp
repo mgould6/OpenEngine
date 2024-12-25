@@ -35,10 +35,11 @@ void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime) {
     if (direction == RIGHT)
         Position += Right * velocity;
     if (direction == UP)
-        Position += Up * velocity;
+        Position += Up * velocity;  // Use the dynamic camera Up vector
     if (direction == DOWN)
-        Position -= Up * velocity;
+        Position -= Up * velocity;  // Use the dynamic camera Up vector
 }
+
 
 void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch) {
     xoffset *= MouseSensitivity;
