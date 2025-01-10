@@ -19,7 +19,7 @@ void SceneTest2(GLFWwindow* window) {
     Logger::log("Entering SceneTest2.", Logger::INFO);
 
     if (!myModel) {
-        myModel = new Model("Character Template F new.fbx");
+        myModel = new Model("Character Template F3.fbx");
         if (!myModel) {
             Logger::log("Failed to load model.", Logger::ERROR);
             return;
@@ -33,7 +33,7 @@ void SceneTest2(GLFWwindow* window) {
     InputManager::setCamera(&camera);
 
     // Set up camera perspective
-    camera.SetPerspective(glm::radians(45.0f), SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
+    camera.SetPerspective(glm::radians(90.0f), SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
 
     glEnable(GL_DEPTH_TEST);
 

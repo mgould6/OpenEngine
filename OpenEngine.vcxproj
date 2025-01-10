@@ -154,6 +154,7 @@
     <None Include=".gitignore" />
     <None Include="assimp-vc143-mt.dll" />
     <None Include="Character Template F.fbx" />
+    <None Include="Character Template F3.fbx" />
     <None Include="shaders\post_processing\blur.fs" />
     <None Include="shaders\post_processing\blur.vs" />
     <None Include="shaders\post_processing\bright_extract.fs" />
