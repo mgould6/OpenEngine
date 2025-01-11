@@ -10,7 +10,7 @@
 #include "../input/InputManager.h" // Include the InputManager
 
 // Global variables
-Camera camera(glm::vec3(0.0f, 1.0f, 10.0f)); // Start further back to see the entire model
+Camera camera; // Default constructor, position will be set dynamically
 float lastFrame = 0.0f;
 float deltaTime = 0.0f;
 Model* myModel = nullptr;
@@ -29,11 +29,21 @@ void SceneTest2(GLFWwindow* window) {
         }
     }
 
+    // Automatically position and orient the camera to frame the model
+    if (myModel) {
+        camera.setCameraToFitModel(*myModel);
+        Logger::log("Camera positioned to frame the model.", Logger::INFO);
+    }
+    else {
+        camera = Camera(glm::vec3(0.0f, 1.0f, 10.0f)); // Fallback to default position
+        Logger::log("Model not loaded. Using default camera position.", Logger::WARNING);
+    }
+
     // Set up InputManager with the camera
     InputManager::setCamera(&camera);
 
     // Set up camera perspective
-    camera.SetPerspective(glm::radians(90.0f), SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
+    camera.SetPerspective(glm::radians(60.0f), SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
 
     glEnable(GL_DEPTH_TEST);
 
@@ -58,7 +68,7 @@ void SceneTest2(GLFWwindow* window) {
                 glm::lookAt(glm::vec3(2.0f, 4.0f, 2.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
             activeShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-            activeShader->setFloat("lightIntensity", 1.0f);
+            activeShader->setFloat("lightIntensity", Renderer::getLightIntensity());
             activeShader->setInt("pcfKernelSize", 1);
             activeShader->setFloat("shadowBias", 0.005f);
             activeShader->setMat4("view", camera.GetViewMatrix());

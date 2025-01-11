@@ -47,10 +47,12 @@ void Renderer::renderScene(const Shader& shader, unsigned int VAO) {
 // Implementation for setUniforms
 void Renderer::setUniforms(const Shader& shader, const glm::mat4& view, const glm::mat4& projection, const glm::vec3& viewPos) {
     glm::mat4 model = glm::mat4(1.0f);
+
     shader.setMat4("model", model);
     shader.setMat4("view", view);
     shader.setMat4("projection", projection);
     shader.setVec3("viewPos", viewPos);
+
 }
 
 // Function Definitions
@@ -226,6 +228,8 @@ void Renderer::renderSceneWithShadows() {
 
     // Lighting pass
     ShaderManager::lightingShader->use();
+    ShaderManager::lightingShader->setFloat("lightIntensity", Renderer::getLightIntensity());
+
     for (int i = 0; i < NUM_CASCADES; ++i) {
         ShaderManager::lightingShader->setMat4("lightSpaceMatrix[" + std::to_string(i) + "]", lightSpaceMatrices[i]);
         ShaderManager::lightingShader->setFloat("cascadeSplits[" + std::to_string(i) + "]", cascadeSplits[i]);
