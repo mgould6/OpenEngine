@@ -5,7 +5,10 @@
 #include <sstream>
 #include <iostream>
 
+// Static shader definitions
 Shader* ShaderManager::lightingShader = nullptr;
+Shader* ShaderManager::shadowShader = nullptr;
+
 Shader* ShaderManager::depthShader = nullptr;
 Shader* ShaderManager::postProcessingShader = nullptr;
 Shader* ShaderManager::brightExtractShader = nullptr;
@@ -13,6 +16,7 @@ Shader* ShaderManager::blurShader = nullptr;
 Shader* ShaderManager::combineShader = nullptr;
 Shader* ShaderManager::ssaoShader = nullptr;
 Shader* ShaderManager::toneMappingShader = nullptr;
+std::vector<Shader*> ShaderManager::allShaders;
 
 Shader* ShaderManager::loadShader(const char* vertexPath, const char* fragmentPath) {
     Shader* shader = new Shader(vertexPath, fragmentPath);
@@ -31,37 +35,47 @@ Shader* ShaderManager::loadAndCompileShader(const char* vertexPath, const char* 
 }
 
 bool ShaderManager::initShaders() {
-
-    if (lightingShader) {
-        Logger::log("lightingShader already initialized.", Logger::WARNING);
+    if (!allShaders.empty()) {
+        Logger::log("Shaders already initialized.", Logger::WARNING);
         return true;
     }
-    lightingShader = loadAndCompileShader("shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs");   
-    if (!lightingShader) {
-        Logger::log("Failed to initialize shaders.", Logger::ERROR);
+
+    // Load and store shaders
+    lightingShader = loadAndCompileShader("shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs");
+    if (lightingShader) allShaders.push_back(lightingShader);
+
+    //shadowShader = loadAndCompileShader("shaders/shadow/shadow_vertex_shader.vs", "shaders/shadow/shadow_fragment_shader.fs");
+    //if (lightingShader) allShaders.push_back(lightingShader);
+
+    //depthShader = loadAndCompileShader("shaders/depth/depth_vertex_shader.vs", "shaders/depth/depth_fragment_shader.fs");
+    //if (depthShader) allShaders.push_back(depthShader);
+
+    //postProcessingShader = loadAndCompileShader("shaders/post_processing/post_processing.vs", "shaders/post_processing/post_processing.fs");
+    //if (postProcessingShader) allShaders.push_back(postProcessingShader);
+
+    //brightExtractShader = loadAndCompileShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
+    //if (brightExtractShader) allShaders.push_back(brightExtractShader);
+
+    //blurShader = loadAndCompileShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
+    //if (blurShader) allShaders.push_back(blurShader);
+
+    //combineShader = loadAndCompileShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
+    //if (combineShader) allShaders.push_back(combineShader);
+
+    //ssaoShader = loadAndCompileShader("shaders/post_processing/ssao.vs", "shaders/post_processing/ssao.fs");
+    //if (ssaoShader) allShaders.push_back(ssaoShader);
+
+    //toneMappingShader = loadAndCompileShader("shaders/post_processing/tone_mapping.vs", "shaders/post_processing/tone_mapping.fs");
+    //if (toneMappingShader) allShaders.push_back(toneMappingShader);
+
+    if (allShaders.empty()) {
+        Logger::log("No shaders initialized.", Logger::ERROR);
         return false;
     }
-    Logger::log("lightingShader initialized successfully.", Logger::INFO);
 
-
-    brightExtractShader = loadAndCompileShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
-
-    depthShader = loadAndCompileShader("shaders/depth/depth_vertex_shader.vs", "shaders/depth/depth_fragment_shader.fs");
-    postProcessingShader = loadAndCompileShader("shaders/post_processing/post_processing.vs", "shaders/post_processing/post_processing.fs");
-    brightExtractShader = loadAndCompileShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
-    blurShader = loadAndCompileShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
-    combineShader = loadAndCompileShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
-    ssaoShader = loadAndCompileShader("shaders/post_processing/ssao.vs", "shaders/post_processing/ssao.fs");
-    toneMappingShader = loadAndCompileShader("shaders/post_processing/tone_mapping.vs", "shaders/post_processing/tone_mapping.fs");
-
-    if (!lightingShader || !depthShader || !postProcessingShader || !brightExtractShader ||
-        !blurShader || !combineShader || !ssaoShader || !toneMappingShader) {
-        Logger::log("Failed to initialize shaders", Logger::ERROR);
-        return false;
-    }
+    Logger::log("Shaders initialized successfully.", Logger::INFO);
     return true;
 }
-
 
 void ShaderManager::checkShaderCompileErrors(unsigned int shader, const std::string& type) {
     int success;
