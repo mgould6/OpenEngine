@@ -8,6 +8,7 @@
 class Logger {
 public:
     enum Level {
+        DEBUG,
         INFO,
         WARNING,
         ERROR

@@ -89,6 +89,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,6 +107,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,6 +125,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,6 +143,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -208,6 +212,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\OpenGL\glad\src\glad.c" />
+    <ClCompile Include="animation\Animation.cpp" />
+    <ClCompile Include="animation\AnimationController.cpp" />
+    <ClCompile Include="animation\DebugTools.cpp" />
     <ClCompile Include="cleanup\Cleanup.cpp" />
     <ClCompile Include="scene\SceneTest2.cpp" />
     <ClCompile Include="setup\Globals.cpp" />
@@ -229,6 +236,9 @@
     <ClCompile Include="common_utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animation\Animation.h" />
+    <ClInclude Include="animation\AnimationController.h" />
+    <ClInclude Include="animation\DebugTools.h" />
     <ClInclude Include="cleanup\Cleanup.h" />
     <ClInclude Include="scene\SceneTest2.h" />
     <ClInclude Include="setup\Globals.h" />

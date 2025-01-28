@@ -1,12 +1,13 @@
+#define GLM_ENABLE_EXPERIMENTAL
+// Updated Model.cpp
 #include "Model.h"
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
-#include <limits>
+#include <glm/gtx/matrix_decompose.hpp>
 #include "../common_utils/Logger.h"
 
 Model::Model(const std::string& path) {
     Logger::log("Loading model from path: " + path, Logger::INFO);
-    // Assume LoadModel(path) loads meshes into `meshes` vector
     loadModel(path);
     Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
 }
@@ -16,12 +17,11 @@ void Model::loadModel(const std::string& path) {
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-        std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
+        Logger::log("ERROR::ASSIMP::" + std::string(importer.GetErrorString()), Logger::ERROR);
         return;
     }
 
     directory = path.substr(0, path.find_last_of('/'));
-
     processNode(scene->mRootNode, scene);
 }
 
@@ -30,6 +30,7 @@ void Model::processNode(aiNode* node, const aiScene* scene) {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
         meshes.push_back(processMesh(mesh, scene));
     }
+
     for (unsigned int i = 0; i < node->mNumChildren; i++) {
         processNode(node->mChildren[i], scene);
     }
@@ -59,16 +60,18 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
 
     for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
         aiFace face = mesh->mFaces[i];
-        for (unsigned int j = 0; j < face.mNumIndices; j++)
+        for (unsigned int j = 0; j < face.mNumIndices; j++) {
             indices.push_back(face.mIndices[j]);
+        }
     }
 
     return Mesh(vertices, indices, textures);
 }
 
 void Model::Draw(Shader& shader) {
-    for (unsigned int i = 0; i < meshes.size(); i++)
-        meshes[i].Draw(shader);
+    for (auto& mesh : meshes) {
+        mesh.Draw(shader);
+    }
 }
 
 glm::vec3 Model::getBoundingBoxCenter() const {
@@ -91,4 +94,22 @@ float Model::getBoundingBoxRadius() const {
         }
     }
     return glm::distance(min, max) / 2.0f;
+}
+
+const std::vector<Bone>& Model::getBones() const {
+    return bones;
+}
+
+const std::unordered_map<std::string, glm::mat4>& Model::getBoneTransforms() const {
+    return boneTransforms;
+}
+
+void Model::setBoneTransform(const std::string& boneName, const glm::mat4& transform) {
+    boneTransforms[boneName] = transform;
+}
+
+const glm::mat4& Model::getBoneTransform(const std::string& boneName) const {
+    static const glm::mat4 identity = glm::mat4(1.0f);
+    auto it = boneTransforms.find(boneName);
+    return it != boneTransforms.end() ? it->second : identity;
 }

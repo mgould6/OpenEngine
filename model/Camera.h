@@ -1,3 +1,4 @@
+#define GLM_ENABLE_EXPERIMENTAL
 #ifndef CAMERA_H
 #define CAMERA_H
 
@@ -43,7 +44,7 @@ public:
 
     void setCameraToFitModel(const Model& model);
 
-    glm::mat4 GetViewMatrix();
+    glm::mat4 GetViewMatrix() const;
     void SetPerspective(float fov, float aspectRatio, float nearPlane, float farPlane);
 
     void ProcessKeyboard(Camera_Movement direction, float deltaTime);
