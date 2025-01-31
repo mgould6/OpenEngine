@@ -72,6 +72,14 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
         }
     }
 
+    for (auto& vertex : vertices) {
+        float weightSum = vertex.Weights[0] + vertex.Weights[1] + vertex.Weights[2] + vertex.Weights[3];
+        if (weightSum > 0.0f) {
+            vertex.Weights /= weightSum; // Normalize
+        }
+    }
+
+
     // Process bone weights
     if (mesh->mNumBones > 0) {
         Logger::log("Debug: Processing " + std::to_string(mesh->mNumBones) + " bones.", Logger::INFO);
@@ -117,7 +125,7 @@ void Model::Draw(Shader& shader) {
             boneMatrices.push_back(getBoneTransform(bone.name));
         }
         glUniformMatrix4fv(boneMatrixLocation, boneMatrices.size(), GL_FALSE, &boneMatrices[0][0][0]);
-        Logger::log("Debug: Bone transforms sent to shader.", Logger::INFO);
+        Logger::log("Debug: Bone transforms sent to shader. Count: " + std::to_string(boneMatrices.size()), Logger::INFO);
     }
 
     for (auto& mesh : meshes) {
@@ -158,9 +166,18 @@ const std::unordered_map<std::string, glm::mat4>& Model::getBoneTransforms() con
 
 void Model::setBoneTransform(const std::string& boneName, const glm::mat4& transform) {
     boneTransforms[boneName] = transform;
-    Logger::log("Debug: Bone " + boneName + " transform set.", Logger::INFO);
 
+    Logger::log("Debug: Bone " + boneName + " Transform Set: " +
+        "Pos: " + std::to_string(transform[3][0]) + ", " +
+        std::to_string(transform[3][1]) + ", " +
+        std::to_string(transform[3][2]) +
+        " | Scale: " + std::to_string(transform[0][0]) + ", " +
+        std::to_string(transform[1][1]) + ", " +
+        std::to_string(transform[2][2]), Logger::INFO);
 }
+
+
+
 
 const glm::mat4& Model::getBoneTransform(const std::string& boneName) const {
     static const glm::mat4 identity = glm::mat4(1.0f);

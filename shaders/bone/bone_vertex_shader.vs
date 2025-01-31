@@ -8,7 +8,7 @@ layout (location = 4) in vec4 aWeights;  // Bone weights
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-uniform mat4 boneTransforms[100]; // Max 100 bones
+uniform mat4 boneTransforms[100];
 
 out vec3 FragPos;
 out vec3 Normal;
@@ -21,9 +21,16 @@ void main() {
                          boneTransforms[aBoneIDs[3]] * aWeights[3];
 
     vec4 animatedPosition = boneTransform * vec4(aPos, 1.0);
-    gl_Position = projection * view * model * animatedPosition;
 
-    FragPos = vec3(model * vec4(aPos, 1.0));
-    Normal = mat3(transpose(inverse(model))) * aNormal;
-    TexCoords = aTexCoords;
+    // Debugging: If vertex position is NaN, force it to zero
+    if (isnan(animatedPosition.x) || isnan(animatedPosition.y) || isnan(animatedPosition.z)) {
+        animatedPosition = vec4(0.0, 0.0, 0.0, 1.0);
+    }
+
+    // Debugging: If all positions are zero, force vertex up
+    if (animatedPosition.x == 0.0 && animatedPosition.y == 0.0 && animatedPosition.z == 0.0) {
+        animatedPosition.y = 1.0;
+    }
+
+    gl_Position = projection * view * model * animatedPosition;
 }

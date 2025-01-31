@@ -86,25 +86,46 @@ void SceneTest2(GLFWwindow* window) {
             Logger::log("Debug: AnimationController is NULL", Logger::ERROR);
         }
 
-        // Render model with shaders
-        for (Shader* activeShader : ShaderManager::allShaders) {
-            if (!activeShader) continue;
+        // Select the correct shader
+        Shader* activeShader = nullptr;
+        if (!myModel->getBones().empty() && ShaderManager::boneShader) {
+            activeShader = ShaderManager::boneShader;
+            Logger::log("Debug: Using bone shader.", Logger::INFO);
+        }
+        else {
+            activeShader = ShaderManager::lightingShader;
+            Logger::log("Debug: Using lighting shader.", Logger::INFO);
+        }
 
-            activeShader->use();
+        // Check if boneTransforms uniform exists in shader
+        if (ShaderManager::boneShader->hasUniform("boneTransforms")) {
+            Logger::log("Debug: boneTransforms uniform found in bone shader.", Logger::INFO);
+        }
+        else {
+            Logger::log("Error: boneTransforms uniform NOT found in bone shader!", Logger::ERROR);
+        }
 
-            glm::mat4 lightSpaceMatrix = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.1f, 100.0f) *
-                glm::lookAt(glm::vec3(2.0f, 4.0f, 2.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-            if (activeShader->hasUniform("lightSpaceMatrix")) {
-                activeShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
-            }
-            if (activeShader->hasUniform("lightIntensity")) {
-                activeShader->setFloat("lightIntensity", Renderer::getLightIntensity());
-            }
-            activeShader->setMat4("view", camera.GetViewMatrix());
-            activeShader->setMat4("projection", camera.ProjectionMatrix);
-            activeShader->setMat4("model", glm::mat4(1.0f));
+        // Ensure the shader is being used
+        activeShader->use();
 
-            myModel->Draw(*activeShader);
+        // Set shader uniforms before drawing
+        activeShader->setMat4("view", camera.GetViewMatrix());
+        activeShader->setMat4("projection", camera.ProjectionMatrix);  // Remove ()
+        activeShader->setMat4("model", glm::mat4(1.0f));
+
+
+        // Draw the model
+        myModel->Draw(*activeShader);
+
+        // Light space matrix setup
+        glm::mat4 lightSpaceMatrix = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.1f, 100.0f) *
+            glm::lookAt(glm::vec3(2.0f, 4.0f, 2.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+        if (activeShader->hasUniform("lightSpaceMatrix")) {
+            activeShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
+        }
+        if (activeShader->hasUniform("lightIntensity")) {
+            activeShader->setFloat("lightIntensity", Renderer::getLightIntensity());
         }
 
         // Debug visualization for bones (optional)

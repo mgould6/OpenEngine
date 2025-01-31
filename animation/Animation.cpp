@@ -32,17 +32,24 @@ void Animation::apply(float animationTime, Model* model) {
         }
     }
 
-    Logger::log("Debug: Interpolating between keyframes at time: " + std::to_string(animationTime), Logger::INFO);
+    Logger::log("Debug: Interpolating keyframes at time: " + std::to_string(animationTime), Logger::INFO);
 
     for (const auto& [boneName, transform1] : kf1.boneTransforms) {
         glm::mat4 transform2 = kf2.boneTransforms.at(boneName);
         glm::mat4 interpolatedTransform = interpolateKeyframes(transform1, transform2, factor);
 
-        Logger::log("Debug: Applying transform to bone: " + boneName, Logger::INFO);
+        Logger::log("Debug: Applying transform to bone: " + boneName +
+            " | Pos: " + std::to_string(interpolatedTransform[3][0]) + ", " +
+            std::to_string(interpolatedTransform[3][1]) + ", " +
+            std::to_string(interpolatedTransform[3][2]) +
+            " | Scale: " + std::to_string(interpolatedTransform[0][0]) + ", " +
+            std::to_string(interpolatedTransform[1][1]) + ", " +
+            std::to_string(interpolatedTransform[2][2]), Logger::INFO);
 
         model->setBoneTransform(boneName, interpolatedTransform);
     }
 }
+
 
 void Animation::loadAnimation(const std::string& filePath) {
     Logger::log("Loading animation from: " + filePath, Logger::INFO);
