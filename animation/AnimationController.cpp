@@ -42,11 +42,16 @@ void AnimationController::update(float deltaTime) {
     if (animationTime > currentAnimation->getDuration()) {
         animationTime = std::fmod(animationTime, currentAnimation->getDuration());
     }
+
+    Logger::log("Debug: Animation time updated to: " + std::to_string(animationTime), Logger::INFO);
+
 }
 
 void AnimationController::applyToModel(Model* model) {
     if (currentAnimation) {
         currentAnimation->apply(animationTime, model);
+        Logger::log("Debug: Applying animation to model at time: " + std::to_string(animationTime), Logger::INFO);
+
     }
 }
 

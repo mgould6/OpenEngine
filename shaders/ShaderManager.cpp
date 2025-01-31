@@ -16,6 +16,8 @@ Shader* ShaderManager::blurShader = nullptr;
 Shader* ShaderManager::combineShader = nullptr;
 Shader* ShaderManager::ssaoShader = nullptr;
 Shader* ShaderManager::toneMappingShader = nullptr;
+Shader* ShaderManager::boneShader = nullptr;
+
 std::vector<Shader*> ShaderManager::allShaders;
 
 Shader* ShaderManager::loadShader(const char* vertexPath, const char* fragmentPath) {
@@ -44,6 +46,10 @@ bool ShaderManager::initShaders() {
     lightingShader = loadAndCompileShader("shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs");
     if (lightingShader) allShaders.push_back(lightingShader);
 
+
+    boneShader = loadAndCompileShader("shaders/bone/bone_vertex_shader.vs", "shaders/bone/bone_fragment_shader.fs");
+    if (boneShader) allShaders.push_back(boneShader);
+    
     //shadowShader = loadAndCompileShader("shaders/shadow/shadow_vertex_shader.vs", "shaders/shadow/shadow_fragment_shader.fs");
     //if (lightingShader) allShaders.push_back(lightingShader);
 

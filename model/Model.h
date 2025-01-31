@@ -41,6 +41,8 @@ private:
 
     std::vector<Bone> bones;
     std::unordered_map<std::string, glm::mat4> boneTransforms;
+    std::unordered_map<std::string, int> boneMapping;
+
 };
 
 #endif // MODEL_H

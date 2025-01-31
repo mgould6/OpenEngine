@@ -32,9 +32,14 @@ void Animation::apply(float animationTime, Model* model) {
         }
     }
 
+    Logger::log("Debug: Interpolating between keyframes at time: " + std::to_string(animationTime), Logger::INFO);
+
     for (const auto& [boneName, transform1] : kf1.boneTransforms) {
         glm::mat4 transform2 = kf2.boneTransforms.at(boneName);
         glm::mat4 interpolatedTransform = interpolateKeyframes(transform1, transform2, factor);
+
+        Logger::log("Debug: Applying transform to bone: " + boneName, Logger::INFO);
+
         model->setBoneTransform(boneName, interpolatedTransform);
     }
 }

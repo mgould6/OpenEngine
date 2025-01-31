@@ -45,19 +45,26 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
         Vertex vertex;
         glm::vec3 vector;
 
+        // Extract position
         vector.x = mesh->mVertices[i].x;
         vector.y = mesh->mVertices[i].y;
         vector.z = mesh->mVertices[i].z;
         vertex.Position = vector;
 
+        // Extract normals
         vector.x = mesh->mNormals[i].x;
         vector.y = mesh->mNormals[i].y;
         vector.z = mesh->mNormals[i].z;
         vertex.Normal = vector;
 
+        // Initialize bone weights to zero
+        vertex.BoneIDs = glm::ivec4(0);
+        vertex.Weights = glm::vec4(0.0f);
+
         vertices.push_back(vertex);
     }
 
+    // Extract indices
     for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
         aiFace face = mesh->mFaces[i];
         for (unsigned int j = 0; j < face.mNumIndices; j++) {
@@ -65,14 +72,59 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
         }
     }
 
+    // Process bone weights
+    if (mesh->mNumBones > 0) {
+        Logger::log("Debug: Processing " + std::to_string(mesh->mNumBones) + " bones.", Logger::INFO);
+    }
+
+    for (unsigned int i = 0; i < mesh->mNumBones; i++) {
+        aiBone* bone = mesh->mBones[i];
+        std::string boneName = bone->mName.C_Str();
+
+        if (boneMapping.find(boneName) == boneMapping.end()) {
+            boneMapping[boneName] = static_cast<int>(bones.size());
+            bones.push_back(Bone{ boneName, "" });
+        }
+
+        int boneIndex = boneMapping[boneName];
+        for (unsigned int j = 0; j < bone->mNumWeights; j++) {
+            unsigned int vertexID = bone->mWeights[j].mVertexId;
+            float weight = bone->mWeights[j].mWeight;
+
+            for (int k = 0; k < 4; k++) {
+                if (vertices[vertexID].Weights[k] == 0.0f) {
+                    vertices[vertexID].BoneIDs[k] = boneIndex;
+                    vertices[vertexID].Weights[k] = weight;
+                    break;
+                }
+            }
+        }
+    }
+
     return Mesh(vertices, indices, textures);
 }
 
+
 void Model::Draw(Shader& shader) {
+    // Ensure bone transforms are sent to the shader
+    unsigned int boneMatrixLocation = glGetUniformLocation(shader.ID, "boneTransforms");
+    if (boneMatrixLocation == -1) {
+        Logger::log("Warning: Shader does not have 'boneTransforms' uniform!", Logger::WARNING);
+    }
+    else {
+        std::vector<glm::mat4> boneMatrices;
+        for (const auto& bone : bones) {
+            boneMatrices.push_back(getBoneTransform(bone.name));
+        }
+        glUniformMatrix4fv(boneMatrixLocation, boneMatrices.size(), GL_FALSE, &boneMatrices[0][0][0]);
+        Logger::log("Debug: Bone transforms sent to shader.", Logger::INFO);
+    }
+
     for (auto& mesh : meshes) {
         mesh.Draw(shader);
     }
 }
+
 
 glm::vec3 Model::getBoundingBoxCenter() const {
     glm::vec3 min(FLT_MAX), max(-FLT_MAX);
@@ -106,6 +158,8 @@ const std::unordered_map<std::string, glm::mat4>& Model::getBoneTransforms() con
 
 void Model::setBoneTransform(const std::string& boneName, const glm::mat4& transform) {
     boneTransforms[boneName] = transform;
+    Logger::log("Debug: Bone " + boneName + " transform set.", Logger::INFO);
+
 }
 
 const glm::mat4& Model::getBoneTransform(const std::string& boneName) const {

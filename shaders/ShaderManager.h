@@ -10,7 +10,7 @@ public:
     // Static shader pointers
     static Shader* lightingShader;
     static Shader* shadowShader;
-
+    static Shader* boneShader;
     static Shader* depthShader;
     static Shader* postProcessingShader;
     static Shader* brightExtractShader;

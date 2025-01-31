@@ -62,9 +62,29 @@ void SceneTest2(GLFWwindow* window) {
         Renderer::BeginFrame();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Update animation
-        animationController->update(deltaTime);
-        animationController->applyToModel(myModel);
+        if (!animationController) {
+            Logger::log("Debug: Creating AnimationController", Logger::INFO);
+            animationController = new AnimationController(myModel);
+
+            if (!animationController->loadAnimation("Idle", "animations/idle.fbx")) {
+                Logger::log("Debug: Failed to load Idle animation.", Logger::ERROR);
+            }
+            else {
+                Logger::log("Debug: Successfully loaded Idle animation.", Logger::INFO);
+            }
+        }
+
+        // Debug: Check if animationController exists
+        if (animationController) {
+            Logger::log("Debug: Calling animation update", Logger::INFO);
+            animationController->update(deltaTime);
+
+            Logger::log("Debug: Calling applyToModel", Logger::INFO);
+            animationController->applyToModel(myModel);
+        }
+        else {
+            Logger::log("Debug: AnimationController is NULL", Logger::ERROR);
+        }
 
         // Render model with shaders
         for (Shader* activeShader : ShaderManager::allShaders) {

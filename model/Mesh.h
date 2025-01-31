@@ -15,6 +15,10 @@ struct Texture {
 struct Vertex {
     glm::vec3 Position;
     glm::vec3 Normal;
+    glm::vec2 TexCoords;
+    glm::ivec4 BoneIDs = glm::ivec4(0);  // Bone indices (up to 4 influences per vertex)
+    glm::vec4 Weights = glm::vec4(0.0f); // Bone weights (corresponding to BoneIDs)
+
 };
 
 class Mesh {
