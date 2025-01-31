@@ -128,10 +128,30 @@ void Model::Draw(Shader& shader) {
         Logger::log("Debug: Bone transforms sent to shader. Count: " + std::to_string(boneMatrices.size()), Logger::INFO);
     }
 
+    // Debug: Log first vertex position to verify data is valid
+    if (!meshes.empty() && !meshes[0].vertices.empty()) {
+        const Vertex& firstVertex = meshes[0].vertices[0];
+        Logger::log("Debug: First Vertex Position: " +
+            std::to_string(firstVertex.Position.x) + ", " +
+            std::to_string(firstVertex.Position.y) + ", " +
+            std::to_string(firstVertex.Position.z), Logger::INFO);
+
+        Logger::log("Debug: First Vertex Bone Weights: " +
+            std::to_string(firstVertex.Weights[0]) + ", " +
+            std::to_string(firstVertex.Weights[1]) + ", " +
+            std::to_string(firstVertex.Weights[2]) + ", " +
+            std::to_string(firstVertex.Weights[3]), Logger::INFO);
+    }
+    else {
+        Logger::log("Warning: No vertex data available in meshes!", Logger::WARNING);
+    }
+
+    // Draw all meshes
     for (auto& mesh : meshes) {
         mesh.Draw(shader);
     }
 }
+
 
 
 glm::vec3 Model::getBoundingBoxCenter() const {
