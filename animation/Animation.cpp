@@ -38,6 +38,16 @@ void Animation::apply(float animationTime, Model* model) {
         glm::mat4 transform2 = kf2.boneTransforms.at(boneName);
         glm::mat4 interpolatedTransform = interpolateKeyframes(transform1, transform2, factor);
 
+        // Debug: Force root bone movement
+        if (boneName == "root") {
+            interpolatedTransform[3][0] += sin(animationTime) * 0.5f; // Move root bone along X
+            interpolatedTransform[3][1] += cos(animationTime) * 0.5f; // Move root bone along Y
+            Logger::log("Debug: Forced Root Bone Movement: " +
+                std::to_string(interpolatedTransform[3][0]) + ", " +
+                std::to_string(interpolatedTransform[3][1]) + ", " +
+                std::to_string(interpolatedTransform[3][2]), Logger::INFO);
+        }
+
         Logger::log("Debug: Applying transform to bone: " + boneName +
             " | Pos: " + std::to_string(interpolatedTransform[3][0]) + ", " +
             std::to_string(interpolatedTransform[3][1]) + ", " +
@@ -46,6 +56,8 @@ void Animation::apply(float animationTime, Model* model) {
         model->setBoneTransform(boneName, interpolatedTransform);
     }
 }
+
+
 
 
 void Animation::loadAnimation(const std::string& filePath) {

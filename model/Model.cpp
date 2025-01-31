@@ -112,7 +112,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
     return Mesh(vertices, indices, textures);
 }
 
-
 void Model::Draw(Shader& shader) {
     // Ensure bone transforms are sent to the shader
     unsigned int boneMatrixLocation = glGetUniformLocation(shader.ID, "boneTransforms");
@@ -122,17 +121,17 @@ void Model::Draw(Shader& shader) {
     else {
         std::vector<glm::mat4> boneMatrices;
         for (const auto& bone : bones) {
-            boneMatrices.push_back(getBoneTransform(bone.name));
+            glm::mat4 boneTransform = getBoneTransform(bone.name);
+            boneMatrices.push_back(boneTransform);
+
+            Logger::log("Debug: Final Bone Transform Before Sending - " + bone.name +
+                " | Pos: " + std::to_string(boneTransform[3][0]) + ", " +
+                std::to_string(boneTransform[3][1]) + ", " +
+                std::to_string(boneTransform[3][2]), Logger::INFO);
         }
+
         glUniformMatrix4fv(boneMatrixLocation, boneMatrices.size(), GL_FALSE, &boneMatrices[0][0][0]);
         Logger::log("Debug: Bone transforms sent to shader. Count: " + std::to_string(boneMatrices.size()), Logger::INFO);
-    }
-
-    if (!bones.empty()) {
-        Logger::log("Debug: First Bone Transform Matrix: " +
-            std::to_string(boneTransforms[bones[0].name][3][0]) + ", " +
-            std::to_string(boneTransforms[bones[0].name][3][1]) + ", " +
-            std::to_string(boneTransforms[bones[0].name][3][2]), Logger::INFO);
     }
 
     // Debug: Log first vertex position to verify data is valid
@@ -158,6 +157,7 @@ void Model::Draw(Shader& shader) {
         mesh.Draw(shader);
     }
 }
+
 
 
 
