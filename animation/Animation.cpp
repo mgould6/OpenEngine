@@ -18,44 +18,100 @@ float Animation::getDuration() const {
 }
 
 void Animation::apply(float animationTime, Model* model) {
-    if (!loaded || keyframes.empty()) return;
+    if (!loaded || keyframes.empty()) {
+        Logger::log("Error: No keyframes loaded in animation!", Logger::ERROR);
+        return;
+    }
 
     Keyframe kf1, kf2;
     float factor = 0.0f;
+    bool keyframeFound = false;
 
+    // Find the two keyframes surrounding the current animation time
     for (size_t i = 0; i < keyframes.size() - 1; ++i) {
         if (animationTime >= keyframes[i].timestamp && animationTime <= keyframes[i + 1].timestamp) {
             kf1 = keyframes[i];
             kf2 = keyframes[i + 1];
             factor = (animationTime - kf1.timestamp) / (kf2.timestamp - kf1.timestamp);
+            keyframeFound = true;
             break;
         }
     }
 
+    if (!keyframeFound) {
+        Logger::log("Error: No valid keyframe pair found for animation time: " + std::to_string(animationTime), Logger::ERROR);
+        return;
+    }
+
     Logger::log("Debug: Interpolating keyframes at time: " + std::to_string(animationTime), Logger::INFO);
 
+    std::unordered_map<std::string, glm::mat4> globalBoneTransforms;
+
     for (const auto& [boneName, transform1] : kf1.boneTransforms) {
+        if (kf2.boneTransforms.find(boneName) == kf2.boneTransforms.end()) {
+            Logger::log("Warning: Bone " + boneName + " not found in second keyframe!", Logger::WARNING);
+            continue;
+        }
+
         glm::mat4 transform2 = kf2.boneTransforms.at(boneName);
         glm::mat4 interpolatedTransform = interpolateKeyframes(transform1, transform2, factor);
 
-        // Debug: Force root bone movement
-        if (boneName == "root") {
-            interpolatedTransform[3][0] += sin(animationTime) * 0.5f; // Move root bone along X
-            interpolatedTransform[3][1] += cos(animationTime) * 0.5f; // Move root bone along Y
-            Logger::log("Debug: Forced Root Bone Movement: " +
+        // Debugging: Print keyframe transformation values
+        if (boneName == "root" || boneName == "DEF-spine" || boneName == "DEF-thigh.L") {
+            Logger::log("Debug: Bone " + boneName + " Transform from Keyframe 1: " +
+                std::to_string(transform1[3][0]) + ", " +
+                std::to_string(transform1[3][1]) + ", " +
+                std::to_string(transform1[3][2]), Logger::INFO);
+
+            Logger::log("Debug: Bone " + boneName + " Transform from Keyframe 2: " +
+                std::to_string(transform2[3][0]) + ", " +
+                std::to_string(transform2[3][1]) + ", " +
+                std::to_string(transform2[3][2]), Logger::INFO);
+
+            Logger::log("Debug: Bone " + boneName + " Interpolated Transform: " +
                 std::to_string(interpolatedTransform[3][0]) + ", " +
                 std::to_string(interpolatedTransform[3][1]) + ", " +
                 std::to_string(interpolatedTransform[3][2]), Logger::INFO);
         }
 
-        Logger::log("Debug: Applying transform to bone: " + boneName +
-            " | Pos: " + std::to_string(interpolatedTransform[3][0]) + ", " +
-            std::to_string(interpolatedTransform[3][1]) + ", " +
-            std::to_string(interpolatedTransform[3][2]), Logger::INFO);
+        globalBoneTransforms[boneName] = interpolatedTransform;
+    }
 
-        model->setBoneTransform(boneName, interpolatedTransform);
+    // Debugging: Check if keyframe data is actually being modified
+    if (globalBoneTransforms.empty()) {
+        Logger::log("Error: No valid bone transforms computed!", Logger::ERROR);
+        return;
+    }
+
+    // Apply hierarchy: Ensure child bones inherit parent transformations
+    for (const auto& [boneName, transform] : globalBoneTransforms) {
+        std::string parentName = model->getBoneParent(boneName);
+        if (!parentName.empty() && globalBoneTransforms.find(parentName) != globalBoneTransforms.end()) {
+            globalBoneTransforms[boneName] = globalBoneTransforms[parentName] * transform;
+        }
+
+        model->setBoneTransform(boneName, globalBoneTransforms[boneName]);
+
+        if (boneName == "root" || boneName == "DEF-spine" || boneName == "DEF-thigh.L") {
+            Logger::log("Debug: Bone " + boneName + " Final Transform: " +
+                std::to_string(globalBoneTransforms[boneName][3][0]) + ", " +
+                std::to_string(globalBoneTransforms[boneName][3][1]) + ", " +
+                std::to_string(globalBoneTransforms[boneName][3][2]), Logger::INFO);
+        }
+    }
+
+    // Force Root Bone Movement for Debugging
+    if (globalBoneTransforms.find("root") != globalBoneTransforms.end()) {
+        globalBoneTransforms["root"][3][0] += sin(animationTime) * 1.5f;
+        globalBoneTransforms["root"][3][1] += cos(animationTime) * 1.5f;
+        globalBoneTransforms["root"][3][2] += sin(animationTime) * 1.5f;
+        Logger::log("Debug: Forced Root Bone Movement: " +
+            std::to_string(globalBoneTransforms["root"][3][0]) + ", " +
+            std::to_string(globalBoneTransforms["root"][3][1]) + ", " +
+            std::to_string(globalBoneTransforms["root"][3][2]), Logger::INFO);
     }
 }
+
 
 
 

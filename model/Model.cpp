@@ -194,7 +194,7 @@ const std::unordered_map<std::string, glm::mat4>& Model::getBoneTransforms() con
 void Model::setBoneTransform(const std::string& boneName, const glm::mat4& transform) {
     boneTransforms[boneName] = transform;
 
-    Logger::log("Debug: Bone " + boneName + " Transform Applied: " +
+    Logger::log("Debug: Stored Bone Transform - " + boneName + " | Pos: " +
         std::to_string(transform[3][0]) + ", " +
         std::to_string(transform[3][1]) + ", " +
         std::to_string(transform[3][2]), Logger::INFO);
@@ -204,8 +204,19 @@ void Model::setBoneTransform(const std::string& boneName, const glm::mat4& trans
 
 
 
+
 const glm::mat4& Model::getBoneTransform(const std::string& boneName) const {
     static const glm::mat4 identity = glm::mat4(1.0f);
     auto it = boneTransforms.find(boneName);
     return it != boneTransforms.end() ? it->second : identity;
+}
+
+
+std::string Model::getBoneParent(const std::string& boneName) const {
+    for (const auto& bone : bones) {
+        if (bone.name == boneName) {
+            return bone.parentName;
+        }
+    }
+    return "";
 }
