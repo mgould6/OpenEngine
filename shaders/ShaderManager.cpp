@@ -48,8 +48,13 @@ bool ShaderManager::initShaders() {
 
 
     boneShader = loadAndCompileShader("shaders/bone/bone_vertex_shader.vs", "shaders/bone/bone_fragment_shader.fs");
-    if (boneShader) allShaders.push_back(boneShader);
-    
+    if (boneShader) {
+        allShaders.push_back(boneShader);
+        Logger::log("Debug: Bone shader initialized successfully.", Logger::INFO);
+    }
+    else {
+        Logger::log("Error: Bone shader failed to load!", Logger::ERROR);
+    }
     //shadowShader = loadAndCompileShader("shaders/shadow/shadow_vertex_shader.vs", "shaders/shadow/shadow_fragment_shader.fs");
     //if (lightingShader) allShaders.push_back(lightingShader);
 
