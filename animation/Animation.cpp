@@ -41,10 +41,7 @@ void Animation::apply(float animationTime, Model* model) {
         Logger::log("Debug: Applying transform to bone: " + boneName +
             " | Pos: " + std::to_string(interpolatedTransform[3][0]) + ", " +
             std::to_string(interpolatedTransform[3][1]) + ", " +
-            std::to_string(interpolatedTransform[3][2]) +
-            " | Scale: " + std::to_string(interpolatedTransform[0][0]) + ", " +
-            std::to_string(interpolatedTransform[1][1]) + ", " +
-            std::to_string(interpolatedTransform[2][2]), Logger::INFO);
+            std::to_string(interpolatedTransform[3][2]), Logger::INFO);
 
         model->setBoneTransform(boneName, interpolatedTransform);
     }

@@ -20,16 +20,12 @@ void main() {
                          boneTransforms[aBoneIDs[2]] * aWeights[2] +
                          boneTransforms[aBoneIDs[3]] * aWeights[3];
 
-    vec4 animatedPosition = boneTransform * vec4(aPos, 1.0);
+    vec4 animatedPosition = boneTransform * vec4(aPos, 1.0); // Corrected placement
 
-    // Debugging: If vertex position is NaN, force it to zero
-    if (isnan(animatedPosition.x) || isnan(animatedPosition.y) || isnan(animatedPosition.z)) {
-        animatedPosition = vec4(0.0, 0.0, 0.0, 1.0);
-    }
-
-    // Debugging: If all positions are zero, force vertex up
-    if (animatedPosition.x == 0.0 && animatedPosition.y == 0.0 && animatedPosition.z == 0.0) {
-        animatedPosition.y = 1.0;
+    // Debugging: If bone transformation is NaN or zeroed out, force vertex to a debug position
+    if (isnan(animatedPosition.x) || isnan(animatedPosition.y) || isnan(animatedPosition.z) ||
+        animatedPosition == vec4(0.0, 0.0, 0.0, 1.0)) {
+        animatedPosition = vec4(1.0, 1.0, 1.0, 1.0); // Move to debug position
     }
 
     gl_Position = projection * view * model * animatedPosition;

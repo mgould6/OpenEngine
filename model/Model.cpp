@@ -128,6 +128,13 @@ void Model::Draw(Shader& shader) {
         Logger::log("Debug: Bone transforms sent to shader. Count: " + std::to_string(boneMatrices.size()), Logger::INFO);
     }
 
+    if (!bones.empty()) {
+        Logger::log("Debug: First Bone Transform Matrix: " +
+            std::to_string(boneTransforms[bones[0].name][3][0]) + ", " +
+            std::to_string(boneTransforms[bones[0].name][3][1]) + ", " +
+            std::to_string(boneTransforms[bones[0].name][3][2]), Logger::INFO);
+    }
+
     // Debug: Log first vertex position to verify data is valid
     if (!meshes.empty() && !meshes[0].vertices.empty()) {
         const Vertex& firstVertex = meshes[0].vertices[0];
@@ -187,14 +194,12 @@ const std::unordered_map<std::string, glm::mat4>& Model::getBoneTransforms() con
 void Model::setBoneTransform(const std::string& boneName, const glm::mat4& transform) {
     boneTransforms[boneName] = transform;
 
-    Logger::log("Debug: Bone " + boneName + " Transform Set: " +
-        "Pos: " + std::to_string(transform[3][0]) + ", " +
+    Logger::log("Debug: Bone " + boneName + " Transform Applied: " +
+        std::to_string(transform[3][0]) + ", " +
         std::to_string(transform[3][1]) + ", " +
-        std::to_string(transform[3][2]) +
-        " | Scale: " + std::to_string(transform[0][0]) + ", " +
-        std::to_string(transform[1][1]) + ", " +
-        std::to_string(transform[2][2]), Logger::INFO);
+        std::to_string(transform[3][2]), Logger::INFO);
 }
+
 
 
 
