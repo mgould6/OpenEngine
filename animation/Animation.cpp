@@ -3,6 +3,9 @@
 #include "../common_utils/Logger.h"
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 Animation::Animation(const std::string& filePath)
     : filePath(filePath), loaded(false), duration(0.0f) {
@@ -27,7 +30,6 @@ void Animation::apply(float animationTime, Model* model) {
     float factor = 0.0f;
     bool keyframeFound = false;
 
-    // Find the two keyframes surrounding the current animation time
     for (size_t i = 0; i < keyframes.size() - 1; ++i) {
         if (animationTime >= keyframes[i].timestamp && animationTime <= keyframes[i + 1].timestamp) {
             kf1 = keyframes[i];
@@ -43,47 +45,30 @@ void Animation::apply(float animationTime, Model* model) {
         return;
     }
 
-    Logger::log("Debug: Interpolating keyframes at time: " + std::to_string(animationTime), Logger::INFO);
-
     std::unordered_map<std::string, glm::mat4> globalBoneTransforms;
 
     for (const auto& [boneName, transform1] : kf1.boneTransforms) {
         if (kf2.boneTransforms.find(boneName) == kf2.boneTransforms.end()) {
-            Logger::log("Warning: Bone " + boneName + " not found in second keyframe!", Logger::WARNING);
+            Logger::log("Warning: Bone " + boneName + " missing in second keyframe!", Logger::WARNING);
             continue;
         }
 
         glm::mat4 transform2 = kf2.boneTransforms.at(boneName);
         glm::mat4 interpolatedTransform = interpolateKeyframes(transform1, transform2, factor);
 
-        // Debugging: Print keyframe transformation values
-        if (boneName == "root" || boneName == "DEF-spine" || boneName == "DEF-thigh.L") {
-            Logger::log("Debug: Bone " + boneName + " Transform from Keyframe 1: " +
-                std::to_string(transform1[3][0]) + ", " +
-                std::to_string(transform1[3][1]) + ", " +
-                std::to_string(transform1[3][2]), Logger::INFO);
-
-            Logger::log("Debug: Bone " + boneName + " Transform from Keyframe 2: " +
-                std::to_string(transform2[3][0]) + ", " +
-                std::to_string(transform2[3][1]) + ", " +
-                std::to_string(transform2[3][2]), Logger::INFO);
-
-            Logger::log("Debug: Bone " + boneName + " Interpolated Transform: " +
-                std::to_string(interpolatedTransform[3][0]) + ", " +
-                std::to_string(interpolatedTransform[3][1]) + ", " +
-                std::to_string(interpolatedTransform[3][2]), Logger::INFO);
-        }
+        Logger::log("Debug: Bone " + boneName + " Interpolated Transform: " +
+            std::to_string(interpolatedTransform[3][0]) + ", " +
+            std::to_string(interpolatedTransform[3][1]) + ", " +
+            std::to_string(interpolatedTransform[3][2]), Logger::INFO);
 
         globalBoneTransforms[boneName] = interpolatedTransform;
     }
 
-    // Debugging: Check if keyframe data is actually being modified
     if (globalBoneTransforms.empty()) {
         Logger::log("Error: No valid bone transforms computed!", Logger::ERROR);
         return;
     }
 
-    // Apply hierarchy: Ensure child bones inherit parent transformations
     for (const auto& [boneName, transform] : globalBoneTransforms) {
         std::string parentName = model->getBoneParent(boneName);
         if (!parentName.empty() && globalBoneTransforms.find(parentName) != globalBoneTransforms.end()) {
@@ -92,43 +77,46 @@ void Animation::apply(float animationTime, Model* model) {
 
         model->setBoneTransform(boneName, globalBoneTransforms[boneName]);
 
-        if (boneName == "root" || boneName == "DEF-spine" || boneName == "DEF-thigh.L") {
-            Logger::log("Debug: Bone " + boneName + " Final Transform: " +
-                std::to_string(globalBoneTransforms[boneName][3][0]) + ", " +
-                std::to_string(globalBoneTransforms[boneName][3][1]) + ", " +
-                std::to_string(globalBoneTransforms[boneName][3][2]), Logger::INFO);
-        }
-    }
-
-    // Force Root Bone Movement for Debugging
-    if (globalBoneTransforms.find("root") != globalBoneTransforms.end()) {
-        globalBoneTransforms["root"][3][0] += sin(animationTime) * 1.5f;
-        globalBoneTransforms["root"][3][1] += cos(animationTime) * 1.5f;
-        globalBoneTransforms["root"][3][2] += sin(animationTime) * 1.5f;
-        Logger::log("Debug: Forced Root Bone Movement: " +
-            std::to_string(globalBoneTransforms["root"][3][0]) + ", " +
-            std::to_string(globalBoneTransforms["root"][3][1]) + ", " +
-            std::to_string(globalBoneTransforms["root"][3][2]), Logger::INFO);
+        Logger::log("Debug: Applied Transform to Bone " + boneName + " | Pos: " +
+            std::to_string(globalBoneTransforms[boneName][3][0]) + ", " +
+            std::to_string(globalBoneTransforms[boneName][3][1]) + ", " +
+            std::to_string(globalBoneTransforms[boneName][3][2]), Logger::INFO);
     }
 }
-
-
-
-
 
 void Animation::loadAnimation(const std::string& filePath) {
     Logger::log("Loading animation from: " + filePath, Logger::INFO);
 
-    keyframes = {
-        {0.0f, { {"Bone1", glm::mat4(1.0f)}, {"Bone2", glm::mat4(1.0f)} }},
-        {1.0f, { {"Bone1", glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 0.0f, 0.0f))},
-                  {"Bone2", glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 1.0f, 0.0f))} }}
-    };
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs);
 
-    duration = 1.0f;
+    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+        Logger::log("ERROR::ASSIMP::" + std::string(importer.GetErrorString()), Logger::ERROR);
+        return;
+    }
+
+    if (!scene->HasAnimations()) {
+        Logger::log("Error: No animations found in file!", Logger::ERROR);
+        return;
+    }
+
+    Logger::log("Debug: Found " + std::to_string(scene->mNumAnimations) + " animations in file.", Logger::INFO);
+
+    for (unsigned int i = 0; i < scene->mNumAnimations; i++) {
+        aiAnimation* anim = scene->mAnimations[i];
+        Logger::log("Debug: Animation Name: " + std::string(anim->mName.C_Str()), Logger::INFO);
+        Logger::log("Debug: Animation Duration: " + std::to_string(anim->mDuration), Logger::INFO);
+        Logger::log("Debug: Animation Ticks Per Second: " + std::to_string(anim->mTicksPerSecond), Logger::INFO);
+
+        for (unsigned int j = 0; j < anim->mNumChannels; j++) {
+            aiNodeAnim* nodeAnim = anim->mChannels[j];
+            Logger::log("Debug: Bone: " + std::string(nodeAnim->mNodeName.C_Str()), Logger::INFO);
+            Logger::log("Debug: Position Keyframes: " + std::to_string(nodeAnim->mNumPositionKeys), Logger::INFO);
+            Logger::log("Debug: Rotation Keyframes: " + std::to_string(nodeAnim->mNumRotationKeys), Logger::INFO);
+        }
+    }
+
     loaded = true;
-
-    Logger::log("Animation loaded successfully: " + filePath, Logger::INFO);
 }
 
 glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) {
@@ -143,6 +131,11 @@ glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm
     glm::vec3 interpolatedPos = glm::mix(pos1, pos2, factor);
     glm::quat interpolatedRot = glm::slerp(rot1, rot2, factor);
     glm::vec3 interpolatedScale = glm::mix(scale1, scale2, factor);
+
+    Logger::log("Debug: Interpolated Transform Position: " +
+        std::to_string(interpolatedPos.x) + ", " +
+        std::to_string(interpolatedPos.y) + ", " +
+        std::to_string(interpolatedPos.z), Logger::INFO);
 
     glm::mat4 translation = glm::translate(glm::mat4(1.0f), interpolatedPos);
     glm::mat4 rotation = glm::mat4_cast(interpolatedRot);

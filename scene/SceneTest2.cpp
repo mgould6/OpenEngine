@@ -8,15 +8,16 @@
 #include "../render_utils/Renderer.h"
 #include "../setup/Globals.h"
 #include "../input/InputManager.h"
-#include "../animation/AnimationController.h" // New: For animation handling
-#include "../animation/DebugTools.h" // New: Optional debugging visuals for bones
+#include "../animation/AnimationController.h"
+#include "../animation/DebugTools.h"
+#include <filesystem>
 
 // Global variables
 Camera camera;
 float lastFrame = 0.0f;
 float deltaTime = 0.0f;
 Model* myModel = nullptr;
-AnimationController* animationController = nullptr; // New: Animation system controller
+AnimationController* animationController = nullptr;
 
 void SceneTest2(GLFWwindow* window) {
     Logger::log("Entering SceneTest2.", Logger::INFO);
@@ -31,17 +32,20 @@ void SceneTest2(GLFWwindow* window) {
         Logger::log("Model loaded successfully.", Logger::INFO);
     }
 
-    // Initialize the animation controller if not already initialized
+    // Debug: Print absolute path of animation file
+    std::string fullPath = std::filesystem::absolute("Character Template F3.fbx").string();
+    Logger::log("Debug: Full path of animation file: " + fullPath, Logger::INFO);
+
+    // Initialize the animation controller
     if (!animationController) {
         animationController = new AnimationController(myModel);
-        if (!animationController->loadAnimation("Idle", "animations/idle.fbx")) { // Replace with actual animation file
+        if (!animationController->loadAnimation("Idle", "Character Template F3.fbx")) {
             Logger::log("Failed to load idle animation.", Logger::ERROR);
             return;
         }
         Logger::log("Idle animation loaded successfully.", Logger::INFO);
     }
 
-    // Position the camera to frame the model
     camera.setCameraToFitModel(*myModel);
     Logger::log("Camera positioned to frame the model.", Logger::INFO);
 
@@ -50,88 +54,33 @@ void SceneTest2(GLFWwindow* window) {
     glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(window)) {
-        // Time calculations for frame
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        // Process user input
         InputManager::processInput(window, deltaTime);
 
-        // Begin rendering frame
         Renderer::BeginFrame();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        if (!animationController) {
-            Logger::log("Debug: Creating AnimationController", Logger::INFO);
-            animationController = new AnimationController(myModel);
-
-            if (!animationController->loadAnimation("Idle", "animations/idle.fbx")) {
-                Logger::log("Debug: Failed to load Idle animation.", Logger::ERROR);
-            }
-            else {
-                Logger::log("Debug: Successfully loaded Idle animation.", Logger::INFO);
-            }
-        }
-
-        // Debug: Check if animationController exists
         if (animationController) {
             Logger::log("Debug: Calling animation update", Logger::INFO);
             animationController->update(deltaTime);
-
             Logger::log("Debug: Calling applyToModel", Logger::INFO);
             animationController->applyToModel(myModel);
         }
-        else {
-            Logger::log("Debug: AnimationController is NULL", Logger::ERROR);
-        }
 
-        // Select the correct shader
-        Shader* activeShader = nullptr;
-        if (!myModel->getBones().empty() && ShaderManager::boneShader) {
-            activeShader = ShaderManager::boneShader;
-            Logger::log("Debug: Using bone shader.", Logger::INFO);
-        }
-        else {
-            activeShader = ShaderManager::lightingShader;
-            Logger::log("Debug: Using lighting shader.", Logger::INFO);
-        }
+        Shader* activeShader = ShaderManager::boneShader ? ShaderManager::boneShader : ShaderManager::lightingShader;
+        Logger::log("Debug: Using bone shader.", Logger::INFO);
 
-        // Check if boneTransforms uniform exists in shader
-        if (ShaderManager::boneShader->hasUniform("boneTransforms")) {
-            Logger::log("Debug: boneTransforms uniform found in bone shader.", Logger::INFO);
-        }
-        else {
-            Logger::log("Error: boneTransforms uniform NOT found in bone shader!", Logger::ERROR);
-        }
-
-        // Ensure the shader is being used
         activeShader->use();
-
-        // Set shader uniforms before drawing
         activeShader->setMat4("view", camera.GetViewMatrix());
-        activeShader->setMat4("projection", camera.ProjectionMatrix);  // Remove ()
+        activeShader->setMat4("projection", camera.ProjectionMatrix);
         activeShader->setMat4("model", glm::mat4(1.0f));
 
-
-        // Draw the model
         myModel->Draw(*activeShader);
 
-        // Light space matrix setup
-        glm::mat4 lightSpaceMatrix = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.1f, 100.0f) *
-            glm::lookAt(glm::vec3(2.0f, 4.0f, 2.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-
-        if (activeShader->hasUniform("lightSpaceMatrix")) {
-            activeShader->setMat4("lightSpaceMatrix", lightSpaceMatrix);
-        }
-        if (activeShader->hasUniform("lightIntensity")) {
-            activeShader->setFloat("lightIntensity", Renderer::getLightIntensity());
-        }
-
-        // Debug visualization for bones (optional)
         DebugTools::renderBoneHierarchy(myModel, camera);
-
-        // Render UI
         Renderer::RenderImGui();
         Renderer::EndFrame(window);
     }
