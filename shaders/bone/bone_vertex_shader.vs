@@ -22,9 +22,8 @@ void main() {
     if (aWeights[3] > 0.0) boneTransform += boneTransforms[aBoneIDs[3]] * aWeights[3];
 
     vec4 animatedPosition = boneTransform * vec4(aPos, 1.0);
-
     if (animatedPosition == vec4(0.0, 0.0, 0.0, 1.0)) {
-        animatedPosition = vec4(2.0, 2.0, 2.0, 1.0);
+        animatedPosition = vec4(1.0, 1.0, 1.0, 1.0);
     }
 
     gl_Position = projection * view * model * animatedPosition;

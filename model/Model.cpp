@@ -113,7 +113,7 @@ void Model::Draw(Shader& shader) {
         glm::mat4 boneTransform = getBoneTransform(bone.name);
         boneMatrices.push_back(boneTransform);
 
-        Logger::log("Debug: Final Bone Transform - " + bone.name +
+        Logger::log("Debug: Sending Bone Transform to Shader - " + bone.name +
             " | Pos: " + std::to_string(boneTransform[3][0]) + ", " +
             std::to_string(boneTransform[3][1]) + ", " +
             std::to_string(boneTransform[3][2]), Logger::INFO);
@@ -121,6 +121,7 @@ void Model::Draw(Shader& shader) {
 
     glUniformMatrix4fv(boneMatrixLocation, boneMatrices.size(), GL_FALSE, &boneMatrices[0][0][0]);
 }
+
 
 glm::vec3 Model::getBoundingBoxCenter() const {
     glm::vec3 min(FLT_MAX), max(-FLT_MAX);
