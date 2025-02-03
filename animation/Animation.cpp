@@ -56,34 +56,12 @@ void Animation::apply(float animationTime, Model* model) {
         glm::mat4 transform2 = kf2.boneTransforms.at(boneName);
         glm::mat4 interpolatedTransform = interpolateKeyframes(transform1, transform2, factor);
 
-        Logger::log("Debug: Bone " + boneName + " Interpolated Transform Matrix:", Logger::INFO);
-        Logger::log(
-            std::to_string(interpolatedTransform[0][0]) + " " +
-            std::to_string(interpolatedTransform[0][1]) + " " +
-            std::to_string(interpolatedTransform[0][2]) + " " +
-            std::to_string(interpolatedTransform[0][3]), Logger::INFO);
-        Logger::log(
-            std::to_string(interpolatedTransform[1][0]) + " " +
-            std::to_string(interpolatedTransform[1][1]) + " " +
-            std::to_string(interpolatedTransform[1][2]) + " " +
-            std::to_string(interpolatedTransform[1][3]), Logger::INFO);
-        Logger::log(
-            std::to_string(interpolatedTransform[2][0]) + " " +
-            std::to_string(interpolatedTransform[2][1]) + " " +
-            std::to_string(interpolatedTransform[2][2]) + " " +
-            std::to_string(interpolatedTransform[2][3]), Logger::INFO);
-        Logger::log(
-            std::to_string(interpolatedTransform[3][0]) + " " +
-            std::to_string(interpolatedTransform[3][1]) + " " +
-            std::to_string(interpolatedTransform[3][2]) + " " +
-            std::to_string(interpolatedTransform[3][3]), Logger::INFO);
+        Logger::log("Debug: Bone " + boneName + " Interpolated Transform | Pos: " +
+            std::to_string(interpolatedTransform[3][0]) + ", " +
+            std::to_string(interpolatedTransform[3][1]) + ", " +
+            std::to_string(interpolatedTransform[3][2]), Logger::INFO);
 
         globalBoneTransforms[boneName] = interpolatedTransform;
-    }
-
-    if (globalBoneTransforms.empty()) {
-        Logger::log("Error: No valid bone transforms computed!", Logger::ERROR);
-        return;
     }
 
     for (const auto& [boneName, transform] : globalBoneTransforms) {
@@ -93,11 +71,6 @@ void Animation::apply(float animationTime, Model* model) {
         }
 
         model->setBoneTransform(boneName, globalBoneTransforms[boneName]);
-
-        Logger::log("Debug: Applied Transform to Bone " + boneName + " | Pos: " +
-            std::to_string(globalBoneTransforms[boneName][3][0]) + ", " +
-            std::to_string(globalBoneTransforms[boneName][3][1]) + ", " +
-            std::to_string(globalBoneTransforms[boneName][3][2]), Logger::INFO);
     }
 }
 
@@ -149,10 +122,21 @@ glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm
     glm::quat interpolatedRot = glm::slerp(rot1, rot2, factor);
     glm::vec3 interpolatedScale = glm::mix(scale1, scale2, factor);
 
-    Logger::log("Debug: Interpolated Transform Position: " +
+    Logger::log("Debug: Interpolated Position: " +
         std::to_string(interpolatedPos.x) + ", " +
         std::to_string(interpolatedPos.y) + ", " +
         std::to_string(interpolatedPos.z), Logger::INFO);
+
+    Logger::log("Debug: Interpolated Rotation: " +
+        std::to_string(interpolatedRot.x) + ", " +
+        std::to_string(interpolatedRot.y) + ", " +
+        std::to_string(interpolatedRot.z) + ", " +
+        std::to_string(interpolatedRot.w), Logger::INFO);
+
+    Logger::log("Debug: Interpolated Scale: " +
+        std::to_string(interpolatedScale.x) + ", " +
+        std::to_string(interpolatedScale.y) + ", " +
+        std::to_string(interpolatedScale.z), Logger::INFO);
 
     glm::mat4 translation = glm::translate(glm::mat4(1.0f), interpolatedPos);
     glm::mat4 rotation = glm::mat4_cast(interpolatedRot);
@@ -160,3 +144,4 @@ glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm
 
     return translation * rotation * scale;
 }
+

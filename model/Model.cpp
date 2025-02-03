@@ -113,7 +113,7 @@ void Model::Draw(Shader& shader) {
         glm::mat4 boneTransform = getBoneTransform(bone.name);
         boneMatrices.push_back(boneTransform);
 
-        Logger::log("Debug: Sending Bone Transform to Shader - " + bone.name +
+        Logger::log("Debug: Final Bone Transform Sent to Shader - " + bone.name +
             " | Pos: " + std::to_string(boneTransform[3][0]) + ", " +
             std::to_string(boneTransform[3][1]) + ", " +
             std::to_string(boneTransform[3][2]), Logger::INFO);
