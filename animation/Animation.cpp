@@ -56,12 +56,21 @@ void Animation::apply(float animationTime, Model* model) {
         glm::mat4 transform2 = kf2.boneTransforms.at(boneName);
         glm::mat4 interpolatedTransform = interpolateKeyframes(transform1, transform2, factor);
 
-        Logger::log("Debug: Bone " + boneName + " Interpolated Transform | Pos: " +
-            std::to_string(interpolatedTransform[3][0]) + ", " +
-            std::to_string(interpolatedTransform[3][1]) + ", " +
-            std::to_string(interpolatedTransform[3][2]), Logger::INFO);
+        Logger::log("Debug: Interpolated Transform for Bone " + boneName, Logger::INFO);
+        for (int row = 0; row < 4; row++) {
+            Logger::log(
+                std::to_string(interpolatedTransform[row][0]) + " " +
+                std::to_string(interpolatedTransform[row][1]) + " " +
+                std::to_string(interpolatedTransform[row][2]) + " " +
+                std::to_string(interpolatedTransform[row][3]), Logger::INFO);
+        }
 
         globalBoneTransforms[boneName] = interpolatedTransform;
+    }
+
+    if (globalBoneTransforms.empty()) {
+        Logger::log("Error: No valid bone transforms computed!", Logger::ERROR);
+        return;
     }
 
     for (const auto& [boneName, transform] : globalBoneTransforms) {
@@ -71,6 +80,11 @@ void Animation::apply(float animationTime, Model* model) {
         }
 
         model->setBoneTransform(boneName, globalBoneTransforms[boneName]);
+
+        Logger::log("Debug: Applied Transform to Bone " + boneName + " | Pos: " +
+            std::to_string(globalBoneTransforms[boneName][3][0]) + ", " +
+            std::to_string(globalBoneTransforms[boneName][3][1]) + ", " +
+            std::to_string(globalBoneTransforms[boneName][3][2]), Logger::INFO);
     }
 }
 
@@ -101,12 +115,25 @@ void Animation::loadAnimation(const std::string& filePath) {
         for (unsigned int j = 0; j < anim->mNumChannels; j++) {
             aiNodeAnim* nodeAnim = anim->mChannels[j];
             Logger::log("Debug: Bone: " + std::string(nodeAnim->mNodeName.C_Str()), Logger::INFO);
-            Logger::log("Debug: Position Keyframes: " + std::to_string(nodeAnim->mNumPositionKeys), Logger::INFO);
-            Logger::log("Debug: Rotation Keyframes: " + std::to_string(nodeAnim->mNumRotationKeys), Logger::INFO);
+
+            for (unsigned int k = 0; k < nodeAnim->mNumPositionKeys; k++) {
+                aiVector3D pos = nodeAnim->mPositionKeys[k].mValue;
+                Logger::log("Debug: Position Key " + std::to_string(k) + " | Pos: " +
+                    std::to_string(pos.x) + ", " +
+                    std::to_string(pos.y) + ", " +
+                    std::to_string(pos.z), Logger::INFO);
+            }
+
+            for (unsigned int k = 0; k < nodeAnim->mNumRotationKeys; k++) {
+                aiQuaternion rot = nodeAnim->mRotationKeys[k].mValue;
+                Logger::log("Debug: Rotation Key " + std::to_string(k) + " | Rot: " +
+                    std::to_string(rot.x) + ", " +
+                    std::to_string(rot.y) + ", " +
+                    std::to_string(rot.z) + ", " +
+                    std::to_string(rot.w), Logger::INFO);
+            }
         }
     }
-
-    loaded = true;
 }
 
 glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) {

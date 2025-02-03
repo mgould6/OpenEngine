@@ -1,0 +1,1913 @@
+INFO: Debug: Vertex Bone Weights: 0.023010, 0.467116, 0.131524, 0.020339
+INFO: Debug: Vertex Bone Weights: 0.294525, 0.124383, 0.020339, 0.453955
+INFO: Debug: Vertex Bone Weights: 0.156285, 0.074896, 0.649201, 0.043210
+INFO: Debug: Vertex Bone Weights: 0.137005, 0.055273, 0.606323, 0.104686
+INFO: Debug: Vertex Bone Weights: 0.011505, 0.302061, 0.093398, 0.010169
+INFO: Debug: Vertex Bone Weights: 0.011505, 0.302061, 0.093398, 0.010169
+INFO: Debug: Vertex Bone Weights: 0.137005, 0.055273, 0.606323, 0.104686
+INFO: Debug: Vertex Bone Weights: 0.117726, 0.035649, 0.563445, 0.166161
+INFO: Debug: Vertex Bone Weights: 0.023010, 0.309597, 0.062413, 0.383413
+INFO: Debug: Vertex Bone Weights: 0.023010, 0.467116, 0.131524, 0.020339
+INFO: Debug: Vertex Bone Weights: 0.011505, 0.302061, 0.093398, 0.010169
+INFO: Debug: Vertex Bone Weights: 0.023010, 0.309597, 0.062413, 0.383413
+INFO: Debug: Vertex Bone Weights: 0.046021, 0.501468, 0.089177, 0.203380
+INFO: Debug: Vertex Bone Weights: 0.079428, 0.856471, 0.031899, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.054175, 0.868720, 0.031155, 0.017336
+INFO: Debug: Vertex Bone Weights: 0.049028, 0.008912, 0.265732, 0.529103
+INFO: Debug: Vertex Bone Weights: 0.058863, 0.017825, 0.321437, 0.511316
+INFO: Debug: Vertex Bone Weights: 0.054175, 0.868720, 0.031155, 0.017336
+INFO: Debug: Vertex Bone Weights: 0.028922, 0.880970, 0.030412, 0.034672
+INFO: Debug: Vertex Bone Weights: 0.039193, 0.210028, 0.546890, 0.015206
+INFO: Debug: Vertex Bone Weights: 0.049028, 0.008912, 0.265732, 0.529103
+INFO: Debug: Vertex Bone Weights: 0.049028, 0.008912, 0.265732, 0.529103
+INFO: Debug: Vertex Bone Weights: 0.039193, 0.210028, 0.546890, 0.015206
+INFO: Debug: Vertex Bone Weights: 0.078387, 0.391134, 0.212811, 0.280440
+INFO: Debug: Vertex Bone Weights: 0.098056, 0.017825, 0.477290, 0.189486
+INFO: Debug: Vertex Bone Weights: 0.058863, 0.017825, 0.321437, 0.511316
+INFO: Debug: Vertex Bone Weights: 0.049028, 0.008912, 0.265732, 0.529103
+INFO: Debug: Vertex Bone Weights: 0.098056, 0.017825, 0.477290, 0.189486
+INFO: Debug: Vertex Bone Weights: 0.117726, 0.035649, 0.563445, 0.166161
+INFO: Debug: Vertex Bone Weights: 0.117726, 0.035649, 0.563445, 0.166161
+INFO: Debug: Vertex Bone Weights: 0.137005, 0.055273, 0.606323, 0.104686
+INFO: Debug: Vertex Bone Weights: 0.063834, 0.033774, 0.453598, 0.363970
+INFO: Debug: Vertex Bone Weights: 0.058863, 0.017825, 0.321437, 0.511316
+INFO: Debug: Vertex Bone Weights: 0.156285, 0.074896, 0.649201, 0.043210
+INFO: Debug: Vertex Bone Weights: 0.100721, 0.066610, 0.722470, 0.052405
+INFO: Debug: Vertex Bone Weights: 0.063834, 0.033774, 0.453598, 0.363970
+INFO: Debug: Vertex Bone Weights: 0.137005, 0.055273, 0.606323, 0.104686
+INFO: Debug: Vertex Bone Weights: 0.045157, 0.058324, 0.795739, 0.061599
+INFO: Debug: Vertex Bone Weights: 0.022579, 0.029162, 0.487957, 0.377005
+INFO: Debug: Vertex Bone Weights: 0.063834, 0.033774, 0.453598, 0.363970
+INFO: Debug: Vertex Bone Weights: 0.100721, 0.066610, 0.722470, 0.052405
+INFO: Debug: Vertex Bone Weights: 0.180176, 0.692410, 0.089331, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.129802, 0.774440, 0.060615, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.063834, 0.033774, 0.453598, 0.363970
+INFO: Debug: Vertex Bone Weights: 0.022579, 0.029162, 0.487957, 0.377005
+INFO: Debug: Vertex Bone Weights: 0.079428, 0.856471, 0.031899, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.058863, 0.017825, 0.321437, 0.511316
+INFO: Debug: Vertex Bone Weights: 0.063834, 0.033774, 0.453598, 0.363970
+INFO: Debug: Vertex Bone Weights: 0.129802, 0.774440, 0.060615, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.117726, 0.035649, 0.563445, 0.166161
+INFO: Debug: Vertex Bone Weights: 0.098056, 0.017825, 0.477290, 0.189486
+INFO: Debug: Vertex Bone Weights: 0.036296, 0.286955, 0.040531, 0.325266
+INFO: Debug: Vertex Bone Weights: 0.023010, 0.309597, 0.062413, 0.383413
+INFO: Debug: Vertex Bone Weights: 0.098056, 0.017825, 0.477290, 0.189486
+INFO: Debug: Vertex Bone Weights: 0.078387, 0.391134, 0.212811, 0.280440
+INFO: Debug: Vertex Bone Weights: 0.049582, 0.264313, 0.018648, 0.267120
+INFO: Debug: Vertex Bone Weights: 0.036296, 0.286955, 0.040531, 0.325266
+INFO: Debug: Vertex Bone Weights: 0.036296, 0.286955, 0.040531, 0.325266
+INFO: Debug: Vertex Bone Weights: 0.049582, 0.264313, 0.018648, 0.267120
+INFO: Debug: Vertex Bone Weights: 0.099163, 0.450239, 0.037296, 0.143107
+INFO: Debug: Vertex Bone Weights: 0.072592, 0.475853, 0.063237, 0.173243
+INFO: Debug: Vertex Bone Weights: 0.023010, 0.309597, 0.062413, 0.383413
+INFO: Debug: Vertex Bone Weights: 0.036296, 0.286955, 0.040531, 0.325266
+INFO: Debug: Vertex Bone Weights: 0.072592, 0.475853, 0.063237, 0.173243
+INFO: Debug: Vertex Bone Weights: 0.046021, 0.501468, 0.089177, 0.203380
+INFO: Debug: Vertex Bone Weights: 0.099163, 0.450239, 0.037296, 0.143107
+INFO: Debug: Vertex Bone Weights: 0.141494, 0.463515, 0.038626, 0.112276
+INFO: Debug: Vertex Bone Weights: 0.113927, 0.499824, 0.067561, 0.006280
+INFO: Debug: Vertex Bone Weights: 0.072592, 0.475853, 0.063237, 0.173243
+INFO: Debug: Vertex Bone Weights: 0.183825, 0.476791, 0.039955, 0.081444
+INFO: Debug: Vertex Bone Weights: 0.172352, 0.497312, 0.049626, 0.019366
+INFO: Debug: Vertex Bone Weights: 0.113927, 0.499824, 0.067561, 0.006280
+INFO: Debug: Vertex Bone Weights: 0.141494, 0.463515, 0.038626, 0.112276
+INFO: Debug: Vertex Bone Weights: 0.160880, 0.517833, 0.059297, 0.038732
+INFO: Debug: Vertex Bone Weights: 0.120313, 0.535312, 0.085687, 0.015700
+INFO: Debug: Vertex Bone Weights: 0.113927, 0.499824, 0.067561, 0.006280
+INFO: Debug: Vertex Bone Weights: 0.172352, 0.497312, 0.049626, 0.019366
+INFO: Debug: Vertex Bone Weights: 0.079745, 0.552790, 0.112077, 0.031400
+INFO: Debug: Vertex Bone Weights: 0.062883, 0.527129, 0.100627, 0.015700
+INFO: Debug: Vertex Bone Weights: 0.113927, 0.499824, 0.067561, 0.006280
+INFO: Debug: Vertex Bone Weights: 0.120313, 0.535312, 0.085687, 0.015700
+INFO: Debug: Vertex Bone Weights: 0.046021, 0.501468, 0.089177, 0.203380
+INFO: Debug: Vertex Bone Weights: 0.072592, 0.475853, 0.063237, 0.173243
+INFO: Debug: Vertex Bone Weights: 0.113927, 0.499824, 0.067561, 0.006280
+INFO: Debug: Vertex Bone Weights: 0.062883, 0.527129, 0.100627, 0.015700
+INFO: Debug: Vertex Bone Weights: 0.046021, 0.501468, 0.089177, 0.203380
+INFO: Debug: Vertex Bone Weights: 0.062883, 0.527129, 0.100627, 0.015700
+INFO: Debug: Vertex Bone Weights: 0.038450, 0.489509, 0.157970, 0.036776
+INFO: Debug: Vertex Bone Weights: 0.023010, 0.467116, 0.131524, 0.020339
+INFO: Debug: Vertex Bone Weights: 0.062883, 0.527129, 0.100627, 0.015700
+INFO: Debug: Vertex Bone Weights: 0.079745, 0.552790, 0.112077, 0.031400
+INFO: Debug: Vertex Bone Weights: 0.053889, 0.511903, 0.184417, 0.053213
+INFO: Debug: Vertex Bone Weights: 0.038450, 0.489509, 0.157970, 0.036776
+INFO: Debug: Vertex Bone Weights: 0.038450, 0.489509, 0.157970, 0.036776
+INFO: Debug: Vertex Bone Weights: 0.053889, 0.511903, 0.184417, 0.053213
+INFO: Debug: Vertex Bone Weights: 0.028033, 0.471015, 0.256756, 0.075026
+INFO: Debug: Vertex Bone Weights: 0.014016, 0.451889, 0.215314, 0.057852
+INFO: Debug: Vertex Bone Weights: 0.023010, 0.467116, 0.131524, 0.020339
+INFO: Debug: Vertex Bone Weights: 0.038450, 0.489509, 0.157970, 0.036776
+INFO: Debug: Vertex Bone Weights: 0.014016, 0.451889, 0.215314, 0.057852
+INFO: Debug: Vertex Bone Weights: 0.432764, 0.173871, 0.040678, 0.258708
+INFO: Debug: Vertex Bone Weights: 0.064027, 1.000000, 0.155300, 0.155300
+INFO: Debug: Vertex Bone Weights: 0.071932, 0.586245, 0.077650, 0.191822
+INFO: Debug: Vertex Bone Weights: 0.047955, 0.408641, 0.051767, 0.354607
+INFO: Debug: Vertex Bone Weights: 0.032014, 0.526717, 0.077650, 0.417739
+INFO: Debug: Vertex Bone Weights: 0.079837, 0.172491, 0.228344, 0.052834
+INFO: Debug: Vertex Bone Weights: 0.039919, 0.112962, 0.454261, 0.075522
+INFO: Debug: Vertex Bone Weights: 0.047955, 0.408641, 0.051767, 0.354607
+INFO: Debug: Vertex Bone Weights: 0.071932, 0.586245, 0.077650, 0.191822
+INFO: Debug: Vertex Bone Weights: 0.053433, 0.680179, 0.098209, 0.165412
+INFO: Debug: Vertex Bone Weights: 0.032014, 0.526717, 0.077650, 0.417739
+INFO: Debug: Vertex Bone Weights: 0.047955, 0.408641, 0.051767, 0.354607
+INFO: Debug: Vertex Bone Weights: 0.039919, 0.112962, 0.454261, 0.075522
+INFO: Debug: Vertex Bone Weights: 0.079837, 0.172491, 0.228344, 0.052834
+INFO: Debug: Vertex Bone Weights: 0.039919, 0.086245, 0.158789, 0.184639
+INFO: Debug: Vertex Bone Weights: 0.019959, 0.056481, 0.286530, 0.274356
+INFO: Debug: Vertex Bone Weights: 0.039919, 0.112962, 0.454261, 0.075522
+INFO: Debug: Vertex Bone Weights: 0.039919, 0.086245, 0.158789, 0.184639
+INFO: Debug: Vertex Bone Weights: 0.089234, 0.316443, 0.611355, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.118799, 0.473190, 0.411401, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.019959, 0.056481, 0.286530, 0.274356
+INFO: Debug: Vertex Bone Weights: 0.019959, 0.056481, 0.286530, 0.274356
+INFO: Debug: Vertex Bone Weights: 0.118799, 0.473190, 0.411401, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.148364, 0.629938, 0.211447, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.026717, 0.414271, 0.364073, 0.188429
+INFO: Debug: Vertex Bone Weights: 0.039919, 0.112962, 0.454261, 0.075522
+INFO: Debug: Vertex Bone Weights: 0.019959, 0.056481, 0.286530, 0.274356
+INFO: Debug: Vertex Bone Weights: 0.026717, 0.414271, 0.364073, 0.188429
+INFO: Debug: Vertex Bone Weights: 0.053433, 0.680179, 0.098209, 0.165412
+INFO: Debug: Vertex Bone Weights: 0.045961, 0.644813, 0.061506, 0.038020
+INFO: Debug: Vertex Bone Weights: 0.022981, 0.371356, 0.030753, 0.019010
+INFO: Debug: Vertex Bone Weights: 0.011490, 0.205637, 0.058499, 0.088899
+INFO: Debug: Vertex Bone Weights: 0.022981, 0.362325, 0.116999, 0.133182
+INFO: Debug: Vertex Bone Weights: 0.022981, 0.371356, 0.030753, 0.019010
+INFO: Debug: Vertex Bone Weights: 0.097900, 0.046848, 0.807107, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.048950, 0.044617, 0.181645, 0.709231
+INFO: Debug: Vertex Bone Weights: 0.011490, 0.205637, 0.058499, 0.088899
+INFO: Debug: Vertex Bone Weights: 0.011490, 0.205637, 0.058499, 0.088899
+INFO: Debug: Vertex Bone Weights: 0.048950, 0.044617, 0.181645, 0.709231
+INFO: Debug: Vertex Bone Weights: 0.089234, 0.316443, 0.611355, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.039919, 0.086245, 0.158789, 0.184639
+INFO: Debug: Vertex Bone Weights: 0.022981, 0.362325, 0.116999, 0.133182
+INFO: Debug: Vertex Bone Weights: 0.011490, 0.205637, 0.058499, 0.088899
+INFO: Debug: Vertex Bone Weights: 0.039919, 0.086245, 0.158789, 0.184639
+INFO: Debug: Vertex Bone Weights: 0.079837, 0.172491, 0.228344, 0.052834
+INFO: Debug: Vertex Bone Weights: 0.151172, 0.842094, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.446975, 0.544590, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.482812, 0.511873, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.170293, 0.826644, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.446975, 0.544590, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.742777, 0.247087, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.795330, 0.197101, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.482812, 0.511873, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.482812, 0.511873, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.795330, 0.197101, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.847883, 0.147115, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.518649, 0.479155, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.170293, 0.826644, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.482812, 0.511873, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.518649, 0.479155, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.189414, 0.811195, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.151172, 0.842094, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.086991, 0.889842, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.245683, 0.734146, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.446975, 0.544590, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.086991, 0.889842, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.022809, 0.937591, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.044392, 0.923701, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.245683, 0.734146, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.245683, 0.734146, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.044392, 0.923701, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.065974, 0.909811, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.404376, 0.578449, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.446975, 0.544590, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.245683, 0.734146, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.404376, 0.578449, 0.000000, 0.000000
+INFO: Debug: Vertex Bone Weights: 0.742777, 0.247087, 0.000000, 0.000000
+INFO: Loaded 1 meshes.
+INFO: Model loaded successfully.
+INFO: Debug: Full path of animation file: C:\Users\mjgou\source\repos\OpenEngine\Character Template F3.fbx
+INFO: Loading animation from: Character Template F3.fbx
+INFO: Debug: Found 6 animations in file.
+INFO: Debug: Animation Name: Idle
+INFO: Debug: Animation Duration: 120.000000
+INFO: Debug: Animation Ticks Per Second: 30.000000
+INFO: Debug: Bone: DEF-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-breast.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-foot.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Bone: DEF-foot.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Bone: DEF-forearm.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Bone: DEF-forearm.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Bone: DEF-hand.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Bone: DEF-hand.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Bone: DEF-pelvis.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-pelvis.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-spine
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: DEF-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Rotation Key 1 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Bone: DEF-spine.002
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Rotation Key 1 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Bone: DEF-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Rotation Key 1 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Bone: DEF-spine.004
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Rotation Key 1 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Bone: DEF-spine.005
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Rotation Key 1 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Bone: DEF-spine.006
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Rotation Key 1 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Bone: DEF-thigh.L
+INFO: Debug: Position Key 0 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-thigh.R
+INFO: Debug: Position Key 0 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-toe.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Rotation Key 1 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Bone: DEF-toe.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Rotation Key 1 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Bone: DEF-upper_arm.L
+INFO: Debug: Position Key 0 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Position Key 1 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-upper_arm.R
+INFO: Debug: Position Key 0 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Position Key 1 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Bone: MCH-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Rotation Key 1 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Bone: MCH-torso.parent
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-breast.R
+INFO: Debug: Position Key 0 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-pelvis.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Bone: ORG-pelvis.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Bone: ORG-shoulder.L
+INFO: Debug: Position Key 0 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Rotation Key 1 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Bone: ORG-shoulder.R
+INFO: Debug: Position Key 0 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Rotation Key 1 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Bone: ORG-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: rig.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: root
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Rotation Key 1 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Bone: spine_fk
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: spine_fk.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Bone: spine_fk.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Rotation Key 1 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Bone: spine_fk.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Rotation Key 1 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Bone: torso
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Animation Name: Walk
+INFO: Debug: Animation Duration: 30.000000
+INFO: Debug: Animation Ticks Per Second: 30.000000
+INFO: Debug: Bone: DEF-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-breast.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-foot.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Bone: DEF-foot.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Bone: DEF-forearm.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Bone: DEF-forearm.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Bone: DEF-hand.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Bone: DEF-hand.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Bone: DEF-pelvis.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-pelvis.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-spine
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: DEF-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Rotation Key 1 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Bone: DEF-spine.002
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Rotation Key 1 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Bone: DEF-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Rotation Key 1 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Bone: DEF-spine.004
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Rotation Key 1 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Bone: DEF-spine.005
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Rotation Key 1 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Bone: DEF-spine.006
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Rotation Key 1 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Bone: DEF-thigh.L
+INFO: Debug: Position Key 0 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-thigh.R
+INFO: Debug: Position Key 0 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-toe.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Rotation Key 1 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Bone: DEF-toe.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Rotation Key 1 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Bone: DEF-upper_arm.L
+INFO: Debug: Position Key 0 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Position Key 1 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-upper_arm.R
+INFO: Debug: Position Key 0 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Position Key 1 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Bone: MCH-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Rotation Key 1 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Bone: MCH-torso.parent
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-breast.R
+INFO: Debug: Position Key 0 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-pelvis.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Bone: ORG-pelvis.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Bone: ORG-shoulder.L
+INFO: Debug: Position Key 0 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Rotation Key 1 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Bone: ORG-shoulder.R
+INFO: Debug: Position Key 0 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Rotation Key 1 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Bone: ORG-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: rig.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: root
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Rotation Key 1 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Bone: spine_fk
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: spine_fk.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Bone: spine_fk.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Rotation Key 1 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Bone: spine_fk.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Rotation Key 1 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Bone: torso
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Animation Name: Run
+INFO: Debug: Animation Duration: 23.000000
+INFO: Debug: Animation Ticks Per Second: 30.000000
+INFO: Debug: Bone: DEF-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-breast.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-foot.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Bone: DEF-foot.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Bone: DEF-forearm.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Bone: DEF-forearm.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Bone: DEF-hand.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Bone: DEF-hand.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Bone: DEF-pelvis.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-pelvis.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-spine
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: DEF-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Rotation Key 1 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Bone: DEF-spine.002
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Rotation Key 1 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Bone: DEF-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Rotation Key 1 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Bone: DEF-spine.004
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Rotation Key 1 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Bone: DEF-spine.005
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Rotation Key 1 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Bone: DEF-spine.006
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Rotation Key 1 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Bone: DEF-thigh.L
+INFO: Debug: Position Key 0 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-thigh.R
+INFO: Debug: Position Key 0 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-toe.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Rotation Key 1 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Bone: DEF-toe.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Rotation Key 1 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Bone: DEF-upper_arm.L
+INFO: Debug: Position Key 0 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Position Key 1 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-upper_arm.R
+INFO: Debug: Position Key 0 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Position Key 1 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Bone: MCH-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Rotation Key 1 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Bone: MCH-torso.parent
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-breast.R
+INFO: Debug: Position Key 0 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-pelvis.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Bone: ORG-pelvis.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Bone: ORG-shoulder.L
+INFO: Debug: Position Key 0 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Rotation Key 1 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Bone: ORG-shoulder.R
+INFO: Debug: Position Key 0 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Rotation Key 1 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Bone: ORG-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: rig.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: root
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Rotation Key 1 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Bone: spine_fk
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: spine_fk.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Bone: spine_fk.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Rotation Key 1 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Bone: spine_fk.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Rotation Key 1 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Bone: torso
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Animation Name: rig.001|Idle
+INFO: Debug: Animation Duration: 120.000000
+INFO: Debug: Animation Ticks Per Second: 30.000000
+INFO: Debug: Bone: DEF-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-breast.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-foot.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Bone: DEF-foot.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Bone: DEF-forearm.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Bone: DEF-forearm.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Bone: DEF-hand.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Bone: DEF-hand.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Bone: DEF-pelvis.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-pelvis.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-spine
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: DEF-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Rotation Key 1 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Bone: DEF-spine.002
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Rotation Key 1 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Bone: DEF-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Rotation Key 1 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Bone: DEF-spine.004
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Rotation Key 1 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Bone: DEF-spine.005
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Rotation Key 1 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Bone: DEF-spine.006
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Rotation Key 1 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Bone: DEF-thigh.L
+INFO: Debug: Position Key 0 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-thigh.R
+INFO: Debug: Position Key 0 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-toe.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Rotation Key 1 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Bone: DEF-toe.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Rotation Key 1 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Bone: DEF-upper_arm.L
+INFO: Debug: Position Key 0 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Position Key 1 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-upper_arm.R
+INFO: Debug: Position Key 0 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Position Key 1 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Bone: MCH-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Rotation Key 1 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Bone: MCH-torso.parent
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-breast.R
+INFO: Debug: Position Key 0 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-pelvis.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Bone: ORG-pelvis.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Bone: ORG-shoulder.L
+INFO: Debug: Position Key 0 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Rotation Key 1 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Bone: ORG-shoulder.R
+INFO: Debug: Position Key 0 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Rotation Key 1 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Bone: ORG-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: rig.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: root
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Rotation Key 1 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Bone: spine_fk
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: spine_fk.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Bone: spine_fk.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Rotation Key 1 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Bone: spine_fk.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Rotation Key 1 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Bone: torso
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Animation Name: rig.001|Run
+INFO: Debug: Animation Duration: 23.000000
+INFO: Debug: Animation Ticks Per Second: 30.000000
+INFO: Debug: Bone: DEF-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-breast.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-foot.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Bone: DEF-foot.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Bone: DEF-forearm.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Bone: DEF-forearm.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Bone: DEF-hand.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Bone: DEF-hand.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Bone: DEF-pelvis.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-pelvis.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-spine
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: DEF-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Rotation Key 1 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Bone: DEF-spine.002
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Rotation Key 1 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Bone: DEF-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Rotation Key 1 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Bone: DEF-spine.004
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Rotation Key 1 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Bone: DEF-spine.005
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Rotation Key 1 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Bone: DEF-spine.006
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Rotation Key 1 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Bone: DEF-thigh.L
+INFO: Debug: Position Key 0 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-thigh.R
+INFO: Debug: Position Key 0 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-toe.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Rotation Key 1 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Bone: DEF-toe.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Rotation Key 1 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Bone: DEF-upper_arm.L
+INFO: Debug: Position Key 0 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Position Key 1 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-upper_arm.R
+INFO: Debug: Position Key 0 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Position Key 1 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Bone: MCH-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Rotation Key 1 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Bone: MCH-torso.parent
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-breast.R
+INFO: Debug: Position Key 0 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-pelvis.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Bone: ORG-pelvis.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Bone: ORG-shoulder.L
+INFO: Debug: Position Key 0 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Rotation Key 1 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Bone: ORG-shoulder.R
+INFO: Debug: Position Key 0 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Rotation Key 1 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Bone: ORG-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: rig.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: root
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Rotation Key 1 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Bone: spine_fk
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: spine_fk.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Bone: spine_fk.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Rotation Key 1 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Bone: spine_fk.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Rotation Key 1 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Bone: torso
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Animation Name: rig.001|Walk
+INFO: Debug: Animation Duration: 30.000000
+INFO: Debug: Animation Ticks Per Second: 30.000000
+INFO: Debug: Bone: DEF-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-breast.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-foot.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654642, -0.026135, -0.055289, 0.753462
+INFO: Debug: Bone: DEF-foot.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Rotation Key 1 | Rot: -0.654641, 0.026135, 0.055289, 0.753462
+INFO: Debug: Bone: DEF-forearm.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, -0.000000, 0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000001, 1.000000
+INFO: Debug: Bone: DEF-forearm.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Rotation Key 1 | Rot: 0.097093, 0.000000, -0.000000, 0.995275
+INFO: Debug: Bone: DEF-forearm.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000001, 1.000000
+INFO: Debug: Bone: DEF-hand.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, 0.000118, -0.025190, 0.999672
+INFO: Debug: Bone: DEF-hand.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.112189, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Rotation Key 1 | Rot: 0.004671, -0.000118, 0.025190, 0.999672
+INFO: Debug: Bone: DEF-pelvis.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000001, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-pelvis.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000001, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.L
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, 0.000003, 0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.L.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000006, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-shin.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Rotation Key 1 | Rot: 0.100202, -0.000004, -0.000009, 0.994967
+INFO: Debug: Bone: DEF-shin.R.001
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.225344, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000006, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-shoulder.R
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-spine
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.105243, 0.971774
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: DEF-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.131534, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Rotation Key 1 | Rot: 0.108856, 0.000000, 0.000000, 0.994057
+INFO: Debug: Bone: DEF-spine.002
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.134855, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Rotation Key 1 | Rot: -0.189089, -0.000000, -0.000000, 0.981960
+INFO: Debug: Bone: DEF-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.160799, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Rotation Key 1 | Rot: 0.054443, -0.000000, 0.000000, 0.998517
+INFO: Debug: Bone: DEF-spine.004
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.166303, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Rotation Key 1 | Rot: 0.188798, -0.000000, -0.000000, 0.982016
+INFO: Debug: Bone: DEF-spine.005
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.067270, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Rotation Key 1 | Rot: 0.029005, 0.000000, -0.000000, 0.999579
+INFO: Debug: Bone: DEF-spine.006
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.058391, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Rotation Key 1 | Rot: -0.203737, -0.000000, 0.000000, 0.979026
+INFO: Debug: Bone: DEF-thigh.L
+INFO: Debug: Position Key 0 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: 0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, -0.030924, -0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, -0.000005, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-thigh.R
+INFO: Debug: Position Key 0 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Position Key 1 | Pos: -0.108337, 0.059532, 0.044934
+INFO: Debug: Rotation Key 0 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Rotation Key 1 | Rot: 0.984456, 0.030924, 0.163241, 0.056943
+INFO: Debug: Bone: DEF-thigh.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.248097, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000005, 0.000000, 1.000000
+INFO: Debug: Bone: DEF-toe.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Rotation Key 1 | Rot: -0.211970, 0.966875, -0.138938, -0.030295
+INFO: Debug: Bone: DEF-toe.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.127349, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Rotation Key 1 | Rot: 0.211946, 0.966870, -0.138975, 0.030462
+INFO: Debug: Bone: DEF-upper_arm.L
+INFO: Debug: Position Key 0 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Position Key 1 | Pos: 0.006648, 0.189886, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, 0.605037, 0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.L.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, -0.000000, -0.000000, 1.000000
+INFO: Debug: Bone: DEF-upper_arm.R
+INFO: Debug: Position Key 0 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Position Key 1 | Pos: -0.006648, 0.189885, -0.019716
+INFO: Debug: Rotation Key 0 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Rotation Key 1 | Rot: -0.164971, -0.605037, -0.141034, 0.766045
+INFO: Debug: Bone: DEF-upper_arm.R.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.127096, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.134855, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: -0.794101, -0.000000, -0.000000, 0.607786
+INFO: Debug: Bone: MCH-spine.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Position Key 1 | Pos: 0.000000, -0.038255, 0.195871
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: MCH-spine.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.160799, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Rotation Key 1 | Rot: -0.664850, -0.000000, -0.000000, 0.746976
+INFO: Debug: Bone: MCH-torso.parent
+INFO: Debug: Position Key 0 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Position Key 1 | Pos: -0.001236, 0.102212, 1.037471
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-breast.L
+INFO: Debug: Position Key 0 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: 0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-breast.R
+INFO: Debug: Position Key 0 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Position Key 1 | Pos: -0.109434, -0.005577, -0.008418
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.704532, 0.709672, 0.000000
+INFO: Debug: Bone: ORG-pelvis.L
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, -0.759736, -0.365634, 0.528579
+INFO: Debug: Bone: ORG-pelvis.R
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000372, 0.008063
+INFO: Debug: Rotation Key 0 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Rotation Key 1 | Rot: -0.098580, 0.759736, 0.365634, 0.528579
+INFO: Debug: Bone: ORG-shoulder.L
+INFO: Debug: Position Key 0 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: 0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Rotation Key 1 | Rot: 0.400641, 0.570985, 0.566037, -0.439392
+INFO: Debug: Bone: ORG-shoulder.R
+INFO: Debug: Position Key 0 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Position Key 1 | Pos: -0.016914, 0.129204, -0.049088
+INFO: Debug: Rotation Key 0 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Rotation Key 1 | Rot: -0.400641, 0.570985, 0.566036, 0.439392
+INFO: Debug: Bone: ORG-spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: ORG-spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: rig.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: root
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Rotation Key 1 | Rot: -0.707107, -0.000000, 0.000000, 0.707107
+INFO: Debug: Bone: spine_fk
+INFO: Debug: Position Key 0 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, 0.000000, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Rotation Key 1 | Rot: 0.723221, 0.000000, -0.000000, 0.690617
+INFO: Debug: Bone: spine_fk.001
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Rotation Key 1 | Rot: 0.794101, 0.000000, 0.000000, 0.607786
+INFO: Debug: Bone: spine_fk.002
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Rotation Key 1 | Rot: 0.664850, 0.000000, 0.000000, 0.746977
+INFO: Debug: Bone: spine_fk.003
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Rotation Key 1 | Rot: 0.704532, 0.000000, 0.000000, 0.709672
+INFO: Debug: Bone: torso
+INFO: Debug: Position Key 0 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: 0.000000, 0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.131534, -0.000000
+INFO: Debug: Rotation Key 0 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: 0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Bone: tweak_spine.003
+INFO: Debug: Position Key 0 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Position Key 1 | Pos: -0.000000, -0.000000, 0.000000
+INFO: Debug: Rotation Key 0 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+INFO: Debug: Rotation Key 1 | Rot: -0.000000, 0.000000, 0.000000, 1.000000
+ERROR: Failed to load animation: Character Template F3.fbx
+ERROR: Failed to load idle animation.
+INFO: ImGui shutdown completed.
