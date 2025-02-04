@@ -149,21 +149,15 @@ glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm
     glm::quat interpolatedRot = glm::slerp(rot1, rot2, factor);
     glm::vec3 interpolatedScale = glm::mix(scale1, scale2, factor);
 
-    Logger::log("Debug: Interpolated Position: " +
-        std::to_string(interpolatedPos.x) + ", " +
-        std::to_string(interpolatedPos.y) + ", " +
-        std::to_string(interpolatedPos.z), Logger::INFO);
+    Logger::log("Debug: Interpolating Keyframes", Logger::INFO);
+    Logger::log("Debug: Factor: " + std::to_string(factor), Logger::INFO);
+    Logger::log("Debug: Start Position: " + std::to_string(pos1.x) + ", " + std::to_string(pos1.y) + ", " + std::to_string(pos1.z), Logger::INFO);
+    Logger::log("Debug: End Position: " + std::to_string(pos2.x) + ", " + std::to_string(pos2.y) + ", " + std::to_string(pos2.z), Logger::INFO);
+    Logger::log("Debug: Interpolated Position: " + std::to_string(interpolatedPos.x) + ", " + std::to_string(interpolatedPos.y) + ", " + std::to_string(interpolatedPos.z), Logger::INFO);
 
-    Logger::log("Debug: Interpolated Rotation: " +
-        std::to_string(interpolatedRot.x) + ", " +
-        std::to_string(interpolatedRot.y) + ", " +
-        std::to_string(interpolatedRot.z) + ", " +
-        std::to_string(interpolatedRot.w), Logger::INFO);
-
-    Logger::log("Debug: Interpolated Scale: " +
-        std::to_string(interpolatedScale.x) + ", " +
-        std::to_string(interpolatedScale.y) + ", " +
-        std::to_string(interpolatedScale.z), Logger::INFO);
+    Logger::log("Debug: Start Rotation: " + std::to_string(rot1.x) + ", " + std::to_string(rot1.y) + ", " + std::to_string(rot1.z) + ", " + std::to_string(rot1.w), Logger::INFO);
+    Logger::log("Debug: End Rotation: " + std::to_string(rot2.x) + ", " + std::to_string(rot2.y) + ", " + std::to_string(rot2.z) + ", " + std::to_string(rot2.w), Logger::INFO);
+    Logger::log("Debug: Interpolated Rotation: " + std::to_string(interpolatedRot.x) + ", " + std::to_string(interpolatedRot.y) + ", " + std::to_string(interpolatedRot.z) + ", " + std::to_string(interpolatedRot.w), Logger::INFO);
 
     glm::mat4 translation = glm::translate(glm::mat4(1.0f), interpolatedPos);
     glm::mat4 rotation = glm::mat4_cast(interpolatedRot);
@@ -171,4 +165,3 @@ glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm
 
     return translation * rotation * scale;
 }
-

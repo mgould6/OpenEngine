@@ -79,6 +79,15 @@ void SceneTest2(GLFWwindow* window) {
         activeShader->setMat4("model", glm::mat4(1.0f));
 
         myModel->Draw(*activeShader);
+        Logger::log("Debug: Camera Position: " +
+            std::to_string(camera.Position.x) + ", " +
+            std::to_string(camera.Position.y) + ", " +
+            std::to_string(camera.Position.z), Logger::INFO);
+
+        Logger::log("Debug: Model Bounding Box Center: " +
+            std::to_string(myModel->getBoundingBoxCenter().x) + ", " +
+            std::to_string(myModel->getBoundingBoxCenter().y) + ", " +
+            std::to_string(myModel->getBoundingBoxCenter().z), Logger::INFO);
 
         DebugTools::renderBoneHierarchy(myModel, camera);
         Renderer::RenderImGui();
