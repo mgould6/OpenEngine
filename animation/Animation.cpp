@@ -114,23 +114,22 @@ void Animation::loadAnimation(const std::string& filePath) {
 
         for (unsigned int j = 0; j < anim->mNumChannels; j++) {
             aiNodeAnim* nodeAnim = anim->mChannels[j];
-            Logger::log("Debug: Bone: " + std::string(nodeAnim->mNodeName.C_Str()), Logger::INFO);
+            std::string boneName = std::string(nodeAnim->mNodeName.C_Str());
+            Logger::log("Checking extracted animation keyframes for " + boneName, Logger::INFO);
+            Logger::log("Total Position Keys: " + std::to_string(nodeAnim->mNumPositionKeys), Logger::INFO);
+            Logger::log("Total Rotation Keys: " + std::to_string(nodeAnim->mNumRotationKeys), Logger::INFO);
+            Logger::log("Total Scaling Keys: " + std::to_string(nodeAnim->mNumScalingKeys), Logger::INFO);
 
             for (unsigned int k = 0; k < nodeAnim->mNumPositionKeys; k++) {
                 aiVector3D pos = nodeAnim->mPositionKeys[k].mValue;
-                Logger::log("Debug: Position Key " + std::to_string(k) + " | Pos: " +
-                    std::to_string(pos.x) + ", " +
-                    std::to_string(pos.y) + ", " +
-                    std::to_string(pos.z), Logger::INFO);
+                Logger::log("Raw Position Key " + std::to_string(k) + " | Bone: " + boneName +
+                    " | Pos: " + std::to_string(pos.x) + ", " + std::to_string(pos.y) + ", " + std::to_string(pos.z), Logger::INFO);
             }
 
             for (unsigned int k = 0; k < nodeAnim->mNumRotationKeys; k++) {
                 aiQuaternion rot = nodeAnim->mRotationKeys[k].mValue;
-                Logger::log("Debug: Rotation Key " + std::to_string(k) + " | Rot: " +
-                    std::to_string(rot.x) + ", " +
-                    std::to_string(rot.y) + ", " +
-                    std::to_string(rot.z) + ", " +
-                    std::to_string(rot.w), Logger::INFO);
+                Logger::log("Raw Rotation Key " + std::to_string(k) + " | Bone: " + boneName +
+                    " | Rot: " + std::to_string(rot.x) + ", " + std::to_string(rot.y) + ", " + std::to_string(rot.z) + ", " + std::to_string(rot.w), Logger::INFO);
             }
         }
     }
