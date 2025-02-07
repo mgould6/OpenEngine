@@ -44,13 +44,13 @@ void Mesh::setupMesh() {
     Logger::log("Debug: VAO Bone Weights bound to location 4.", Logger::INFO);
 
 
-    for (const Vertex& v : vertices) {
+ /*   for (const Vertex& v : vertices) {
         Logger::log("Debug: Vertex Bone Weights: " +
             std::to_string(v.Weights[0]) + ", " +
             std::to_string(v.Weights[1]) + ", " +
             std::to_string(v.Weights[2]) + ", " +
             std::to_string(v.Weights[3]), Logger::INFO);
-    }
+    }*/
 
 
     glBindVertexArray(0);

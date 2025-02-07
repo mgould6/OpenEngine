@@ -1,5 +1,6 @@
 #include "AnimationController.h"
 #include "../common_utils/Logger.h"
+#include <fstream>  
 
 AnimationController::AnimationController(Model* model)
     : model(model), currentAnimation(nullptr), animationTime(0.0f) {}
@@ -10,15 +11,28 @@ bool AnimationController::loadAnimation(const std::string& name, const std::stri
         return false;
     }
 
+    Logger::log("INFO: Attempting to load animation: " + name + " from file: " + filePath, Logger::INFO);
+
+    // Debug: Verify file existence
+    std::ifstream file(filePath);  // Fix: Ensure <fstream> is included
+    if (!file.good()) {  // Fix: Use .good() instead of checking object directly
+        Logger::log("ERROR: Animation file not found: " + filePath, Logger::ERROR);
+        return false;
+    }
+    else {
+        Logger::log("INFO: Animation file exists. Proceeding with loading.", Logger::INFO);
+    }
+
+    // Create Animation instance
     Animation* animation = new Animation(filePath);
     if (!animation->isLoaded()) {
-        Logger::log("Failed to load animation: " + filePath, Logger::ERROR);
+        Logger::log("ERROR: Failed to load animation data from file: " + filePath, Logger::ERROR);
         delete animation;
         return false;
     }
 
     animations[name] = animation;
-    Logger::log("Loaded animation: " + name, Logger::INFO);
+    Logger::log("INFO: Successfully loaded animation: " + name, Logger::INFO);
     return true;
 }
 

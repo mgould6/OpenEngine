@@ -32,6 +32,8 @@ public:
     const glm::mat4& getBoneTransform(const std::string& boneName) const;
     std::string getBoneParent(const std::string& boneName) const;
 
+    void forceTestBoneTransform();
+
 
 private:
     std::vector<Mesh> meshes;

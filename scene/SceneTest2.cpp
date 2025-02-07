@@ -24,30 +24,34 @@ void SceneTest2(GLFWwindow* window) {
 
     // Load the model if not already loaded
     if (!myModel) {
-        myModel = new Model("Character Template F3.fbx");
+        myModel = new Model("Character Template F9.fbx");
         if (!myModel) {
-            Logger::log("Failed to load model.", Logger::ERROR);
+            Logger::log("ERROR: Failed to load model.", Logger::ERROR);
             return;
         }
-        Logger::log("Model loaded successfully.", Logger::INFO);
+        Logger::log("INFO: Model loaded successfully.", Logger::INFO);
     }
 
     // Debug: Print absolute path of animation file
-    std::string fullPath = std::filesystem::absolute("Character Template F3.fbx").string();
-    Logger::log("Debug: Full path of animation file: " + fullPath, Logger::INFO);
+    std::string fullPath = std::filesystem::absolute("Character Template F9.fbx").string();
+    Logger::log("DEBUG: Full path of animation file: " + fullPath, Logger::INFO);
 
     // Initialize the animation controller
     if (!animationController) {
         animationController = new AnimationController(myModel);
-        if (!animationController->loadAnimation("Idle", "Character Template F3.fbx")) {
-            Logger::log("Failed to load idle animation.", Logger::ERROR);
+        if (!animationController->loadAnimation("rig.001|Idle", "Character Template F9.fbx")) {
+            Logger::log("ERROR: AnimationController failed to load animation!", Logger::ERROR);
             return;
         }
-        Logger::log("Idle animation loaded successfully.", Logger::INFO);
+        Logger::log("INFO: Successfully loaded animation rig.001|Idle.", Logger::INFO);
+
+        // Manually set the animation to test if it applies
+        animationController->setCurrentAnimation("rig.001|Idle");
+        Logger::log("INFO: Set current animation to rig.001|Idle.", Logger::INFO);
     }
 
     camera.setCameraToFitModel(*myModel);
-    Logger::log("Camera positioned to frame the model.", Logger::INFO);
+    Logger::log("INFO: Camera positioned to frame the model.", Logger::INFO);
 
     InputManager::setCamera(&camera);
     camera.SetPerspective(glm::radians(60.0f), SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
@@ -64,14 +68,14 @@ void SceneTest2(GLFWwindow* window) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         if (animationController) {
-            Logger::log("Debug: Calling animation update", Logger::INFO);
+            Logger::log("DEBUG: Calling animation update", Logger::INFO);
             animationController->update(deltaTime);
-            Logger::log("Debug: Calling applyToModel", Logger::INFO);
+            Logger::log("DEBUG: Calling applyToModel", Logger::INFO);
             animationController->applyToModel(myModel);
         }
 
         Shader* activeShader = ShaderManager::boneShader ? ShaderManager::boneShader : ShaderManager::lightingShader;
-        Logger::log("Debug: Using bone shader.", Logger::INFO);
+        Logger::log("DEBUG: Using bone shader.", Logger::INFO);
 
         activeShader->use();
         activeShader->setMat4("view", camera.GetViewMatrix());
@@ -79,17 +83,8 @@ void SceneTest2(GLFWwindow* window) {
         activeShader->setMat4("model", glm::mat4(1.0f));
 
         myModel->Draw(*activeShader);
-        Logger::log("Debug: Camera Position: " +
-            std::to_string(camera.Position.x) + ", " +
-            std::to_string(camera.Position.y) + ", " +
-            std::to_string(camera.Position.z), Logger::INFO);
+        Logger::log("DEBUG: Model drawn successfully.", Logger::INFO);
 
-        Logger::log("Debug: Model Bounding Box Center: " +
-            std::to_string(myModel->getBoundingBoxCenter().x) + ", " +
-            std::to_string(myModel->getBoundingBoxCenter().y) + ", " +
-            std::to_string(myModel->getBoundingBoxCenter().z), Logger::INFO);
-
-        DebugTools::renderBoneHierarchy(myModel, camera);
         Renderer::RenderImGui();
         Renderer::EndFrame(window);
     }

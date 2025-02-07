@@ -157,8 +157,8 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="assimp-vc143-mt.dll" />
-    <None Include="Character Template F.fbx" />
     <None Include="Character Template F3.fbx" />
+    <None Include="Character Template F8.fbx" />
     <None Include="shaders\bone\bone_fragment_shader.fs" />
     <None Include="shaders\bone\bone_vertex_shader.vs" />
     <None Include="shaders\post_processing\blur.fs" />
