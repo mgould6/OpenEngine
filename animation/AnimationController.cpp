@@ -14,8 +14,8 @@ bool AnimationController::loadAnimation(const std::string& name, const std::stri
     Logger::log("INFO: Attempting to load animation: " + name + " from file: " + filePath, Logger::INFO);
 
     // Debug: Verify file existence
-    std::ifstream file(filePath);  // Fix: Ensure <fstream> is included
-    if (!file.good()) {  // Fix: Use .good() instead of checking object directly
+    std::ifstream file(filePath);
+    if (!file.good()) {
         Logger::log("ERROR: Animation file not found: " + filePath, Logger::ERROR);
         return false;
     }
@@ -36,6 +36,7 @@ bool AnimationController::loadAnimation(const std::string& name, const std::stri
     return true;
 }
 
+
 void AnimationController::setCurrentAnimation(const std::string& name) {
     if (animations.find(name) != animations.end()) {
         currentAnimation = animations[name];
@@ -48,17 +49,24 @@ void AnimationController::setCurrentAnimation(const std::string& name) {
 }
 
 void AnimationController::update(float deltaTime) {
-    if (!currentAnimation) return;
+    if (!currentAnimation) {
+        Logger::log("ERROR: No current animation set in AnimationController!", Logger::ERROR);
+        return;
+    }
+
+    if (currentAnimation->getDuration() <= 0.0f) {
+        Logger::log("ERROR: Animation duration is zero or invalid!", Logger::ERROR);
+        return;
+    }
 
     animationTime += deltaTime;
 
-    // Loop the animation if it exceeds its duration
-    if (animationTime > currentAnimation->getDuration()) {
+    if (animationTime > currentAnimation->getDuration() || animationTime < 0.0f) {
         animationTime = std::fmod(animationTime, currentAnimation->getDuration());
+        if (animationTime < 0.0f) animationTime = 0.0f;
     }
 
     Logger::log("Debug: Animation time updated to: " + std::to_string(animationTime), Logger::INFO);
-
 }
 
 void AnimationController::applyToModel(Model* model) {

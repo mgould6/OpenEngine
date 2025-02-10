@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "../common_utils/Logger.h"
+
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath) : compiled(false) {
     std::string vertexCode;
@@ -64,7 +66,20 @@ bool Shader::isCompiled() const {
 }
 
 void Shader::use() const {
+
     glUseProgram(ID);
+    GLint maxAttribs;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxAttribs);
+    Logger::log("DEBUG: Max Vertex Attributes: " + std::to_string(maxAttribs), Logger::INFO);
+
+    for (int i = 0; i < maxAttribs; i++) {
+        GLint enabled;
+        glGetVertexAttribiv(i, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &enabled);
+        if (enabled) {
+            Logger::log("DEBUG: Vertex Attribute " + std::to_string(i) + " is enabled.", Logger::INFO);
+        }
+    }
+
 }
 
 void Shader::setBool(const std::string& name, bool value) const {

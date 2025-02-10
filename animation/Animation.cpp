@@ -22,74 +22,30 @@ float Animation::getDuration() const {
 
 void Animation::apply(float animationTime, Model* model) {
     if (!loaded || keyframes.empty()) {
-        Logger::log("Error: No keyframes loaded in animation!", Logger::ERROR);
+        Logger::log("ERROR: Animation is not loaded or has no keyframes!", Logger::ERROR);
         return;
     }
 
-    Logger::log("Debug: Applying animation at time: " + std::to_string(animationTime), Logger::INFO);
-
-    Keyframe kf1, kf2;
-    float factor = 0.0f;
-    bool keyframeFound = false;
-
-    // Locate the correct keyframe range for interpolation
-    for (size_t i = 0; i < keyframes.size() - 1; ++i) {
-        if (animationTime >= keyframes[i].timestamp && animationTime <= keyframes[i + 1].timestamp) {
-            kf1 = keyframes[i];
-            kf2 = keyframes[i + 1];
-            factor = (animationTime - kf1.timestamp) / (kf2.timestamp - kf1.timestamp);
-            keyframeFound = true;
-            break;
-        }
-    }
-
-    if (!keyframeFound) {
-        Logger::log("Error: No valid keyframe pair found for animation time: " + std::to_string(animationTime), Logger::ERROR);
-        return;
-    }
+    Logger::log("DEBUG: Entering apply() at time: " + std::to_string(animationTime), Logger::INFO);
 
     std::unordered_map<std::string, glm::mat4> globalBoneTransforms;
 
-    // Interpolate keyframes for each bone
-    for (const auto& [boneName, transform1] : kf1.boneTransforms) {
-        if (kf2.boneTransforms.find(boneName) == kf2.boneTransforms.end()) {
-            Logger::log("Warning: Bone " + boneName + " missing in second keyframe!", Logger::WARNING);
-            continue;
+    for (const auto& keyframe : keyframes) {
+        if (animationTime >= keyframe.timestamp) {
+            for (const auto& [boneName, transform] : keyframe.boneTransforms) {
+                globalBoneTransforms[boneName] = transform;
+            }
         }
-
-        glm::mat4 transform2 = kf2.boneTransforms.at(boneName);
-        glm::mat4 interpolatedTransform = interpolateKeyframes(transform1, transform2, factor);
-
-        Logger::log("Debug: Bone " + boneName + " - Interpolated Transform", Logger::INFO);
-        for (int row = 0; row < 4; row++) {
-            Logger::log(
-                std::to_string(interpolatedTransform[row][0]) + " " +
-                std::to_string(interpolatedTransform[row][1]) + " " +
-                std::to_string(interpolatedTransform[row][2]) + " " +
-                std::to_string(interpolatedTransform[row][3]), Logger::INFO);
-        }
-
-        globalBoneTransforms[boneName] = interpolatedTransform;
     }
 
     if (globalBoneTransforms.empty()) {
-        Logger::log("Error: No valid bone transforms computed!", Logger::ERROR);
+        Logger::log("ERROR: No valid bone transforms computed!", Logger::ERROR);
         return;
     }
 
-    // Apply transforms to model bones
     for (const auto& [boneName, transform] : globalBoneTransforms) {
-        std::string parentName = model->getBoneParent(boneName);
-        if (!parentName.empty() && globalBoneTransforms.find(parentName) != globalBoneTransforms.end()) {
-            globalBoneTransforms[boneName] = globalBoneTransforms[parentName] * transform;
-        }
-
-        model->setBoneTransform(boneName, globalBoneTransforms[boneName]);
-
-        Logger::log("Debug: Applied Transform to Bone " + boneName + " | Pos: " +
-            std::to_string(globalBoneTransforms[boneName][3][0]) + ", " +
-            std::to_string(globalBoneTransforms[boneName][3][1]) + ", " +
-            std::to_string(globalBoneTransforms[boneName][3][2]), Logger::INFO);
+        model->setBoneTransform(boneName, transform);
+        Logger::log("DEBUG: Applied Transform to Bone " + boneName, Logger::INFO);
     }
 }
 
@@ -115,6 +71,46 @@ void Animation::loadAnimation(const std::string& filePath) {
     }
 
     Logger::log("INFO: Successfully found animations in file.", Logger::INFO);
+    aiAnimation* anim = scene->mAnimations[0];
+
+    duration = anim->mDuration;
+    Logger::log("DEBUG: Animation Duration: " + std::to_string(duration), Logger::INFO);
+
+    if (anim->mTicksPerSecond > 0.0) {
+        Logger::log("DEBUG: Animation Ticks Per Second: " + std::to_string(anim->mTicksPerSecond), Logger::INFO);
+    }
+    else {
+        Logger::log("WARNING: Animation has no ticks per second set. Defaulting to 30.0", Logger::WARNING);
+        anim->mTicksPerSecond = 30.0f;
+    }
+
+    // Extract keyframes
+    for (unsigned int i = 0; i < anim->mNumChannels; i++) {
+        aiNodeAnim* channel = anim->mChannels[i];
+        std::string boneName = channel->mNodeName.C_Str();
+
+        if (channel->mNumPositionKeys == 0 && channel->mNumRotationKeys == 0) {
+            Logger::log("WARNING: Bone " + boneName + " has no valid keyframes!", Logger::WARNING);
+            continue;
+        }
+
+        for (unsigned int j = 0; j < channel->mNumPositionKeys; j++) {
+            float timestamp = static_cast<float>(channel->mPositionKeys[j].mTime);
+            glm::vec3 position(channel->mPositionKeys[j].mValue.x,
+                channel->mPositionKeys[j].mValue.y,
+                channel->mPositionKeys[j].mValue.z);
+
+            glm::quat rotation(channel->mRotationKeys[j].mValue.w,
+                channel->mRotationKeys[j].mValue.x,
+                channel->mRotationKeys[j].mValue.y,
+                channel->mRotationKeys[j].mValue.z);
+
+            glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::mat4_cast(rotation);
+            keyframes.push_back({ timestamp, { { boneName, transform } } });
+        }
+    }
+
+    loaded = true;
 }
 
 

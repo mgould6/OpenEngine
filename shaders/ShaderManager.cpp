@@ -37,56 +37,32 @@ Shader* ShaderManager::loadAndCompileShader(const char* vertexPath, const char* 
 }
 
 bool ShaderManager::initShaders() {
-    if (!allShaders.empty()) {
-        Logger::log("Shaders already initialized.", Logger::WARNING);
-        return true;
-    }
-
-    // Load and store shaders
-    lightingShader = loadAndCompileShader("shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs");
-    if (lightingShader) allShaders.push_back(lightingShader);
-
+    Logger::log("DEBUG: Initializing shaders...", Logger::INFO);
 
     boneShader = loadAndCompileShader("shaders/bone/bone_vertex_shader.vs", "shaders/bone/bone_fragment_shader.fs");
-    if (boneShader) {
+    if (boneShader && boneShader->isCompiled()) {
         allShaders.push_back(boneShader);
-        Logger::log("Debug: Bone shader initialized successfully.", Logger::INFO);
+        Logger::log("DEBUG: Bone shader compiled successfully.", Logger::INFO);
     }
     else {
-        Logger::log("Error: Bone shader failed to load!", Logger::ERROR);
+        Logger::log("ERROR: Bone shader failed to compile!", Logger::ERROR);
     }
-    //shadowShader = loadAndCompileShader("shaders/shadow/shadow_vertex_shader.vs", "shaders/shadow/shadow_fragment_shader.fs");
-    //if (lightingShader) allShaders.push_back(lightingShader);
 
-    //depthShader = loadAndCompileShader("shaders/depth/depth_vertex_shader.vs", "shaders/depth/depth_fragment_shader.fs");
-    //if (depthShader) allShaders.push_back(depthShader);
-
-    //postProcessingShader = loadAndCompileShader("shaders/post_processing/post_processing.vs", "shaders/post_processing/post_processing.fs");
-    //if (postProcessingShader) allShaders.push_back(postProcessingShader);
-
-    //brightExtractShader = loadAndCompileShader("shaders/post_processing/bright_extract.vs", "shaders/post_processing/bright_extract.fs");
-    //if (brightExtractShader) allShaders.push_back(brightExtractShader);
-
-    //blurShader = loadAndCompileShader("shaders/post_processing/blur.vs", "shaders/post_processing/blur.fs");
-    //if (blurShader) allShaders.push_back(blurShader);
-
-    //combineShader = loadAndCompileShader("shaders/post_processing/combine.vs", "shaders/post_processing/combine.fs");
-    //if (combineShader) allShaders.push_back(combineShader);
-
-    //ssaoShader = loadAndCompileShader("shaders/post_processing/ssao.vs", "shaders/post_processing/ssao.fs");
-    //if (ssaoShader) allShaders.push_back(ssaoShader);
-
-    //toneMappingShader = loadAndCompileShader("shaders/post_processing/tone_mapping.vs", "shaders/post_processing/tone_mapping.fs");
-    //if (toneMappingShader) allShaders.push_back(toneMappingShader);
+    // Load a simple fallback shader in case bone shader fails
+    if (!boneShader || !boneShader->isCompiled()) {
+        Logger::log("WARNING: Bone shader failed! Loading fallback shader.", Logger::WARNING);
+        boneShader = loadAndCompileShader("shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs");
+    }
 
     if (allShaders.empty()) {
-        Logger::log("No shaders initialized.", Logger::ERROR);
+        Logger::log("ERROR: No shaders initialized. Exiting rendering.", Logger::ERROR);
         return false;
     }
 
     Logger::log("Shaders initialized successfully.", Logger::INFO);
     return true;
 }
+
 
 void ShaderManager::checkShaderCompileErrors(unsigned int shader, const std::string& type) {
     int success;

@@ -9,7 +9,6 @@
 #include "../setup/Globals.h"
 #include "../input/InputManager.h"
 #include "../animation/AnimationController.h"
-#include "../animation/DebugTools.h"
 #include <filesystem>
 
 // Global variables
@@ -32,9 +31,19 @@ void SceneTest2(GLFWwindow* window) {
         Logger::log("INFO: Model loaded successfully.", Logger::INFO);
     }
 
-    // Debug: Print absolute path of animation file
-    std::string fullPath = std::filesystem::absolute("Character Template F9.fbx").string();
-    Logger::log("DEBUG: Full path of animation file: " + fullPath, Logger::INFO);
+    // Debug: Print model size and center
+    glm::vec3 modelCenter = myModel->getBoundingBoxCenter();
+    float modelSize = myModel->getBoundingBoxRadius();
+    Logger::log("DEBUG: Model Center at (" + std::to_string(modelCenter.x) + ", " +
+        std::to_string(modelCenter.y) + ", " + std::to_string(modelCenter.z) + ")", Logger::INFO);
+    Logger::log("DEBUG: Model Size (Radius): " + std::to_string(modelSize), Logger::INFO);
+
+    // Position the camera relative to the model using setCameraToFitModel()
+    camera.setCameraToFitModel(*myModel);
+
+    InputManager::setCamera(&camera);
+    camera.SetPerspective(glm::radians(60.0f), SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
+    glEnable(GL_DEPTH_TEST);
 
     // Initialize the animation controller
     if (!animationController) {
@@ -49,13 +58,6 @@ void SceneTest2(GLFWwindow* window) {
         animationController->setCurrentAnimation("rig.001|Idle");
         Logger::log("INFO: Set current animation to rig.001|Idle.", Logger::INFO);
     }
-
-    camera.setCameraToFitModel(*myModel);
-    Logger::log("INFO: Camera positioned to frame the model.", Logger::INFO);
-
-    InputManager::setCamera(&camera);
-    camera.SetPerspective(glm::radians(60.0f), SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
-    glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -74,14 +76,29 @@ void SceneTest2(GLFWwindow* window) {
             animationController->applyToModel(myModel);
         }
 
-        Shader* activeShader = ShaderManager::boneShader ? ShaderManager::boneShader : ShaderManager::lightingShader;
-        Logger::log("DEBUG: Using bone shader.", Logger::INFO);
+        // Ensure the correct shader is used
+        Shader* activeShader = ShaderManager::boneShader;
+        if (!activeShader || !activeShader->isCompiled()) {
+            Logger::log("WARNING: Bone shader failed! Falling back to default shader.", Logger::WARNING);
+            activeShader = ShaderManager::lightingShader ? ShaderManager::lightingShader : nullptr;
+        }
 
+        if (!activeShader) {
+            Logger::log("ERROR: No valid shader available! Skipping rendering.", Logger::ERROR);
+            return;  //  Prevents crash if no shader is available
+        }
+
+        Logger::log("DEBUG: Using active shader.", Logger::INFO);
         activeShader->use();
+
         activeShader->setMat4("view", camera.GetViewMatrix());
         activeShader->setMat4("projection", camera.ProjectionMatrix);
-        activeShader->setMat4("model", glm::mat4(1.0f));
 
+        // Scale model for visibility
+        glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
+        activeShader->setMat4("model", modelMatrix);
+
+        // Draw the model
         myModel->Draw(*activeShader);
         Logger::log("DEBUG: Model drawn successfully.", Logger::INFO);
 

@@ -106,14 +106,32 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
 }
 
 void Model::Draw(Shader& shader) {
-    unsigned int boneMatrixLocation = glGetUniformLocation(shader.ID, "boneTransforms");
+    Logger::log("DEBUG: Entering Model::Draw()", Logger::INFO);
 
+    if (meshes.empty()) {
+        Logger::log("ERROR: No meshes found to draw!", Logger::ERROR);
+        return;
+    }
+
+    // Debug model position and bounding box
+    glm::vec3 boundingCenter = getBoundingBoxCenter();
+    float boundingRadius = getBoundingBoxRadius();
+    Logger::log("DEBUG: Model Bounding Box Center: (" + std::to_string(boundingCenter.x) + ", " +
+        std::to_string(boundingCenter.y) + ", " + std::to_string(boundingCenter.z) + ")", Logger::INFO);
+    Logger::log("DEBUG: Model Bounding Box Radius: " + std::to_string(boundingRadius), Logger::INFO);
+
+    // Scale check
+    glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
+    shader.setMat4("model", modelMatrix);
+
+    unsigned int boneMatrixLocation = glGetUniformLocation(shader.ID, "boneTransforms");
     std::vector<glm::mat4> boneMatrices;
+
     for (const auto& bone : bones) {
         glm::mat4 boneTransform = getBoneTransform(bone.name);
         boneMatrices.push_back(boneTransform);
 
-        Logger::log("Debug: Sending Bone Transform to Shader - " + bone.name, Logger::INFO);
+        Logger::log("DEBUG: Sending Bone Transform to Shader - " + bone.name, Logger::INFO);
         for (int row = 0; row < 4; row++) {
             Logger::log(
                 std::to_string(boneTransform[row][0]) + " " +
@@ -123,7 +141,14 @@ void Model::Draw(Shader& shader) {
         }
     }
 
-    glUniformMatrix4fv(boneMatrixLocation, boneMatrices.size(), GL_FALSE, &boneMatrices[0][0][0]);
+    if (!boneMatrices.empty()) {
+        glUniformMatrix4fv(boneMatrixLocation, boneMatrices.size(), GL_FALSE, &boneMatrices[0][0][0]);
+    }
+
+    Logger::log("DEBUG: Drawing " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
+    for (auto& mesh : meshes) {
+        mesh.Draw(shader);
+    }
 }
 
 
@@ -159,18 +184,17 @@ const std::unordered_map<std::string, glm::mat4>& Model::getBoneTransforms() con
 }
 
 void Model::setBoneTransform(const std::string& boneName, const glm::mat4& transform) {
-    Logger::log("Debug: Before Storing Bone " + boneName + " | Pos: " +
-        std::to_string(transform[3][0]) + ", " +
-        std::to_string(transform[3][1]) + ", " +
-        std::to_string(transform[3][2]), Logger::INFO);
+    if (boneName == "DEF-spine") {
+        Logger::log("DEBUG: Forcing DEF-spine to move!", Logger::INFO);
+        boneTransforms[boneName] = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 5.0f, 0.0f));
+    }
+    else {
+        boneTransforms[boneName] = transform;
+    }
 
-    boneTransforms[boneName] = transform;
-
-    Logger::log("Debug: After Storing Bone " + boneName + " | Pos: " +
-        std::to_string(boneTransforms[boneName][3][0]) + ", " +
-        std::to_string(boneTransforms[boneName][3][1]) + ", " +
-        std::to_string(boneTransforms[boneName][3][2]), Logger::INFO);
+    Logger::log("DEBUG: After Storing Bone " + boneName, Logger::INFO);
 }
+
 
 
 const glm::mat4& Model::getBoneTransform(const std::string& boneName) const {
