@@ -223,3 +223,7 @@ void Model::forceTestBoneTransform() {
         Logger::log("Error: Bone " + testBone + " not found!", Logger::ERROR);
     }
 }
+int Model::getBoneIndex(const std::string& boneName) const {
+    auto it = boneMapping.find(boneName);
+    return (it != boneMapping.end()) ? it->second : -1;
+}

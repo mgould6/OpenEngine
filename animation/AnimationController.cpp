@@ -1,6 +1,11 @@
 #include "AnimationController.h"
 #include "../common_utils/Logger.h"
-#include <fstream>  
+#include "../shaders/ShaderManager.h"
+#include <map>
+#include <string>
+#include <fstream>
+#include <glm/gtc/type_ptr.hpp>
+#include <GLFW/glfw3.h>
 
 AnimationController::AnimationController(Model* model)
     : model(model), currentAnimation(nullptr), animationTime(0.0f) {}
@@ -13,17 +18,12 @@ bool AnimationController::loadAnimation(const std::string& name, const std::stri
 
     Logger::log("INFO: Attempting to load animation: " + name + " from file: " + filePath, Logger::INFO);
 
-    // Debug: Verify file existence
     std::ifstream file(filePath);
     if (!file.good()) {
         Logger::log("ERROR: Animation file not found: " + filePath, Logger::ERROR);
         return false;
     }
-    else {
-        Logger::log("INFO: Animation file exists. Proceeding with loading.", Logger::INFO);
-    }
 
-    // Create Animation instance
     Animation* animation = new Animation(filePath);
     if (!animation->isLoaded()) {
         Logger::log("ERROR: Failed to load animation data from file: " + filePath, Logger::ERROR);
@@ -35,7 +35,6 @@ bool AnimationController::loadAnimation(const std::string& name, const std::stri
     Logger::log("INFO: Successfully loaded animation: " + name, Logger::INFO);
     return true;
 }
-
 
 void AnimationController::setCurrentAnimation(const std::string& name) {
     if (animations.find(name) != animations.end()) {
@@ -60,20 +59,32 @@ void AnimationController::update(float deltaTime) {
     }
 
     animationTime += deltaTime;
-
-    if (animationTime > currentAnimation->getDuration() || animationTime < 0.0f) {
-        animationTime = std::fmod(animationTime, currentAnimation->getDuration());
-        if (animationTime < 0.0f) animationTime = 0.0f;
-    }
+    animationTime = fmod(animationTime, currentAnimation->getDuration());
 
     Logger::log("Debug: Animation time updated to: " + std::to_string(animationTime), Logger::INFO);
 }
 
 void AnimationController::applyToModel(Model* model) {
-    if (currentAnimation) {
-        currentAnimation->apply(animationTime, model);
-        Logger::log("Debug: Applying animation to model at time: " + std::to_string(animationTime), Logger::INFO);
+    if (!model || !currentAnimation) {
+        Logger::log("ERROR: Animation is not loaded or has no keyframes!", Logger::ERROR);
+        return;
+    }
 
+    float animationTime = fmod(glfwGetTime() * currentAnimation->getTicksPerSecond(), currentAnimation->getDuration());
+
+    std::map<std::string, glm::mat4> finalBoneMatrices;
+    currentAnimation->interpolateKeyframes(animationTime, finalBoneMatrices);
+
+    std::vector<glm::mat4> boneTransforms(100, glm::mat4(1.0f));
+    for (const auto& pair : finalBoneMatrices) {
+        int boneIndex = model->getBoneIndex(pair.first);
+        if (boneIndex >= 0 && boneIndex < 100) {
+            boneTransforms[boneIndex] = pair.second;
+        }
+    }
+
+    if (ShaderManager::boneShader) {
+        glUniformMatrix4fv(glGetUniformLocation(ShaderManager::boneShader->ID, "boneTransforms"), 100, GL_FALSE, glm::value_ptr(boneTransforms[0]));
     }
 }
 

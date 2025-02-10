@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <map>  
 #include <glm/glm.hpp>
 #include "../model/Model.h"
 
@@ -18,19 +19,20 @@ public:
 
     bool isLoaded() const;
     float getDuration() const;
+    float getTicksPerSecond() const { return ticksPerSecond; }
 
     void apply(float animationTime, Model* model);
+    void interpolateKeyframes(float animationTime, std::map<std::string, glm::mat4>& finalBoneMatrices) const;
 
 private:
     std::string filePath;
     bool loaded;
     float duration;
+    float ticksPerSecond;
     std::vector<Keyframe> keyframes;
 
     void loadAnimation(const std::string& filePath);
-
-    // Update: Correct the function signature
-    glm::mat4 interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor);
+    glm::mat4 interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const;
 };
 
 #endif // ANIMATION_H

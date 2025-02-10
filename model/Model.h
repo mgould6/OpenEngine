@@ -27,6 +27,7 @@ public:
     const std::vector<Bone>& getBones() const;
     const std::unordered_map<std::string, glm::mat4>& getBoneTransforms() const;
     void setBoneTransform(const std::string& boneName, const glm::mat4& transform);
+    int getBoneIndex(const std::string& boneName) const;
 
     // Added Method
     const glm::mat4& getBoneTransform(const std::string& boneName) const;

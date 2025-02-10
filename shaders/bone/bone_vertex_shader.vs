@@ -15,16 +15,19 @@ out vec3 Normal;
 out vec2 TexCoords;
 
 void main() {
-    mat4 boneTransform = mat4(0.0);
-    if (aWeights[0] > 0.0) boneTransform += boneTransforms[aBoneIDs[0]] * aWeights[0];
-    if (aWeights[1] > 0.0) boneTransform += boneTransforms[aBoneIDs[1]] * aWeights[1];
-    if (aWeights[2] > 0.0) boneTransform += boneTransforms[aBoneIDs[2]] * aWeights[2];
-    if (aWeights[3] > 0.0) boneTransform += boneTransforms[aBoneIDs[3]] * aWeights[3];
+    // Initialize transform to identity (not zero)
+    mat4 boneTransform = mat4(1.0);
+    
+    // Apply weighted transformations
+    boneTransform *= boneTransforms[aBoneIDs[0]] * aWeights[0];
+    boneTransform += boneTransforms[aBoneIDs[1]] * aWeights[1];
+    boneTransform += boneTransforms[aBoneIDs[2]] * aWeights[2];
+    boneTransform += boneTransforms[aBoneIDs[3]] * aWeights[3];
 
     vec4 animatedPosition = boneTransform * vec4(aPos, 1.0);
-    if (animatedPosition == vec4(0.0, 0.0, 0.0, 1.0)) {
-        animatedPosition = vec4(1.0, 1.0, 1.0, 1.0);
-    }
+    FragPos = vec3(model * animatedPosition);
+    Normal = mat3(transpose(inverse(model))) * aNormal;
+    TexCoords = aTexCoords;
 
     gl_Position = projection * view * model * animatedPosition;
 }

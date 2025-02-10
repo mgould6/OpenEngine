@@ -8,7 +8,7 @@
 #include <assimp/postprocess.h>
 
 Animation::Animation(const std::string& filePath)
-    : filePath(filePath), loaded(false), duration(0.0f) {
+    : filePath(filePath), loaded(false), duration(0.0f), ticksPerSecond(30.0f) { // Default TPS to 30.0
     loadAnimation(filePath);
 }
 
@@ -77,14 +77,13 @@ void Animation::loadAnimation(const std::string& filePath) {
     Logger::log("DEBUG: Animation Duration: " + std::to_string(duration), Logger::INFO);
 
     if (anim->mTicksPerSecond > 0.0) {
-        Logger::log("DEBUG: Animation Ticks Per Second: " + std::to_string(anim->mTicksPerSecond), Logger::INFO);
+        ticksPerSecond = anim->mTicksPerSecond;
     }
     else {
         Logger::log("WARNING: Animation has no ticks per second set. Defaulting to 30.0", Logger::WARNING);
-        anim->mTicksPerSecond = 30.0f;
+        ticksPerSecond = 30.0f;
     }
 
-    // Extract keyframes
     for (unsigned int i = 0; i < anim->mNumChannels; i++) {
         aiNodeAnim* channel = anim->mChannels[i];
         std::string boneName = channel->mNodeName.C_Str();
@@ -113,8 +112,17 @@ void Animation::loadAnimation(const std::string& filePath) {
     loaded = true;
 }
 
+void Animation::interpolateKeyframes(float animationTime, std::map<std::string, glm::mat4>& finalBoneMatrices) const {
+    for (const auto& keyframe : keyframes) {
+        if (animationTime >= keyframe.timestamp) {
+            for (const auto& [boneName, transform] : keyframe.boneTransforms) {
+                finalBoneMatrices[boneName] = transform;
+            }
+        }
+    }
+}
 
-glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) {
+glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const {
     glm::vec3 pos1, pos2, scale1, scale2;
     glm::quat rot1, rot2;
     glm::vec4 persp;
@@ -129,10 +137,6 @@ glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm
 
     Logger::log("Interpolating Keyframes", Logger::INFO);
     Logger::log("Bone Transform Interpolation at factor: " + std::to_string(factor), Logger::INFO);
-    Logger::log("Start Position: " + std::to_string(pos1.x) + ", " + std::to_string(pos1.y) + ", " + std::to_string(pos1.z), Logger::INFO);
-    Logger::log("End Position: " + std::to_string(pos2.x) + ", " + std::to_string(pos2.y) + ", " + std::to_string(pos2.z), Logger::INFO);
-    Logger::log("Interpolated Position: " + std::to_string(interpolatedPos.x) + ", " + std::to_string(interpolatedPos.y) + ", " + std::to_string(interpolatedPos.z), Logger::INFO);
-    Logger::log("Interpolated Rotation: " + std::to_string(interpolatedRot.x) + ", " + std::to_string(interpolatedRot.y) + ", " + std::to_string(interpolatedRot.z) + ", " + std::to_string(interpolatedRot.w), Logger::INFO);
 
     glm::mat4 translation = glm::translate(glm::mat4(1.0f), interpolatedPos);
     glm::mat4 rotation = glm::mat4_cast(interpolatedRot);
