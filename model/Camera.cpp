@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "../common_utils/Logger.h"
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
     : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM) {
@@ -84,12 +85,20 @@ void Camera::setCameraToFitModel(const Model& model) {
     glm::vec3 center = model.getBoundingBoxCenter();
     float radius = model.getBoundingBoxRadius();
 
-    float distance = radius / glm::tan(glm::radians(this->Zoom / 2.0f));
-    this->Position = center + glm::vec3(0.0f, 0.0f, distance);
+    // Adjust the distance based on the bounding box size
+    float distance = (radius * 2.5f) / glm::tan(glm::radians(this->Zoom / 2.0f));
 
+    this->Position = center + glm::vec3(0.0f, 0.0f, distance);
     this->Front = glm::normalize(center - this->Position);
-    this->updateCameraVectors();
+
+    Logger::log("DEBUG: Adjusted Camera Position: (" +
+        std::to_string(Position.x) + ", " +
+        std::to_string(Position.y) + ", " +
+        std::to_string(Position.z) + ")", Logger::INFO);
+
+    updateCameraVectors();
 }
+
 
 void Camera::setMovementSpeed(float speed) {
     MovementSpeed = speed;

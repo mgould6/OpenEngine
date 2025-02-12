@@ -48,15 +48,14 @@ bool ShaderManager::initShaders() {
         Logger::log("ERROR: Bone shader failed to compile!", Logger::ERROR);
     }
 
-    // Load a simple fallback shader in case bone shader fails
+    // Load a fallback shader
     if (!boneShader || !boneShader->isCompiled()) {
         Logger::log("WARNING: Bone shader failed! Loading fallback shader.", Logger::WARNING);
         boneShader = loadAndCompileShader("shaders/shadow/lighting_vertex_shader.vs", "shaders/shadow/lighting_fragment_shader.fs");
-    }
-
-    if (allShaders.empty()) {
-        Logger::log("ERROR: No shaders initialized. Exiting rendering.", Logger::ERROR);
-        return false;
+        if (!boneShader || !boneShader->isCompiled()) {
+            Logger::log("ERROR: Fallback shader also failed!", Logger::ERROR);
+            return false;
+        }
     }
 
     Logger::log("Shaders initialized successfully.", Logger::INFO);

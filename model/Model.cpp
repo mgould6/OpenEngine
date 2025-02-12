@@ -161,8 +161,14 @@ glm::vec3 Model::getBoundingBoxCenter() const {
             max = glm::max(max, vertex.Position);
         }
     }
-    return (min + max) / 2.0f;
+    glm::vec3 center = (min + max) / 2.0f;
+
+    Logger::log("DEBUG: Bounding Box Center: (" + std::to_string(center.x) + ", " +
+        std::to_string(center.y) + ", " + std::to_string(center.z) + ")", Logger::INFO);
+
+    return center;
 }
+
 
 float Model::getBoundingBoxRadius() const {
     glm::vec3 min(FLT_MAX), max(-FLT_MAX);
@@ -172,8 +178,13 @@ float Model::getBoundingBoxRadius() const {
             max = glm::max(max, vertex.Position);
         }
     }
-    return glm::distance(min, max) / 2.0f;
+    float radius = glm::distance(min, max) / 2.0f;
+
+    Logger::log("DEBUG: Bounding Box Radius: " + std::to_string(radius), Logger::INFO);
+
+    return radius;
 }
+
 
 const std::vector<Bone>& Model::getBones() const {
     return bones;

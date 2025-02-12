@@ -6,6 +6,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <unordered_set>
 
 Animation::Animation(const std::string& filePath)
     : filePath(filePath), loaded(false), duration(0.0f), ticksPerSecond(30.0f) { // Default TPS to 30.0
@@ -84,9 +85,14 @@ void Animation::loadAnimation(const std::string& filePath) {
         ticksPerSecond = 30.0f;
     }
 
+    std::unordered_set<std::string> bonesWithKeyframes;
+
     for (unsigned int i = 0; i < anim->mNumChannels; i++) {
         aiNodeAnim* channel = anim->mChannels[i];
         std::string boneName = channel->mNodeName.C_Str();
+
+        bonesWithKeyframes.insert(boneName);
+        animatedBones.push_back(boneName);
 
         if (channel->mNumPositionKeys == 0 && channel->mNumRotationKeys == 0) {
             Logger::log("WARNING: Bone " + boneName + " has no valid keyframes!", Logger::WARNING);
@@ -109,18 +115,55 @@ void Animation::loadAnimation(const std::string& filePath) {
         }
     }
 
+    // **Log missing bones**
+    Logger::log("INFO: Checking for missing bones in animation...", Logger::INFO);
+    std::vector<std::string> allBoneNames = {
+        "DEF-breast.L", "DEF-breast.R", "DEF-shoulder.L", "DEF-shoulder.R",
+        "DEF-spine", "DEF-spine.001", "DEF-spine.002", "DEF-spine.003", "DEF-spine.004",
+        "DEF-thigh.L", "DEF-thigh.R", "DEF-foot.L", "DEF-foot.R"
+    };
+
+    for (const auto& bone : allBoneNames) {
+        if (bonesWithKeyframes.find(bone) == bonesWithKeyframes.end()) {
+            Logger::log("WARNING: Bone " + bone + " is missing from animation!", Logger::WARNING);
+        }
+        else {
+            Logger::log("DEBUG: No Bones Missing from animation", Logger::DEBUG);
+        }
+           
+    }
+
     loaded = true;
 }
 
 void Animation::interpolateKeyframes(float animationTime, std::map<std::string, glm::mat4>& finalBoneMatrices) const {
+    if (keyframes.empty()) {
+        Logger::log("ERROR: No keyframes available for interpolation!", Logger::ERROR);
+        return;
+    }
+
     for (const auto& keyframe : keyframes) {
         if (animationTime >= keyframe.timestamp) {
             for (const auto& [boneName, transform] : keyframe.boneTransforms) {
                 finalBoneMatrices[boneName] = transform;
+
+                // **Track specific bones to see if their transforms change over time**
+                if (boneName == "DEF-shoulder.L" || boneName == "DEF-breast.L") {
+                    Logger::log("DEBUG: Keyframe " + std::to_string(keyframe.timestamp) +
+                        " - Bone " + boneName + " Transform:", Logger::INFO);
+                    for (int i = 0; i < 4; i++) {
+                        Logger::log(
+                            std::to_string(transform[i][0]) + " " +
+                            std::to_string(transform[i][1]) + " " +
+                            std::to_string(transform[i][2]) + " " +
+                            std::to_string(transform[i][3]), Logger::INFO);
+                    }
+                }
             }
         }
     }
 }
+
 
 glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const {
     glm::vec3 pos1, pos2, scale1, scale2;

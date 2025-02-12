@@ -33,6 +33,9 @@ private:
 
     void loadAnimation(const std::string& filePath);
     glm::mat4 interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const;
+
+    std::vector<std::string> animatedBones;  // Store bone names that exist in this animation
+
 };
 
 #endif // ANIMATION_H

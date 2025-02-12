@@ -80,6 +80,16 @@ void AnimationController::applyToModel(Model* model) {
         int boneIndex = model->getBoneIndex(pair.first);
         if (boneIndex >= 0 && boneIndex < 100) {
             boneTransforms[boneIndex] = pair.second;
+
+            // **Logging the applied bone transformations**
+            Logger::log("DEBUG: Bone " + pair.first + " Transform:", Logger::INFO);
+            for (int i = 0; i < 4; i++) {
+                Logger::log(
+                    std::to_string(pair.second[i][0]) + " " +
+                    std::to_string(pair.second[i][1]) + " " +
+                    std::to_string(pair.second[i][2]) + " " +
+                    std::to_string(pair.second[i][3]), Logger::INFO);
+            }
         }
     }
 
