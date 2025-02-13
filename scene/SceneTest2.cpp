@@ -23,7 +23,7 @@ void SceneTest2(GLFWwindow* window) {
 
     // Load the model
     if (!myModel) {
-        myModel = new Model("Character Template F1.fbx");
+        myModel = new Model("Character Template F2.fbx");
         if (!myModel) {
             Logger::log("ERROR: Failed to load model.", Logger::ERROR);
             return;
@@ -38,7 +38,7 @@ void SceneTest2(GLFWwindow* window) {
     // Initialize the animation controller
     if (!animationController) {
         animationController = new AnimationController(myModel);
-        if (!animationController->loadAnimation("rig.001|Idle", "Character Template F1.fbx")) {
+        if (!animationController->loadAnimation("rig.001|Idle", "Character Template F2.fbx")) {
             Logger::log("ERROR: AnimationController failed to load animation!", Logger::ERROR);
             return;
         }

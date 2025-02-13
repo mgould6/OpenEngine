@@ -65,36 +65,27 @@ void AnimationController::update(float deltaTime) {
 }
 
 void AnimationController::applyToModel(Model* model) {
-    if (!model || !currentAnimation) {
-        Logger::log("ERROR: Animation is not loaded or has no keyframes!", Logger::ERROR);
-        return;
-    }
-
-    float animationTime = fmod(glfwGetTime() * currentAnimation->getTicksPerSecond(), currentAnimation->getDuration());
+    if (!model || !currentAnimation) return;
 
     std::map<std::string, glm::mat4> finalBoneMatrices;
-    currentAnimation->interpolateKeyframes(animationTime, finalBoneMatrices);
+    float currentTime = animationTime;
 
-    std::vector<glm::mat4> boneTransforms(100, glm::mat4(1.0f));
-    for (const auto& pair : finalBoneMatrices) {
-        int boneIndex = model->getBoneIndex(pair.first);
-        if (boneIndex >= 0 && boneIndex < 100) {
-            boneTransforms[boneIndex] = pair.second;
+    currentAnimation->interpolateKeyframes(currentTime, finalBoneMatrices);
 
-            // **Logging the applied bone transformations**
-            Logger::log("DEBUG: Bone " + pair.first + " Transform:", Logger::INFO);
+    for (const auto& [boneName, transform] : finalBoneMatrices) {
+        model->setBoneTransform(boneName, transform);
+
+        // **Log final bone transforms**
+        if (boneName == "DEF-breast.L" || boneName == "DEF-shoulder.L") {
+            Logger::log("DEBUG: Final Bone Transform - " + boneName, Logger::INFO);
             for (int i = 0; i < 4; i++) {
                 Logger::log(
-                    std::to_string(pair.second[i][0]) + " " +
-                    std::to_string(pair.second[i][1]) + " " +
-                    std::to_string(pair.second[i][2]) + " " +
-                    std::to_string(pair.second[i][3]), Logger::INFO);
+                    std::to_string(transform[i][0]) + " " +
+                    std::to_string(transform[i][1]) + " " +
+                    std::to_string(transform[i][2]) + " " +
+                    std::to_string(transform[i][3]), Logger::INFO);
             }
         }
-    }
-
-    if (ShaderManager::boneShader) {
-        glUniformMatrix4fv(glGetUniformLocation(ShaderManager::boneShader->ID, "boneTransforms"), 100, GL_FALSE, glm::value_ptr(boneTransforms[0]));
     }
 }
 
