@@ -73,17 +73,30 @@ void AnimationController::applyToModel(Model* model) {
     currentAnimation->interpolateKeyframes(currentTime, finalBoneMatrices);
 
     for (const auto& [boneName, transform] : finalBoneMatrices) {
-        model->setBoneTransform(boneName, transform);
+        glm::mat4 finalTransform = transform;
 
-        // **Log final bone transforms**
+        // Recursively accumulate parent bone transforms
+        std::string parentBone = model->getBoneParent(boneName);
+        while (!parentBone.empty()) {
+            if (finalBoneMatrices.find(parentBone) != finalBoneMatrices.end()) {
+                finalTransform = finalBoneMatrices[parentBone] * finalTransform;
+            }
+            parentBone = model->getBoneParent(parentBone);
+        }
+
+        model->setBoneTransform(boneName, finalTransform);
+
+        // Log the final transforms for specific bones for debugging
         if (boneName == "DEF-breast.L" || boneName == "DEF-shoulder.L") {
-            Logger::log("DEBUG: Final Bone Transform - " + boneName, Logger::INFO);
+            Logger::log("DEBUG: Corrected Final Bone Transform - " + boneName, Logger::INFO);
             for (int i = 0; i < 4; i++) {
                 Logger::log(
-                    std::to_string(transform[i][0]) + " " +
-                    std::to_string(transform[i][1]) + " " +
-                    std::to_string(transform[i][2]) + " " +
-                    std::to_string(transform[i][3]), Logger::INFO);
+                    std::to_string(finalTransform[i][0]) + " " +
+                    std::to_string(finalTransform[i][1]) + " " +
+                    std::to_string(finalTransform[i][2]) + " " +
+                    std::to_string(finalTransform[i][3]),
+                    Logger::INFO
+                );
             }
         }
     }
