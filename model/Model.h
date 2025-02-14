@@ -15,7 +15,9 @@
 struct Bone {
     std::string name;
     std::string parentName;
+    glm::mat4 offsetMatrix = glm::mat4(1.0f); // NEW: store the bone's offset (bind pose) matrix
 };
+
 
 class Model {
 public:
@@ -34,19 +36,24 @@ public:
     std::string getBoneParent(const std::string& boneName) const;
 
     void forceTestBoneTransform();
+    void updateBoneHierarchy(const aiNode* node, const std::string& parentName);
 
 
 private:
     std::vector<Mesh> meshes;
     std::string directory;
 
+    std::vector<Bone> bones;
+    std::unordered_map<std::string, glm::mat4> boneTransforms;
+    std::unordered_map<std::string, int> boneMapping;
+    
     void loadModel(const std::string& path);
     void processNode(aiNode* node, const aiScene* scene);
     Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 
-    std::vector<Bone> bones;
-    std::unordered_map<std::string, glm::mat4> boneTransforms;
-    std::unordered_map<std::string, int> boneMapping;
+    // Store the global inverse for the root node
+    glm::mat4 globalInverseTransform = glm::mat4(1.0f);
+
 
 };
 

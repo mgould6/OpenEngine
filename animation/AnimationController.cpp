@@ -64,37 +64,35 @@ void AnimationController::update(float deltaTime) {
     Logger::log("Debug: Animation time updated to: " + std::to_string(animationTime), Logger::INFO);
 }
 
-void AnimationController::applyToModel(Model* model) {
+// AnimationController.cpp
+// AnimationController.cpp
+void AnimationController::applyToModel(Model* model)
+{
     if (!model || !currentAnimation) return;
 
-    std::map<std::string, glm::mat4> finalBoneMatrices;
+    std::map<std::string, glm::mat4> localBoneMatrices;
     float currentTime = animationTime;
 
-    currentAnimation->interpolateKeyframes(currentTime, finalBoneMatrices);
+    // Interpolate keyframes => each bone gets its local transform from the FBX data
+    currentAnimation->interpolateKeyframes(currentTime, localBoneMatrices);
 
-    for (const auto& [boneName, transform] : finalBoneMatrices) {
-        glm::mat4 finalTransform = transform;
+    // Store these local transforms directly; do NOT multiply parents here
+    for (const auto& [boneName, localTransform] : localBoneMatrices)
+    {
+        // Just set the bone’s local transform (no parent recursion)
+        model->setBoneTransform(boneName, localTransform);
 
-        // Recursively accumulate parent bone transforms
-        std::string parentBone = model->getBoneParent(boneName);
-        while (!parentBone.empty()) {
-            if (finalBoneMatrices.find(parentBone) != finalBoneMatrices.end()) {
-                finalTransform = finalBoneMatrices[parentBone] * finalTransform;
-            }
-            parentBone = model->getBoneParent(parentBone);
-        }
-
-        model->setBoneTransform(boneName, finalTransform);
-
-        // Log the final transforms for specific bones for debugging
-        if (boneName == "DEF-breast.L" || boneName == "DEF-shoulder.L") {
-            Logger::log("DEBUG: Corrected Final Bone Transform - " + boneName, Logger::INFO);
-            for (int i = 0; i < 4; i++) {
+        // Optional debug logs
+        if (boneName == "DEF-breast.L" || boneName == "DEF-shoulder.L")
+        {
+            Logger::log("DEBUG: Local Bone Transform - " + boneName, Logger::INFO);
+            for (int i = 0; i < 4; i++)
+            {
                 Logger::log(
-                    std::to_string(finalTransform[i][0]) + " " +
-                    std::to_string(finalTransform[i][1]) + " " +
-                    std::to_string(finalTransform[i][2]) + " " +
-                    std::to_string(finalTransform[i][3]),
+                    std::to_string(localTransform[i][0]) + " " +
+                    std::to_string(localTransform[i][1]) + " " +
+                    std::to_string(localTransform[i][2]) + " " +
+                    std::to_string(localTransform[i][3]),
                     Logger::INFO
                 );
             }
