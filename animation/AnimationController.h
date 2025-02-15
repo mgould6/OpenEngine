@@ -4,6 +4,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <map>
 #include "../model/Model.h"
 #include "Animation.h"
 
@@ -36,6 +37,13 @@ private:
     float animationTime; // Current time in the animation playback
 
     void resetAnimation(); // Reset the animation to its start
+
+    // *** NEW: Declaration for buildGlobalTransform ***
+    glm::mat4 buildGlobalTransform(
+        const std::string& boneName,
+        const std::map<std::string, glm::mat4>& localBoneMatrices,
+        Model* model,
+        std::map<std::string, glm::mat4>& globalBoneMatrices);
 };
 
 #endif // ANIMATIONCONTROLLER_H

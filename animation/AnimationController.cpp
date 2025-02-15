@@ -1,17 +1,23 @@
 #include "AnimationController.h"
 #include "../common_utils/Logger.h"
-#include "../shaders/ShaderManager.h"
-#include <map>
-#include <string>
 #include <fstream>
 #include <glm/gtc/type_ptr.hpp>
 #include <GLFW/glfw3.h>
 
-AnimationController::AnimationController(Model* model)
-    : model(model), currentAnimation(nullptr), animationTime(0.0f) {}
+// Include your "Animation.h" if needed, or forward declare
+// #include "Animation.h"
 
-bool AnimationController::loadAnimation(const std::string& name, const std::string& filePath) {
-    if (animations.find(name) != animations.end()) {
+AnimationController::AnimationController(Model* model)
+    : model(model)
+    , currentAnimation(nullptr)
+    , animationTime(0.0f)
+{
+}
+
+bool AnimationController::loadAnimation(const std::string& name, const std::string& filePath)
+{
+    if (animations.find(name) != animations.end())
+    {
         Logger::log("Animation already loaded: " + name, Logger::WARNING);
         return false;
     }
@@ -19,13 +25,15 @@ bool AnimationController::loadAnimation(const std::string& name, const std::stri
     Logger::log("INFO: Attempting to load animation: " + name + " from file: " + filePath, Logger::INFO);
 
     std::ifstream file(filePath);
-    if (!file.good()) {
+    if (!file.good())
+    {
         Logger::log("ERROR: Animation file not found: " + filePath, Logger::ERROR);
         return false;
     }
 
     Animation* animation = new Animation(filePath);
-    if (!animation->isLoaded()) {
+    if (!animation->isLoaded())
+    {
         Logger::log("ERROR: Failed to load animation data from file: " + filePath, Logger::ERROR);
         delete animation;
         return false;
@@ -36,24 +44,30 @@ bool AnimationController::loadAnimation(const std::string& name, const std::stri
     return true;
 }
 
-void AnimationController::setCurrentAnimation(const std::string& name) {
-    if (animations.find(name) != animations.end()) {
+void AnimationController::setCurrentAnimation(const std::string& name)
+{
+    if (animations.find(name) != animations.end())
+    {
         currentAnimation = animations[name];
         resetAnimation();
         Logger::log("Switched to animation: " + name, Logger::INFO);
     }
-    else {
+    else
+    {
         Logger::log("Animation not found: " + name, Logger::ERROR);
     }
 }
 
-void AnimationController::update(float deltaTime) {
-    if (!currentAnimation) {
+void AnimationController::update(float deltaTime)
+{
+    if (!currentAnimation)
+    {
         Logger::log("ERROR: No current animation set in AnimationController!", Logger::ERROR);
         return;
     }
 
-    if (currentAnimation->getDuration() <= 0.0f) {
+    if (currentAnimation->getDuration() <= 0.0f)
+    {
         Logger::log("ERROR: Animation duration is zero or invalid!", Logger::ERROR);
         return;
     }
@@ -64,25 +78,33 @@ void AnimationController::update(float deltaTime) {
     Logger::log("Debug: Animation time updated to: " + std::to_string(animationTime), Logger::INFO);
 }
 
-// AnimationController.cpp
-// AnimationController.cpp
 void AnimationController::applyToModel(Model* model)
 {
-    if (!model || !currentAnimation) return;
+    if (!model || !currentAnimation)
+        return;
 
+    // 1) Get local (animated) transforms for each bone
     std::map<std::string, glm::mat4> localBoneMatrices;
     float currentTime = animationTime;
-
-    // Interpolate keyframes => each bone gets its local transform from the FBX data
     currentAnimation->interpolateKeyframes(currentTime, localBoneMatrices);
 
-    // Store these local transforms directly; do NOT multiply parents here
+    // 2) Prepare a map for final (global) transforms
+    std::map<std::string, glm::mat4> globalBoneMatrices;
+
+    // 3) For each bone that got a local transform, recursively build the global transform
     for (const auto& [boneName, localTransform] : localBoneMatrices)
     {
-        // Just set the bone’s local transform (no parent recursion)
-        model->setBoneTransform(boneName, localTransform);
+        glm::mat4 globalTransform = buildGlobalTransform(
+            boneName,
+            localBoneMatrices,
+            model,
+            globalBoneMatrices
+        );
 
-        // Optional debug logs
+        // Store the final global transform in the Model
+        model->setBoneTransform(boneName, globalTransform);
+
+        // Example debug logging for a couple bones:
         if (boneName == "DEF-breast.L" || boneName == "DEF-shoulder.L")
         {
             Logger::log("DEBUG: Local Bone Transform - " + boneName, Logger::INFO);
@@ -100,16 +122,57 @@ void AnimationController::applyToModel(Model* model)
     }
 }
 
-bool AnimationController::isAnimationPlaying() const {
+glm::mat4 AnimationController::buildGlobalTransform(
+    const std::string& boneName,
+    const std::map<std::string, glm::mat4>& localBoneMatrices,
+    Model* model,
+    std::map<std::string, glm::mat4>& globalBoneMatrices
+)
+{
+    // If we've already computed this bone's global transform, just return it
+    if (globalBoneMatrices.find(boneName) != globalBoneMatrices.end())
+    {
+        return globalBoneMatrices[boneName];
+    }
+
+    // 1) Get this bone's local (animated) transform
+    glm::mat4 localTransform(1.0f);
+    auto itLocal = localBoneMatrices.find(boneName);
+    if (itLocal != localBoneMatrices.end())
+    {
+        localTransform = itLocal->second;
+    }
+
+    // 2) Find the parent's global transform (recursively)
+    std::string parentName = model->getBoneParent(boneName);
+    glm::mat4 parentGlobal(1.0f);
+    if (!parentName.empty())
+    {
+        parentGlobal = buildGlobalTransform(parentName, localBoneMatrices, model, globalBoneMatrices);
+    }
+
+    // 3) Multiply: final = parentGlobal * local
+    glm::mat4 globalTransform = parentGlobal * localTransform;
+
+    // 4) Cache it so we don't do repeated recursion
+    globalBoneMatrices[boneName] = globalTransform;
+
+    return globalTransform;
+}
+
+bool AnimationController::isAnimationPlaying() const
+{
     return currentAnimation != nullptr;
 }
 
-void AnimationController::stopAnimation() {
+void AnimationController::stopAnimation()
+{
     currentAnimation = nullptr;
     animationTime = 0.0f;
     Logger::log("Animation stopped.", Logger::INFO);
 }
 
-void AnimationController::resetAnimation() {
+void AnimationController::resetAnimation()
+{
     animationTime = 0.0f;
 }

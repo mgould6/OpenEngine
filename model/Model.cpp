@@ -42,8 +42,10 @@ void Model::loadModel(const std::string& path)
     directory = path.substr(0, path.find_last_of('/'));
 
     // Convert the root node's transform to glm and invert it
-    glm::mat4 rootTransform = convertAiMatrix(scene->mRootNode->mTransformation);
-    globalInverseTransform = glm::inverse(rootTransform);
+    //glm::mat4 rootTransform = convertAiMatrix(scene->mRootNode->mTransformation);
+    //globalInverseTransform = glm::inverse(rootTransform);
+    // Temporarily ignore the root transform to test for orientation issues
+    globalInverseTransform = glm::mat4(1.0f);
 
     // Recursively process the scene
     processNode(scene->mRootNode, scene);
@@ -151,8 +153,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
     return Mesh(vertices, indices, textures);
 }
 
-// Model.cpp (Draw function)
-// Model.cpp
 void Model::Draw(Shader& shader)
 {
     Logger::log("DEBUG: Entering Model::Draw()", Logger::INFO);
@@ -163,7 +163,7 @@ void Model::Draw(Shader& shader)
         return;
     }
 
-    // Optional bounding-box debug
+    // Log bounding box for debugging
     glm::vec3 boundingCenter = getBoundingBoxCenter();
     float boundingRadius = getBoundingBoxRadius();
     Logger::log("DEBUG: Model Bounding Box Center: ("
@@ -173,41 +173,45 @@ void Model::Draw(Shader& shader)
     Logger::log("DEBUG: Model Bounding Box Radius: "
         + std::to_string(boundingRadius), Logger::INFO);
 
-    // Model/world transform (scale, rotate, etc. if needed)
+    // Set any model-level transform you want (scale, etc.)
     glm::mat4 modelMatrix = glm::mat4(1.0f);
     shader.setMat4("model", modelMatrix);
 
-    // Gather final bone matrices for the shader
+    // Prepare to upload final bone matrices
     GLint boneMatrixLocation = glGetUniformLocation(shader.ID, "boneTransforms");
     std::vector<glm::mat4> finalMatrices;
-    finalMatrices.reserve(bones.size());
+    finalMatrices.resize(bones.size(), glm::mat4(1.0f));
 
-    for (const auto& bone : bones)
+    // Combine the bone’s global transform (boneTransforms[boneName])
+    // with the bone’s offsetMatrix, so each bone’s final matrix
+    // is: globalTransform * offset.
+    for (size_t i = 0; i < bones.size(); i++)
     {
-        // boneTransforms[bone.name] is the local animated transform (from applyToModel)
-        glm::mat4 localAnimated = getBoneTransform(bone.name);
+        const Bone& bone = bones[i];
+        const std::string& boneName = bone.name;
 
-        // final = localAnimated * offset
-        // (No "globalInverseTransform" unless your pipeline absolutely requires it.)
-        glm::mat4 finalBoneMatrix = localAnimated * bone.offsetMatrix;
+        // The global transform we set in applyToModel
+        glm::mat4 globalTransform = getBoneTransform(boneName);
 
-        finalMatrices.push_back(finalBoneMatrix);
+        // Multiply by offset (bind-pose inverse)
+        glm::mat4 finalMatrix = globalTransform * bone.offsetMatrix;
+        finalMatrices[i] = finalMatrix;
 
-        // Debug
-        Logger::log("DEBUG: Sending Bone Transform to Shader - " + bone.name, Logger::INFO);
+        // Optional debug
+        Logger::log("DEBUG: Sending Bone Transform to Shader - " + boneName, Logger::INFO);
         for (int row = 0; row < 4; row++)
         {
             Logger::log(
-                std::to_string(finalBoneMatrix[row][0]) + " "
-                + std::to_string(finalBoneMatrix[row][1]) + " "
-                + std::to_string(finalBoneMatrix[row][2]) + " "
-                + std::to_string(finalBoneMatrix[row][3]),
+                std::to_string(finalMatrix[row][0]) + " " +
+                std::to_string(finalMatrix[row][1]) + " " +
+                std::to_string(finalMatrix[row][2]) + " " +
+                std::to_string(finalMatrix[row][3]),
                 Logger::INFO
             );
         }
     }
 
-    // Upload bone matrices to the GPU
+    // Upload to the shader array
     if (!finalMatrices.empty())
     {
         glUniformMatrix4fv(boneMatrixLocation,
@@ -216,7 +220,7 @@ void Model::Draw(Shader& shader)
             &finalMatrices[0][0][0]);
     }
 
-    // Draw all meshes
+    // Finally draw all meshes
     Logger::log("DEBUG: Drawing " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
     for (auto& mesh : meshes)
     {
