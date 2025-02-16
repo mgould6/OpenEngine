@@ -4,8 +4,30 @@
 #include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "../common_utils/Logger.h"
+#include <glm/gtx/matrix_decompose.hpp>
+
+#include <sstream>
 
 namespace DebugTools {
+
+    void logDecomposedTransform(const std::string& boneName, const glm::mat4& transform)
+    {
+        glm::vec3 scale, translation, skew;
+        glm::quat rotation;
+        glm::vec4 perspective;
+
+        if (glm::decompose(transform, scale, rotation, translation, skew, perspective)) {
+            std::ostringstream oss;
+            oss << "Decomposed transform for " << boneName << ": "
+                << "Translation(" << translation.x << ", " << translation.y << ", " << translation.z << "), "
+                << "Scale(" << scale.x << ", " << scale.y << ", " << scale.z << ")";
+            Logger::log(oss.str(), Logger::INFO);
+        }
+        else {
+            Logger::log("Failed to decompose transform for " + boneName, Logger::ERROR);
+        }
+    }
+
 
     void renderBoneHierarchy(Model* model, const Camera& camera) {
         if (!model) return;

@@ -1,5 +1,6 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include "Model.h"
+#include "../animation/DebugTools.h"
 #include <iostream>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
@@ -166,14 +167,14 @@ void Model::Draw(Shader& shader)
     // Log bounding box for debugging
     glm::vec3 boundingCenter = getBoundingBoxCenter();
     float boundingRadius = getBoundingBoxRadius();
-    Logger::log("DEBUG: Model Bounding Box Center: ("
-        + std::to_string(boundingCenter.x) + ", "
-        + std::to_string(boundingCenter.y) + ", "
-        + std::to_string(boundingCenter.z) + ")", Logger::INFO);
-    Logger::log("DEBUG: Model Bounding Box Radius: "
-        + std::to_string(boundingRadius), Logger::INFO);
+    Logger::log("DEBUG: Model Bounding Box Center: (" +
+        std::to_string(boundingCenter.x) + ", " +
+        std::to_string(boundingCenter.y) + ", " +
+        std::to_string(boundingCenter.z) + ")", Logger::INFO);
+    Logger::log("DEBUG: Model Bounding Box Radius: " +
+        std::to_string(boundingRadius), Logger::INFO);
 
-    // Set any model-level transform you want (scale, etc.)
+    // Set model-level transform (if any)
     glm::mat4 modelMatrix = glm::mat4(1.0f);
     shader.setMat4("model", modelMatrix);
 
@@ -182,22 +183,26 @@ void Model::Draw(Shader& shader)
     std::vector<glm::mat4> finalMatrices;
     finalMatrices.resize(bones.size(), glm::mat4(1.0f));
 
-    // Combine the bone’s global transform (boneTransforms[boneName])
-    // with the bone’s offsetMatrix, so each bone’s final matrix
-    // is: globalTransform * offset.
+    // Combine each bone's global transform with its offset matrix.
     for (size_t i = 0; i < bones.size(); i++)
     {
         const Bone& bone = bones[i];
         const std::string& boneName = bone.name;
 
-        // The global transform we set in applyToModel
+        // Retrieve the global transform computed in the animation pipeline.
         glm::mat4 globalTransform = getBoneTransform(boneName);
 
-        // Multiply by offset (bind-pose inverse)
+        // Log the decomposed transform for key bones.
+        if (boneName == "DEF-spine" || boneName == "DEF-shoulder.L" || boneName == "DEF-breast.L")
+        {
+            DebugTools::logDecomposedTransform(boneName, globalTransform);
+        }
+
+        // Compute the final matrix by applying the offset.
         glm::mat4 finalMatrix = globalTransform * bone.offsetMatrix;
         finalMatrices[i] = finalMatrix;
 
-        // Optional debug
+        // Optional: Log the final matrix.
         Logger::log("DEBUG: Sending Bone Transform to Shader - " + boneName, Logger::INFO);
         for (int row = 0; row < 4; row++)
         {
@@ -211,7 +216,7 @@ void Model::Draw(Shader& shader)
         }
     }
 
-    // Upload to the shader array
+    // Upload the final bone matrices to the shader.
     if (!finalMatrices.empty())
     {
         glUniformMatrix4fv(boneMatrixLocation,
@@ -220,7 +225,7 @@ void Model::Draw(Shader& shader)
             &finalMatrices[0][0][0]);
     }
 
-    // Finally draw all meshes
+    // Draw each mesh.
     Logger::log("DEBUG: Drawing " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
     for (auto& mesh : meshes)
     {
