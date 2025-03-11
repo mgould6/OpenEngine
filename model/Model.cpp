@@ -30,8 +30,7 @@ void Model::loadModel(const std::string& path)
 {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(
-        path,
-        aiProcess_Triangulate | aiProcess_FlipUVs
+        path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_LimitBoneWeights
     );
 
     if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode)
@@ -42,16 +41,19 @@ void Model::loadModel(const std::string& path)
 
     directory = path.substr(0, path.find_last_of('/'));
 
-    // Convert the root node's transform to glm and invert it
-    //glm::mat4 rootTransform = convertAiMatrix(scene->mRootNode->mTransformation);
-    //globalInverseTransform = glm::inverse(rootTransform);
-    // Temporarily ignore the root transform to test for orientation issues
-    globalInverseTransform = glm::mat4(1.0f);
+    glm::mat4 rootTransform = convertAiMatrix(scene->mRootNode->mTransformation);
+    globalInverseTransform = glm::inverse(rootTransform);
+    Logger::log("Global inverse transform explicitly set from root node transformation.", Logger::INFO);
 
-    // Recursively process the scene
     processNode(scene->mRootNode, scene);
 
-    // Update bone hierarchy (parents)
+    // Explicit bone mapping log
+    Logger::log("==== Explicit Bone Mapping BEGIN ====", Logger::INFO);
+    for (const auto& bonePair : boneMapping) {
+        Logger::log("Bone Mapping ID[" + std::to_string(bonePair.second) + "] maps to Bone Name[" + bonePair.first + "]", Logger::INFO);
+    }
+    Logger::log("==== EXPLICIT BONE MAPPING END ====", Logger::INFO);
+
     updateBoneHierarchy(scene->mRootNode, "");
 
     Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
@@ -70,167 +72,115 @@ void Model::processNode(aiNode* node, const aiScene* scene) {
     }
 }
 
-Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene) {
+Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
+{
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
 
-    // Process vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
         Vertex vertex;
-        glm::vec3 vector;
-
-        // Positions
-        vector.x = mesh->mVertices[i].x;
-        vector.y = mesh->mVertices[i].y;
-        vector.z = mesh->mVertices[i].z;
-        vertex.Position = vector;
-
-        // Normals
-        vector.x = mesh->mNormals[i].x;
-        vector.y = mesh->mNormals[i].y;
-        vector.z = mesh->mNormals[i].z;
-        vertex.Normal = vector;
-
-        // Initialize bone data to zero
-        vertex.BoneIDs = glm::ivec4(0);
+        vertex.Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
+        vertex.Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+        vertex.BoneIDs = glm::ivec4(-1);
         vertex.Weights = glm::vec4(0.0f);
-
         vertices.push_back(vertex);
     }
 
-    // Process indices
     for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
         aiFace face = mesh->mFaces[i];
-        for (unsigned int j = 0; j < face.mNumIndices; j++) {
+        for (unsigned int j = 0; j < face.mNumIndices; j++)
             indices.push_back(face.mIndices[j]);
-        }
-    }
-
-    // Normalize vertex weights if necessary
-    for (auto& vertex : vertices) {
-        float weightSum = vertex.Weights[0] + vertex.Weights[1] + vertex.Weights[2] + vertex.Weights[3];
-        if (weightSum > 0.0f) {
-            vertex.Weights /= weightSum;
-        }
-    }
-
-    // Process bones (if any)
-    if (mesh->mNumBones > 0) {
-        Logger::log("Debug: Processing " + std::to_string(mesh->mNumBones) + " bones.", Logger::INFO);
     }
 
     for (unsigned int i = 0; i < mesh->mNumBones; i++) {
         aiBone* bone = mesh->mBones[i];
-        std::string boneName = bone->mName.C_Str();
+        std::string boneName(bone->mName.C_Str());
 
-        // If this bone is not already in our mapping, add it and store its offset matrix.
+        if (boneName.rfind("DEF-", 0) != 0)
+            continue;
+
+        int boneIndex = 0;
         if (boneMapping.find(boneName) == boneMapping.end()) {
-            boneMapping[boneName] = static_cast<int>(bones.size());
+            boneIndex = bones.size();
+            boneMapping[boneName] = boneIndex;
+
             Bone newBone;
             newBone.name = boneName;
-            newBone.parentName = "";
-            // Convert Assimp's offset matrix to glm::mat4.
             newBone.offsetMatrix = glm::make_mat4(&bone->mOffsetMatrix.a1);
             bones.push_back(newBone);
         }
+        else {
+            boneIndex = boneMapping[boneName];
+        }
 
-        int boneIndex = boneMapping[boneName];
         for (unsigned int j = 0; j < bone->mNumWeights; j++) {
             unsigned int vertexID = bone->mWeights[j].mVertexId;
             float weight = bone->mWeights[j].mWeight;
 
-            // Assign up to 4 bone influences per vertex.
+            bool assigned = false;
             for (int k = 0; k < 4; k++) {
                 if (vertices[vertexID].Weights[k] == 0.0f) {
                     vertices[vertexID].BoneIDs[k] = boneIndex;
                     vertices[vertexID].Weights[k] = weight;
+                    assigned = true;
                     break;
                 }
+            }
+            if (!assigned) {
+                Logger::log("WARNING: Vertex " + std::to_string(vertexID) + " exceeded 4 bone influences.", Logger::WARNING);
             }
         }
     }
 
+    // Explicit normalization and fallback
+    for (size_t i = 0; i < vertices.size(); ++i) {
+        float totalWeight = vertices[i].Weights[0] + vertices[i].Weights[1] +
+            vertices[i].Weights[2] + vertices[i].Weights[3];
+
+        if (totalWeight == 0.0f) {
+            vertices[i].BoneIDs = glm::ivec4(0);
+            vertices[i].Weights = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
+            Logger::log("Vertex " + std::to_string(i) + " explicitly assigned fallback bone (0).", Logger::INFO);
+        }
+        else {
+            vertices[i].Weights /= totalWeight;
+        }
+    }
+
+    Logger::log("Mesh loaded successfully with explicit vertex logging.", Logger::INFO);
     return Mesh(vertices, indices, textures);
 }
 
 void Model::Draw(Shader& shader)
 {
-    Logger::log("DEBUG: Entering Model::Draw()", Logger::INFO);
+    std::vector<glm::mat4> finalMatrices(bones.size(), glm::mat4(1.0f));
 
-    if (meshes.empty())
-    {
-        Logger::log("ERROR: No meshes found to draw!", Logger::ERROR);
-        return;
-    }
-
-    // Log bounding box for debugging
-    glm::vec3 boundingCenter = getBoundingBoxCenter();
-    float boundingRadius = getBoundingBoxRadius();
-    Logger::log("DEBUG: Model Bounding Box Center: (" +
-        std::to_string(boundingCenter.x) + ", " +
-        std::to_string(boundingCenter.y) + ", " +
-        std::to_string(boundingCenter.z) + ")", Logger::INFO);
-    Logger::log("DEBUG: Model Bounding Box Radius: " +
-        std::to_string(boundingRadius), Logger::INFO);
-
-    // Set model-level transform (if any)
-    glm::mat4 modelMatrix = glm::mat4(1.0f);
-    shader.setMat4("model", modelMatrix);
-
-    // Prepare to upload final bone matrices
-    GLint boneMatrixLocation = glGetUniformLocation(shader.ID, "boneTransforms");
-    std::vector<glm::mat4> finalMatrices;
-    finalMatrices.resize(bones.size(), glm::mat4(1.0f));
-
-    // Combine each bone's global transform with its offset matrix.
     for (size_t i = 0; i < bones.size(); i++)
     {
-        const Bone& bone = bones[i];
-        const std::string& boneName = bone.name;
+        glm::mat4 globalTransform;
 
-        // Retrieve the global transform computed in the animation pipeline.
-        glm::mat4 globalTransform = getBoneTransform(boneName);
-
-        // Log the decomposed transform for key bones.
-        if (boneName == "DEF-spine" || boneName == "DEF-shoulder.L" || boneName == "DEF-breast.L")
-        {
-            DebugTools::logDecomposedTransform(boneName, globalTransform);
+        if (bones[i].name == "DEF-spine") {
+            globalTransform = getBoneTransform(bones[i].name);
+            Logger::log("Applying actual transform explicitly to [DEF-spine]", Logger::INFO);
+        }
+        else {
+            globalTransform = glm::mat4(1.0f);  // Explicitly isolate all other bones
+            Logger::log("Explicit identity applied to bone [" + bones[i].name + "] for testing", Logger::INFO);
         }
 
-        // Compute the final matrix by applying the offset.
-        glm::mat4 finalMatrix = globalTransform * bone.offsetMatrix;
-        finalMatrices[i] = finalMatrix;
+        finalMatrices[i] = globalInverseTransform * globalTransform * bones[i].offsetMatrix;
 
-        // Optional: Log the final matrix.
-        Logger::log("DEBUG: Sending Bone Transform to Shader - " + boneName, Logger::INFO);
-        for (int row = 0; row < 4; row++)
-        {
-            Logger::log(
-                std::to_string(finalMatrix[row][0]) + " " +
-                std::to_string(finalMatrix[row][1]) + " " +
-                std::to_string(finalMatrix[row][2]) + " " +
-                std::to_string(finalMatrix[row][3]),
-                Logger::INFO
-            );
-        }
+        Logger::log("Final Matrix for Bone [" + bones[i].name + "] ID [" + std::to_string(i) + "]", Logger::INFO);
     }
 
-    // Upload the final bone matrices to the shader.
-    if (!finalMatrices.empty())
-    {
-        glUniformMatrix4fv(boneMatrixLocation,
-            static_cast<GLsizei>(finalMatrices.size()),
-            GL_FALSE,
-            &finalMatrices[0][0][0]);
+    GLint boneMatrixLocation = glGetUniformLocation(shader.ID, "boneTransforms");
+    if (!finalMatrices.empty()) {
+        glUniformMatrix4fv(boneMatrixLocation, finalMatrices.size(), GL_FALSE, &finalMatrices[0][0][0]);
     }
 
-    // Draw each mesh.
-    Logger::log("DEBUG: Drawing " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
     for (auto& mesh : meshes)
-    {
         mesh.Draw(shader);
-    }
 }
 
 
