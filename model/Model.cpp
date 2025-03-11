@@ -41,14 +41,14 @@ void Model::loadModel(const std::string& path)
 
     directory = path.substr(0, path.find_last_of('/'));
 
-    glm::mat4 rootTransform = convertAiMatrix(scene->mRootNode->mTransformation);
-    globalInverseTransform = glm::inverse(rootTransform);
-    Logger::log("Global inverse transform explicitly set from root node transformation.", Logger::INFO);
+    // Explicitly setting globalInverseTransform to identity for isolation test
+    globalInverseTransform = glm::mat4(1.0f);
+    Logger::log("Explicitly set globalInverseTransform to identity for debugging.", Logger::INFO);
 
     processNode(scene->mRootNode, scene);
 
     // Explicit bone mapping log
-    Logger::log("==== Explicit Bone Mapping BEGIN ====", Logger::INFO);
+    Logger::log("==== Explicit Bone Mapping BEGIN ====");
     for (const auto& bonePair : boneMapping) {
         Logger::log("Bone Mapping ID[" + std::to_string(bonePair.second) + "] maps to Bone Name[" + bonePair.first + "]", Logger::INFO);
     }
