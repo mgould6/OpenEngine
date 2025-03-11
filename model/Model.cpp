@@ -107,7 +107,16 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
             Bone newBone;
             newBone.name = boneName;
-            newBone.offsetMatrix = glm::make_mat4(&bone->mOffsetMatrix.a1);
+
+            // Explicit test: override DEF-spine offset matrix
+            if (boneName == "DEF-spine") {
+                newBone.offsetMatrix = glm::mat4(1.0f); // Explicit identity override
+                Logger::log("Explicitly overriding DEF-spine offset matrix to identity.", Logger::INFO);
+            }
+            else {
+                newBone.offsetMatrix = glm::make_mat4(&bone->mOffsetMatrix.a1);
+            }
+
             bones.push_back(newBone);
         }
         else {
