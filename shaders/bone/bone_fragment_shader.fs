@@ -1,7 +1,11 @@
 #version 330 core
 
-in vec3 Normal;
-in vec2 TexCoords;
+in vec4 BoneColor;
+out vec4 FragColor;
+
+void main() {
+    FragColor = BoneColor;
+}
 
 out vec4 FragColor;
 

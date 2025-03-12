@@ -6,33 +6,36 @@ layout (location = 2) in vec2 aTexCoords;
 layout (location = 3) in ivec4 aBoneIDs;
 layout (location = 4) in vec4 aWeights;
 
-uniform mat4 projection;
-uniform mat4 view;
 uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 uniform mat4 boneTransforms[100];
 
-out vec3 FragPos;
-out vec3 Normal;
-out vec2 TexCoords;
+out vec4 BoneColor;
 
-void main()
-{
+vec3 idToColor(int id) {
+    return vec3(
+        ((id & 0x000000FF) >>  0) / 255.0,
+        ((id & 0x0000FF00) >>  8) / 255.0,
+        ((id & 0x00FF0000) >> 16) / 255.0
+    );
+}
+
+void main() {
     mat4 boneTransform = mat4(0.0);
-    float totalWeight = aWeights.x + aWeights.y + aWeights.z + aWeights.w;
-
+    float totalWeight = dot(aWeights, vec4(1.0));
     if (totalWeight > 0.0) {
-        boneTransform += boneTransforms[aBoneIDs.x] * (aWeights.x / totalWeight);
-        boneTransform += boneTransforms[aBoneIDs.y] * (aWeights.y / totalWeight);
-        boneTransform += boneTransforms[aBoneIDs.z] * (aWeights.z / totalWeight);
-        boneTransform += boneTransforms[aBoneIDs.w] * (aWeights.w / totalWeight);
+        for (int i = 0; i < 4; ++i) {
+            if (aWeights[i] > 0.0) {
+                boneTransform += boneTransforms[aBoneIDs[i]] * (aWeights[i] / totalWeight);
+            }
+        }
     } else {
         boneTransform = mat4(1.0);
     }
 
-    vec4 animatedPosition = boneTransform * vec4(aPos, 1.0);
-    FragPos = vec3(animatedPosition);
-    Normal = mat3(transpose(inverse(boneTransform))) * aNormal;
-    TexCoords = aTexCoords;
+    gl_Position = projection * view * model * boneTransform * vec4(aPos, 1.0);
 
-    gl_Position = projection * view * animatedPosition;
+    // Explicitly output the primary bone ID for visualization as color
+    BoneColor = vec4(idToColor(aBoneIDs[0]), 1.0);
 }
