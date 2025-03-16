@@ -1,5 +1,4 @@
 #version 330 core
-
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec2 aTexCoords;
@@ -9,33 +8,30 @@ layout (location = 4) in vec4 aWeights;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-uniform mat4 boneTransforms[100];
+uniform mat4 boneTransforms[100]; //  Ensure this is correctly sized for your bones
 
-out vec4 BoneColor;
-
-vec3 idToColor(int id) {
-    return vec3(
-        ((id & 0x000000FF) >>  0) / 255.0,
-        ((id & 0x0000FF00) >>  8) / 255.0,
-        ((id & 0x00FF0000) >> 16) / 255.0
-    );
-}
+out vec3 FragPos;
+out vec3 Normal;
+out vec2 TexCoords;
 
 void main() {
     mat4 boneTransform = mat4(0.0);
-    float totalWeight = dot(aWeights, vec4(1.0));
-    if (totalWeight > 0.0) {
-        for (int i = 0; i < 4; ++i) {
-            if (aWeights[i] > 0.0) {
-                boneTransform += boneTransforms[aBoneIDs[i]] * (aWeights[i] / totalWeight);
-            }
+    for (int i = 0; i < 4; i++) {
+        if (aBoneIDs[i] >= 0) {
+            boneTransform += boneTransforms[aBoneIDs[i]] * aWeights[i];
         }
-    } else {
-        boneTransform = mat4(1.0);
     }
 
-    gl_Position = projection * view * model * boneTransform * vec4(aPos, 1.0);
 
-    // Explicitly output the primary bone ID for visualization as color
-    BoneColor = vec4(idToColor(aBoneIDs[0]), 1.0);
+    //  Fix: Apply bone transform only if it was assigned
+    if (boneTransform == mat4(0.0)) {
+        boneTransform = mat4(1.0); // Default to identity if no bone assigned
+    }
+
+    vec4 worldPosition = model * boneTransform * vec4(aPos, 1.0);
+    FragPos = vec3(worldPosition);
+    Normal = mat3(transpose(inverse(model * boneTransform))) * aNormal;
+    TexCoords = aTexCoords;
+
+    gl_Position = projection * view * worldPosition;
 }

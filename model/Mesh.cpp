@@ -1,6 +1,8 @@
+#define GLM_ENABLE_EXPERIMENTAL
 #include "Mesh.h"
 #include <glad/glad.h>
 #include "../common_utils/Logger.h"
+#include <glm/gtx/string_cast.hpp>
 
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
     : vertices(vertices), indices(indices), textures(textures) {
@@ -44,13 +46,35 @@ void Mesh::setupMesh() {
     Logger::log("Debug: VAO Bone Weights bound to location 4.", Logger::INFO);
 
 
- /*   for (const Vertex& v : vertices) {
-        Logger::log("Debug: Vertex Bone Weights: " +
-            std::to_string(v.Weights[0]) + ", " +
-            std::to_string(v.Weights[1]) + ", " +
-            std::to_string(v.Weights[2]) + ", " +
-            std::to_string(v.Weights[3]), Logger::INFO);
-    }*/
+    // Explicit logging for Vertex Attributes verification:
+    Logger::log("Explicitly logging vertex attribute configuration:", Logger::INFO);
+    Logger::log("Position bound to location 0", Logger::INFO);
+    Logger::log("Normal bound to location 1", Logger::INFO);
+    Logger::log("TexCoords bound to location 2", Logger::INFO);
+    Logger::log("BoneIDs bound to location 3 (int attribute)", Logger::INFO);
+    Logger::log("Bone Weights bound to location 4 (GL_FLOAT)", Logger::INFO);
+
+    Logger::log("Vertex data size: " + std::to_string(vertices.size()), Logger::INFO);
+    Logger::log("Indices count: " + std::to_string(indices.size()), Logger::INFO);
+
+    // Explicitly verify one vertex completely
+    if (!vertices.empty()) {
+        const Vertex& v = vertices[0];
+        Logger::log("Vertex[0] Position: " + glm::to_string(v.Position), Logger::INFO);
+        Logger::log("Vertex[0] Normal: " + glm::to_string(v.Normal), Logger::INFO);
+        Logger::log("Vertex[0] TexCoords: " + glm::to_string(v.TexCoords), Logger::INFO);
+        Logger::log("Vertex[0] BoneIDs: [" +
+            std::to_string(v.BoneIDs.x) + ", " +
+            std::to_string(v.BoneIDs.y) + ", " +
+            std::to_string(v.BoneIDs.z) + ", " +
+            std::to_string(v.BoneIDs.w) + "]", Logger::INFO);
+        Logger::log("Vertex[0] Weights: [" +
+            std::to_string(v.Weights.x) + ", " +
+            std::to_string(v.Weights.y) + ", " +
+            std::to_string(v.Weights.z) + ", " +
+            std::to_string(v.Weights.w) + "]", Logger::INFO);
+    }
+
 
 
     glBindVertexArray(0);

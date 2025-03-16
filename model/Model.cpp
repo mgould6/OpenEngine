@@ -6,7 +6,7 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include "../common_utils/Logger.h"
 #include <glm/gtc/type_ptr.hpp>
-
+#include <glm/gtx/string_cast.hpp> 
 
 // Forward declaration of convertAiMatrix so it can be used in loadModel()
 static glm::mat4 convertAiMatrix(const aiMatrix4x4& from);
@@ -41,24 +41,36 @@ void Model::loadModel(const std::string& path)
 
     directory = path.substr(0, path.find_last_of('/'));
 
-    // Explicitly setting globalInverseTransform to identity for isolation test
-    globalInverseTransform = glm::mat4(1.0f);
-    Logger::log("Explicitly set globalInverseTransform to identity for debugging.", Logger::INFO);
+    // Set correct global inverse transform instead of hardcoding identity
+    globalInverseTransform = glm::inverse(convertAiMatrix(scene->mRootNode->mTransformation));
+    Logger::log("Global inverse transform set from root node transformation.", Logger::INFO);
+    Logger::log("Global inverse transform matrix:", Logger::INFO);
+    Logger::log(glm::to_string(globalInverseTransform), Logger::INFO);
 
     processNode(scene->mRootNode, scene);
 
     // Explicit bone mapping log
-    Logger::log("==== Explicit Bone Mapping BEGIN ====");
+    Logger::log("==== Explicit Bone Mapping BEGIN ====", Logger::INFO);
     for (const auto& bonePair : boneMapping) {
         Logger::log("Bone Mapping ID[" + std::to_string(bonePair.second) + "] maps to Bone Name[" + bonePair.first + "]", Logger::INFO);
     }
     Logger::log("==== EXPLICIT BONE MAPPING END ====", Logger::INFO);
 
+    // Explicitly log the offset matrix of the DEF-spine bone for verification
+    if (boneMapping.find("DEF-spine") != boneMapping.end()) {
+        int spineIndex = boneMapping["DEF-spine"];
+        glm::mat4 spineOffsetMatrix = bones[spineIndex].offsetMatrix;
+        Logger::log("DEF-spine offset matrix explicitly logged for verification:", Logger::INFO);
+        Logger::log(glm::to_string(spineOffsetMatrix), Logger::INFO);
+    }
+    else {
+        Logger::log("DEF-spine bone not found for explicit offset matrix logging.", Logger::ERROR);
+    }
+
     updateBoneHierarchy(scene->mRootNode, "");
 
     Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
 }
-
 
 
 void Model::processNode(aiNode* node, const aiScene* scene) {
@@ -82,10 +94,21 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         Vertex vertex;
         vertex.Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
         vertex.Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
+
+        // Explicitly check and assign TexCoords safely
+        if (mesh->mTextureCoords[0]) {
+            vertex.TexCoords = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
+        }
+        else {
+            vertex.TexCoords = glm::vec2(0.0f, 0.0f);  // Explicit fallback
+            Logger::log("Vertex[" + std::to_string(i) + "] missing texcoords, explicitly set to (0,0)", Logger::WARNING);
+        }
+
         vertex.BoneIDs = glm::ivec4(-1);
         vertex.Weights = glm::vec4(0.0f);
         vertices.push_back(vertex);
     }
+
 
     for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
         aiFace face = mesh->mFaces[i];
@@ -107,16 +130,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
             Bone newBone;
             newBone.name = boneName;
-
-            // Explicit test: override DEF-spine offset matrix
-            if (boneName == "DEF-spine") {
-                newBone.offsetMatrix = glm::mat4(1.0f); // Explicit identity override
-                Logger::log("Explicitly overriding DEF-spine offset matrix to identity.", Logger::INFO);
-            }
-            else {
-                newBone.offsetMatrix = glm::make_mat4(&bone->mOffsetMatrix.a1);
-            }
-
+            newBone.offsetMatrix = convertAiMatrix(bone->mOffsetMatrix);
             bones.push_back(newBone);
         }
         else {
@@ -157,8 +171,25 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         }
     }
 
+
+
     Logger::log("Mesh loaded successfully with explicit vertex logging.", Logger::INFO);
+
+    // Explicit logging of the first few vertex bone weights and IDs
+    for (size_t i = 0; i < std::min(vertices.size(), size_t(5)); ++i) {
+        Logger::log("Vertex[" + std::to_string(i) + "] BoneIDs: [" +
+            std::to_string(vertices[i].BoneIDs.x) + ", " +
+            std::to_string(vertices[i].BoneIDs.y) + ", " +
+            std::to_string(vertices[i].BoneIDs.z) + ", " +
+            std::to_string(vertices[i].BoneIDs.w) + "] Weights: [" +
+            std::to_string(vertices[i].Weights.x) + ", " +
+            std::to_string(vertices[i].Weights.y) + ", " +
+            std::to_string(vertices[i].Weights.z) + ", " +
+            std::to_string(vertices[i].Weights.w) + "]", Logger::INFO);
+    }
+
     return Mesh(vertices, indices, textures);
+
 }
 
 void Model::Draw(Shader& shader)
@@ -183,9 +214,17 @@ void Model::Draw(Shader& shader)
         Logger::log("Final Matrix for Bone [" + bones[i].name + "] ID [" + std::to_string(i) + "]", Logger::INFO);
     }
 
+    // Explicit Logging of Final Matrices
+    Logger::log("==== EXPLICIT FINAL MATRICES BEGIN ====", Logger::INFO);
+    for (size_t i = 0; i < finalMatrices.size(); i++) {
+        Logger::log("Final Matrix [" + bones[i].name + "]: " + glm::to_string(finalMatrices[i]), Logger::INFO);
+    }
+    Logger::log("==== EXPLICIT FINAL MATRICES END ====", Logger::INFO);
+
+    // Uniform upload to Shader explicitly with glm::value_ptr for clarity
     GLint boneMatrixLocation = glGetUniformLocation(shader.ID, "boneTransforms");
     if (!finalMatrices.empty()) {
-        glUniformMatrix4fv(boneMatrixLocation, finalMatrices.size(), GL_FALSE, &finalMatrices[0][0][0]);
+        glUniformMatrix4fv(boneMatrixLocation, finalMatrices.size(), GL_FALSE, glm::value_ptr(finalMatrices[0]));
     }
 
     for (auto& mesh : meshes)

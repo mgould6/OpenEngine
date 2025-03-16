@@ -5,10 +5,30 @@ INFO: Shaders initialized successfully.
 INFO: PhysicsManager initialized successfully.
 INFO: Entering SceneTest2.
 INFO: Loading model from path: Character_TPose_NoAnim.fbx
-INFO: Explicitly set globalInverseTransform to identity for debugging.
+INFO: Global inverse transform set from root node transformation.
+INFO: Global inverse transform matrix:
+INFO: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
 INFO: Mesh loaded successfully with explicit vertex logging.
+INFO: Vertex[0] BoneIDs: [5, 6, -1, -1] Weights: [0.032047, 0.967953, 0.000000, 0.000000]
+INFO: Vertex[1] BoneIDs: [5, 6, -1, -1] Weights: [0.042664, 0.957336, 0.000000, 0.000000]
+INFO: Vertex[2] BoneIDs: [5, 6, -1, -1] Weights: [0.034038, 0.965962, 0.000000, 0.000000]
+INFO: Vertex[3] BoneIDs: [5, 6, -1, -1] Weights: [0.032047, 0.967953, 0.000000, 0.000000]
+INFO: Vertex[4] BoneIDs: [5, 6, -1, -1] Weights: [0.029153, 0.970847, 0.000000, 0.000000]
 INFO: Debug: VAO Bone IDs bound to location 3.
 INFO: Debug: VAO Bone Weights bound to location 4.
+INFO: Explicitly logging vertex attribute configuration:
+INFO: Position bound to location 0
+INFO: Normal bound to location 1
+INFO: TexCoords bound to location 2
+INFO: BoneIDs bound to location 3 (int attribute)
+INFO: Bone Weights bound to location 4 (GL_FLOAT)
+INFO: Vertex data size: 25344
+INFO: Indices count: 25344
+INFO: Vertex[0] Position: vec3(0.077874, 1.767432, -0.061131)
+INFO: Vertex[0] Normal: vec3(0.980582, -0.019239, -0.195162)
+INFO: Vertex[0] TexCoords: vec2(0.750000, 0.125000)
+INFO: Vertex[0] BoneIDs: [5, 6, -1, -1]
+INFO: Vertex[0] Weights: [0.032047, 0.967953, 0.000000, 0.000000]
 INFO: ==== Explicit Bone Mapping BEGIN ====
 INFO: Bone Mapping ID[2] maps to Bone Name[DEF-spine.002]
 INFO: Bone Mapping ID[10] maps to Bone Name[DEF-thigh.L.001]
@@ -46,6 +66,8 @@ INFO: Bone Mapping ID[32] maps to Bone Name[DEF-hand.R]
 INFO: Bone Mapping ID[33] maps to Bone Name[DEF-breast.L]
 INFO: Bone Mapping ID[34] maps to Bone Name[DEF-breast.R]
 INFO: ==== EXPLICIT BONE MAPPING END ====
+INFO: DEF-spine offset matrix explicitly logged for verification:
+INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, -0.235478, 0.000000), (0.000000, 0.235478, 0.971880, 0.000000), (0.000000, -0.916629, 0.341921, 1.000000))
 INFO: Loaded 1 meshes.
 INFO: Loaded 1 meshes.
 INFO: INFO: Model loaded successfully.
@@ -127,182 +149,3 @@ INFO: Final Matrix for Bone [DEF-breast.R] ID [34]
 INFO: Drawing mesh with VAO: 1
 INFO: DEBUG: Depth testing and blending enabled.
 INFO: DEBUG: Max Vertex Attributes: 32
-INFO: Applying actual transform explicitly to [DEF-spine]
-INFO: Final Matrix for Bone [DEF-spine] ID [0]
-INFO: Explicit identity applied to bone [DEF-spine.001] for testing
-INFO: Final Matrix for Bone [DEF-spine.001] ID [1]
-INFO: Explicit identity applied to bone [DEF-spine.002] for testing
-INFO: Final Matrix for Bone [DEF-spine.002] ID [2]
-INFO: Explicit identity applied to bone [DEF-spine.003] for testing
-INFO: Final Matrix for Bone [DEF-spine.003] ID [3]
-INFO: Explicit identity applied to bone [DEF-spine.004] for testing
-INFO: Final Matrix for Bone [DEF-spine.004] ID [4]
-INFO: Explicit identity applied to bone [DEF-spine.005] for testing
-INFO: Final Matrix for Bone [DEF-spine.005] ID [5]
-INFO: Explicit identity applied to bone [DEF-spine.006] for testing
-INFO: Final Matrix for Bone [DEF-spine.006] ID [6]
-INFO: Explicit identity applied to bone [DEF-pelvis.L] for testing
-INFO: Final Matrix for Bone [DEF-pelvis.L] ID [7]
-INFO: Explicit identity applied to bone [DEF-pelvis.R] for testing
-INFO: Final Matrix for Bone [DEF-pelvis.R] ID [8]
-INFO: Explicit identity applied to bone [DEF-thigh.L] for testing
-INFO: Final Matrix for Bone [DEF-thigh.L] ID [9]
-INFO: Explicit identity applied to bone [DEF-thigh.L.001] for testing
-INFO: Final Matrix for Bone [DEF-thigh.L.001] ID [10]
-INFO: Explicit identity applied to bone [DEF-shin.L] for testing
-INFO: Final Matrix for Bone [DEF-shin.L] ID [11]
-INFO: Explicit identity applied to bone [DEF-shin.L.001] for testing
-INFO: Final Matrix for Bone [DEF-shin.L.001] ID [12]
-INFO: Explicit identity applied to bone [DEF-foot.L] for testing
-INFO: Final Matrix for Bone [DEF-foot.L] ID [13]
-INFO: Explicit identity applied to bone [DEF-toe.L] for testing
-INFO: Final Matrix for Bone [DEF-toe.L] ID [14]
-INFO: Explicit identity applied to bone [DEF-thigh.R] for testing
-INFO: Final Matrix for Bone [DEF-thigh.R] ID [15]
-INFO: Explicit identity applied to bone [DEF-thigh.R.001] for testing
-INFO: Final Matrix for Bone [DEF-thigh.R.001] ID [16]
-INFO: Explicit identity applied to bone [DEF-shin.R] for testing
-INFO: Final Matrix for Bone [DEF-shin.R] ID [17]
-INFO: Explicit identity applied to bone [DEF-shin.R.001] for testing
-INFO: Final Matrix for Bone [DEF-shin.R.001] ID [18]
-INFO: Explicit identity applied to bone [DEF-foot.R] for testing
-INFO: Final Matrix for Bone [DEF-foot.R] ID [19]
-INFO: Explicit identity applied to bone [DEF-toe.R] for testing
-INFO: Final Matrix for Bone [DEF-toe.R] ID [20]
-INFO: Explicit identity applied to bone [DEF-shoulder.L] for testing
-INFO: Final Matrix for Bone [DEF-shoulder.L] ID [21]
-INFO: Explicit identity applied to bone [DEF-upper_arm.L] for testing
-INFO: Final Matrix for Bone [DEF-upper_arm.L] ID [22]
-INFO: Explicit identity applied to bone [DEF-upper_arm.L.001] for testing
-INFO: Final Matrix for Bone [DEF-upper_arm.L.001] ID [23]
-INFO: Explicit identity applied to bone [DEF-forearm.L] for testing
-INFO: Final Matrix for Bone [DEF-forearm.L] ID [24]
-INFO: Explicit identity applied to bone [DEF-forearm.L.001] for testing
-INFO: Final Matrix for Bone [DEF-forearm.L.001] ID [25]
-INFO: Explicit identity applied to bone [DEF-hand.L] for testing
-INFO: Final Matrix for Bone [DEF-hand.L] ID [26]
-INFO: Explicit identity applied to bone [DEF-shoulder.R] for testing
-INFO: Final Matrix for Bone [DEF-shoulder.R] ID [27]
-INFO: Explicit identity applied to bone [DEF-upper_arm.R] for testing
-INFO: Final Matrix for Bone [DEF-upper_arm.R] ID [28]
-INFO: Explicit identity applied to bone [DEF-upper_arm.R.001] for testing
-INFO: Final Matrix for Bone [DEF-upper_arm.R.001] ID [29]
-INFO: Explicit identity applied to bone [DEF-forearm.R] for testing
-INFO: Final Matrix for Bone [DEF-forearm.R] ID [30]
-INFO: Explicit identity applied to bone [DEF-forearm.R.001] for testing
-INFO: Final Matrix for Bone [DEF-forearm.R.001] ID [31]
-INFO: Explicit identity applied to bone [DEF-hand.R] for testing
-INFO: Final Matrix for Bone [DEF-hand.R] ID [32]
-INFO: Explicit identity applied to bone [DEF-breast.L] for testing
-INFO: Final Matrix for Bone [DEF-breast.L] ID [33]
-INFO: Explicit identity applied to bone [DEF-breast.R] for testing
-INFO: Final Matrix for Bone [DEF-breast.R] ID [34]
-INFO: Drawing mesh with VAO: 1
-INFO: DEBUG: Depth testing and blending enabled.
-INFO: DEBUG: Max Vertex Attributes: 32
-INFO: Applying actual transform explicitly to [DEF-spine]
-INFO: Final Matrix for Bone [DEF-spine] ID [0]
-INFO: Explicit identity applied to bone [DEF-spine.001] for testing
-INFO: Final Matrix for Bone [DEF-spine.001] ID [1]
-INFO: Explicit identity applied to bone [DEF-spine.002] for testing
-INFO: Final Matrix for Bone [DEF-spine.002] ID [2]
-INFO: Explicit identity applied to bone [DEF-spine.003] for testing
-INFO: Final Matrix for Bone [DEF-spine.003] ID [3]
-INFO: Explicit identity applied to bone [DEF-spine.004] for testing
-INFO: Final Matrix for Bone [DEF-spine.004] ID [4]
-INFO: Explicit identity applied to bone [DEF-spine.005] for testing
-INFO: Final Matrix for Bone [DEF-spine.005] ID [5]
-INFO: Explicit identity applied to bone [DEF-spine.006] for testing
-INFO: Final Matrix for Bone [DEF-spine.006] ID [6]
-INFO: Explicit identity applied to bone [DEF-pelvis.L] for testing
-INFO: Final Matrix for Bone [DEF-pelvis.L] ID [7]
-INFO: Explicit identity applied to bone [DEF-pelvis.R] for testing
-INFO: Final Matrix for Bone [DEF-pelvis.R] ID [8]
-INFO: Explicit identity applied to bone [DEF-thigh.L] for testing
-INFO: Final Matrix for Bone [DEF-thigh.L] ID [9]
-INFO: Explicit identity applied to bone [DEF-thigh.L.001] for testing
-INFO: Final Matrix for Bone [DEF-thigh.L.001] ID [10]
-INFO: Explicit identity applied to bone [DEF-shin.L] for testing
-INFO: Final Matrix for Bone [DEF-shin.L] ID [11]
-INFO: Explicit identity applied to bone [DEF-shin.L.001] for testing
-INFO: Final Matrix for Bone [DEF-shin.L.001] ID [12]
-INFO: Explicit identity applied to bone [DEF-foot.L] for testing
-INFO: Final Matrix for Bone [DEF-foot.L] ID [13]
-INFO: Explicit identity applied to bone [DEF-toe.L] for testing
-INFO: Final Matrix for Bone [DEF-toe.L] ID [14]
-INFO: Explicit identity applied to bone [DEF-thigh.R] for testing
-INFO: Final Matrix for Bone [DEF-thigh.R] ID [15]
-INFO: Explicit identity applied to bone [DEF-thigh.R.001] for testing
-INFO: Final Matrix for Bone [DEF-thigh.R.001] ID [16]
-INFO: Explicit identity applied to bone [DEF-shin.R] for testing
-INFO: Final Matrix for Bone [DEF-shin.R] ID [17]
-INFO: Explicit identity applied to bone [DEF-shin.R.001] for testing
-INFO: Final Matrix for Bone [DEF-shin.R.001] ID [18]
-INFO: Explicit identity applied to bone [DEF-foot.R] for testing
-INFO: Final Matrix for Bone [DEF-foot.R] ID [19]
-INFO: Explicit identity applied to bone [DEF-toe.R] for testing
-INFO: Final Matrix for Bone [DEF-toe.R] ID [20]
-INFO: Explicit identity applied to bone [DEF-shoulder.L] for testing
-INFO: Final Matrix for Bone [DEF-shoulder.L] ID [21]
-INFO: Explicit identity applied to bone [DEF-upper_arm.L] for testing
-INFO: Final Matrix for Bone [DEF-upper_arm.L] ID [22]
-INFO: Explicit identity applied to bone [DEF-upper_arm.L.001] for testing
-INFO: Final Matrix for Bone [DEF-upper_arm.L.001] ID [23]
-INFO: Explicit identity applied to bone [DEF-forearm.L] for testing
-INFO: Final Matrix for Bone [DEF-forearm.L] ID [24]
-INFO: Explicit identity applied to bone [DEF-forearm.L.001] for testing
-INFO: Final Matrix for Bone [DEF-forearm.L.001] ID [25]
-INFO: Explicit identity applied to bone [DEF-hand.L] for testing
-INFO: Final Matrix for Bone [DEF-hand.L] ID [26]
-INFO: Explicit identity applied to bone [DEF-shoulder.R] for testing
-INFO: Final Matrix for Bone [DEF-shoulder.R] ID [27]
-INFO: Explicit identity applied to bone [DEF-upper_arm.R] for testing
-INFO: Final Matrix for Bone [DEF-upper_arm.R] ID [28]
-INFO: Explicit identity applied to bone [DEF-upper_arm.R.001] for testing
-INFO: Final Matrix for Bone [DEF-upper_arm.R.001] ID [29]
-INFO: Explicit identity applied to bone [DEF-forearm.R] for testing
-INFO: Final Matrix for Bone [DEF-forearm.R] ID [30]
-INFO: Explicit identity applied to bone [DEF-forearm.R.001] for testing
-INFO: Final Matrix for Bone [DEF-forearm.R.001] ID [31]
-INFO: Explicit identity applied to bone [DEF-hand.R] for testing
-INFO: Final Matrix for Bone [DEF-hand.R] ID [32]
-INFO: Explicit identity applied to bone [DEF-breast.L] for testing
-INFO: Final Matrix for Bone [DEF-breast.L] ID [33]
-INFO: Explicit identity applied to bone [DEF-breast.R] for testing
-INFO: Final Matrix for Bone [DEF-breast.R] ID [34]
-INFO: Drawing mesh with VAO: 1
-INFO: DEBUG: Depth testing and blending enabled.
-INFO: DEBUG: Max Vertex Attributes: 32
-INFO: Applying actual transform explicitly to [DEF-spine]
-INFO: Final Matrix for Bone [DEF-spine] ID [0]
-INFO: Explicit identity applied to bone [DEF-spine.001] for testing
-INFO: Final Matrix for Bone [DEF-spine.001] ID [1]
-INFO: Explicit identity applied to bone [DEF-spine.002] for testing
-INFO: Final Matrix for Bone [DEF-spine.002] ID [2]
-INFO: Explicit identity applied to bone [DEF-spine.003] for testing
-INFO: Final Matrix for Bone [DEF-spine.003] ID [3]
-INFO: Explicit identity applied to bone [DEF-spine.004] for testing
-INFO: Final Matrix for Bone [DEF-spine.004] ID [4]
-INFO: Explicit identity applied to bone [DEF-spine.005] for testing
-INFO: Final Matrix for Bone [DEF-spine.005] ID [5]
-INFO: Explicit identity applied to bone [DEF-spine.006] for testing
-INFO: Final Matrix for Bone [DEF-spine.006] ID [6]
-INFO: Explicit identity applied to bone [DEF-pelvis.L] for testing
-INFO: Final Matrix for Bone [DEF-pelvis.L] ID [7]
-INFO: Explicit identity applied to bone [DEF-pelvis.R] for testing
-INFO: Final Matrix for Bone [DEF-pelvis.R] ID [8]
-INFO: Explicit identity applied to bone [DEF-thigh.L] for testing
-INFO: Final Matrix for Bone [DEF-thigh.L] ID [9]
-INFO: Explicit identity applied to bone [DEF-thigh.L.001] for testing
-INFO: Final Matrix for Bone [DEF-thigh.L.001] ID [10]
-INFO: Explicit identity applied to bone [DEF-shin.L] for testing
-INFO: Final Matrix for Bone [DEF-shin.L] ID [11]
-INFO: Explicit identity applied to bone [DEF-shin.L.001] for testing
-INFO: Final Matrix for Bone [DEF-shin.L.001] ID [12]
-INFO: Explicit identity applied to bone [DEF-foot.L] for testing
-INFO: Final Matrix for Bone [DEF-foot.L] ID [13]
-INFO: Explicit identity applied to bone [DEF-toe.L] for testing
-INFO: Final Matrix for Bone [DEF-toe.L] ID [14]
-INFO: Explicit identity applied to bone [DEF-thigh.R] for testing
-INFO: Final Matrix for Bone [DEF-thigh.R] ID [15]
-INFO: Explicit identity applied to bone [DEF-thigh.R.001] for testing
