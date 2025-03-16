@@ -16,16 +16,16 @@ out vec2 TexCoords;
 
 void main() {
     mat4 boneTransform = mat4(0.0);
-    for (int i = 0; i < 4; i++) {
-        if (aBoneIDs[i] >= 0) {
-            boneTransform += boneTransforms[aBoneIDs[i]] * aWeights[i];
-        }
-    }
 
+    // Explicitly testing only the first bone weight influence to isolate the issue
+    int boneIndex = aBoneIDs[0];
+    float weight = aWeights[0];
 
-    //  Fix: Apply bone transform only if it was assigned
+    if (boneTransform == mat4(0.0) && boneTransforms[boneTransform] == mat4(0.0))
+        boneTransform = mat4(1.0);
+
     if (boneTransform == mat4(0.0)) {
-        boneTransform = mat4(1.0); // Default to identity if no bone assigned
+        boneTransform = boneTransforms[boneIndex] * aWeights[0];
     }
 
     vec4 worldPosition = model * boneTransform * vec4(aPos, 1.0);
