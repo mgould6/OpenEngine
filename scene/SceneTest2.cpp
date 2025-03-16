@@ -10,6 +10,7 @@
 #include "../input/InputManager.h"
 #include "../animation/AnimationController.h"
 #include <filesystem>
+#include <glm/gtx/string_cast.hpp>
 
 // Global variables
 Camera camera;
@@ -77,6 +78,12 @@ void SceneTest2(GLFWwindow* window) {
 
         glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
         activeShader->setMat4("model", modelMatrix);
+
+        // Matrix Logging
+        Logger::log("Model matrix explicitly logged: " + glm::to_string(modelMatrix), Logger::INFO);
+        Logger::log("View matrix explicitly logged: " + glm::to_string(camera.GetViewMatrix()), Logger::INFO);
+        Logger::log("Projection matrix explicitly logged: " + glm::to_string(camera.ProjectionMatrix), Logger::INFO);
+
 
         myModel->Draw(*activeShader);
 
