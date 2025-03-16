@@ -83,6 +83,8 @@ void SceneTest2(GLFWwindow* window) {
         Logger::log("Model matrix explicitly logged: " + glm::to_string(modelMatrix), Logger::INFO);
         Logger::log("View matrix explicitly logged: " + glm::to_string(camera.GetViewMatrix()), Logger::INFO);
         Logger::log("Projection matrix explicitly logged: " + glm::to_string(camera.ProjectionMatrix), Logger::INFO);
+        glDisable(GL_CULL_FACE);  // Explicitly disable face culling
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Explicitly set polygon mode to filled
 
 
         myModel->Draw(*activeShader);
