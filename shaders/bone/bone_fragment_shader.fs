@@ -1,8 +1,6 @@
 #version 330 core
-
-in vec4 BoneColor;
-out vec4 fragColor;  // Renamed from FragColor to prevent redefinition errors
+out vec4 FragColor;
 
 void main() {
-    fragColor = BoneColor; 
+    FragColor = vec4(1.0, 0.0, 0.0, 1.0);  // Explicitly set all fragments to RED
 }

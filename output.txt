@@ -186,3 +186,124 @@ INFO: Final Matrix [DEF-hand.R]: mat4x4((0.028306, -0.997909, -0.058098, 0.00000
 INFO: Final Matrix [DEF-breast.L]: mat4x4((-1.000000, -0.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (0.107252, 0.110391, -1.378726, 1.000000))
 INFO: Final Matrix [DEF-breast.R]: mat4x4((-1.000000, 0.000000, -0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (-0.107252, 0.110391, -1.378726, 1.000000))
 INFO: ==== EXPLICIT FINAL MATRICES END ====
+INFO: Drawing mesh with VAO: 1
+INFO: DEBUG: Depth testing and blending enabled.
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Model matrix explicitly logged: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: View matrix explicitly logged: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (0.000000, -0.940108, -7.401939, 1.000000))
+INFO: Projection matrix explicitly logged: mat4x4((1.810660, 0.000000, 0.000000, 0.000000), (0.000000, 2.414213, 0.000000, 0.000000), (0.000000, 0.000000, -1.002002, -1.000000), (0.000000, 0.000000, -0.200200, 0.000000))
+INFO: Applying actual transform explicitly to [DEF-spine]
+INFO: Final Matrix for Bone [DEF-spine] ID [0]
+INFO: Explicit identity applied to bone [DEF-spine.001] for testing
+INFO: Final Matrix for Bone [DEF-spine.001] ID [1]
+INFO: Explicit identity applied to bone [DEF-spine.002] for testing
+INFO: Final Matrix for Bone [DEF-spine.002] ID [2]
+INFO: Explicit identity applied to bone [DEF-spine.003] for testing
+INFO: Final Matrix for Bone [DEF-spine.003] ID [3]
+INFO: Explicit identity applied to bone [DEF-spine.004] for testing
+INFO: Final Matrix for Bone [DEF-spine.004] ID [4]
+INFO: Explicit identity applied to bone [DEF-spine.005] for testing
+INFO: Final Matrix for Bone [DEF-spine.005] ID [5]
+INFO: Explicit identity applied to bone [DEF-spine.006] for testing
+INFO: Final Matrix for Bone [DEF-spine.006] ID [6]
+INFO: Explicit identity applied to bone [DEF-pelvis.L] for testing
+INFO: Final Matrix for Bone [DEF-pelvis.L] ID [7]
+INFO: Explicit identity applied to bone [DEF-pelvis.R] for testing
+INFO: Final Matrix for Bone [DEF-pelvis.R] ID [8]
+INFO: Explicit identity applied to bone [DEF-thigh.L] for testing
+INFO: Final Matrix for Bone [DEF-thigh.L] ID [9]
+INFO: Explicit identity applied to bone [DEF-thigh.L.001] for testing
+INFO: Final Matrix for Bone [DEF-thigh.L.001] ID [10]
+INFO: Explicit identity applied to bone [DEF-shin.L] for testing
+INFO: Final Matrix for Bone [DEF-shin.L] ID [11]
+INFO: Explicit identity applied to bone [DEF-shin.L.001] for testing
+INFO: Final Matrix for Bone [DEF-shin.L.001] ID [12]
+INFO: Explicit identity applied to bone [DEF-foot.L] for testing
+INFO: Final Matrix for Bone [DEF-foot.L] ID [13]
+INFO: Explicit identity applied to bone [DEF-toe.L] for testing
+INFO: Final Matrix for Bone [DEF-toe.L] ID [14]
+INFO: Explicit identity applied to bone [DEF-thigh.R] for testing
+INFO: Final Matrix for Bone [DEF-thigh.R] ID [15]
+INFO: Explicit identity applied to bone [DEF-thigh.R.001] for testing
+INFO: Final Matrix for Bone [DEF-thigh.R.001] ID [16]
+INFO: Explicit identity applied to bone [DEF-shin.R] for testing
+INFO: Final Matrix for Bone [DEF-shin.R] ID [17]
+INFO: Explicit identity applied to bone [DEF-shin.R.001] for testing
+INFO: Final Matrix for Bone [DEF-shin.R.001] ID [18]
+INFO: Explicit identity applied to bone [DEF-foot.R] for testing
+INFO: Final Matrix for Bone [DEF-foot.R] ID [19]
+INFO: Explicit identity applied to bone [DEF-toe.R] for testing
+INFO: Final Matrix for Bone [DEF-toe.R] ID [20]
+INFO: Explicit identity applied to bone [DEF-shoulder.L] for testing
+INFO: Final Matrix for Bone [DEF-shoulder.L] ID [21]
+INFO: Explicit identity applied to bone [DEF-upper_arm.L] for testing
+INFO: Final Matrix for Bone [DEF-upper_arm.L] ID [22]
+INFO: Explicit identity applied to bone [DEF-upper_arm.L.001] for testing
+INFO: Final Matrix for Bone [DEF-upper_arm.L.001] ID [23]
+INFO: Explicit identity applied to bone [DEF-forearm.L] for testing
+INFO: Final Matrix for Bone [DEF-forearm.L] ID [24]
+INFO: Explicit identity applied to bone [DEF-forearm.L.001] for testing
+INFO: Final Matrix for Bone [DEF-forearm.L.001] ID [25]
+INFO: Explicit identity applied to bone [DEF-hand.L] for testing
+INFO: Final Matrix for Bone [DEF-hand.L] ID [26]
+INFO: Explicit identity applied to bone [DEF-shoulder.R] for testing
+INFO: Final Matrix for Bone [DEF-shoulder.R] ID [27]
+INFO: Explicit identity applied to bone [DEF-upper_arm.R] for testing
+INFO: Final Matrix for Bone [DEF-upper_arm.R] ID [28]
+INFO: Explicit identity applied to bone [DEF-upper_arm.R.001] for testing
+INFO: Final Matrix for Bone [DEF-upper_arm.R.001] ID [29]
+INFO: Explicit identity applied to bone [DEF-forearm.R] for testing
+INFO: Final Matrix for Bone [DEF-forearm.R] ID [30]
+INFO: Explicit identity applied to bone [DEF-forearm.R.001] for testing
+INFO: Final Matrix for Bone [DEF-forearm.R.001] ID [31]
+INFO: Explicit identity applied to bone [DEF-hand.R] for testing
+INFO: Final Matrix for Bone [DEF-hand.R] ID [32]
+INFO: Explicit identity applied to bone [DEF-breast.L] for testing
+INFO: Final Matrix for Bone [DEF-breast.L] ID [33]
+INFO: Explicit identity applied to bone [DEF-breast.R] for testing
+INFO: Final Matrix for Bone [DEF-breast.R] ID [34]
+INFO: ==== EXPLICIT FINAL MATRICES BEGIN ====
+INFO: Final Matrix [DEF-spine]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, -0.235478, 0.000000), (0.000000, 0.235478, 0.971880, 0.000000), (0.000000, -0.916629, 0.341921, 1.000000))
+INFO: Final Matrix [DEF-spine.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.992413, -0.122954, 0.000000), (0.000000, 0.122954, 0.992412, 0.000000), (0.000000, -1.104045, 0.217266, 1.000000))
+INFO: Final Matrix [DEF-spine.002]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999869, 0.016174, 0.000000), (0.000000, -0.016174, 0.999869, 0.000000), (0.000000, -1.211187, 0.049404, 1.000000))
+INFO: Final Matrix [DEF-spine.003]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999592, 0.028560, 0.000000), (0.000000, -0.028560, 0.999592, 0.000000), (0.000000, -1.385738, 0.032239, 1.000000))
+INFO: Final Matrix [DEF-spine.004]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.929516, -0.368784, 0.000000), (0.000000, 0.368784, 0.929515, 0.000000), (0.000000, -1.420450, 0.646168, 1.000000))
+INFO: Final Matrix [DEF-spine.005]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982436, -0.186599, 0.000000), (0.000000, 0.186599, 0.982436, 0.000000), (0.000000, -1.575778, 0.354954, 1.000000))
+INFO: Final Matrix [DEF-spine.006]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (0.000000, -1.670135, 0.044083, 1.000000))
+INFO: Final Matrix [DEF-pelvis.L]: mat4x4((-0.421772, 0.536322, -0.731073, 0.000000), (-0.276837, 0.691624, 0.667096, 0.000000), (0.863406, 0.483751, -0.143234, 0.000000), (0.369463, -0.615484, -0.664677, 1.000000))
+INFO: Final Matrix [DEF-pelvis.R]: mat4x4((-0.421772, -0.536322, 0.731073, 0.000000), (0.276837, 0.691624, 0.667096, 0.000000), (-0.863406, 0.483751, -0.143234, 0.000000), (-0.369463, -0.615484, -0.664677, 1.000000))
+INFO: Final Matrix [DEF-thigh.L]: mat4x4((0.935413, -0.093497, 0.340969, 0.000000), (-0.058897, -0.992132, -0.110475, 0.000000), (0.348616, 0.083258, -0.933563, 0.000000), (-0.033043, 1.046192, -0.002256, 1.000000))
+INFO: Final Matrix [DEF-thigh.L.001]: mat4x4((0.935413, -0.093497, 0.340971, 0.000000), (-0.058897, -0.992132, -0.110475, 0.000000), (0.348618, 0.083258, -0.933562, 0.000000), (-0.033043, 0.792186, -0.002256, 1.000000))
+INFO: Final Matrix [DEF-shin.L]: mat4x4((0.935419, -0.049134, 0.350111, 0.000000), (-0.058899, -0.998115, 0.017290, 0.000000), (0.348602, -0.036794, -0.936551, 0.000000), (-0.033043, 0.533475, -0.071050, 1.000000))
+INFO: Final Matrix [DEF-shin.L.001]: mat4x4((0.935419, -0.049134, 0.350110, 0.000000), (-0.058899, -0.998115, 0.017290, 0.000000), (0.348601, -0.036794, -0.936551, 0.000000), (-0.033043, 0.321455, -0.071050, 1.000000))
+INFO: Final Matrix [DEF-foot.L]: mat4x4((0.964084, 0.178992, 0.196227, 0.000000), (0.265600, -0.649715, -0.712270, 0.000000), (0.000001, 0.738807, -0.673921, 0.000000), (-0.087786, 0.097231, 0.030920, 1.000000))
+INFO: Final Matrix [DEF-toe.L]: mat4x4((-0.964084, -0.000000, -0.265600, 0.000000), (-0.265600, -0.000000, 0.964084, 0.000000), (0.000000, 1.000003, 0.000000, 0.000000), (0.087786, -0.018148, -0.025298, 1.000000))
+INFO: Final Matrix [DEF-thigh.R]: mat4x4((0.935413, 0.093497, -0.340969, 0.000000), (0.058897, -0.992132, -0.110475, 0.000000), (-0.348616, 0.083258, -0.933563, 0.000000), (0.033043, 1.046192, -0.002256, 1.000000))
+INFO: Final Matrix [DEF-thigh.R.001]: mat4x4((0.935413, 0.093497, -0.340971, 0.000000), (0.058897, -0.992132, -0.110475, 0.000000), (-0.348618, 0.083258, -0.933562, 0.000000), (0.033043, 0.792186, -0.002256, 1.000000))
+INFO: Final Matrix [DEF-shin.R]: mat4x4((0.935419, 0.049134, -0.350111, 0.000000), (0.058899, -0.998115, 0.017290, 0.000000), (-0.348602, -0.036794, -0.936551, 0.000000), (0.033043, 0.533475, -0.071050, 1.000000))
+INFO: Final Matrix [DEF-shin.R.001]: mat4x4((0.935419, 0.049134, -0.350110, 0.000000), (0.058899, -0.998115, 0.017290, 0.000000), (-0.348601, -0.036794, -0.936551, 0.000000), (0.033043, 0.321455, -0.071050, 1.000000))
+INFO: Final Matrix [DEF-foot.R]: mat4x4((0.964084, -0.178992, -0.196227, 0.000000), (-0.265600, -0.649715, -0.712270, 0.000000), (-0.000001, 0.738807, -0.673921, 0.000000), (0.087786, 0.097231, 0.030920, 1.000000))
+INFO: Final Matrix [DEF-toe.R]: mat4x4((-0.964084, 0.000000, 0.265600, 0.000000), (0.265600, -0.000000, 0.964084, 0.000000), (-0.000000, 1.000003, 0.000000, 0.000000), (-0.087786, -0.018148, -0.025298, 1.000000))
+INFO: Final Matrix [DEF-shoulder.L]: mat4x4((0.507095, 0.861890, 0.000529, 0.000000), (-0.000074, -0.000570, 1.000000, 0.000000), (0.861890, -0.507095, -0.000225, 0.000000), (-0.004417, -0.015707, -1.510536, 1.000000))
+INFO: Final Matrix [DEF-upper_arm.L]: mat4x4((0.001501, 0.997443, 0.071445, 0.000000), (0.954292, -0.022782, 0.298008, 0.000000), (0.298874, 0.067732, -0.951886, 0.000000), (-1.396936, -0.136329, -0.543537, 1.000000))
+INFO: Final Matrix [DEF-upper_arm.L.001]: mat4x4((0.001501, 0.997443, 0.071445, 0.000000), (0.954292, -0.022782, 0.298008, 0.000000), (0.298874, 0.067732, -0.951886, 0.000000), (-1.396935, -0.268159, -0.543537, 1.000000))
+INFO: Final Matrix [DEF-forearm.L]: mat4x4((0.001501, 0.999878, -0.015562, 0.000000), (0.954291, 0.003219, 0.298861, 0.000000), (0.298875, -0.015300, -0.954170, 0.000000), (-1.396935, -0.445738, -0.506696, 1.000000))
+INFO: Final Matrix [DEF-forearm.L.001]: mat4x4((0.001501, 0.999878, -0.015562, 0.000000), (0.954291, 0.003219, 0.298861, 0.000000), (0.298875, -0.015300, -0.954170, 0.000000), (-1.396935, -0.565887, -0.506696, 1.000000))
+INFO: Final Matrix [DEF-hand.L]: mat4x4((0.028306, 0.997909, 0.058098, 0.000000), (0.953443, -0.044410, 0.298287, 0.000000), (0.300243, 0.046949, -0.952707, 0.000000), (-1.413800, -0.609126, -0.555831, 1.000000))
+INFO: Final Matrix [DEF-shoulder.R]: mat4x4((0.507095, -0.861890, -0.000529, 0.000000), (0.000074, -0.000570, 1.000000, 0.000000), (-0.861890, -0.507095, -0.000225, 0.000000), (0.004417, -0.015707, -1.510536, 1.000000))
+INFO: Final Matrix [DEF-upper_arm.R]: mat4x4((0.001501, -0.997443, -0.071445, 0.000000), (-0.954292, -0.022782, 0.298008, 0.000000), (-0.298874, 0.067732, -0.951886, 0.000000), (1.396936, -0.136329, -0.543537, 1.000000))
+INFO: Final Matrix [DEF-upper_arm.R.001]: mat4x4((0.001501, -0.997443, -0.071445, 0.000000), (-0.954292, -0.022782, 0.298008, 0.000000), (-0.298874, 0.067732, -0.951886, 0.000000), (1.396935, -0.268159, -0.543537, 1.000000))
+INFO: Final Matrix [DEF-forearm.R]: mat4x4((0.001501, -0.999878, 0.015562, 0.000000), (-0.954291, 0.003219, 0.298861, 0.000000), (-0.298874, -0.015300, -0.954170, 0.000000), (1.396935, -0.445738, -0.506696, 1.000000))
+INFO: Final Matrix [DEF-forearm.R.001]: mat4x4((0.001501, -0.999878, 0.015562, 0.000000), (-0.954292, 0.003219, 0.298861, 0.000000), (-0.298875, -0.015300, -0.954170, 0.000000), (1.396935, -0.565887, -0.506696, 1.000000))
+INFO: Final Matrix [DEF-hand.R]: mat4x4((0.028306, -0.997909, -0.058098, 0.000000), (-0.953443, -0.044410, 0.298287, 0.000000), (-0.300244, 0.046949, -0.952707, 0.000000), (1.413800, -0.609126, -0.555832, 1.000000))
+INFO: Final Matrix [DEF-breast.L]: mat4x4((-1.000000, -0.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (0.107252, 0.110391, -1.378726, 1.000000))
+INFO: Final Matrix [DEF-breast.R]: mat4x4((-1.000000, 0.000000, -0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (-0.107252, 0.110391, -1.378726, 1.000000))
+INFO: ==== EXPLICIT FINAL MATRICES END ====
+INFO: Drawing mesh with VAO: 1
+INFO: Window close event triggered.
+INFO: Exiting SceneTest2.
+INFO: ImGui shutdown completed.
+
+C:\Users\mjgou\source\repos\OpenEngine\x64\Debug\OpenEngine.exe (process 5032) exited with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
