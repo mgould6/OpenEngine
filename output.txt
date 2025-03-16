@@ -189,3 +189,8 @@ INFO: ==== EXPLICIT FINAL MATRICES END ====
 INFO: Drawing mesh with VAO: 1
 INFO: DEBUG: Depth testing and blending enabled.
 INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Model matrix explicitly logged: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: View matrix explicitly logged: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (0.000000, -0.940108, -7.401939, 1.000000))
+INFO: Projection matrix explicitly logged: mat4x4((1.810660, 0.000000, 0.000000, 0.000000), (0.000000, 2.414213, 0.000000, 0.000000), (0.000000, 0.000000, -1.002002, -1.000000), (0.000000, 0.000000, -0.200200, 0.000000))
+INFO: Applying actual transform explicitly to [DEF-spine]
+INFO: Final Matrix for Bone [DEF-spine] ID [0]

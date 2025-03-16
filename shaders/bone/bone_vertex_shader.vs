@@ -16,19 +16,21 @@ out vec2 TexCoords;
 
 void main() {
     mat4 boneTransform = mat4(0.0);
+    float totalWeight = 0.0;
 
-    // Explicitly accumulate bone influences correctly:
+    // Explicitly accumulate only valid bones
     for (int i = 0; i < 4; i++) {
         int boneIndex = aBoneIDs[i];
         float weight = aWeights[i];
 
-        if (boneIndex >= 0 && weight > 0.0) {
+        if (boneIndex >= 0 && boneIndex < 100 && weight > 0.0) {
             boneTransform += boneTransforms[boneIndex] * weight;
+            totalWeight += weight;
         }
     }
 
-    // Explicit fallback to identity if no valid bones:
-    if (boneTransform == mat4(0.0)) {
+    // Explicit fallback for vertices with no valid bone IDs
+    if (totalWeight == 0.0) {
         boneTransform = mat4(1.0);
     }
 
