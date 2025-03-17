@@ -200,14 +200,9 @@ void Model::Draw(Shader& shader)
     {
         glm::mat4 globalTransform;
 
-        if (bones[i].name == "DEF-spine") {
-            globalTransform = getBoneTransform(bones[i].name);
-            Logger::log("Applying actual transform explicitly to [DEF-spine]", Logger::INFO);
-        }
-        else {
-            globalTransform = glm::mat4(1.0f);  // Explicitly isolate all other bones
-            Logger::log("Explicit identity applied to bone [" + bones[i].name + "] for testing", Logger::INFO);
-        }
+        globalTransform = getBoneTransform(bones[i].name);
+        Logger::log("Applying actual transform explicitly to bone [" + bones[i].name + "]", Logger::INFO);
+
 
         finalMatrices[i] = globalInverseTransform * globalTransform * bones[i].offsetMatrix;
 
