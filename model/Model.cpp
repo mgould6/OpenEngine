@@ -312,11 +312,14 @@ int Model::getBoneIndex(const std::string& boneName) const {
 // Recursively update the bone hierarchy using the scene graph
 void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentName) {
     std::string nodeName(node->mName.C_Str());
+    Logger::log("Processing node: " + nodeName + " with parent: " + parentName, Logger::INFO);
+
     // If this node corresponds to a bone we have, update its parent info
     if (boneMapping.find(nodeName) != boneMapping.end()) {
         for (auto& bone : bones) {
             if (bone.name == nodeName) {
                 bone.parentName = parentName;
+                Logger::log("Bone [" + bone.name + "] parent set to: " + parentName, Logger::INFO);
                 break;
             }
         }
@@ -328,9 +331,11 @@ void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentNam
 }
 
 
+
 glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
     const std::unordered_map<std::string, glm::mat4>& localTransforms,
     std::unordered_map<std::string, glm::mat4>& globalTransforms) {
+
     // If the transform is already calculated, return it.
     auto cached = globalTransforms.find(boneName);
     if (cached != globalTransforms.end()) {
@@ -344,6 +349,11 @@ glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
         localTransform = it->second;
     }
 
+    // Debug: Log local transform if the bone is in our chain of interest
+    if (boneName.find("spine") != std::string::npos) {
+        Logger::log("Bone [" + boneName + "] local transform: " + glm::to_string(localTransform), Logger::INFO);
+    }
+
     // Get the parent bone name using the existing getBoneParent() method.
     std::string parentName = getBoneParent(boneName);
 
@@ -351,6 +361,9 @@ glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
     glm::mat4 parentTransform = glm::mat4(1.0f);
     if (!parentName.empty()) {
         parentTransform = calculateBoneTransform(parentName, localTransforms, globalTransforms);
+        if (boneName.find("spine") != std::string::npos) {
+            Logger::log("Bone [" + boneName + "] parent [" + parentName + "] global transform: " + glm::to_string(parentTransform), Logger::INFO);
+        }
     }
 
     // Multiply parent's transform by the local transform.
@@ -358,6 +371,11 @@ glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
 
     // Cache the computed global transform.
     globalTransforms[boneName] = finalTransform;
+
+    // Debug: Log the final transform for this bone.
+    if (boneName.find("spine") != std::string::npos) {
+        Logger::log("Bone [" + boneName + "] final transform: " + glm::to_string(finalTransform), Logger::INFO);
+    }
 
     return finalTransform;
 }
