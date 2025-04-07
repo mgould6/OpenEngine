@@ -55,6 +55,13 @@ private:
     glm::mat4 globalInverseTransform = glm::mat4(1.0f);
 
 
+    glm::mat4 calculateBoneTransform(const std::string& boneName,
+        const std::unordered_map<std::string, glm::mat4>& localTransforms,
+        std::unordered_map<std::string, glm::mat4>& globalTransforms);
+	
+    void updateBoneTransforms(const aiNode* node, const glm::mat4& parentTransform);
+
+
 };
 
 #endif // MODEL_H

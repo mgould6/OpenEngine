@@ -326,3 +326,38 @@ void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentNam
         updateBoneHierarchy(node->mChildren[i], nodeName);
     }
 }
+
+
+glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
+    const std::unordered_map<std::string, glm::mat4>& localTransforms,
+    std::unordered_map<std::string, glm::mat4>& globalTransforms) {
+    // If the transform is already calculated, return it.
+    auto cached = globalTransforms.find(boneName);
+    if (cached != globalTransforms.end()) {
+        return cached->second;
+    }
+
+    // Retrieve the local transform for this bone (default to identity if not present)
+    glm::mat4 localTransform = glm::mat4(1.0f);
+    auto it = localTransforms.find(boneName);
+    if (it != localTransforms.end()) {
+        localTransform = it->second;
+    }
+
+    // Get the parent bone name using the existing getBoneParent() method.
+    std::string parentName = getBoneParent(boneName);
+
+    // Recursively compute the parent's global transform.
+    glm::mat4 parentTransform = glm::mat4(1.0f);
+    if (!parentName.empty()) {
+        parentTransform = calculateBoneTransform(parentName, localTransforms, globalTransforms);
+    }
+
+    // Multiply parent's transform by the local transform.
+    glm::mat4 finalTransform = parentTransform * localTransform;
+
+    // Cache the computed global transform.
+    globalTransforms[boneName] = finalTransform;
+
+    return finalTransform;
+}
