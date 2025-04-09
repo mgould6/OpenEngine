@@ -41,22 +41,22 @@ void Model::loadModel(const std::string& path)
 
     directory = path.substr(0, path.find_last_of('/'));
 
-    // Set correct global inverse transform instead of hardcoding identity
+    // Compute the global inverse transform from the root node.
     globalInverseTransform = glm::inverse(convertAiMatrix(scene->mRootNode->mTransformation));
     Logger::log("Global inverse transform set from root node transformation.", Logger::INFO);
-    Logger::log("Global inverse transform matrix:", Logger::INFO);
-    Logger::log(glm::to_string(globalInverseTransform), Logger::INFO);
+    Logger::log("Global inverse transform matrix: " + glm::to_string(globalInverseTransform), Logger::INFO);
 
     processNode(scene->mRootNode, scene);
 
-    // Explicit bone mapping log
+    // Log the bone mapping for review
     Logger::log("==== Explicit Bone Mapping BEGIN ====", Logger::INFO);
     for (const auto& bonePair : boneMapping) {
-        Logger::log("Bone Mapping ID[" + std::to_string(bonePair.second) + "] maps to Bone Name[" + bonePair.first + "]", Logger::INFO);
+        Logger::log("Bone Mapping ID[" + std::to_string(bonePair.second) +
+            "] maps to Bone Name[" + bonePair.first + "]", Logger::INFO);
     }
     Logger::log("==== EXPLICIT BONE MAPPING END ====", Logger::INFO);
 
-    // Explicitly log the offset matrix of the DEF-spine bone for verification
+    // Log the offset matrix for a key bone (e.g. DEF-spine) for verification
     if (boneMapping.find("DEF-spine") != boneMapping.end()) {
         int spineIndex = boneMapping["DEF-spine"];
         glm::mat4 spineOffsetMatrix = bones[spineIndex].offsetMatrix;
@@ -67,21 +67,28 @@ void Model::loadModel(const std::string& path)
         Logger::log("DEF-spine bone not found for explicit offset matrix logging.", Logger::ERROR);
     }
 
+    // Update the bone hierarchy from the scene graph.
     updateBoneHierarchy(scene->mRootNode, "");
-
     Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
 }
-
 
 void Model::processNode(aiNode* node, const aiScene* scene) {
     for (unsigned int i = 0; i < node->mNumMeshes; i++) {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
         meshes.push_back(processMesh(mesh, scene));
     }
-
     for (unsigned int i = 0; i < node->mNumChildren; i++) {
         processNode(node->mChildren[i], scene);
     }
+}
+
+
+// New helper function to retrieve a bone name by its index.
+std::string Model::getBoneName(int index) const {
+    if (index >= 0 && index < (int)bones.size()) {
+        return bones[index].name;
+    }
+    return "";
 }
 
 Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
@@ -90,18 +97,18 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
 
+    // Process vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
         Vertex vertex;
         vertex.Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
         vertex.Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
 
-        // Explicitly check and assign TexCoords safely
         if (mesh->mTextureCoords[0]) {
             vertex.TexCoords = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
         }
         else {
-            vertex.TexCoords = glm::vec2(0.0f, 0.0f);  // Explicit fallback
-            Logger::log("Vertex[" + std::to_string(i) + "] missing texcoords, explicitly set to (0,0)", Logger::WARNING);
+            vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+            Logger::log("Vertex[" + std::to_string(i) + "] missing texcoords, set to (0,0)", Logger::WARNING);
         }
 
         vertex.BoneIDs = glm::ivec4(-1);
@@ -109,16 +116,21 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         vertices.push_back(vertex);
     }
 
-
+    // Process faces
     for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
         aiFace face = mesh->mFaces[i];
-        for (unsigned int j = 0; j < face.mNumIndices; j++)
+        for (unsigned int j = 0; j < face.mNumIndices; j++) {
             indices.push_back(face.mIndices[j]);
+        }
     }
 
+    // Process bones and assign influences to vertices
     for (unsigned int i = 0; i < mesh->mNumBones; i++) {
         aiBone* bone = mesh->mBones[i];
         std::string boneName(bone->mName.C_Str());
+
+        glm::mat4 offsetMatrix = convertAiMatrix(bone->mOffsetMatrix);
+        Logger::log("Assimp Offset Matrix [" + boneName + "]: " + glm::to_string(offsetMatrix), Logger::INFO);
 
         if (boneName.rfind("DEF-", 0) != 0)
             continue;
@@ -130,8 +142,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
             Bone newBone;
             newBone.name = boneName;
-            newBone.offsetMatrix = convertAiMatrix(bone->mOffsetMatrix);
+            newBone.offsetMatrix = offsetMatrix;
             bones.push_back(newBone);
+            Logger::log("New bone added: " + boneName + " assigned index: " + std::to_string(boneIndex), Logger::INFO);
         }
         else {
             boneIndex = boneMapping[boneName];
@@ -140,7 +153,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         for (unsigned int j = 0; j < bone->mNumWeights; j++) {
             unsigned int vertexID = bone->mWeights[j].mVertexId;
             float weight = bone->mWeights[j].mWeight;
-
             bool assigned = false;
             for (int k = 0; k < 4; k++) {
                 if (vertices[vertexID].Weights[k] == 0.0f) {
@@ -156,27 +168,17 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         }
     }
 
-    // Explicit normalization and fallback
-    for (size_t i = 0; i < vertices.size(); ++i) {
+    for (size_t i = 0; i < vertices.size(); i++) {
         float totalWeight = vertices[i].Weights[0] + vertices[i].Weights[1] +
             vertices[i].Weights[2] + vertices[i].Weights[3];
-
         if (totalWeight == 0.0f) {
             vertices[i].BoneIDs = glm::ivec4(0);
             vertices[i].Weights = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
-            Logger::log("Vertex " + std::to_string(i) + " explicitly assigned fallback bone (0).", Logger::INFO);
+            Logger::log("Vertex " + std::to_string(i) + " assigned fallback bone (0).", Logger::INFO);
         }
         else {
             vertices[i].Weights /= totalWeight;
         }
-    }
-
-
-
-    Logger::log("Mesh loaded successfully with explicit vertex logging.", Logger::INFO);
-
-    // Explicit logging of the first few vertex bone weights and IDs
-    for (size_t i = 0; i < std::min(vertices.size(), size_t(5)); ++i) {
         Logger::log("Vertex[" + std::to_string(i) + "] BoneIDs: [" +
             std::to_string(vertices[i].BoneIDs.x) + ", " +
             std::to_string(vertices[i].BoneIDs.y) + ", " +
@@ -185,11 +187,11 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
             std::to_string(vertices[i].Weights.x) + ", " +
             std::to_string(vertices[i].Weights.y) + ", " +
             std::to_string(vertices[i].Weights.z) + ", " +
-            std::to_string(vertices[i].Weights.w) + "]", Logger::INFO);
+            std::to_string(vertices[i].Weights.w) + "]", Logger::DEBUG);
     }
 
+    Logger::log("Mesh loaded successfully with explicit vertex and Assimp offset matrix logging.", Logger::INFO);
     return Mesh(vertices, indices, textures);
-
 }
 
 void Model::Draw(Shader& shader)
@@ -293,16 +295,24 @@ std::string Model::getBoneParent(const std::string& boneName) const {
 }
 
 void Model::forceTestBoneTransform() {
-    std::string testBone = "DEF-spine";
 
-    if (boneTransforms.find(testBone) != boneTransforms.end()) {
-        Logger::log("Debug: Overriding Bone " + testBone + " with test transformation.", Logger::INFO);
-        boneTransforms[testBone] = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 5.0f, 0.0f));
-    }
-    else {
-        Logger::log("Error: Bone " + testBone + " not found!", Logger::ERROR);
-    }
+    //commented out for now
+    //std::string testBone = "DEF-spine";
+
+    //if (boneTransforms.find(testBone) != boneTransforms.end()) {
+    //    glm::mat4 originalTransform = boneTransforms[testBone];
+    //    glm::mat4 incrementalTranslation = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.5f, 0.0f));  // Smaller offset
+    //    boneTransforms[testBone] = originalTransform * incrementalTranslation;
+
+    //    Logger::log("DEBUG: Incrementally overriding bone [" + testBone + "] with Y+0.5 translation.", Logger::INFO);
+    //    Logger::log("DEBUG: Original Transform: " + glm::to_string(originalTransform), Logger::INFO);
+    //    Logger::log("DEBUG: New Incremental Transform: " + glm::to_string(boneTransforms[testBone]), Logger::INFO);
+    //}
+    //else {
+    //    Logger::log("ERROR: Bone " + testBone + " not found in boneTransforms.", Logger::ERROR);
+    //}
 }
+
 int Model::getBoneIndex(const std::string& boneName) const {
     auto it = boneMapping.find(boneName);
     return (it != boneMapping.end()) ? it->second : -1;
@@ -314,7 +324,7 @@ void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentNam
     std::string nodeName(node->mName.C_Str());
     Logger::log("Processing node: " + nodeName + " with parent: " + parentName, Logger::INFO);
 
-    // If this node corresponds to a bone we have, update its parent info
+    // If this node corresponds to a bone, update its parent info
     if (boneMapping.find(nodeName) != boneMapping.end()) {
         for (auto& bone : bones) {
             if (bone.name == nodeName) {
@@ -324,58 +334,50 @@ void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentNam
             }
         }
     }
-    // Process all children with this node as their parent
+    // Recursively process child nodes
     for (unsigned int i = 0; i < node->mNumChildren; i++) {
         updateBoneHierarchy(node->mChildren[i], nodeName);
     }
 }
 
 
-
+// This is the key function for recursively accumulating bone transforms
 glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
     const std::unordered_map<std::string, glm::mat4>& localTransforms,
     std::unordered_map<std::string, glm::mat4>& globalTransforms) {
 
-    // If the transform is already calculated, return it.
+    // If already computed, return the cached transform.
     auto cached = globalTransforms.find(boneName);
     if (cached != globalTransforms.end()) {
+        Logger::log("Using cached global transform for bone " + boneName, Logger::INFO);
         return cached->second;
     }
 
-    // Retrieve the local transform for this bone (default to identity if not present)
+    // Retrieve the local transform. Default to identity if not found.
     glm::mat4 localTransform = glm::mat4(1.0f);
     auto it = localTransforms.find(boneName);
     if (it != localTransforms.end()) {
         localTransform = it->second;
-    }
-
-    // Debug: Log local transform if the bone is in our chain of interest
-    if (boneName.find("spine") != std::string::npos) {
         Logger::log("Bone [" + boneName + "] local transform: " + glm::to_string(localTransform), Logger::INFO);
     }
+    else {
+        Logger::log("No local transform found for bone [" + boneName + "]; using identity.", Logger::WARNING);
+    }
 
-    // Get the parent bone name using the existing getBoneParent() method.
+    // Get the parent's name and recursively compute its global transform.
     std::string parentName = getBoneParent(boneName);
-
-    // Recursively compute the parent's global transform.
     glm::mat4 parentTransform = glm::mat4(1.0f);
     if (!parentName.empty()) {
         parentTransform = calculateBoneTransform(parentName, localTransforms, globalTransforms);
-        if (boneName.find("spine") != std::string::npos) {
-            Logger::log("Bone [" + boneName + "] parent [" + parentName + "] global transform: " + glm::to_string(parentTransform), Logger::INFO);
-        }
+        Logger::log("Bone [" + boneName + "] parent's (" + parentName + ") global transform: " + glm::to_string(parentTransform), Logger::INFO);
+    }
+    else {
+        Logger::log("Bone [" + boneName + "] has no parent; using identity for parent transform.", Logger::INFO);
     }
 
-    // Multiply parent's transform by the local transform.
+    // The final global transform is the accumulation of parent's transform and local transform.
     glm::mat4 finalTransform = parentTransform * localTransform;
-
-    // Cache the computed global transform.
     globalTransforms[boneName] = finalTransform;
-
-    // Debug: Log the final transform for this bone.
-    if (boneName.find("spine") != std::string::npos) {
-        Logger::log("Bone [" + boneName + "] final transform: " + glm::to_string(finalTransform), Logger::INFO);
-    }
-
+    Logger::log("Bone [" + boneName + "] final computed transform: " + glm::to_string(finalTransform), Logger::INFO);
     return finalTransform;
 }

@@ -87,6 +87,28 @@ void SceneTest2(GLFWwindow* window) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Explicitly set polygon mode to filled
 
 
+        // Ensure boneTransforms are freshly computed
+        std::unordered_map<std::string, glm::mat4> localTransforms;
+        std::unordered_map<std::string, glm::mat4> globalTransforms;
+
+        // First populate localTransforms (identity if no animation is running)
+        for (const auto& bone : myModel->getBones()) {
+            localTransforms[bone.name] = glm::mat4(1.0f);  // Identity or animation-driven transforms
+        }
+
+        // Then explicitly compute global transforms
+        for (const auto& bone : myModel->getBones()) {
+            myModel->calculateBoneTransform(bone.name, localTransforms, globalTransforms);
+        }
+
+        // Now, update the bone transforms in the model
+        for (const auto& pair : globalTransforms) {
+            myModel->setBoneTransform(pair.first, pair.second);
+        }
+
+
+        myModel->forceTestBoneTransform();
+
         myModel->Draw(*activeShader);
 
         Renderer::RenderImGui();
