@@ -200,21 +200,19 @@ void Model::Draw(Shader& shader)
 
     for (size_t i = 0; i < bones.size(); i++)
     {
-        glm::mat4 globalTransform;
-
-        globalTransform = getBoneTransform(bones[i].name);
+        glm::mat4 globalTransform = getBoneTransform(bones[i].name);
         Logger::log("Applying actual transform explicitly to bone [" + bones[i].name + "]", Logger::INFO);
-
 
         finalMatrices[i] = globalInverseTransform * globalTransform * bones[i].offsetMatrix;
 
-        Logger::log("Final Matrix for Bone [" + bones[i].name + "] ID [" + std::to_string(i) + "]", Logger::INFO);
+        Logger::log("Final Matrix for Bone [" + bones[i].name + "] ID [" + std::to_string(i) + "]:", Logger::INFO);
+        Logger::log(glm::to_string(finalMatrices[i]), Logger::INFO);
     }
 
     // Explicit Logging of Final Matrices
     Logger::log("==== EXPLICIT FINAL MATRICES BEGIN ====", Logger::INFO);
     for (size_t i = 0; i < finalMatrices.size(); i++) {
-        Logger::log("Final Matrix [" + bones[i].name + "]: " + glm::to_string(finalMatrices[i]), Logger::INFO);
+        Logger::log("Final Matrix [" + bones[i].name + "]:\n" + glm::to_string(finalMatrices[i]), Logger::INFO);
     }
     Logger::log("==== EXPLICIT FINAL MATRICES END ====", Logger::INFO);
 
@@ -227,7 +225,6 @@ void Model::Draw(Shader& shader)
     for (auto& mesh : meshes)
         mesh.Draw(shader);
 }
-
 
 
 glm::vec3 Model::getBoundingBoxCenter() const {
@@ -321,7 +318,16 @@ int Model::getBoneIndex(const std::string& boneName) const {
 
 // Recursively update the bone hierarchy using the scene graph
 void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentName) {
+
     std::string nodeName(node->mName.C_Str());
+
+    // If this node is a bone, store its local transformation
+    if (boneMapping.find(nodeName) != boneMapping.end()) {
+        glm::mat4 local = convertAiMatrix(node->mTransformation);
+        boneLocalBindTransforms[nodeName] = local;
+        Logger::log("Captured local bind transform for bone [" + nodeName + "]: " + glm::to_string(local), Logger::INFO);
+    }
+
     Logger::log("Processing node: " + nodeName + " with parent: " + parentName, Logger::INFO);
 
     // If this node corresponds to a bone, update its parent info
@@ -356,6 +362,20 @@ glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
     // Retrieve the local transform. Default to identity if not found.
     glm::mat4 localTransform = glm::mat4(1.0f);
     auto it = localTransforms.find(boneName);
+    if (it == localTransforms.end()) {
+        // Fallback to bind-pose transform if no animation provided
+        auto bindIt = boneLocalBindTransforms.find(boneName);
+        if (bindIt != boneLocalBindTransforms.end()) {
+            localTransform = bindIt->second;
+            Logger::log("Using bind-pose transform for bone [" + boneName + "]", Logger::DEBUG);
+        }
+        else {
+            Logger::log("No local or bind transform found for bone [" + boneName + "]; using identity.", Logger::WARNING);
+        }
+    }
+    else {
+        localTransform = it->second;
+    }
     if (it != localTransforms.end()) {
         localTransform = it->second;
         Logger::log("Bone [" + boneName + "] local transform: " + glm::to_string(localTransform), Logger::INFO);

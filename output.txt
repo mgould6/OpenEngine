@@ -134,50 +134,27 @@ INFO: DEF-spine offset matrix explicitly logged for verification:
 INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, -0.235478, 0.000000), (0.000000, 0.235478, 0.971880, 0.000000), (0.000000, -0.916629, 0.341921, 1.000000))
 INFO: Processing node: RootNode with parent:
 INFO: Processing node: Sphere with parent: RootNode
-INFO: Processing node: metarig with parent: RootNode
-INFO: Processing node: spine with parent: metarig
-INFO: Processing node: spine.001 with parent: spine
-INFO: Processing node: spine.002 with parent: spine.001
-INFO: Processing node: spine.003 with parent: spine.002
-INFO: Processing node: spine.004 with parent: spine.003
-INFO: Processing node: spine.005 with parent: spine.004
-INFO: Processing node: spine.006 with parent: spine.005
-INFO: Processing node: shoulder.L with parent: spine.003
-INFO: Processing node: upper_arm.L with parent: shoulder.L
-INFO: Processing node: forearm.L with parent: upper_arm.L
-INFO: Processing node: hand.L with parent: forearm.L
-INFO: Processing node: shoulder.R with parent: spine.003
-INFO: Processing node: upper_arm.R with parent: shoulder.R
-INFO: Processing node: forearm.R with parent: upper_arm.R
-INFO: Processing node: hand.R with parent: forearm.R
-INFO: Processing node: breast.L with parent: spine.003
-INFO: Processing node: breast.R with parent: spine.003
-INFO: Processing node: pelvis.L with parent: spine
-INFO: Processing node: pelvis.R with parent: spine
-INFO: Processing node: thigh.L with parent: spine
-INFO: Processing node: shin.L with parent: thigh.L
-INFO: Processing node: foot.L with parent: shin.L
-INFO: Processing node: toe.L with parent: foot.L
-INFO: Processing node: heel.02.L with parent: foot.L
-INFO: Processing node: thigh.R with parent: spine
-INFO: Processing node: shin.R with parent: thigh.R
-INFO: Processing node: foot.R with parent: shin.R
-INFO: Processing node: toe.R with parent: foot.R
-INFO: Processing node: heel.02.R with parent: foot.R
 INFO: Processing node: rig with parent: RootNode
 INFO: Processing node: root with parent: rig
+INFO: Captured local bind transform for bone [DEF-spine]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, 0.235478, 0.000000), (0.000000, -0.235478, 0.971880, 0.000000), (0.000000, 0.971368, -0.116460, 1.000000))
 INFO: Processing node: DEF-spine with parent: root
 INFO: Bone [DEF-spine] parent set to: root
+INFO: Captured local bind transform for bone [DEF-spine.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.993458, -0.114195, 0.000000), (0.000000, 0.114195, 0.993458, 0.000000), (0.000000, 0.155383, 0.000000, 1.000000))
 INFO: Processing node: DEF-spine.001 with parent: DEF-spine
 INFO: Bone [DEF-spine.001] parent set to: DEF-spine
+INFO: Captured local bind transform for bone [DEF-spine.002]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.990294, -0.138989, 0.000000), (0.000000, 0.138989, 0.990294, 0.000000), (0.000000, 0.088520, 0.000000, 1.000000))
 INFO: Processing node: DEF-spine.002 with parent: DEF-spine.001
 INFO: Bone [DEF-spine.002] parent set to: DEF-spine.001
+INFO: Captured local bind transform for bone [DEF-spine.003]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999923, -0.012389, 0.000000), (0.000000, 0.012389, 0.999923, 0.000000), (0.000000, 0.174045, 0.000000, 1.000000))
 INFO: Processing node: DEF-spine.003 with parent: DEF-spine.002
 INFO: Bone [DEF-spine.003] parent set to: DEF-spine.002
+INFO: Captured local bind transform for bone [DEF-spine.004]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.918604, 0.395180, 0.000000), (0.000000, -0.395180, 0.918604, 0.000000), (0.000000, 0.174446, 0.000000, 1.000000))
 INFO: Processing node: DEF-spine.004 with parent: DEF-spine.003
 INFO: Bone [DEF-spine.004] parent set to: DEF-spine.003
+INFO: Captured local bind transform for bone [DEF-spine.005]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982004, -0.188860, 0.000000), (0.000000, 0.188860, 0.982004, 0.000000), (0.000000, 0.059934, -0.000000, 1.000000))
 INFO: Processing node: DEF-spine.005 with parent: DEF-spine.004
 INFO: Bone [DEF-spine.005] parent set to: DEF-spine.004
+INFO: Captured local bind transform for bone [DEF-spine.006]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982436, -0.186599, 0.000000), (0.000000, 0.186599, 0.982436, 0.000000), (0.000000, 0.056798, 0.000000, 1.000000))
 INFO: Processing node: DEF-spine.006 with parent: DEF-spine.005
 INFO: Bone [DEF-spine.006] parent set to: DEF-spine.005
 INFO: Processing node: MCH-torso.parent with parent: rig
@@ -189,33 +166,47 @@ INFO: Processing node: spine_fk with parent: MCH-spine
 INFO: Processing node: tweak_spine with parent: spine_fk
 INFO: Processing node: ORG-spine with parent: tweak_spine
 INFO: Processing node: ORG-pelvis.L with parent: ORG-spine
+INFO: Captured local bind transform for bone [DEF-pelvis.L]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Processing node: DEF-pelvis.L with parent: ORG-pelvis.L
 INFO: Bone [DEF-pelvis.L] parent set to: ORG-pelvis.L
 INFO: Processing node: ORG-pelvis.R with parent: ORG-spine
+INFO: Captured local bind transform for bone [DEF-pelvis.R]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Processing node: DEF-pelvis.R with parent: ORG-pelvis.R
 INFO: Bone [DEF-pelvis.R] parent set to: ORG-pelvis.R
+INFO: Captured local bind transform for bone [DEF-thigh.L]: mat4x4((0.935413, 0.024850, 0.352681, 0.000000), (-0.093497, -0.944628, 0.314542, 0.000000), (0.340969, -0.327201, -0.881294, 0.000000), (0.129494, 0.071716, 0.022516, 1.000000))
 INFO: Processing node: DEF-thigh.L with parent: ORG-spine
 INFO: Bone [DEF-thigh.L] parent set to: ORG-spine
+INFO: Captured local bind transform for bone [DEF-thigh.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.254006, 0.000000, 1.000000))
 INFO: Processing node: DEF-thigh.L.001 with parent: DEF-thigh.L
 INFO: Bone [DEF-thigh.L.001] parent set to: DEF-thigh.L
+INFO: Captured local bind transform for bone [DEF-shin.L]: mat4x4((1.000000, 0.000000, 0.000018, 0.000000), (-0.000002, 0.991792, 0.127863, 0.000000), (-0.000017, -0.127863, 0.991792, 0.000000), (-0.000000, 0.254006, 0.000000, 1.000000))
 INFO: Processing node: DEF-shin.L with parent: DEF-thigh.L.001
 INFO: Bone [DEF-shin.L] parent set to: DEF-thigh.L.001
+INFO: Captured local bind transform for bone [DEF-shin.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.212019, -0.000000, 1.000000))
 INFO: Processing node: DEF-shin.L.001 with parent: DEF-shin.L
 INFO: Bone [DEF-shin.L.001] parent set to: DEF-shin.L
+INFO: Captured local bind transform for bone [DEF-foot.L]: mat4x4((0.886179, -0.312468, 0.342127, 0.000000), (0.463248, 0.612511, -0.640494, 0.000000), (-0.009422, 0.726081, 0.687544, 0.000000), (0.000000, 0.212020, -0.000000, 1.000000))
 INFO: Processing node: DEF-foot.L with parent: DEF-shin.L.001
 INFO: Bone [DEF-foot.L] parent set to: DEF-shin.L.001
+INFO: Captured local bind transform for bone [DEF-toe.L]: mat4x4((-1.000000, 0.000000, -0.000001, 0.000000), (0.000001, 0.738805, -0.673919, 0.000000), (0.000000, -0.673919, -0.738805, 0.000000), (-0.000000, 0.093590, 0.000000, 1.000000))
 INFO: Processing node: DEF-toe.L with parent: DEF-foot.L
 INFO: Bone [DEF-toe.L] parent set to: DEF-foot.L
+INFO: Captured local bind transform for bone [DEF-thigh.R]: mat4x4((0.935413, -0.024850, -0.352681, 0.000000), (0.093497, -0.944628, 0.314542, 0.000000), (-0.340969, -0.327201, -0.881294, 0.000000), (-0.129494, 0.071716, 0.022516, 1.000000))
 INFO: Processing node: DEF-thigh.R with parent: ORG-spine
 INFO: Bone [DEF-thigh.R] parent set to: ORG-spine
+INFO: Captured local bind transform for bone [DEF-thigh.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.254006, 0.000000, 1.000000))
 INFO: Processing node: DEF-thigh.R.001 with parent: DEF-thigh.R
 INFO: Bone [DEF-thigh.R.001] parent set to: DEF-thigh.R
+INFO: Captured local bind transform for bone [DEF-shin.R]: mat4x4((1.000000, -0.000000, -0.000018, 0.000000), (0.000002, 0.991792, 0.127863, 0.000000), (0.000017, -0.127863, 0.991792, 0.000000), (0.000000, 0.254006, 0.000000, 1.000000))
 INFO: Processing node: DEF-shin.R with parent: DEF-thigh.R.001
 INFO: Bone [DEF-shin.R] parent set to: DEF-thigh.R.001
+INFO: Captured local bind transform for bone [DEF-shin.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.212019, -0.000000, 1.000000))
 INFO: Processing node: DEF-shin.R.001 with parent: DEF-shin.R
 INFO: Bone [DEF-shin.R.001] parent set to: DEF-shin.R
+INFO: Captured local bind transform for bone [DEF-foot.R]: mat4x4((0.886179, 0.312468, -0.342127, 0.000000), (-0.463248, 0.612511, -0.640494, 0.000000), (0.009422, 0.726081, 0.687544, 0.000000), (-0.000000, 0.212020, -0.000000, 1.000000))
 INFO: Processing node: DEF-foot.R with parent: DEF-shin.R.001
 INFO: Bone [DEF-foot.R] parent set to: DEF-shin.R.001
+INFO: Captured local bind transform for bone [DEF-toe.R]: mat4x4((-1.000000, -0.000000, 0.000001, 0.000000), (-0.000001, 0.738805, -0.673919, 0.000000), (-0.000000, -0.673919, -0.738805, 0.000000), (0.000000, 0.093590, 0.000000, 1.000000))
 INFO: Processing node: DEF-toe.R with parent: DEF-foot.R
 INFO: Bone [DEF-toe.R] parent set to: DEF-foot.R
 INFO: Processing node: MCH-spine.002 with parent: torso
@@ -225,35 +216,49 @@ INFO: Processing node: spine_fk.003 with parent: MCH-spine.003
 INFO: Processing node: tweak_spine.003 with parent: spine_fk.003
 INFO: Processing node: ORG-spine.003 with parent: tweak_spine.003
 INFO: Processing node: ORG-shoulder.L with parent: ORG-spine.003
+INFO: Captured local bind transform for bone [DEF-shoulder.L]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Processing node: DEF-shoulder.L with parent: ORG-shoulder.L
 INFO: Bone [DEF-shoulder.L] parent set to: ORG-shoulder.L
+INFO: Captured local bind transform for bone [DEF-upper_arm.L]: mat4x4((0.258287, -0.150808, 0.954225, 0.000000), (0.564178, 0.825353, -0.022270, 0.000000), (-0.784214, 0.544104, 0.298261, 0.000000), (0.007058, 0.181885, -0.018466, 1.000000))
 INFO: Processing node: DEF-upper_arm.L with parent: ORG-shoulder.L
 INFO: Bone [DEF-upper_arm.L] parent set to: ORG-shoulder.L
+INFO: Captured local bind transform for bone [DEF-upper_arm.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.131829, -0.000000, 1.000000))
 INFO: Processing node: DEF-upper_arm.L.001 with parent: DEF-upper_arm.L
 INFO: Bone [DEF-upper_arm.L.001] parent set to: DEF-upper_arm.L
+INFO: Captured local bind transform for bone [DEF-forearm.L]: mat4x4((1.000000, 0.000000, -0.000001, 0.000000), (0.000000, 0.996212, 0.086959, 0.000000), (0.000001, -0.086959, 0.996212, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
 INFO: Processing node: DEF-forearm.L with parent: DEF-upper_arm.L.001
 INFO: Bone [DEF-forearm.L] parent set to: DEF-upper_arm.L.001
+INFO: Captured local bind transform for bone [DEF-forearm.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.120149, -0.000000, 1.000000))
 INFO: Processing node: DEF-forearm.L.001 with parent: DEF-forearm.L
 INFO: Bone [DEF-forearm.L.001] parent set to: DEF-forearm.L
+INFO: Captured local bind transform for bone [DEF-hand.L]: mat4x4((0.999639, 0.026777, -0.001977, 0.000000), (-0.026850, 0.996926, -0.073600, 0.000000), (-0.000000, 0.073627, 0.997286, 0.000000), (0.000000, 0.120149, -0.000000, 1.000000))
 INFO: Processing node: DEF-hand.L with parent: DEF-forearm.L.001
 INFO: Bone [DEF-hand.L] parent set to: DEF-forearm.L.001
 INFO: Processing node: ORG-shoulder.R with parent: ORG-spine.003
+INFO: Captured local bind transform for bone [DEF-shoulder.R]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Processing node: DEF-shoulder.R with parent: ORG-shoulder.R
 INFO: Bone [DEF-shoulder.R] parent set to: ORG-shoulder.R
+INFO: Captured local bind transform for bone [DEF-upper_arm.R]: mat4x4((0.258287, 0.150808, -0.954225, 0.000000), (-0.564178, 0.825353, -0.022270, 0.000000), (0.784214, 0.544104, 0.298261, 0.000000), (-0.007058, 0.181885, -0.018466, 1.000000))
 INFO: Processing node: DEF-upper_arm.R with parent: ORG-shoulder.R
 INFO: Bone [DEF-upper_arm.R] parent set to: ORG-shoulder.R
+INFO: Captured local bind transform for bone [DEF-upper_arm.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.131829, -0.000000, 1.000000))
 INFO: Processing node: DEF-upper_arm.R.001 with parent: DEF-upper_arm.R
 INFO: Bone [DEF-upper_arm.R.001] parent set to: DEF-upper_arm.R
+INFO: Captured local bind transform for bone [DEF-forearm.R]: mat4x4((1.000000, -0.000000, 0.000000, 0.000000), (-0.000000, 0.996212, 0.086959, 0.000000), (-0.000000, -0.086959, 0.996212, 0.000000), (-0.000000, 0.131829, 0.000000, 1.000000))
 INFO: Processing node: DEF-forearm.R with parent: DEF-upper_arm.R.001
 INFO: Bone [DEF-forearm.R] parent set to: DEF-upper_arm.R.001
+INFO: Captured local bind transform for bone [DEF-forearm.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.120149, -0.000000, 1.000000))
 INFO: Processing node: DEF-forearm.R.001 with parent: DEF-forearm.R
 INFO: Bone [DEF-forearm.R.001] parent set to: DEF-forearm.R
+INFO: Captured local bind transform for bone [DEF-hand.R]: mat4x4((0.999639, -0.026777, 0.001977, 0.000000), (0.026850, 0.996926, -0.073600, 0.000000), (-0.000000, 0.073627, 0.997286, 0.000000), (-0.000000, 0.120149, 0.000000, 1.000000))
 INFO: Processing node: DEF-hand.R with parent: DEF-forearm.R.001
 INFO: Bone [DEF-hand.R] parent set to: DEF-forearm.R.001
 INFO: Processing node: ORG-breast.L with parent: ORG-spine.003
+INFO: Captured local bind transform for bone [DEF-breast.L]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Processing node: DEF-breast.L with parent: ORG-breast.L
 INFO: Bone [DEF-breast.L] parent set to: ORG-breast.L
 INFO: Processing node: ORG-breast.R with parent: ORG-spine.003
+INFO: Captured local bind transform for bone [DEF-breast.R]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Processing node: DEF-breast.R with parent: ORG-breast.R
 INFO: Bone [DEF-breast.R] parent set to: ORG-breast.R
 INFO: Loaded 1 meshes.
@@ -268,6 +273,7 @@ INFO: Model matrix explicitly logged: mat4x4((1.000000, 0.000000, 0.000000, 0.00
 INFO: View matrix explicitly logged: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (0.000000, -0.940108, -7.401939, 1.000000))
 INFO: Projection matrix explicitly logged: mat4x4((1.810660, 0.000000, 0.000000, 0.000000), (0.000000, 2.414213, 0.000000, 0.000000), (0.000000, 0.000000, -1.002002, -1.000000), (0.000000, 0.000000, -0.200200, 0.000000))
 INFO: Bone [DEF-spine] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+WARNING: No local or bind transform found for bone [root]; using identity.
 WARNING: No local transform found for bone [root]; using identity.
 INFO: Bone [root] has no parent; using identity for parent transform.
 INFO: Bone [root] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
@@ -298,138 +304,15 @@ INFO: Using cached global transform for bone DEF-spine.005
 INFO: Bone [DEF-spine.006] parent's (DEF-spine.005) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Bone [DEF-spine.006] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Bone [DEF-pelvis.L] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+WARNING: No local or bind transform found for bone [ORG-pelvis.L]; using identity.
 WARNING: No local transform found for bone [ORG-pelvis.L]; using identity.
 INFO: Bone [ORG-pelvis.L] has no parent; using identity for parent transform.
 INFO: Bone [ORG-pelvis.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Bone [DEF-pelvis.L] parent's (ORG-pelvis.L) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Bone [DEF-pelvis.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Bone [DEF-pelvis.R] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+WARNING: No local or bind transform found for bone [ORG-pelvis.R]; using identity.
 WARNING: No local transform found for bone [ORG-pelvis.R]; using identity.
 INFO: Bone [ORG-pelvis.R] has no parent; using identity for parent transform.
 INFO: Bone [ORG-pelvis.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Bone [DEF-pelvis.R] parent's (ORG-pelvis.R) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-pelvis.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-thigh.L] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-WARNING: No local transform found for bone [ORG-spine]; using identity.
-INFO: Bone [ORG-spine] has no parent; using identity for parent transform.
-INFO: Bone [ORG-spine] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-thigh.L] parent's (ORG-spine) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-thigh.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-thigh.L.001] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-thigh.L
-INFO: Bone [DEF-thigh.L.001] parent's (DEF-thigh.L) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-thigh.L.001] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shin.L] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-thigh.L.001
-INFO: Bone [DEF-shin.L] parent's (DEF-thigh.L.001) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shin.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shin.L.001] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-shin.L
-INFO: Bone [DEF-shin.L.001] parent's (DEF-shin.L) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shin.L.001] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-foot.L] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-shin.L.001
-INFO: Bone [DEF-foot.L] parent's (DEF-shin.L.001) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-foot.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-toe.L] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-foot.L
-INFO: Bone [DEF-toe.L] parent's (DEF-foot.L) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-toe.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-thigh.R] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone ORG-spine
-INFO: Bone [DEF-thigh.R] parent's (ORG-spine) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-thigh.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-thigh.R.001] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-thigh.R
-INFO: Bone [DEF-thigh.R.001] parent's (DEF-thigh.R) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-thigh.R.001] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shin.R] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-thigh.R.001
-INFO: Bone [DEF-shin.R] parent's (DEF-thigh.R.001) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shin.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shin.R.001] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-shin.R
-INFO: Bone [DEF-shin.R.001] parent's (DEF-shin.R) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shin.R.001] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-foot.R] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-shin.R.001
-INFO: Bone [DEF-foot.R] parent's (DEF-shin.R.001) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-foot.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-toe.R] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-foot.R
-INFO: Bone [DEF-toe.R] parent's (DEF-foot.R) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-toe.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shoulder.L] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-WARNING: No local transform found for bone [ORG-shoulder.L]; using identity.
-INFO: Bone [ORG-shoulder.L] has no parent; using identity for parent transform.
-INFO: Bone [ORG-shoulder.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shoulder.L] parent's (ORG-shoulder.L) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shoulder.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-upper_arm.L] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone ORG-shoulder.L
-INFO: Bone [DEF-upper_arm.L] parent's (ORG-shoulder.L) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-upper_arm.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-upper_arm.L.001] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-upper_arm.L
-INFO: Bone [DEF-upper_arm.L.001] parent's (DEF-upper_arm.L) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-upper_arm.L.001] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-forearm.L] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-upper_arm.L.001
-INFO: Bone [DEF-forearm.L] parent's (DEF-upper_arm.L.001) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-forearm.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-forearm.L.001] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-forearm.L
-INFO: Bone [DEF-forearm.L.001] parent's (DEF-forearm.L) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-forearm.L.001] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-hand.L] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-forearm.L.001
-INFO: Bone [DEF-hand.L] parent's (DEF-forearm.L.001) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-hand.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shoulder.R] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-WARNING: No local transform found for bone [ORG-shoulder.R]; using identity.
-INFO: Bone [ORG-shoulder.R] has no parent; using identity for parent transform.
-INFO: Bone [ORG-shoulder.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shoulder.R] parent's (ORG-shoulder.R) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-shoulder.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-upper_arm.R] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone ORG-shoulder.R
-INFO: Bone [DEF-upper_arm.R] parent's (ORG-shoulder.R) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-upper_arm.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-upper_arm.R.001] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-upper_arm.R
-INFO: Bone [DEF-upper_arm.R.001] parent's (DEF-upper_arm.R) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-upper_arm.R.001] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-forearm.R] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-upper_arm.R.001
-INFO: Bone [DEF-forearm.R] parent's (DEF-upper_arm.R.001) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-forearm.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-forearm.R.001] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-forearm.R
-INFO: Bone [DEF-forearm.R.001] parent's (DEF-forearm.R) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-forearm.R.001] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-hand.R] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Using cached global transform for bone DEF-forearm.R.001
-INFO: Bone [DEF-hand.R] parent's (DEF-forearm.R.001) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-hand.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-breast.L] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-WARNING: No local transform found for bone [ORG-breast.L]; using identity.
-INFO: Bone [ORG-breast.L] has no parent; using identity for parent transform.
-INFO: Bone [ORG-breast.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-breast.L] parent's (ORG-breast.L) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-breast.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-breast.R] local transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-WARNING: No local transform found for bone [ORG-breast.R]; using identity.
-INFO: Bone [ORG-breast.R] has no parent; using identity for parent transform.
-INFO: Bone [ORG-breast.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-breast.R] parent's (ORG-breast.R) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Bone [DEF-breast.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: DEBUG: After Storing Bone root
-INFO: DEBUG: After Storing Bone DEF-spine.002
-INFO: DEBUG: After Storing Bone DEF-thigh.L.001
-INFO: DEBUG: After Storing Bone DEF-spine
-INFO: DEBUG: After Storing Bone ORG-pelvis.L
-INFO: DEBUG: After Storing Bone DEF-spine.001
-INFO: DEBUG: After Storing Bone DEF-spine.003
-INFO: DEBUG: After Storing Bone DEF-spine.004
-INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
-INFO: DEBUG: After Storing Bone DEF-thigh.L

@@ -42,6 +42,9 @@ public:
     glm::mat4 calculateBoneTransform(const std::string& boneName,
         const std::unordered_map<std::string, glm::mat4>& localTransforms,
         std::unordered_map<std::string, glm::mat4>& globalTransforms);
+    std::unordered_map<std::string, glm::mat4> boneLocalBindTransforms;
+
+
 private:
     std::vector<Mesh> meshes;
     std::string directory;

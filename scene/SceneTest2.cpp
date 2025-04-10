@@ -91,10 +91,16 @@ void SceneTest2(GLFWwindow* window) {
         std::unordered_map<std::string, glm::mat4> localTransforms;
         std::unordered_map<std::string, glm::mat4> globalTransforms;
 
-        // First populate localTransforms (identity if no animation is running)
         for (const auto& bone : myModel->getBones()) {
-            localTransforms[bone.name] = glm::mat4(1.0f);  // Identity or animation-driven transforms
+            auto bindIt = myModel->boneLocalBindTransforms.find(bone.name);
+            if (bindIt != myModel->boneLocalBindTransforms.end()) {
+                localTransforms[bone.name] = bindIt->second;
+            }
+            else {
+                localTransforms[bone.name] = glm::mat4(1.0f); // Fallback to identity if missing
+            }
         }
+
 
         // Then explicitly compute global transforms
         for (const auto& bone : myModel->getBones()) {
