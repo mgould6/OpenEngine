@@ -1,3 +1,19 @@
+#version 330 core
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aNormal;
+layout (location = 2) in vec2 aTexCoords;
+layout (location = 3) in ivec4 aBoneIDs;
+layout (location = 4) in vec4 aWeights;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+uniform mat4 boneTransforms[100];
+
+out vec3 FragPos;
+out vec3 Normal;
+out vec2 TexCoords;
+
 void main() {
     mat4 boneTransform = mat4(0.0);
     float totalWeight = 0.0;
