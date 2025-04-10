@@ -41,22 +41,18 @@ void Model::loadModel(const std::string& path)
 
     directory = path.substr(0, path.find_last_of('/'));
 
-    // Compute the global inverse transform from the root node.
     globalInverseTransform = glm::inverse(convertAiMatrix(scene->mRootNode->mTransformation));
     Logger::log("Global inverse transform set from root node transformation.", Logger::INFO);
     Logger::log("Global inverse transform matrix: " + glm::to_string(globalInverseTransform), Logger::INFO);
 
     processNode(scene->mRootNode, scene);
 
-    // Log the bone mapping for review
     Logger::log("==== Explicit Bone Mapping BEGIN ====", Logger::INFO);
     for (const auto& bonePair : boneMapping) {
-        Logger::log("Bone Mapping ID[" + std::to_string(bonePair.second) +
-            "] maps to Bone Name[" + bonePair.first + "]", Logger::INFO);
+        Logger::log("Bone Mapping ID[" + std::to_string(bonePair.second) + "] maps to Bone Name[" + bonePair.first + "]", Logger::INFO);
     }
     Logger::log("==== EXPLICIT BONE MAPPING END ====", Logger::INFO);
 
-    // Log the offset matrix for a key bone (e.g. DEF-spine) for verification
     if (boneMapping.find("DEF-spine") != boneMapping.end()) {
         int spineIndex = boneMapping["DEF-spine"];
         glm::mat4 spineOffsetMatrix = bones[spineIndex].offsetMatrix;
@@ -67,9 +63,19 @@ void Model::loadModel(const std::string& path)
         Logger::log("DEF-spine bone not found for explicit offset matrix logging.", Logger::ERROR);
     }
 
-    // Update the bone hierarchy from the scene graph.
     updateBoneHierarchy(scene->mRootNode, "");
     Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
+
+    // Recalculate offset matrices using the global bind pose
+    std::unordered_map<std::string, glm::mat4> globalBindPoseCache;
+    for (auto& bone : bones) {
+        auto it = boneLocalBindTransforms.find(bone.name);
+        if (it != boneLocalBindTransforms.end()) {
+            glm::mat4 globalBindPose = calculateBoneTransform(bone.name, boneLocalBindTransforms, globalBindPoseCache);
+            bone.offsetMatrix = glm::inverse(globalBindPose);
+            Logger::log("Recomputed Offset Matrix for Bone [" + bone.name + "]: " + glm::to_string(bone.offsetMatrix), Logger::INFO);
+        }
+    }
 }
 
 void Model::processNode(aiNode* node, const aiScene* scene) {
@@ -198,28 +204,29 @@ void Model::Draw(Shader& shader)
 {
     std::vector<glm::mat4> finalMatrices(bones.size(), glm::mat4(1.0f));
 
-    for (size_t i = 0; i < bones.size(); i++)
-    {
+    for (size_t i = 0; i < bones.size(); i++) {
         glm::mat4 globalTransform = getBoneTransform(bones[i].name);
-        Logger::log("Applying actual transform explicitly to bone [" + bones[i].name + "]", Logger::INFO);
 
-        finalMatrices[i] = globalInverseTransform * globalTransform * bones[i].offsetMatrix;
+        // Final bone matrix: bind pose correction and scene-space adjustment
+        glm::mat4 finalMatrix = globalInverseTransform * globalTransform * bones[i].offsetMatrix;
+        finalMatrices[i] = finalMatrix;
 
-        Logger::log("Final Matrix for Bone [" + bones[i].name + "] ID [" + std::to_string(i) + "]:", Logger::INFO);
-        Logger::log(glm::to_string(finalMatrices[i]), Logger::INFO);
+        // Optional: Debug print skewed/rotated scales
+        glm::vec3 scale, translation, skew;
+        glm::quat rotation;
+        glm::vec4 perspective;
+        glm::decompose(finalMatrix, scale, rotation, translation, skew, perspective);
+
+        Logger::log("Bone: " + bones[i].name +
+            " Scale: " + glm::to_string(scale) +
+            " Translation: " + glm::to_string(translation) +
+            " Skew: " + glm::to_string(skew), Logger::INFO);
     }
 
-    // Explicit Logging of Final Matrices
-    Logger::log("==== EXPLICIT FINAL MATRICES BEGIN ====", Logger::INFO);
-    for (size_t i = 0; i < finalMatrices.size(); i++) {
-        Logger::log("Final Matrix [" + bones[i].name + "]:\n" + glm::to_string(finalMatrices[i]), Logger::INFO);
-    }
-    Logger::log("==== EXPLICIT FINAL MATRICES END ====", Logger::INFO);
-
-    // Uniform upload to Shader explicitly with glm::value_ptr for clarity
-    GLint boneMatrixLocation = glGetUniformLocation(shader.ID, "boneTransforms");
+    // Upload to shader
+    GLint boneLoc = glGetUniformLocation(shader.ID, "boneTransforms");
     if (!finalMatrices.empty()) {
-        glUniformMatrix4fv(boneMatrixLocation, finalMatrices.size(), GL_FALSE, glm::value_ptr(finalMatrices[0]));
+        glUniformMatrix4fv(boneLoc, finalMatrices.size(), GL_FALSE, glm::value_ptr(finalMatrices[0]));
     }
 
     for (auto& mesh : meshes)
