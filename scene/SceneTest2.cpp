@@ -36,16 +36,16 @@ void SceneTest2(GLFWwindow* window) {
 
     }
 
-    //// Initialize the animation controller
-    //if (!animationController) {
-    //    animationController = new AnimationController(myModel);
-    //    if (!animationController->loadAnimation("rig.001|Idle", "Character Template F4.fbx")) {
-    //        Logger::log("ERROR: AnimationController failed to load animation!", Logger::ERROR);
-    //        return;
-    //    }
-    //    animationController->setCurrentAnimation("rig.001|Idle");
-    //    Logger::log("INFO: Set current animation to rig.001|Idle.", Logger::INFO);
-    //}
+    // Initialize the animation controller
+    if (!animationController) {
+        animationController = new AnimationController(myModel);
+        if (!animationController->loadAnimation("Action.001", "Character_TPose_Anim.fbx")) {
+            Logger::log("ERROR: AnimationController failed to load animation!", Logger::ERROR);
+            return;
+        }
+        animationController->setCurrentAnimation("Action.001");
+        Logger::log("INFO: Set current animation to Action.001.", Logger::INFO);
+    }
 
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
