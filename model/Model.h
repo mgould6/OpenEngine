@@ -16,6 +16,8 @@ struct Bone {
     std::string name;
     std::string parentName;
     glm::mat4 offsetMatrix = glm::mat4(1.0f); // NEW: store the bone's offset (bind pose) matrix
+    glm::mat4 finalTransform = glm::mat4(1.0f); // Add this line
+
 };
 
 
@@ -42,6 +44,7 @@ public:
     glm::mat4 calculateBoneTransform(const std::string& boneName,
         const std::unordered_map<std::string, glm::mat4>& localTransforms,
         std::unordered_map<std::string, glm::mat4>& globalTransforms);
+    std::vector<glm::mat4> getFinalBoneMatrices() const;
     std::unordered_map<std::string, glm::mat4> boneLocalBindTransforms;
 
 

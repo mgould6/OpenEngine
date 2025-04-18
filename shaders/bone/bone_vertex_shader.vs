@@ -13,6 +13,7 @@ uniform mat4 boneTransforms[100];
 out vec3 FragPos;
 out vec3 Normal;
 out vec2 TexCoords;
+out vec3 BoneColor;  // NEW: pass bone color to fragment shader
 
 void main() {
     mat4 skinMatrix = mat4(0.0);
@@ -35,14 +36,16 @@ void main() {
         skinMatrix = mat4(1.0);
     }
 
-    // Combine with model matrix
     vec4 worldPosition = model * skinMatrix * vec4(aPos, 1.0);
     FragPos = vec3(worldPosition);
 
-    // Fix: Prevent distortion in normals from non-uniform transforms
     mat3 normalMatrix = transpose(inverse(mat3(model * skinMatrix)));
     Normal = normalize(normalMatrix * aNormal);
-
     TexCoords = aTexCoords;
+
+    // Debug color based on bone ID (scaled to 0–1 range)
+    float boneColorFactor = float(aBoneIDs[0]) / 100.0;
+    BoneColor = vec3(boneColorFactor, 0.0, 1.0 - boneColorFactor);
+
     gl_Position = projection * view * worldPosition;
 }

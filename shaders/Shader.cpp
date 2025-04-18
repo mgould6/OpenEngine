@@ -1,3 +1,4 @@
+#include <glm/gtc/type_ptr.hpp>
 #include "Shader.h"
 #include <fstream>
 #include <sstream>
@@ -123,4 +124,14 @@ void Shader::checkCompileErrors(unsigned int shader, const std::string& type) co
             std::cerr << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << std::endl;
         }
     }
+}
+
+
+void Shader::setMat4Array(const std::string& name, const std::vector<glm::mat4>& matrices) const {
+    GLint location = glGetUniformLocation(ID, name.c_str());
+    if (location == -1) {
+        Logger::log("Uniform " + name + " not found in shader.", Logger::ERROR);
+        return;
+    }
+    glUniformMatrix4fv(location, matrices.size(), GL_FALSE, glm::value_ptr(matrices[0]));
 }

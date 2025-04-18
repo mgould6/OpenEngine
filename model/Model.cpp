@@ -206,32 +206,45 @@ void Model::Draw(Shader& shader)
 
     for (size_t i = 0; i < bones.size(); i++) {
         glm::mat4 globalTransform = getBoneTransform(bones[i].name);
+        bones[i].finalTransform = globalInverseTransform * globalTransform * bones[i].offsetMatrix;
 
-        // Final bone matrix: bind pose correction and scene-space adjustment
-        glm::mat4 finalMatrix = globalInverseTransform * globalTransform * bones[i].offsetMatrix;
-        finalMatrices[i] = finalMatrix;
+        // TEST: Only allow spine and spine.001 to animate, others set to identity
+        if (
+            bones[i].name == "DEF-spine" ||
+            bones[i].name == "DEF-spine.001" ||
+            bones[i].name == "DEF-thigh.L"
+            )
+        {
+            finalMatrices[i] = bones[i].finalTransform;
+        }
+        else {
+            finalMatrices[i] = glm::mat4(1.0f);
+        }
 
-        // Optional: Debug print skewed/rotated scales
+        // Log full final transform matrix
+        Logger::log("Bone [" + bones[i].name + "] FINAL TRANSFORM:", Logger::INFO);
+        Logger::log(glm::to_string(bones[i].finalTransform), Logger::INFO);
+
+        // Log decomposed transform inline
         glm::vec3 scale, translation, skew;
         glm::quat rotation;
         glm::vec4 perspective;
-        glm::decompose(finalMatrix, scale, rotation, translation, skew, perspective);
-
+        glm::decompose(bones[i].finalTransform, scale, rotation, translation, skew, perspective);
         Logger::log("Bone: " + bones[i].name +
             " Scale: " + glm::to_string(scale) +
             " Translation: " + glm::to_string(translation) +
             " Skew: " + glm::to_string(skew), Logger::INFO);
+
+        DebugTools::logDecomposedTransform(bones[i].name, bones[i].finalTransform);
     }
 
-    // Upload to shader
-    GLint boneLoc = glGetUniformLocation(shader.ID, "boneTransforms");
-    if (!finalMatrices.empty()) {
-        glUniformMatrix4fv(boneLoc, finalMatrices.size(), GL_FALSE, glm::value_ptr(finalMatrices[0]));
-    }
+    shader.use();
+    shader.setMat4Array("boneTransforms", finalMatrices);
 
     for (auto& mesh : meshes)
         mesh.Draw(shader);
 }
+
 
 
 glm::vec3 Model::getBoundingBoxCenter() const {
@@ -407,4 +420,14 @@ glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
     globalTransforms[boneName] = finalTransform;
     Logger::log("Bone [" + boneName + "] final computed transform: " + glm::to_string(finalTransform), Logger::INFO);
     return finalTransform;
+}
+
+std::vector<glm::mat4> Model::getFinalBoneMatrices() const {
+    std::vector<glm::mat4> matrices;
+    matrices.reserve(bones.size());
+
+    for (const auto& bone : bones) {
+        matrices.push_back(bone.finalTransform);
+    }
+    return matrices;
 }

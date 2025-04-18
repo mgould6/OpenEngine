@@ -28,6 +28,9 @@ public:
     // Check if the shader was compiled successfully
     bool isCompiled() const;
 
+    void setMat4Array(const std::string& name, const std::vector<glm::mat4>& matrices) const;
+
+
 private:
     bool compiled;
     void checkCompileErrors(unsigned int shader, const std::string& type) const;

@@ -33,7 +33,6 @@ void SceneTest2(GLFWwindow* window) {
 
         // Adjust camera to fit model
         camera.setCameraToFitModel(*myModel);
-
     }
 
     // Initialize the animation controller
@@ -56,11 +55,13 @@ void SceneTest2(GLFWwindow* window) {
         Renderer::BeginFrame();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // Update and apply animation
         if (animationController) {
             animationController->update(deltaTime);
             animationController->applyToModel(myModel);
         }
 
+        // Shader setup
         Shader* activeShader = ShaderManager::boneShader;
         if (!activeShader || !activeShader->isCompiled()) {
             Logger::log("WARNING: Bone shader failed! Falling back to lighting shader.", Logger::WARNING);
@@ -79,42 +80,18 @@ void SceneTest2(GLFWwindow* window) {
         glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
         activeShader->setMat4("model", modelMatrix);
 
+        // Explicitly set bone transformations for animation (critical step)
+        activeShader->setMat4Array("boneTransforms", myModel->getFinalBoneMatrices());
+
         // Matrix Logging
         Logger::log("Model matrix explicitly logged: " + glm::to_string(modelMatrix), Logger::INFO);
         Logger::log("View matrix explicitly logged: " + glm::to_string(camera.GetViewMatrix()), Logger::INFO);
         Logger::log("Projection matrix explicitly logged: " + glm::to_string(camera.ProjectionMatrix), Logger::INFO);
-        glDisable(GL_CULL_FACE);  // Explicitly disable face culling
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Explicitly set polygon mode to filled
 
+        glDisable(GL_CULL_FACE);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        // Ensure boneTransforms are freshly computed
-        std::unordered_map<std::string, glm::mat4> localTransforms;
-        std::unordered_map<std::string, glm::mat4> globalTransforms;
-
-        for (const auto& bone : myModel->getBones()) {
-            auto bindIt = myModel->boneLocalBindTransforms.find(bone.name);
-            if (bindIt != myModel->boneLocalBindTransforms.end()) {
-                localTransforms[bone.name] = bindIt->second;
-            }
-            else {
-                localTransforms[bone.name] = glm::mat4(1.0f); // Fallback to identity if missing
-            }
-        }
-
-
-        // Then explicitly compute global transforms
-        for (const auto& bone : myModel->getBones()) {
-            myModel->calculateBoneTransform(bone.name, localTransforms, globalTransforms);
-        }
-
-        // Now, update the bone transforms in the model
-        for (const auto& pair : globalTransforms) {
-            myModel->setBoneTransform(pair.first, pair.second);
-        }
-
-
-        myModel->forceTestBoneTransform();
-
+        // Draw model with animation applied
         myModel->Draw(*activeShader);
 
         Renderer::RenderImGui();
@@ -123,4 +100,3 @@ void SceneTest2(GLFWwindow* window) {
 
     Logger::log("Exiting SceneTest2.", Logger::INFO);
 }
-
