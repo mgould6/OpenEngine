@@ -3,6 +3,7 @@
 #include "../common_utils/Logger.h"
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/string_cast.hpp>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -85,37 +86,49 @@ void Animation::loadAnimation(const std::string& filePath) {
         ticksPerSecond = 30.0f;
     }
 
+    Logger::log("INFO: Animation has " + std::to_string(anim->mNumChannels) + " bone channels.", Logger::INFO);
+
     std::unordered_set<std::string> bonesWithKeyframes;
+    std::map<float, std::map<std::string, glm::mat4>> timestampToBoneMap;
 
     for (unsigned int i = 0; i < anim->mNumChannels; i++) {
         aiNodeAnim* channel = anim->mChannels[i];
         std::string boneName = channel->mNodeName.C_Str();
 
+        Logger::log("INFO: Animation Channel [" + std::to_string(i) + "] targets bone: " + boneName, Logger::INFO);
+
         bonesWithKeyframes.insert(boneName);
         animatedBones.push_back(boneName);
 
-        if (channel->mNumPositionKeys == 0 && channel->mNumRotationKeys == 0) {
-            Logger::log("WARNING: Bone " + boneName + " has no valid keyframes!", Logger::WARNING);
-            continue;
-        }
+        unsigned int numKeys = std::min(channel->mNumPositionKeys, channel->mNumRotationKeys);
 
-        for (unsigned int j = 0; j < channel->mNumPositionKeys; j++) {
+        for (unsigned int j = 0; j < numKeys; j++) {
             float timestamp = static_cast<float>(channel->mPositionKeys[j].mTime);
-            glm::vec3 position(channel->mPositionKeys[j].mValue.x,
-                channel->mPositionKeys[j].mValue.y,
-                channel->mPositionKeys[j].mValue.z);
 
-            glm::quat rotation(channel->mRotationKeys[j].mValue.w,
+            glm::vec3 position(
+                channel->mPositionKeys[j].mValue.x,
+                channel->mPositionKeys[j].mValue.y,
+                channel->mPositionKeys[j].mValue.z
+            );
+
+            glm::quat rotation(
+                channel->mRotationKeys[j].mValue.w,
                 channel->mRotationKeys[j].mValue.x,
                 channel->mRotationKeys[j].mValue.y,
-                channel->mRotationKeys[j].mValue.z);
+                channel->mRotationKeys[j].mValue.z
+            );
 
             glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::mat4_cast(rotation);
-            keyframes.push_back({ timestamp, { { boneName, transform } } });
+            timestampToBoneMap[timestamp][boneName] = transform;
         }
     }
 
-    // **Log missing bones**
+    // Convert the timestamp map into a sorted vector of keyframes
+    for (const auto& [timestamp, boneMap] : timestampToBoneMap) {
+        keyframes.push_back({ timestamp, boneMap });
+    }
+
+    // Log missing expected bones
     Logger::log("INFO: Checking for missing bones in animation...", Logger::INFO);
     std::vector<std::string> allBoneNames = {
         "DEF-breast.L", "DEF-breast.R", "DEF-shoulder.L", "DEF-shoulder.R",
@@ -128,9 +141,8 @@ void Animation::loadAnimation(const std::string& filePath) {
             Logger::log("WARNING: Bone " + bone + " is missing from animation!", Logger::WARNING);
         }
         else {
-            Logger::log("DEBUG: No Bones Missing from animation", Logger::DEBUG);
+            Logger::log("DEBUG: Bone " + bone + " is present in animation.", Logger::DEBUG);
         }
-           
     }
 
     loaded = true;
@@ -142,27 +154,48 @@ void Animation::interpolateKeyframes(float animationTime, std::map<std::string, 
         return;
     }
 
-    for (const auto& keyframe : keyframes) {
-        if (animationTime >= keyframe.timestamp) {
-            for (const auto& [boneName, transform] : keyframe.boneTransforms) {
-                finalBoneMatrices[boneName] = transform;
+    Logger::log("INFO: Interpolating keyframes at animation time: " + std::to_string(animationTime), Logger::INFO);
+    Logger::log("INFO: Keyframe count: " + std::to_string(keyframes.size()), Logger::INFO);
 
-                // **Track specific bones to see if their transforms change over time**
-                if (boneName == "DEF-shoulder.L" || boneName == "DEF-breast.L") {
-                    Logger::log("DEBUG: Keyframe " + std::to_string(keyframe.timestamp) +
-                        " - Bone " + boneName + " Transform:", Logger::INFO);
-                    for (int i = 0; i < 4; i++) {
-                        Logger::log(
-                            std::to_string(transform[i][0]) + " " +
-                            std::to_string(transform[i][1]) + " " +
-                            std::to_string(transform[i][2]) + " " +
-                            std::to_string(transform[i][3]), Logger::INFO);
-                    }
-                }
+    // Find the two keyframes surrounding the current time
+    const Keyframe* prev = nullptr;
+    const Keyframe* next = nullptr;
+
+    for (size_t i = 0; i < keyframes.size(); ++i) {
+        if (keyframes[i].timestamp > animationTime) {
+            next = &keyframes[i];
+            if (i > 0)
+                prev = &keyframes[i - 1];
+            break;
+        }
+    }
+
+    if (!prev) prev = &keyframes.front();
+    if (!next) next = &keyframes.back();
+
+    float dt = next->timestamp - prev->timestamp;
+    float factor = (dt > 0.0f) ? (animationTime - prev->timestamp) / dt : 0.0f;
+
+    for (const auto& [boneName, transform1] : prev->boneTransforms) {
+        if (next->boneTransforms.find(boneName) != next->boneTransforms.end()) {
+            const glm::mat4& transform2 = next->boneTransforms.at(boneName);
+            glm::mat4 interpolated = interpolateKeyframes(transform1, transform2, factor);
+            finalBoneMatrices[boneName] = interpolated;
+
+            Logger::log("INFO: Interpolated bone: " + boneName + " with factor: " + std::to_string(factor), Logger::INFO);
+
+            if (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L") {
+                Logger::log("ANIM FINAL MATRIX: " + boneName + " @ time " + std::to_string(animationTime), Logger::WARNING);
+                Logger::log(glm::to_string(interpolated), Logger::WARNING);
             }
+        }
+        else {
+            finalBoneMatrices[boneName] = transform1;
+            Logger::log("INFO: Bone " + boneName + " has no match in next keyframe — using fallback.", Logger::DEBUG);
         }
     }
 }
+
 
 
 glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const {

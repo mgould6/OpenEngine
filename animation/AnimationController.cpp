@@ -1,7 +1,10 @@
+#define GLM_ENABLE_EXPERIMENTAL
 #include "AnimationController.h"
 #include "../common_utils/Logger.h"
 #include <fstream>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/string_cast.hpp>
+#include "DebugTools.h"
 #include <GLFW/glfw3.h>
 
 // Include your "Animation.h" if needed, or forward declare
@@ -83,42 +86,38 @@ void AnimationController::applyToModel(Model* model)
     if (!model || !currentAnimation)
         return;
 
-    // 1) Get local (animated) transforms for each bone
+    // Step 1: Interpolate local (animated) transforms for each bone
     std::map<std::string, glm::mat4> localBoneMatrices;
     float currentTime = animationTime;
     currentAnimation->interpolateKeyframes(currentTime, localBoneMatrices);
 
-    // 2) Prepare a map for final (global) transforms
+    // Step 2: Recursively compute global transforms
     std::map<std::string, glm::mat4> globalBoneMatrices;
 
-    // 3) For each bone that got a local transform, recursively build the global transform
-    for (const auto& [boneName, localTransform] : localBoneMatrices)
+    for (const auto& [boneName, _] : localBoneMatrices)
     {
-        glm::mat4 globalTransform = buildGlobalTransform(
-            boneName,
-            localBoneMatrices,
-            model,
-            globalBoneMatrices
-        );
+        buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
+    }
 
-        // Store the final global transform in the Model
-        model->setBoneTransform(boneName, globalTransform);
+    // Step 3: Apply final skinning transforms to model
+    for (const auto& [boneName, globalTransform] : globalBoneMatrices)
+    {
+        glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
+        glm::mat4 finalTransform = offsetMatrix * globalTransform;
 
-        // Example debug logging for a couple bones:
-        if (boneName == "DEF-breast.L" || boneName == "DEF-shoulder.L")
+        // Diagnostic: Target specific bones for inspection
+        if (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L")
         {
-            Logger::log("DEBUG: Local Bone Transform - " + boneName, Logger::INFO);
-            for (int i = 0; i < 4; i++)
-            {
-                Logger::log(
-                    std::to_string(localTransform[i][0]) + " " +
-                    std::to_string(localTransform[i][1]) + " " +
-                    std::to_string(localTransform[i][2]) + " " +
-                    std::to_string(localTransform[i][3]),
-                    Logger::INFO
-                );
-            }
+            Logger::log("=== DEBUG: FINAL TRANSFORM APPLY FOR " + boneName + " ===", Logger::WARNING);
+            Logger::log("GLOBAL Transform:\n" + glm::to_string(globalTransform), Logger::WARNING);
+            Logger::log("Offset (Bind Inverse):\n" + glm::to_string(offsetMatrix), Logger::WARNING);
+            Logger::log("Resulting Final:\n" + glm::to_string(finalTransform), Logger::WARNING);
+
+            DebugTools::logDecomposedTransform(boneName, finalTransform);
         }
+
+        model->setBoneTransform(boneName, finalTransform);
+        Logger::log("FLAT APPLY: Using global * offset for bone: " + boneName, Logger::INFO);
     }
 }
 

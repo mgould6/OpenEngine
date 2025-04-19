@@ -10,7 +10,7 @@
 
 struct Keyframe {
     float timestamp;
-    std::unordered_map<std::string, glm::mat4> boneTransforms;
+    std::map<std::string, glm::mat4> boneTransforms;
 };
 
 class Animation {

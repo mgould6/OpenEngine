@@ -206,26 +206,15 @@ void Model::Draw(Shader& shader)
 
     for (size_t i = 0; i < bones.size(); i++) {
         glm::mat4 globalTransform = getBoneTransform(bones[i].name);
-        bones[i].finalTransform = globalInverseTransform * globalTransform * bones[i].offsetMatrix;
 
-        // TEST: Only allow spine and spine.001 to animate, others set to identity
-        if (
-            bones[i].name == "DEF-spine" ||
-            bones[i].name == "DEF-spine.001" ||
-            bones[i].name == "DEF-thigh.L"
-            )
-        {
-            finalMatrices[i] = bones[i].finalTransform;
-        }
-        else {
-            finalMatrices[i] = glm::mat4(1.0f);
-        }
+        // Combine with offset matrix to move from bind pose to animated pose
+        bones[i].finalTransform = globalTransform;
+        finalMatrices[i] = bones[i].finalTransform;
 
-        // Log full final transform matrix
+        // Debug output (optional)
         Logger::log("Bone [" + bones[i].name + "] FINAL TRANSFORM:", Logger::INFO);
         Logger::log(glm::to_string(bones[i].finalTransform), Logger::INFO);
 
-        // Log decomposed transform inline
         glm::vec3 scale, translation, skew;
         glm::quat rotation;
         glm::vec4 perspective;
@@ -288,6 +277,13 @@ const std::unordered_map<std::string, glm::mat4>& Model::getBoneTransforms() con
     return boneTransforms;
 }
 
+const glm::mat4& Model::getBoneTransform(const std::string& boneName) const {
+    static const glm::mat4 identity = glm::mat4(1.0f);
+    auto it = boneTransforms.find(boneName);
+    return it != boneTransforms.end() ? it->second : identity;
+}
+
+
 void Model::setBoneTransform(const std::string& boneName, const glm::mat4& transform) {
     boneTransforms[boneName] = transform;
     Logger::log("DEBUG: After Storing Bone " + boneName, Logger::INFO);
@@ -296,11 +292,6 @@ void Model::setBoneTransform(const std::string& boneName, const glm::mat4& trans
 
 
 
-const glm::mat4& Model::getBoneTransform(const std::string& boneName) const {
-    static const glm::mat4 identity = glm::mat4(1.0f);
-    auto it = boneTransforms.find(boneName);
-    return it != boneTransforms.end() ? it->second : identity;
-}
 
 std::string Model::getBoneParent(const std::string& boneName) const {
     for (const auto& bone : bones) {
@@ -339,7 +330,11 @@ int Model::getBoneIndex(const std::string& boneName) const {
 // Recursively update the bone hierarchy using the scene graph
 void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentName) {
 
+
+
     std::string nodeName(node->mName.C_Str());
+
+    bool isDefBone = nodeName.rfind("DEF-", 0) == 0;
 
     // If this node is a bone, store its local transformation
     if (boneMapping.find(nodeName) != boneMapping.end()) {
@@ -360,9 +355,9 @@ void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentNam
             }
         }
     }
-    // Recursively process child nodes
+    // Always recurse — children might still be DEF bones
     for (unsigned int i = 0; i < node->mNumChildren; i++) {
-        updateBoneHierarchy(node->mChildren[i], nodeName);
+        updateBoneHierarchy(node->mChildren[i], isDefBone ? nodeName : parentName);
     }
 }
 
@@ -396,12 +391,10 @@ glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
     else {
         localTransform = it->second;
     }
-    if (it != localTransforms.end()) {
-        localTransform = it->second;
-        Logger::log("Bone [" + boneName + "] local transform: " + glm::to_string(localTransform), Logger::INFO);
-    }
-    else {
-        Logger::log("No local transform found for bone [" + boneName + "]; using identity.", Logger::WARNING);
+
+    // Log local transform specifically for arm bones
+    if (boneName == "DEF-upper_arm.L" || boneName == "DEF-upper_arm.R") {
+        Logger::log("DEBUG: Arm bone [" + boneName + "] local transform: " + glm::to_string(localTransform), Logger::INFO);
     }
 
     // Get the parent's name and recursively compute its global transform.
@@ -415,8 +408,14 @@ glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
         Logger::log("Bone [" + boneName + "] has no parent; using identity for parent transform.", Logger::INFO);
     }
 
-    // The final global transform is the accumulation of parent's transform and local transform.
+    // Compute final global transform
     glm::mat4 finalTransform = parentTransform * localTransform;
+
+    // Log final global transform specifically for arm bones
+    if (boneName == "DEF-upper_arm.L" || boneName == "DEF-upper_arm.R") {
+        Logger::log("DEBUG: Arm bone [" + boneName + "] final global transform: " + glm::to_string(finalTransform), Logger::INFO);
+    }
+
     globalTransforms[boneName] = finalTransform;
     Logger::log("Bone [" + boneName + "] final computed transform: " + glm::to_string(finalTransform), Logger::INFO);
     return finalTransform;
@@ -430,4 +429,12 @@ std::vector<glm::mat4> Model::getFinalBoneMatrices() const {
         matrices.push_back(bone.finalTransform);
     }
     return matrices;
+}
+
+glm::mat4 Model::getBoneOffsetMatrix(const std::string& boneName) const {
+    int index = getBoneIndex(boneName);
+    if (index >= 0 && index < bones.size()) {
+        return bones[index].offsetMatrix;
+    }
+    return glm::mat4(1.0f); // default to identity if bone not found
 }

@@ -46,6 +46,7 @@ public:
         std::unordered_map<std::string, glm::mat4>& globalTransforms);
     std::vector<glm::mat4> getFinalBoneMatrices() const;
     std::unordered_map<std::string, glm::mat4> boneLocalBindTransforms;
+    glm::mat4 getBoneOffsetMatrix(const std::string& boneName) const;
 
 
 private:
