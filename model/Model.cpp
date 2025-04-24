@@ -346,6 +346,14 @@ void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentNam
         Logger::log("Captured local bind transform for bone [" + nodeName + "]: " + glm::to_string(local), Logger::INFO);
     }
 
+    if (nodeName.find("DEF-upper_arm.L") != std::string::npos ||
+        nodeName.find("DEF-forearm.L") != std::string::npos ||
+        nodeName.find("DEF-hand.L") != std::string::npos ||
+        nodeName.find("DEF-shoulder.L") != std::string::npos) {
+        Logger::log("ARM CHAIN NODE FOUND: " + nodeName + "  -> Parent: " + parentName, Logger::WARNING);
+    }
+
+
     Logger::log("Processing node: " + nodeName + " with parent: " + parentName, Logger::INFO);
 
     // If this node corresponds to a bone, update its parent info
