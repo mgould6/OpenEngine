@@ -33,7 +33,6 @@ void Model::loadModel(const std::string& path)
         path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_LimitBoneWeights
     );
 
-
     if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode)
     {
         Logger::log("ERROR::ASSIMP::" + std::string(importer.GetErrorString()), Logger::ERROR);
@@ -73,8 +72,12 @@ void Model::loadModel(const std::string& path)
         auto it = boneLocalBindTransforms.find(bone.name);
         if (it != boneLocalBindTransforms.end()) {
             glm::mat4 globalBindPose = calculateBoneTransform(bone.name, boneLocalBindTransforms, globalBindPoseCache);
-            bone.offsetMatrix = glm::inverse(globalBindPose);
-            Logger::log("Recomputed Offset Matrix for Bone [" + bone.name + "]: " + glm::to_string(bone.offsetMatrix), Logger::INFO);
+            glm::mat4 recalculatedOffset = glm::inverse(globalBindPose);
+
+            Logger::log("Offset matrix from Assimp for bone [" + bone.name + "]:\n" + glm::to_string(bone.offsetMatrix), Logger::WARNING);
+            Logger::log("Recalculated offset matrix from bind pose inverse for bone [" + bone.name + "]:\n" + glm::to_string(recalculatedOffset), Logger::WARNING);
+
+            bone.offsetMatrix = recalculatedOffset;
         }
     }
 }
