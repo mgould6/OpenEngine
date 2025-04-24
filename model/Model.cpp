@@ -137,7 +137,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         std::string boneName(bone->mName.C_Str());
 
         glm::mat4 offsetMatrix = convertAiMatrix(bone->mOffsetMatrix);
-        Logger::log("Assimp Offset Matrix [" + boneName + "]: " + glm::to_string(offsetMatrix), Logger::INFO);
+        // Add this debug log immediately after converting Assimp offset matrix
+        Logger::log("DEBUG: Loaded Assimp Offset Matrix for bone [" + boneName + "]:\n" +
+            glm::to_string(offsetMatrix), Logger::WARNING);
 
         if (boneName.rfind("DEF-", 0) != 0)
             continue;

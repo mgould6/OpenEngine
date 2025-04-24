@@ -105,6 +105,11 @@ void AnimationController::applyToModel(Model* model)
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
         glm::mat4 finalTransform = offsetMatrix * globalTransform;
 
+        // Explicit logging of final calculated transforms
+        Logger::log("DEBUG: Final (Offset * Global) Transform for bone [" + boneName + "]:\n" +
+            glm::to_string(finalTransform), Logger::WARNING);
+
+
         // Diagnostic: Target specific bones for inspection
         if (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L")
         {
