@@ -99,30 +99,35 @@ void AnimationController::applyToModel(Model* model)
         buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
     }
 
+    // Retrieve the global inverse transform from Model (critical step!)
+    glm::mat4 globalInverseTransform = model->getGlobalInverseTransform();
+
     // Step 3: Apply final skinning transforms to model
     for (const auto& [boneName, globalTransform] : globalBoneMatrices)
     {
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
-        glm::mat4 finalTransform = offsetMatrix * globalTransform;
+
+        // Correctly multiply in the standard Assimp skeletal animation order
+        glm::mat4 finalTransform = globalInverseTransform * globalTransform * offsetMatrix;
 
         // Explicit logging of final calculated transforms
-        Logger::log("DEBUG: Final (Offset * Global) Transform for bone [" + boneName + "]:\n" +
+        Logger::log("DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [" + boneName + "]:\n" +
             glm::to_string(finalTransform), Logger::WARNING);
 
-
-        // Diagnostic: Target specific bones for inspection
+        // Diagnostic: Target specific bones for detailed inspection
         if (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L")
         {
             Logger::log("=== DEBUG: FINAL TRANSFORM APPLY FOR " + boneName + " ===", Logger::WARNING);
-            Logger::log("GLOBAL Transform:\n" + glm::to_string(globalTransform), Logger::WARNING);
-            Logger::log("Offset (Bind Inverse):\n" + glm::to_string(offsetMatrix), Logger::WARNING);
-            Logger::log("Resulting Final:\n" + glm::to_string(finalTransform), Logger::WARNING);
+            Logger::log("Global Transform:\n" + glm::to_string(globalTransform), Logger::WARNING);
+            Logger::log("Offset Matrix (Inverse Bind Pose):\n" + glm::to_string(offsetMatrix), Logger::WARNING);
+            Logger::log("Global Inverse Transform:\n" + glm::to_string(globalInverseTransform), Logger::WARNING);
+            Logger::log("Resulting Final Transform:\n" + glm::to_string(finalTransform), Logger::WARNING);
 
             DebugTools::logDecomposedTransform(boneName, finalTransform);
         }
 
         model->setBoneTransform(boneName, finalTransform);
-        Logger::log("FLAT APPLY: Using global * offset for bone: " + boneName, Logger::INFO);
+        Logger::log("Applied globalInverse * global * offset for bone: " + boneName, Logger::INFO);
     }
 }
 

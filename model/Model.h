@@ -47,6 +47,7 @@ public:
     std::vector<glm::mat4> getFinalBoneMatrices() const;
     std::unordered_map<std::string, glm::mat4> boneLocalBindTransforms;
     glm::mat4 getBoneOffsetMatrix(const std::string& boneName) const;
+    glm::mat4 getGlobalInverseTransform() const;
 
 
 private:
@@ -63,6 +64,8 @@ private:
 
     // Store the global inverse for the root node
     glm::mat4 globalInverseTransform = glm::mat4(1.0f);
+
+    bool hasBone(const std::string& name) const;
 
 
 	

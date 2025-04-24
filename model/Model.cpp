@@ -444,3 +444,12 @@ glm::mat4 Model::getBoneOffsetMatrix(const std::string& boneName) const {
     }
     return glm::mat4(1.0f); // default to identity if bone not found
 }
+
+glm::mat4 Model::getGlobalInverseTransform() const {
+    return globalInverseTransform;
+}
+
+
+bool Model::hasBone(const std::string& name) const {
+    return boneMapping.find(name) != boneMapping.end();
+}

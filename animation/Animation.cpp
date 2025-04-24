@@ -78,13 +78,9 @@ void Animation::loadAnimation(const std::string& filePath) {
     duration = anim->mDuration;
     Logger::log("DEBUG: Animation Duration: " + std::to_string(duration), Logger::INFO);
 
-    if (anim->mTicksPerSecond > 0.0) {
-        ticksPerSecond = anim->mTicksPerSecond;
-    }
-    else {
+    ticksPerSecond = anim->mTicksPerSecond > 0.0 ? anim->mTicksPerSecond : 30.0f;
+    if (anim->mTicksPerSecond <= 0.0)
         Logger::log("WARNING: Animation has no ticks per second set. Defaulting to 30.0", Logger::WARNING);
-        ticksPerSecond = 30.0f;
-    }
 
     Logger::log("INFO: Animation has " + std::to_string(anim->mNumChannels) + " bone channels.", Logger::INFO);
 
@@ -94,6 +90,13 @@ void Animation::loadAnimation(const std::string& filePath) {
     for (unsigned int i = 0; i < anim->mNumChannels; i++) {
         aiNodeAnim* channel = anim->mChannels[i];
         std::string boneName = channel->mNodeName.C_Str();
+
+        // Normalize bone name to match DEF- rig convention
+        if (boneName.find("DEF-") != 0) {
+            std::string tryDEF = "DEF-" + boneName;
+            Logger::log("Remapping bone '" + boneName + "' to '" + tryDEF + "'", Logger::INFO);
+            boneName = tryDEF;
+        }
 
         Logger::log("INFO: Animation Channel [" + std::to_string(i) + "] targets bone: " + boneName, Logger::INFO);
 
@@ -123,12 +126,10 @@ void Animation::loadAnimation(const std::string& filePath) {
         }
     }
 
-    // Convert the timestamp map into a sorted vector of keyframes
     for (const auto& [timestamp, boneMap] : timestampToBoneMap) {
         keyframes.push_back({ timestamp, boneMap });
     }
 
-    // Log missing expected bones
     Logger::log("INFO: Checking for missing bones in animation...", Logger::INFO);
     std::vector<std::string> allBoneNames = {
         "DEF-breast.L", "DEF-breast.R", "DEF-shoulder.L", "DEF-shoulder.R",
