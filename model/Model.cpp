@@ -208,7 +208,7 @@ void Model::Draw(Shader& shader)
         glm::mat4 globalTransform = getBoneTransform(bones[i].name);
 
         // Combine with offset matrix to move from bind pose to animated pose
-        bones[i].finalTransform = globalTransform * bones[i].offsetMatrix;
+        bones[i].finalTransform = globalTransform;
         finalMatrices[i] = bones[i].finalTransform;
 
         // Debug output (optional)
