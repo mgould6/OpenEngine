@@ -208,7 +208,7 @@ void Model::Draw(Shader& shader)
         glm::mat4 globalTransform = getBoneTransform(bones[i].name);
 
         // Combine with offset matrix to move from bind pose to animated pose
-        bones[i].finalTransform = globalTransform;
+        bones[i].finalTransform = globalTransform * bones[i].offsetMatrix;
         finalMatrices[i] = bones[i].finalTransform;
 
         // Debug output (optional)
@@ -357,8 +357,11 @@ void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentNam
     }
     // Always recurse — children might still be DEF bones
     for (unsigned int i = 0; i < node->mNumChildren; i++) {
-        updateBoneHierarchy(node->mChildren[i], isDefBone ? nodeName : parentName);
+        std::string currentName(node->mChildren[i]->mName.C_Str());
+        std::string thisParent = boneMapping.count(nodeName) ? nodeName : parentName;
+        updateBoneHierarchy(node->mChildren[i], thisParent);
     }
+
 }
 
 
