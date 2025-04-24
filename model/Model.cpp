@@ -33,6 +33,7 @@ void Model::loadModel(const std::string& path)
         path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_LimitBoneWeights
     );
 
+
     if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode)
     {
         Logger::log("ERROR::ASSIMP::" + std::string(importer.GetErrorString()), Logger::ERROR);

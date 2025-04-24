@@ -1,82 +1,87 @@
-INFO: ImGui initialized successfully.
-INFO: DEBUG: Initializing shaders...
-INFO: DEBUG: Bone shader compiled successfully.
-INFO: Shaders initialized successfully.
-INFO: PhysicsManager initialized successfully.
-INFO: Entering SceneTest2.
-INFO: Loading model from path: Character_TPose_Anim.fbx
-INFO: Global inverse transform set from root node transformation.
-INFO: Global inverse transform matrix: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
-INFO: Assimp Offset Matrix [DEF-spine]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, -0.235478, 0.000000), (0.000000, 0.235478, 0.971880, 0.000000), (0.000000, -0.916629, 0.341921, 1.000000))
-INFO: New bone added: DEF-spine assigned index: 0
-INFO: Assimp Offset Matrix [DEF-spine.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.992413, -0.122954, 0.000000), (0.000000, 0.122954, 0.992412, 0.000000), (0.000000, -1.104045, 0.217266, 1.000000))
-INFO: New bone added: DEF-spine.001 assigned index: 1
-INFO: Assimp Offset Matrix [DEF-spine.002]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999869, 0.016174, 0.000000), (0.000000, -0.016174, 0.999869, 0.000000), (0.000000, -1.211187, 0.049404, 1.000000))
-INFO: New bone added: DEF-spine.002 assigned index: 2
-INFO: Assimp Offset Matrix [DEF-spine.003]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999592, 0.028560, 0.000000), (0.000000, -0.028560, 0.999592, 0.000000), (0.000000, -1.385738, 0.032239, 1.000000))
-INFO: New bone added: DEF-spine.003 assigned index: 3
-INFO: Assimp Offset Matrix [DEF-spine.004]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.929516, -0.368784, 0.000000), (0.000000, 0.368784, 0.929515, 0.000000), (0.000000, -1.420450, 0.646168, 1.000000))
-INFO: New bone added: DEF-spine.004 assigned index: 4
-INFO: Assimp Offset Matrix [DEF-spine.005]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982436, -0.186599, 0.000000), (0.000000, 0.186599, 0.982436, 0.000000), (0.000000, -1.575778, 0.354954, 1.000000))
-INFO: New bone added: DEF-spine.005 assigned index: 5
-INFO: Assimp Offset Matrix [DEF-spine.006]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (0.000000, -1.670135, 0.044083, 1.000000))
-INFO: New bone added: DEF-spine.006 assigned index: 6
-INFO: Assimp Offset Matrix [DEF-pelvis.L]: mat4x4((-0.421772, 0.536322, -0.731073, 0.000000), (-0.276837, 0.691624, 0.667096, 0.000000), (0.863406, 0.483751, -0.143234, 0.000000), (0.369463, -0.615484, -0.664677, 1.000000))
-INFO: New bone added: DEF-pelvis.L assigned index: 7
-INFO: Assimp Offset Matrix [DEF-pelvis.R]: mat4x4((-0.421772, -0.536322, 0.731073, 0.000000), (0.276837, 0.691624, 0.667096, 0.000000), (-0.863406, 0.483751, -0.143234, 0.000000), (-0.369463, -0.615484, -0.664677, 1.000000))
-INFO: New bone added: DEF-pelvis.R assigned index: 8
-INFO: Assimp Offset Matrix [DEF-thigh.L]: mat4x4((0.935412, -0.093497, 0.340972, 0.000000), (-0.058897, -0.992132, -0.110475, 0.000000), (0.348619, 0.083258, -0.933561, 0.000000), (-0.033043, 1.046192, -0.002256, 1.000000))
-INFO: New bone added: DEF-thigh.L assigned index: 9
-INFO: Assimp Offset Matrix [DEF-thigh.L.001]: mat4x4((0.935411, -0.093497, 0.340975, 0.000000), (-0.058896, -0.992132, -0.110475, 0.000000), (0.348622, 0.083258, -0.933560, 0.000000), (-0.033043, 0.792186, -0.002256, 1.000000))
-INFO: New bone added: DEF-thigh.L.001 assigned index: 10
-INFO: Assimp Offset Matrix [DEF-shin.L]: mat4x4((0.935418, -0.049134, 0.350112, 0.000000), (-0.058899, -0.998114, 0.017290, 0.000000), (0.348603, -0.036794, -0.936550, 0.000000), (-0.033043, 0.533475, -0.071050, 1.000000))
-INFO: New bone added: DEF-shin.L assigned index: 11
-INFO: Assimp Offset Matrix [DEF-shin.L.001]: mat4x4((0.935418, -0.049134, 0.350112, 0.000000), (-0.058899, -0.998114, 0.017290, 0.000000), (0.348602, -0.036794, -0.936550, 0.000000), (-0.033043, 0.321455, -0.071050, 1.000000))
-INFO: New bone added: DEF-shin.L.001 assigned index: 12
-INFO: Assimp Offset Matrix [DEF-foot.L]: mat4x4((0.964083, 0.178992, 0.196227, 0.000000), (0.265600, -0.649715, -0.712269, 0.000000), (0.000001, 0.738806, -0.673921, 0.000000), (-0.087785, 0.097231, 0.030920, 1.000000))
-INFO: New bone added: DEF-foot.L assigned index: 13
-INFO: Assimp Offset Matrix [DEF-toe.L]: mat4x4((-0.964083, -0.000000, -0.265600, 0.000000), (-0.265600, -0.000000, 0.964083, 0.000000), (-0.000000, 1.000002, 0.000000, 0.000000), (0.087785, -0.018148, -0.025298, 1.000000))
-INFO: New bone added: DEF-toe.L assigned index: 14
-INFO: Assimp Offset Matrix [DEF-thigh.R]: mat4x4((0.935412, 0.093497, -0.340972, 0.000000), (0.058897, -0.992132, -0.110475, 0.000000), (-0.348619, 0.083258, -0.933561, 0.000000), (0.033043, 1.046192, -0.002256, 1.000000))
-INFO: New bone added: DEF-thigh.R assigned index: 15
-INFO: Assimp Offset Matrix [DEF-thigh.R.001]: mat4x4((0.935411, 0.093497, -0.340975, 0.000000), (0.058896, -0.992132, -0.110475, 0.000000), (-0.348622, 0.083258, -0.933560, 0.000000), (0.033043, 0.792186, -0.002256, 1.000000))
-INFO: New bone added: DEF-thigh.R.001 assigned index: 16
-INFO: Assimp Offset Matrix [DEF-shin.R]: mat4x4((0.935418, 0.049134, -0.350112, 0.000000), (0.058899, -0.998114, 0.017290, 0.000000), (-0.348603, -0.036794, -0.936550, 0.000000), (0.033043, 0.533475, -0.071050, 1.000000))
-INFO: New bone added: DEF-shin.R assigned index: 17
-INFO: Assimp Offset Matrix [DEF-shin.R.001]: mat4x4((0.935418, 0.049134, -0.350112, 0.000000), (0.058899, -0.998114, 0.017290, 0.000000), (-0.348602, -0.036794, -0.936550, 0.000000), (0.033043, 0.321455, -0.071050, 1.000000))
-INFO: New bone added: DEF-shin.R.001 assigned index: 18
-INFO: Assimp Offset Matrix [DEF-foot.R]: mat4x4((0.964083, -0.178992, -0.196227, 0.000000), (-0.265600, -0.649715, -0.712269, 0.000000), (-0.000001, 0.738806, -0.673921, 0.000000), (0.087785, 0.097231, 0.030920, 1.000000))
-INFO: New bone added: DEF-foot.R assigned index: 19
-INFO: Assimp Offset Matrix [DEF-toe.R]: mat4x4((-0.964083, 0.000000, 0.265600, 0.000000), (0.265600, -0.000000, 0.964083, 0.000000), (0.000000, 1.000002, 0.000000, 0.000000), (-0.087785, -0.018148, -0.025298, 1.000000))
-INFO: New bone added: DEF-toe.R assigned index: 20
-INFO: Assimp Offset Matrix [DEF-shoulder.L]: mat4x4((0.507095, 0.861890, 0.000529, 0.000000), (-0.000074, -0.000570, 1.000000, 0.000000), (0.861890, -0.507095, -0.000225, 0.000000), (-0.004417, -0.015707, -1.510536, 1.000000))
-INFO: New bone added: DEF-shoulder.L assigned index: 21
-INFO: Assimp Offset Matrix [DEF-upper_arm.L]: mat4x4((0.001501, 0.997443, 0.071445, 0.000000), (0.954292, -0.022782, 0.298008, 0.000000), (0.298874, 0.067732, -0.951886, 0.000000), (-1.396936, -0.136329, -0.543537, 1.000000))
-INFO: New bone added: DEF-upper_arm.L assigned index: 22
-INFO: Assimp Offset Matrix [DEF-upper_arm.L.001]: mat4x4((0.001501, 0.997443, 0.071445, 0.000000), (0.954291, -0.022782, 0.298009, 0.000000), (0.298874, 0.067732, -0.951886, 0.000000), (-1.396935, -0.268159, -0.543537, 1.000000))
-INFO: New bone added: DEF-upper_arm.L.001 assigned index: 23
-INFO: Assimp Offset Matrix [DEF-forearm.L]: mat4x4((0.001501, 0.999878, -0.015562, 0.000000), (0.954291, 0.003219, 0.298861, 0.000000), (0.298875, -0.015300, -0.954170, 0.000000), (-1.396935, -0.445738, -0.506697, 1.000000))
-INFO: New bone added: DEF-forearm.L assigned index: 24
-INFO: Assimp Offset Matrix [DEF-forearm.L.001]: mat4x4((0.001501, 0.999878, -0.015562, 0.000000), (0.954291, 0.003219, 0.298861, 0.000000), (0.298875, -0.015300, -0.954170, 0.000000), (-1.396935, -0.565887, -0.506697, 1.000000))
-INFO: New bone added: DEF-forearm.L.001 assigned index: 25
-INFO: Assimp Offset Matrix [DEF-hand.L]: mat4x4((0.028306, 0.997910, 0.058098, 0.000000), (0.953443, -0.044410, 0.298287, 0.000000), (0.300244, 0.046949, -0.952707, 0.000000), (-1.413800, -0.609126, -0.555832, 1.000000))
-INFO: New bone added: DEF-hand.L assigned index: 26
-INFO: Assimp Offset Matrix [DEF-shoulder.R]: mat4x4((0.507095, -0.861890, -0.000529, 0.000000), (0.000074, -0.000570, 1.000000, 0.000000), (-0.861890, -0.507095, -0.000225, 0.000000), (0.004417, -0.015707, -1.510536, 1.000000))
-INFO: New bone added: DEF-shoulder.R assigned index: 27
-INFO: Assimp Offset Matrix [DEF-upper_arm.R]: mat4x4((0.001501, -0.997443, -0.071445, 0.000000), (-0.954292, -0.022782, 0.298008, 0.000000), (-0.298874, 0.067732, -0.951886, 0.000000), (1.396936, -0.136329, -0.543537, 1.000000))
-INFO: New bone added: DEF-upper_arm.R assigned index: 28
-INFO: Assimp Offset Matrix [DEF-upper_arm.R.001]: mat4x4((0.001501, -0.997443, -0.071445, 0.000000), (-0.954291, -0.022782, 0.298009, 0.000000), (-0.298874, 0.067732, -0.951886, 0.000000), (1.396935, -0.268159, -0.543537, 1.000000))
-INFO: New bone added: DEF-upper_arm.R.001 assigned index: 29
-INFO: Assimp Offset Matrix [DEF-forearm.R]: mat4x4((0.001501, -0.999878, 0.015562, 0.000000), (-0.954291, 0.003219, 0.298861, 0.000000), (-0.298875, -0.015300, -0.954170, 0.000000), (1.396935, -0.445738, -0.506696, 1.000000))
-INFO: New bone added: DEF-forearm.R assigned index: 30
-INFO: Assimp Offset Matrix [DEF-forearm.R.001]: mat4x4((0.001501, -0.999878, 0.015562, 0.000000), (-0.954291, 0.003219, 0.298861, 0.000000), (-0.298875, -0.015300, -0.954170, 0.000000), (1.396935, -0.565887, -0.506696, 1.000000))
-INFO: New bone added: DEF-forearm.R.001 assigned index: 31
-INFO: Assimp Offset Matrix [DEF-hand.R]: mat4x4((0.028306, -0.997910, -0.058098, 0.000000), (-0.953443, -0.044410, 0.298287, 0.000000), (-0.300244, 0.046949, -0.952706, 0.000000), (1.413800, -0.609126, -0.555832, 1.000000))
-INFO: New bone added: DEF-hand.R assigned index: 32
-INFO: Assimp Offset Matrix [DEF-breast.L]: mat4x4((-1.000000, -0.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (0.107252, 0.110391, -1.378726, 1.000000))
-INFO: New bone added: DEF-breast.L assigned index: 33
-INFO: Assimp Offset Matrix [DEF-breast.R]: mat4x4((-1.000000, 0.000000, -0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (-0.107252, 0.110391, -1.378726, 1.000000))
-INFO: New bone added: DEF-breast.R assigned index: 34
+.....
+
+INFO: Vertex 25262 assigned fallback bone (0).
+INFO: Vertex 25263 assigned fallback bone (0).
+INFO: Vertex 25264 assigned fallback bone (0).
+INFO: Vertex 25265 assigned fallback bone (0).
+INFO: Vertex 25266 assigned fallback bone (0).
+INFO: Vertex 25267 assigned fallback bone (0).
+INFO: Vertex 25268 assigned fallback bone (0).
+INFO: Vertex 25269 assigned fallback bone (0).
+INFO: Vertex 25270 assigned fallback bone (0).
+INFO: Vertex 25271 assigned fallback bone (0).
+INFO: Vertex 25272 assigned fallback bone (0).
+INFO: Vertex 25273 assigned fallback bone (0).
+INFO: Vertex 25274 assigned fallback bone (0).
+INFO: Vertex 25275 assigned fallback bone (0).
+INFO: Vertex 25276 assigned fallback bone (0).
+INFO: Vertex 25277 assigned fallback bone (0).
+INFO: Vertex 25278 assigned fallback bone (0).
+INFO: Vertex 25279 assigned fallback bone (0).
+INFO: Vertex 25280 assigned fallback bone (0).
+INFO: Vertex 25281 assigned fallback bone (0).
+INFO: Vertex 25282 assigned fallback bone (0).
+INFO: Vertex 25283 assigned fallback bone (0).
+INFO: Vertex 25284 assigned fallback bone (0).
+INFO: Vertex 25285 assigned fallback bone (0).
+INFO: Vertex 25286 assigned fallback bone (0).
+INFO: Vertex 25287 assigned fallback bone (0).
+INFO: Vertex 25288 assigned fallback bone (0).
+INFO: Vertex 25289 assigned fallback bone (0).
+INFO: Vertex 25290 assigned fallback bone (0).
+INFO: Vertex 25291 assigned fallback bone (0).
+INFO: Vertex 25292 assigned fallback bone (0).
+INFO: Vertex 25293 assigned fallback bone (0).
+INFO: Vertex 25294 assigned fallback bone (0).
+INFO: Vertex 25295 assigned fallback bone (0).
+INFO: Vertex 25296 assigned fallback bone (0).
+INFO: Vertex 25297 assigned fallback bone (0).
+INFO: Vertex 25298 assigned fallback bone (0).
+INFO: Vertex 25299 assigned fallback bone (0).
+INFO: Vertex 25300 assigned fallback bone (0).
+INFO: Vertex 25301 assigned fallback bone (0).
+INFO: Vertex 25302 assigned fallback bone (0).
+INFO: Vertex 25303 assigned fallback bone (0).
+INFO: Vertex 25304 assigned fallback bone (0).
+INFO: Vertex 25305 assigned fallback bone (0).
+INFO: Vertex 25306 assigned fallback bone (0).
+INFO: Vertex 25307 assigned fallback bone (0).
+INFO: Vertex 25308 assigned fallback bone (0).
+INFO: Vertex 25309 assigned fallback bone (0).
+INFO: Vertex 25310 assigned fallback bone (0).
+INFO: Vertex 25311 assigned fallback bone (0).
+INFO: Vertex 25312 assigned fallback bone (0).
+INFO: Vertex 25313 assigned fallback bone (0).
+INFO: Vertex 25314 assigned fallback bone (0).
+INFO: Vertex 25315 assigned fallback bone (0).
+INFO: Vertex 25316 assigned fallback bone (0).
+INFO: Vertex 25317 assigned fallback bone (0).
+INFO: Vertex 25318 assigned fallback bone (0).
+INFO: Vertex 25319 assigned fallback bone (0).
+INFO: Vertex 25320 assigned fallback bone (0).
+INFO: Vertex 25321 assigned fallback bone (0).
+INFO: Vertex 25322 assigned fallback bone (0).
+INFO: Vertex 25323 assigned fallback bone (0).
+INFO: Vertex 25324 assigned fallback bone (0).
+INFO: Vertex 25325 assigned fallback bone (0).
+INFO: Vertex 25326 assigned fallback bone (0).
+INFO: Vertex 25327 assigned fallback bone (0).
+INFO: Vertex 25328 assigned fallback bone (0).
+INFO: Vertex 25329 assigned fallback bone (0).
+INFO: Vertex 25330 assigned fallback bone (0).
+INFO: Vertex 25331 assigned fallback bone (0).
+INFO: Vertex 25332 assigned fallback bone (0).
+INFO: Vertex 25333 assigned fallback bone (0).
+INFO: Vertex 25334 assigned fallback bone (0).
+INFO: Vertex 25335 assigned fallback bone (0).
+INFO: Vertex 25336 assigned fallback bone (0).
+INFO: Vertex 25337 assigned fallback bone (0).
+INFO: Vertex 25338 assigned fallback bone (0).
+INFO: Vertex 25339 assigned fallback bone (0).
+INFO: Vertex 25340 assigned fallback bone (0).
+INFO: Vertex 25341 assigned fallback bone (0).
+INFO: Vertex 25342 assigned fallback bone (0).
+INFO: Vertex 25343 assigned fallback bone (0).
 INFO: Mesh loaded successfully with explicit vertex and Assimp offset matrix logging.
 INFO: Debug: VAO Bone IDs bound to location 3.
 INFO: Debug: VAO Bone Weights bound to location 4.
@@ -88,348 +93,21 @@ INFO: BoneIDs bound to location 3 (int attribute)
 INFO: Bone Weights bound to location 4 (GL_FLOAT)
 INFO: Vertex data size: 25344
 INFO: Indices count: 25344
-INFO: Vertex[0] Position: vec3(0.077874, 1.767432, -0.061131)
-INFO: Vertex[0] Normal: vec3(0.980582, -0.019239, -0.195162)
+INFO: Vertex[0] Position: vec3(7.787362, -6.113117, -176.743225)
+INFO: Vertex[0] Normal: vec3(0.980582, -0.195162, 0.019239)
 INFO: Vertex[0] TexCoords: vec2(0.750000, 0.125000)
-INFO: Vertex[0] BoneIDs: [5, 6, -1, -1]
-INFO: Vertex[0] Weights: [0.032047, 0.967953, 0.000000, 0.000000]
+INFO: Vertex[0] BoneIDs: [0, 0, 0, 0]
+INFO: Vertex[0] Weights: [1.000000, 0.000000, 0.000000, 0.000000]
 INFO: ==== Explicit Bone Mapping BEGIN ====
-INFO: Bone Mapping ID[2] maps to Bone Name[DEF-spine.002]
-INFO: Bone Mapping ID[10] maps to Bone Name[DEF-thigh.L.001]
-INFO: Bone Mapping ID[0] maps to Bone Name[DEF-spine]
-INFO: Bone Mapping ID[1] maps to Bone Name[DEF-spine.001]
-INFO: Bone Mapping ID[3] maps to Bone Name[DEF-spine.003]
-INFO: Bone Mapping ID[7] maps to Bone Name[DEF-pelvis.L]
-INFO: Bone Mapping ID[4] maps to Bone Name[DEF-spine.004]
-INFO: Bone Mapping ID[23] maps to Bone Name[DEF-upper_arm.L.001]
-INFO: Bone Mapping ID[9] maps to Bone Name[DEF-thigh.L]
-INFO: Bone Mapping ID[5] maps to Bone Name[DEF-spine.005]
-INFO: Bone Mapping ID[25] maps to Bone Name[DEF-forearm.L.001]
-INFO: Bone Mapping ID[18] maps to Bone Name[DEF-shin.R.001]
-INFO: Bone Mapping ID[6] maps to Bone Name[DEF-spine.006]
-INFO: Bone Mapping ID[8] maps to Bone Name[DEF-pelvis.R]
-INFO: Bone Mapping ID[30] maps to Bone Name[DEF-forearm.R]
-INFO: Bone Mapping ID[11] maps to Bone Name[DEF-shin.L]
-INFO: Bone Mapping ID[31] maps to Bone Name[DEF-forearm.R.001]
-INFO: Bone Mapping ID[12] maps to Bone Name[DEF-shin.L.001]
-INFO: Bone Mapping ID[13] maps to Bone Name[DEF-foot.L]
-INFO: Bone Mapping ID[14] maps to Bone Name[DEF-toe.L]
-INFO: Bone Mapping ID[15] maps to Bone Name[DEF-thigh.R]
-INFO: Bone Mapping ID[16] maps to Bone Name[DEF-thigh.R.001]
-INFO: Bone Mapping ID[24] maps to Bone Name[DEF-forearm.L]
-INFO: Bone Mapping ID[17] maps to Bone Name[DEF-shin.R]
-INFO: Bone Mapping ID[19] maps to Bone Name[DEF-foot.R]
-INFO: Bone Mapping ID[20] maps to Bone Name[DEF-toe.R]
-INFO: Bone Mapping ID[21] maps to Bone Name[DEF-shoulder.L]
-INFO: Bone Mapping ID[22] maps to Bone Name[DEF-upper_arm.L]
-INFO: Bone Mapping ID[26] maps to Bone Name[DEF-hand.L]
-INFO: Bone Mapping ID[27] maps to Bone Name[DEF-shoulder.R]
-INFO: Bone Mapping ID[28] maps to Bone Name[DEF-upper_arm.R]
-INFO: Bone Mapping ID[29] maps to Bone Name[DEF-upper_arm.R.001]
-INFO: Bone Mapping ID[32] maps to Bone Name[DEF-hand.R]
-INFO: Bone Mapping ID[33] maps to Bone Name[DEF-breast.L]
-INFO: Bone Mapping ID[34] maps to Bone Name[DEF-breast.R]
 INFO: ==== EXPLICIT BONE MAPPING END ====
-INFO: DEF-spine offset matrix explicitly logged for verification:
-INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, -0.235478, 0.000000), (0.000000, 0.235478, 0.971880, 0.000000), (0.000000, -0.916629, 0.341921, 1.000000))
+ERROR: DEF-spine bone not found for explicit offset matrix logging.
 INFO: Processing node: RootNode with parent:
-INFO: Processing node: Sphere with parent:
-INFO: Processing node: metarig with parent:
-INFO: Processing node: spine with parent:
-INFO: Processing node: spine.001 with parent:
-INFO: Processing node: spine.002 with parent:
-INFO: Processing node: spine.003 with parent:
-INFO: Processing node: spine.004 with parent:
-INFO: Processing node: spine.005 with parent:
-INFO: Processing node: spine.006 with parent:
-INFO: Processing node: shoulder.L with parent:
-INFO: Processing node: upper_arm.L with parent:
-INFO: Processing node: forearm.L with parent:
-INFO: Processing node: hand.L with parent:
-INFO: Processing node: shoulder.R with parent:
-INFO: Processing node: upper_arm.R with parent:
-INFO: Processing node: forearm.R with parent:
-INFO: Processing node: hand.R with parent:
-INFO: Processing node: breast.L with parent:
-INFO: Processing node: breast.R with parent:
-INFO: Processing node: pelvis.L with parent:
-INFO: Processing node: pelvis.R with parent:
-INFO: Processing node: thigh.L with parent:
-INFO: Processing node: shin.L with parent:
-INFO: Processing node: foot.L with parent:
-INFO: Processing node: toe.L with parent:
-INFO: Processing node: heel.02.L with parent:
-INFO: Processing node: thigh.R with parent:
-INFO: Processing node: shin.R with parent:
-INFO: Processing node: foot.R with parent:
-INFO: Processing node: toe.R with parent:
-INFO: Processing node: heel.02.R with parent:
-INFO: Processing node: rig with parent:
-INFO: Processing node: root with parent:
-INFO: Captured local bind transform for bone [DEF-spine]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, 0.235478, 0.000000), (0.000000, -0.235478, 0.971880, 0.000000), (0.000000, 0.971368, -0.116460, 1.000000))
-INFO: Processing node: DEF-spine with parent:
-INFO: Bone [DEF-spine] parent set to:
-INFO: Captured local bind transform for bone [DEF-spine.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.993458, -0.114195, 0.000000), (0.000000, 0.114195, 0.993458, 0.000000), (0.000000, 0.155383, 0.000000, 1.000000))
-INFO: Processing node: DEF-spine.001 with parent: DEF-spine
-INFO: Bone [DEF-spine.001] parent set to: DEF-spine
-INFO: Captured local bind transform for bone [DEF-spine.002]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.990294, -0.138989, 0.000000), (0.000000, 0.138989, 0.990294, 0.000000), (0.000000, 0.088520, 0.000000, 1.000000))
-INFO: Processing node: DEF-spine.002 with parent: DEF-spine.001
-INFO: Bone [DEF-spine.002] parent set to: DEF-spine.001
-INFO: Captured local bind transform for bone [DEF-spine.003]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999923, -0.012389, 0.000000), (0.000000, 0.012389, 0.999923, 0.000000), (0.000000, 0.174045, 0.000000, 1.000000))
-INFO: Processing node: DEF-spine.003 with parent: DEF-spine.002
-INFO: Bone [DEF-spine.003] parent set to: DEF-spine.002
-INFO: Captured local bind transform for bone [DEF-spine.004]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.918604, 0.395180, 0.000000), (0.000000, -0.395180, 0.918604, 0.000000), (0.000000, 0.174446, 0.000000, 1.000000))
-INFO: Processing node: DEF-spine.004 with parent: DEF-spine.003
-INFO: Bone [DEF-spine.004] parent set to: DEF-spine.003
-INFO: Captured local bind transform for bone [DEF-spine.005]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982004, -0.188860, 0.000000), (0.000000, 0.188860, 0.982004, 0.000000), (0.000000, 0.059934, 0.000000, 1.000000))
-INFO: Processing node: DEF-spine.005 with parent: DEF-spine.004
-INFO: Bone [DEF-spine.005] parent set to: DEF-spine.004
-INFO: Captured local bind transform for bone [DEF-spine.006]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982436, -0.186599, 0.000000), (0.000000, 0.186599, 0.982436, 0.000000), (0.000000, 0.056798, 0.000000, 1.000000))
-INFO: Processing node: DEF-spine.006 with parent: DEF-spine.005
-INFO: Bone [DEF-spine.006] parent set to: DEF-spine.005
-INFO: Processing node: MCH-torso.parent with parent:
-INFO: Processing node: torso with parent:
-INFO: Processing node: MCH-spine.001 with parent:
-INFO: Processing node: spine_fk.001 with parent:
-INFO: Processing node: MCH-spine with parent:
-INFO: Processing node: spine_fk with parent:
-INFO: Processing node: tweak_spine with parent:
-INFO: Processing node: ORG-spine with parent:
-INFO: Processing node: ORG-pelvis.L with parent:
-INFO: Captured local bind transform for bone [DEF-pelvis.L]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Processing node: DEF-pelvis.L with parent:
-INFO: Bone [DEF-pelvis.L] parent set to:
-INFO: Processing node: ORG-pelvis.R with parent:
-INFO: Captured local bind transform for bone [DEF-pelvis.R]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Processing node: DEF-pelvis.R with parent:
-INFO: Bone [DEF-pelvis.R] parent set to:
-INFO: Captured local bind transform for bone [DEF-thigh.L]: mat4x4((0.935411, 0.024853, 0.352686, 0.000000), (-0.093496, -0.944628, 0.314541, 0.000000), (0.340975, -0.327200, -0.881292, 0.000000), (0.129494, 0.071716, 0.022516, 1.000000))
-INFO: Processing node: DEF-thigh.L with parent:
-INFO: Bone [DEF-thigh.L] parent set to:
-INFO: Captured local bind transform for bone [DEF-thigh.L.001]: mat4x4((1.000000, 0.000000, 0.000011, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.000011, 0.000000, 1.000000, 0.000000), (0.000000, 0.254006, 0.000000, 1.000000))
-INFO: Processing node: DEF-thigh.L.001 with parent: DEF-thigh.L
-INFO: Bone [DEF-thigh.L.001] parent set to: DEF-thigh.L
-INFO: Captured local bind transform for bone [DEF-shin.L]: mat4x4((1.000000, 0.000001, 0.000027, 0.000000), (-0.000004, 0.991792, 0.127859, 0.000000), (-0.000026, -0.127859, 0.991792, 0.000000), (-0.000000, 0.254006, -0.000000, 1.000000))
-INFO: Processing node: DEF-shin.L with parent: DEF-thigh.L.001
-INFO: Bone [DEF-shin.L] parent set to: DEF-thigh.L.001
-INFO: Captured local bind transform for bone [DEF-shin.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.212019, 0.000000, 1.000000))
-INFO: Processing node: DEF-shin.L.001 with parent: DEF-shin.L
-INFO: Bone [DEF-shin.L.001] parent set to: DEF-shin.L
-INFO: Captured local bind transform for bone [DEF-foot.L]: mat4x4((0.886180, -0.312472, 0.342120, 0.000000), (0.463245, 0.612519, -0.640488, 0.000000), (-0.009420, 0.726073, 0.687553, 0.000000), (0.000000, 0.212020, 0.000000, 1.000000))
-INFO: Processing node: DEF-foot.L with parent: DEF-shin.L.001
-INFO: Bone [DEF-foot.L] parent set to: DEF-shin.L.001
-INFO: Captured local bind transform for bone [DEF-toe.L]: mat4x4((-1.000000, -0.000005, 0.000000, 0.000000), (-0.000004, 0.738798, -0.673927, 0.000000), (0.000003, -0.673927, -0.738798, 0.000000), (0.000000, 0.093590, 0.000000, 1.000000))
-INFO: Processing node: DEF-toe.L with parent: DEF-foot.L
-INFO: Bone [DEF-toe.L] parent set to: DEF-foot.L
-INFO: Captured local bind transform for bone [DEF-thigh.R]: mat4x4((0.935411, -0.024853, -0.352686, 0.000000), (0.093496, -0.944628, 0.314541, 0.000000), (-0.340975, -0.327200, -0.881292, 0.000000), (-0.129494, 0.071716, 0.022516, 1.000000))
-INFO: Processing node: DEF-thigh.R with parent:
-INFO: Bone [DEF-thigh.R] parent set to:
-INFO: Captured local bind transform for bone [DEF-thigh.R.001]: mat4x4((1.000000, 0.000000, -0.000011, 0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (0.000011, -0.000000, 1.000000, 0.000000), (-0.000000, 0.254006, 0.000000, 1.000000))
-INFO: Processing node: DEF-thigh.R.001 with parent: DEF-thigh.R
-INFO: Bone [DEF-thigh.R.001] parent set to: DEF-thigh.R
-INFO: Captured local bind transform for bone [DEF-shin.R]: mat4x4((1.000000, -0.000001, -0.000027, 0.000000), (0.000004, 0.991792, 0.127859, 0.000000), (0.000026, -0.127859, 0.991792, 0.000000), (0.000000, 0.254006, 0.000000, 1.000000))
-INFO: Processing node: DEF-shin.R with parent: DEF-thigh.R.001
-INFO: Bone [DEF-shin.R] parent set to: DEF-thigh.R.001
-INFO: Captured local bind transform for bone [DEF-shin.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.212019, -0.000000, 1.000000))
-INFO: Processing node: DEF-shin.R.001 with parent: DEF-shin.R
-INFO: Bone [DEF-shin.R.001] parent set to: DEF-shin.R
-INFO: Captured local bind transform for bone [DEF-foot.R]: mat4x4((0.886180, 0.312472, -0.342120, 0.000000), (-0.463245, 0.612519, -0.640488, 0.000000), (0.009421, 0.726073, 0.687553, 0.000000), (0.000000, 0.212020, 0.000000, 1.000000))
-INFO: Processing node: DEF-foot.R with parent: DEF-shin.R.001
-INFO: Bone [DEF-foot.R] parent set to: DEF-shin.R.001
-INFO: Captured local bind transform for bone [DEF-toe.R]: mat4x4((-1.000000, 0.000006, -0.000000, 0.000000), (0.000004, 0.738798, -0.673927, 0.000000), (-0.000003, -0.673927, -0.738798, 0.000000), (-0.000000, 0.093590, -0.000000, 1.000000))
-INFO: Processing node: DEF-toe.R with parent: DEF-foot.R
-INFO: Bone [DEF-toe.R] parent set to: DEF-foot.R
-INFO: Processing node: MCH-spine.002 with parent:
-INFO: Processing node: spine_fk.002 with parent:
-INFO: Processing node: MCH-spine.003 with parent:
-INFO: Processing node: spine_fk.003 with parent:
-INFO: Processing node: tweak_spine.003 with parent:
-INFO: Processing node: ORG-spine.003 with parent:
-INFO: Processing node: ORG-shoulder.L with parent:
-INFO: Captured local bind transform for bone [DEF-shoulder.L]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Processing node: DEF-shoulder.L with parent:
-INFO: Bone [DEF-shoulder.L] parent set to:
-INFO: Captured local bind transform for bone [DEF-upper_arm.L]: mat4x4((0.258290, -0.150805, 0.954224, 0.000000), (0.564178, 0.825353, -0.022273, 0.000000), (-0.784213, 0.544105, 0.298261, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Processing node: DEF-upper_arm.L with parent:
-INFO: Bone [DEF-upper_arm.L] parent set to:
-INFO: Captured local bind transform for bone [DEF-upper_arm.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.131829, -0.000000, 1.000000))
-INFO: Processing node: DEF-upper_arm.L.001 with parent: DEF-upper_arm.L
-INFO: Bone [DEF-upper_arm.L.001] parent set to: DEF-upper_arm.L
-INFO: Captured local bind transform for bone [DEF-forearm.L]: mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.996212, 0.086960, 0.000000), (0.000000, -0.086960, 0.996212, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
-INFO: Processing node: DEF-forearm.L with parent: DEF-upper_arm.L.001
-INFO: Bone [DEF-forearm.L] parent set to: DEF-upper_arm.L.001
-INFO: Captured local bind transform for bone [DEF-forearm.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.120149, 0.000000, 1.000000))
-INFO: Processing node: DEF-forearm.L.001 with parent: DEF-forearm.L
-INFO: Bone [DEF-forearm.L.001] parent set to: DEF-forearm.L
-INFO: Captured local bind transform for bone [DEF-hand.L]: mat4x4((0.999639, 0.026777, -0.001976, 0.000000), (-0.026850, 0.996926, -0.073599, 0.000000), (-0.000001, 0.073626, 0.997286, 0.000000), (-0.000000, 0.120149, -0.000000, 1.000000))
-INFO: Processing node: DEF-hand.L with parent: DEF-forearm.L.001
-INFO: Bone [DEF-hand.L] parent set to: DEF-forearm.L.001
-INFO: Processing node: ORG-shoulder.R with parent:
-INFO: Captured local bind transform for bone [DEF-shoulder.R]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Processing node: DEF-shoulder.R with parent:
-INFO: Bone [DEF-shoulder.R] parent set to:
-INFO: Captured local bind transform for bone [DEF-upper_arm.R]: mat4x4((0.258289, 0.150806, -0.954224, 0.000000), (-0.564179, 0.825352, -0.022273, 0.000000), (0.784212, 0.544106, 0.298261, 0.000000), (-0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Processing node: DEF-upper_arm.R with parent:
-INFO: Bone [DEF-upper_arm.R] parent set to:
-INFO: Captured local bind transform for bone [DEF-upper_arm.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.131829, -0.000000, 1.000000))
-INFO: Processing node: DEF-upper_arm.R.001 with parent: DEF-upper_arm.R
-INFO: Bone [DEF-upper_arm.R.001] parent set to: DEF-upper_arm.R
-INFO: Captured local bind transform for bone [DEF-forearm.R]: mat4x4((1.000000, 0.000000, -0.000000, 0.000000), (-0.000000, 0.996212, 0.086960, 0.000000), (0.000000, -0.086960, 0.996212, 0.000000), (-0.000000, 0.131829, -0.000000, 1.000000))
-INFO: Processing node: DEF-forearm.R with parent: DEF-upper_arm.R.001
-INFO: Bone [DEF-forearm.R] parent set to: DEF-upper_arm.R.001
-INFO: Captured local bind transform for bone [DEF-forearm.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.120149, -0.000000, 1.000000))
-INFO: Processing node: DEF-forearm.R.001 with parent: DEF-forearm.R
-INFO: Bone [DEF-forearm.R.001] parent set to: DEF-forearm.R
-INFO: Captured local bind transform for bone [DEF-hand.R]: mat4x4((0.999639, -0.026778, 0.001977, 0.000000), (0.026851, 0.996926, -0.073600, 0.000000), (-0.000000, 0.073627, 0.997286, 0.000000), (0.000000, 0.120149, 0.000000, 1.000000))
-INFO: Processing node: DEF-hand.R with parent: DEF-forearm.R.001
-INFO: Bone [DEF-hand.R] parent set to: DEF-forearm.R.001
-INFO: Processing node: ORG-breast.L with parent:
-INFO: Captured local bind transform for bone [DEF-breast.L]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Processing node: DEF-breast.L with parent:
-INFO: Bone [DEF-breast.L] parent set to:
-INFO: Processing node: ORG-breast.R with parent:
-INFO: Captured local bind transform for bone [DEF-breast.R]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Processing node: DEF-breast.R with parent:
-INFO: Bone [DEF-breast.R] parent set to:
 INFO: Loaded 1 meshes.
-INFO: Bone [DEF-spine] has no parent; using identity for parent transform.
-INFO: Bone [DEF-spine] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, 0.235478, 0.000000), (0.000000, -0.235478, 0.971880, 0.000000), (0.000000, 0.971368, -0.116460, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-spine]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 0.971880, -0.235478, 0.000000), (0.000000, 0.235478, 0.971880, -0.000000), (-0.000000, -0.916629, 0.341921, 1.000000))
-INFO: Using cached global transform for bone DEF-spine
-INFO: Bone [DEF-spine.001] parent's (DEF-spine) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, 0.235478, 0.000000), (0.000000, -0.235478, 0.971880, 0.000000), (0.000000, 0.971368, -0.116460, 1.000000))
-INFO: Bone [DEF-spine.001] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.992412, 0.122954, 0.000000), (0.000000, -0.122954, 0.992412, 0.000000), (0.000000, 1.122382, -0.079871, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-spine.001]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 0.992412, -0.122954, 0.000000), (0.000000, 0.122954, 0.992412, -0.000000), (-0.000000, -1.104045, 0.217266, 1.000000))
-INFO: Using cached global transform for bone DEF-spine.001
-INFO: Bone [DEF-spine.002] parent's (DEF-spine.001) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.992412, 0.122954, 0.000000), (0.000000, -0.122954, 0.992412, 0.000000), (0.000000, 1.122382, -0.079871, 1.000000))
-INFO: Bone [DEF-spine.002] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999869, -0.016174, 0.000000), (0.000000, 0.016174, 0.999869, 0.000000), (0.000000, 1.210230, -0.068987, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-spine.002]: mat4x4((1.000000, -0.000000, -0.000000, -0.000000), (-0.000000, 0.999869, 0.016174, 0.000000), (0.000000, -0.016174, 0.999869, -0.000000), (-0.000000, -1.211187, 0.049404, 1.000000))
-INFO: Using cached global transform for bone DEF-spine.002
-INFO: Bone [DEF-spine.003] parent's (DEF-spine.002) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999869, -0.016174, 0.000000), (0.000000, 0.016174, 0.999869, 0.000000), (0.000000, 1.210230, -0.068987, 1.000000))
-INFO: Bone [DEF-spine.003] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999592, -0.028560, 0.000000), (0.000000, 0.028560, 0.999592, 0.000000), (0.000000, 1.384251, -0.071802, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-spine.003]: mat4x4((1.000000, -0.000000, -0.000000, -0.000000), (-0.000000, 0.999592, 0.028560, 0.000000), (0.000000, -0.028560, 0.999592, -0.000000), (-0.000000, -1.385737, 0.032239, 1.000000))
-INFO: Using cached global transform for bone DEF-spine.003
-INFO: Bone [DEF-spine.004] parent's (DEF-spine.003) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999592, -0.028560, 0.000000), (0.000000, 0.028560, 0.999592, 0.000000), (0.000000, 1.384251, -0.071802, 1.000000))
-INFO: Bone [DEF-spine.004] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.929515, 0.368784, 0.000000), (0.000000, -0.368784, 0.929515, 0.000000), (0.000000, 1.558626, -0.076784, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-spine.004]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 0.929515, -0.368784, 0.000000), (0.000000, 0.368784, 0.929515, -0.000000), (-0.000000, -1.420450, 0.646169, 1.000000))
-INFO: Using cached global transform for bone DEF-spine.004
-INFO: Bone [DEF-spine.005] parent's (DEF-spine.004) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.929515, 0.368784, 0.000000), (0.000000, -0.368784, 0.929515, 0.000000), (0.000000, 1.558626, -0.076784, 1.000000))
-INFO: Bone [DEF-spine.005] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982436, 0.186599, 0.000000), (0.000000, -0.186599, 0.982436, 0.000000), (0.000000, 1.614335, -0.054682, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-spine.005]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 0.982436, -0.186599, 0.000000), (0.000000, 0.186599, 0.982436, -0.000000), (-0.000000, -1.575778, 0.354955, 1.000000))
-INFO: Using cached global transform for bone DEF-spine.005
-INFO: Bone [DEF-spine.006] parent's (DEF-spine.005) global transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982436, 0.186599, 0.000000), (0.000000, -0.186599, 0.982436, 0.000000), (0.000000, 1.614335, -0.054682, 1.000000))
-INFO: Bone [DEF-spine.006] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (0.000000, 1.670135, -0.044083, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-spine.006]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, 0.000000, 1.000000, -0.000000), (-0.000000, -1.670135, 0.044083, 1.000000))
-INFO: Bone [DEF-pelvis.L] has no parent; using identity for parent transform.
-INFO: Bone [DEF-pelvis.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-pelvis.L]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
-INFO: Bone [DEF-pelvis.R] has no parent; using identity for parent transform.
-INFO: Bone [DEF-pelvis.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-pelvis.R]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
-INFO: Bone [DEF-thigh.L] has no parent; using identity for parent transform.
-INFO: Bone [DEF-thigh.L] final computed transform: mat4x4((0.935411, 0.024853, 0.352686, 0.000000), (-0.093496, -0.944628, 0.314541, 0.000000), (0.340975, -0.327200, -0.881292, 0.000000), (0.129494, 0.071716, 0.022516, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-thigh.L]: mat4x4((0.935412, -0.093496, 0.340975, -0.000000), (0.024853, -0.944628, -0.327200, 0.000000), (0.352686, 0.314541, -0.881292, -0.000000), (-0.130854, 0.072770, -0.000846, 1.000000))
-INFO: Using cached global transform for bone DEF-thigh.L
-INFO: Bone [DEF-thigh.L.001] parent's (DEF-thigh.L) global transform: mat4x4((0.935411, 0.024853, 0.352686, 0.000000), (-0.093496, -0.944628, 0.314541, 0.000000), (0.340975, -0.327200, -0.881292, 0.000000), (0.129494, 0.071716, 0.022516, 1.000000))
-INFO: Bone [DEF-thigh.L.001] final computed transform: mat4x4((0.935415, 0.024850, 0.352676, 0.000000), (-0.093496, -0.944628, 0.314541, 0.000000), (0.340964, -0.327201, -0.881296, 0.000000), (0.105746, -0.168225, 0.102411, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-thigh.L.001]: mat4x4((0.935415, -0.093496, 0.340964, -0.000000), (0.024850, -0.944628, -0.327201, 0.000000), (0.352676, 0.314541, -0.881296, -0.000000), (-0.130854, -0.181236, -0.000844, 1.000000))
-INFO: Using cached global transform for bone DEF-thigh.L.001
-INFO: Bone [DEF-shin.L] parent's (DEF-thigh.L.001) global transform: mat4x4((0.935415, 0.024850, 0.352676, 0.000000), (-0.093496, -0.944628, 0.314541, 0.000000), (0.340964, -0.327201, -0.881296, 0.000000), (0.105746, -0.168225, 0.102411, 1.000000))
-INFO: Bone [DEF-shin.L] final computed transform: mat4x4((0.935424, 0.024840, 0.352653, 0.000000), (-0.049137, -0.978711, 0.199276, 0.000000), (0.350095, -0.203736, -0.914289, 0.000000), (0.081997, -0.408166, 0.182306, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-shin.L]: mat4x4((0.935425, -0.049137, 0.350095, -0.000000), (0.024840, -0.978711, -0.203737, 0.000000), (0.352653, 0.199276, -0.914289, -0.000000), (-0.130854, -0.431776, 0.054816, 1.000000))
-INFO: Using cached global transform for bone DEF-shin.L
-INFO: Bone [DEF-shin.L.001] parent's (DEF-shin.L) global transform: mat4x4((0.935424, 0.024840, 0.352653, 0.000000), (-0.049137, -0.978711, 0.199276, 0.000000), (0.350095, -0.203736, -0.914289, 0.000000), (0.081997, -0.408166, 0.182306, 1.000000))
-INFO: Bone [DEF-shin.L.001] final computed transform: mat4x4((0.935424, 0.024840, 0.352653, 0.000000), (-0.049137, -0.978711, 0.199276, 0.000000), (0.350095, -0.203736, -0.914289, 0.000000), (0.071579, -0.615672, 0.224557, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-shin.L.001]: mat4x4((0.935425, -0.049137, 0.350095, -0.000000), (0.024840, -0.978711, -0.203737, 0.000000), (0.352653, 0.199276, -0.914289, -0.000000), (-0.130854, -0.643796, 0.054816, 1.000000))
-INFO: Using cached global transform for bone DEF-shin.L.001
-INFO: Bone [DEF-foot.L] parent's (DEF-shin.L.001) global transform: mat4x4((0.935424, 0.024840, 0.352653, 0.000000), (-0.049137, -0.978711, 0.199276, 0.000000), (0.350095, -0.203736, -0.914289, 0.000000), (0.071579, -0.615672, 0.224557, 1.000000))
-INFO: Bone [DEF-foot.L] final computed transform: mat4x4((0.964083, 0.258130, -0.062551, 0.000000), (0.179001, -0.457481, 0.871017, 0.000000), (0.196220, -0.850929, -0.487255, 0.000000), (0.061161, -0.823177, 0.266807, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-foot.L]: mat4x4((0.964083, 0.179001, 0.196220, -0.000000), (0.258130, -0.457481, -0.850929, 0.000000), (-0.062551, 0.871017, -0.487255, -0.000000), (0.170211, -0.619929, -0.582463, 1.000000))
-INFO: Using cached global transform for bone DEF-foot.L
-INFO: Bone [DEF-toe.L] parent's (DEF-foot.L) global transform: mat4x4((0.964083, 0.258130, -0.062551, 0.000000), (0.179001, -0.457481, 0.871017, 0.000000), (0.196220, -0.850929, -0.487255, 0.000000), (0.061161, -0.823177, 0.266807, 1.000000))
-INFO: Bone [DEF-toe.L] final computed transform: mat4x4((-0.964084, -0.258128, 0.062546, 0.000000), (0.000004, 0.235477, 0.971880, 0.000000), (-0.265597, 0.936974, -0.227018, 0.000000), (0.077914, -0.865993, 0.348326, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-toe.L]: mat4x4((-0.964084, 0.000004, -0.265597, 0.000000), (-0.258128, 0.235477, 0.936974, 0.000000), (0.062546, 0.971880, -0.227019, -0.000000), (-0.170208, -0.134610, 0.911183, 1.000000))
-INFO: Bone [DEF-thigh.R] has no parent; using identity for parent transform.
-INFO: Bone [DEF-thigh.R] final computed transform: mat4x4((0.935411, -0.024853, -0.352686, 0.000000), (0.093496, -0.944628, 0.314541, 0.000000), (-0.340975, -0.327200, -0.881292, 0.000000), (-0.129494, 0.071716, 0.022516, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-thigh.R]: mat4x4((0.935412, 0.093496, -0.340975, -0.000000), (-0.024853, -0.944628, -0.327200, 0.000000), (-0.352686, 0.314541, -0.881292, -0.000000), (0.130854, 0.072770, -0.000846, 1.000000))
-INFO: Using cached global transform for bone DEF-thigh.R
-INFO: Bone [DEF-thigh.R.001] parent's (DEF-thigh.R) global transform: mat4x4((0.935411, -0.024853, -0.352686, 0.000000), (0.093496, -0.944628, 0.314541, 0.000000), (-0.340975, -0.327200, -0.881292, 0.000000), (-0.129494, 0.071716, 0.022516, 1.000000))
-INFO: Bone [DEF-thigh.R.001] final computed transform: mat4x4((0.935415, -0.024850, -0.352676, 0.000000), (0.093496, -0.944628, 0.314541, 0.000000), (-0.340964, -0.327201, -0.881296, 0.000000), (-0.105746, -0.168225, 0.102411, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-thigh.R.001]: mat4x4((0.935415, 0.093496, -0.340964, -0.000000), (-0.024850, -0.944628, -0.327201, 0.000000), (-0.352676, 0.314541, -0.881296, -0.000000), (0.130854, -0.181236, -0.000844, 1.000000))
-INFO: Using cached global transform for bone DEF-thigh.R.001
-INFO: Bone [DEF-shin.R] parent's (DEF-thigh.R.001) global transform: mat4x4((0.935415, -0.024850, -0.352676, 0.000000), (0.093496, -0.944628, 0.314541, 0.000000), (-0.340964, -0.327201, -0.881296, 0.000000), (-0.105746, -0.168225, 0.102411, 1.000000))
-INFO: Bone [DEF-shin.R] final computed transform: mat4x4((0.935424, -0.024840, -0.352653, 0.000000), (0.049137, -0.978711, 0.199276, 0.000000), (-0.350095, -0.203736, -0.914289, 0.000000), (-0.081997, -0.408166, 0.182306, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-shin.R]: mat4x4((0.935425, 0.049137, -0.350095, -0.000000), (-0.024840, -0.978711, -0.203736, 0.000000), (-0.352653, 0.199276, -0.914289, -0.000000), (0.130854, -0.431777, 0.054816, 1.000000))
-INFO: Using cached global transform for bone DEF-shin.R
-INFO: Bone [DEF-shin.R.001] parent's (DEF-shin.R) global transform: mat4x4((0.935424, -0.024840, -0.352653, 0.000000), (0.049137, -0.978711, 0.199276, 0.000000), (-0.350095, -0.203736, -0.914289, 0.000000), (-0.081997, -0.408166, 0.182306, 1.000000))
-INFO: Bone [DEF-shin.R.001] final computed transform: mat4x4((0.935424, -0.024840, -0.352653, 0.000000), (0.049137, -0.978711, 0.199276, 0.000000), (-0.350095, -0.203736, -0.914289, 0.000000), (-0.071579, -0.615672, 0.224557, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-shin.R.001]: mat4x4((0.935425, 0.049137, -0.350095, -0.000000), (-0.024840, -0.978711, -0.203736, 0.000000), (-0.352653, 0.199276, -0.914289, -0.000000), (0.130854, -0.643796, 0.054816, 1.000000))
-INFO: Using cached global transform for bone DEF-shin.R.001
-INFO: Bone [DEF-foot.R] parent's (DEF-shin.R.001) global transform: mat4x4((0.935424, -0.024840, -0.352653, 0.000000), (0.049137, -0.978711, 0.199276, 0.000000), (-0.350095, -0.203736, -0.914289, 0.000000), (-0.071579, -0.615672, 0.224557, 1.000000))
-INFO: Bone [DEF-foot.R] final computed transform: mat4x4((0.964083, -0.258130, 0.062551, 0.000000), (-0.179001, -0.457481, 0.871016, 0.000000), (-0.196220, -0.850929, -0.487256, 0.000000), (-0.061161, -0.823177, 0.266807, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-foot.R]: mat4x4((0.964083, -0.179001, -0.196220, -0.000000), (-0.258130, -0.457481, -0.850929, 0.000000), (0.062551, 0.871016, -0.487256, -0.000000), (-0.170211, -0.619929, -0.582463, 1.000000))
-INFO: Using cached global transform for bone DEF-foot.R
-INFO: Bone [DEF-toe.R] parent's (DEF-foot.R) global transform: mat4x4((0.964083, -0.258130, 0.062551, 0.000000), (-0.179001, -0.457481, 0.871016, 0.000000), (-0.196220, -0.850929, -0.487256, 0.000000), (-0.061161, -0.823177, 0.266807, 1.000000))
-INFO: Bone [DEF-toe.R] final computed transform: mat4x4((-0.964084, 0.258128, -0.062546, 0.000000), (-0.000004, 0.235476, 0.971880, 0.000000), (0.265597, 0.936974, -0.227018, 0.000000), (-0.077914, -0.865993, 0.348326, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-toe.R]: mat4x4((-0.964084, -0.000004, 0.265597, -0.000000), (0.258128, 0.235476, 0.936974, -0.000000), (-0.062546, 0.971880, -0.227018, -0.000000), (0.170208, -0.134610, 0.911183, 1.000000))
-INFO: Bone [DEF-shoulder.L] has no parent; using identity for parent transform.
-INFO: Bone [DEF-shoulder.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-shoulder.L]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
-INFO: DEBUG: Arm bone [DEF-upper_arm.L] local transform: mat4x4((0.258290, -0.150805, 0.954224, 0.000000), (0.564178, 0.825353, -0.022273, 0.000000), (-0.784213, 0.544105, 0.298261, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Bone [DEF-upper_arm.L] has no parent; using identity for parent transform.
-INFO: DEBUG: Arm bone [DEF-upper_arm.L] final global transform: mat4x4((0.258290, -0.150805, 0.954224, 0.000000), (0.564178, 0.825353, -0.022273, 0.000000), (-0.784213, 0.544105, 0.298261, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Bone [DEF-upper_arm.L] final computed transform: mat4x4((0.258290, -0.150805, 0.954224, 0.000000), (0.564178, 0.825353, -0.022273, 0.000000), (-0.784213, 0.544105, 0.298261, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-upper_arm.L]: mat4x4((0.258290, 0.564177, -0.784213, -0.000000), (-0.150805, 0.825353, 0.544105, 0.000000), (0.954224, -0.022273, 0.298261, -0.000000), (0.043226, -0.154513, -0.087922, 1.000000))
-INFO: Using cached global transform for bone DEF-upper_arm.L
-INFO: Bone [DEF-upper_arm.L.001] parent's (DEF-upper_arm.L) global transform: mat4x4((0.258290, -0.150805, 0.954224, 0.000000), (0.564178, 0.825353, -0.022273, 0.000000), (-0.784213, 0.544105, 0.298261, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Bone [DEF-upper_arm.L.001] final computed transform: mat4x4((0.258290, -0.150805, 0.954224, 0.000000), (0.564178, 0.825353, -0.022273, 0.000000), (-0.784213, 0.544105, 0.298261, 0.000000), (0.081433, 0.290691, -0.021401, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-upper_arm.L.001]: mat4x4((0.258290, 0.564177, -0.784213, -0.000000), (-0.150805, 0.825353, 0.544105, 0.000000), (0.954224, -0.022273, 0.298261, -0.000000), (0.043226, -0.286342, -0.087922, 1.000000))
-INFO: Using cached global transform for bone DEF-upper_arm.L.001
-INFO: Bone [DEF-forearm.L] parent's (DEF-upper_arm.L.001) global transform: mat4x4((0.258290, -0.150805, 0.954224, 0.000000), (0.564178, 0.825353, -0.022273, 0.000000), (-0.784213, 0.544105, 0.298261, 0.000000), (0.081433, 0.290691, -0.021401, 1.000000))
-INFO: Bone [DEF-forearm.L] final computed transform: mat4x4((0.258290, -0.150806, 0.954224, 0.000000), (0.493845, 0.869542, 0.003748, 0.000000), (-0.830303, 0.470271, 0.299068, 0.000000), (0.155808, 0.399496, -0.024337, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-forearm.L]: mat4x4((0.258290, 0.493845, -0.830303, -0.000000), (-0.150806, 0.869542, 0.470271, 0.000000), (0.954224, 0.003748, 0.299068, -0.000000), (0.043226, -0.424232, -0.051225, 1.000000))
-INFO: Using cached global transform for bone DEF-forearm.L
-INFO: Bone [DEF-forearm.L.001] parent's (DEF-forearm.L) global transform: mat4x4((0.258290, -0.150806, 0.954224, 0.000000), (0.493845, 0.869542, 0.003748, 0.000000), (-0.830303, 0.470271, 0.299068, 0.000000), (0.155808, 0.399496, -0.024337, 1.000000))
-INFO: Bone [DEF-forearm.L.001] final computed transform: mat4x4((0.258290, -0.150806, 0.954224, 0.000000), (0.493845, 0.869542, 0.003748, 0.000000), (-0.830303, 0.470271, 0.299068, 0.000000), (0.215143, 0.503970, -0.023887, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-forearm.L.001]: mat4x4((0.258290, 0.493845, -0.830303, -0.000000), (-0.150806, 0.869542, 0.470271, 0.000000), (0.954224, 0.003748, 0.299068, -0.000000), (0.043226, -0.544381, -0.051225, 1.000000))
-INFO: Using cached global transform for bone DEF-forearm.L.001
-INFO: Bone [DEF-hand.L] parent's (DEF-forearm.L.001) global transform: mat4x4((0.258290, -0.150806, 0.954224, 0.000000), (0.493845, 0.869542, 0.003748, 0.000000), (-0.830303, 0.470271, 0.299068, 0.000000), (0.215143, 0.503970, -0.023887, 1.000000))
-INFO: Bone [DEF-hand.L] final computed transform: mat4x4((0.273061, -0.128397, 0.953390, 0.000000), (0.546502, 0.836307, -0.043895, 0.000000), (-0.791690, 0.533015, 0.298532, 0.000000), (0.274478, 0.608445, -0.023437, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-hand.L]: mat4x4((0.273061, 0.546502, -0.791690, -0.000000), (-0.128397, 0.836307, 0.533015, 0.000000), (0.953390, -0.043895, 0.298532, -0.000000), (0.025518, -0.659878, -0.100012, 1.000000))
-INFO: Bone [DEF-shoulder.R] has no parent; using identity for parent transform.
-INFO: Bone [DEF-shoulder.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-shoulder.R]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
-INFO: DEBUG: Arm bone [DEF-upper_arm.R] local transform: mat4x4((0.258289, 0.150806, -0.954224, 0.000000), (-0.564179, 0.825352, -0.022273, 0.000000), (0.784212, 0.544106, 0.298261, 0.000000), (-0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Bone [DEF-upper_arm.R] has no parent; using identity for parent transform.
-INFO: DEBUG: Arm bone [DEF-upper_arm.R] final global transform: mat4x4((0.258289, 0.150806, -0.954224, 0.000000), (-0.564179, 0.825352, -0.022273, 0.000000), (0.784212, 0.544106, 0.298261, 0.000000), (-0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Bone [DEF-upper_arm.R] final computed transform: mat4x4((0.258289, 0.150806, -0.954224, 0.000000), (-0.564179, 0.825352, -0.022273, 0.000000), (0.784212, 0.544106, 0.298261, 0.000000), (-0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-upper_arm.R]: mat4x4((0.258289, -0.564179, 0.784212, -0.000000), (0.150806, 0.825352, 0.544106, -0.000000), (-0.954224, -0.022273, 0.298261, -0.000000), (-0.043226, -0.154512, -0.087922, 1.000000))
-INFO: Using cached global transform for bone DEF-upper_arm.R
-INFO: Bone [DEF-upper_arm.R.001] parent's (DEF-upper_arm.R) global transform: mat4x4((0.258289, 0.150806, -0.954224, 0.000000), (-0.564179, 0.825352, -0.022273, 0.000000), (0.784212, 0.544106, 0.298261, 0.000000), (-0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Bone [DEF-upper_arm.R.001] final computed transform: mat4x4((0.258289, 0.150806, -0.954224, 0.000000), (-0.564179, 0.825352, -0.022273, 0.000000), (0.784212, 0.544106, 0.298261, 0.000000), (-0.081433, 0.290690, -0.021401, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-upper_arm.R.001]: mat4x4((0.258289, -0.564179, 0.784212, -0.000000), (0.150806, 0.825352, 0.544106, -0.000000), (-0.954224, -0.022273, 0.298261, -0.000000), (-0.043226, -0.286342, -0.087922, 1.000000))
-INFO: Using cached global transform for bone DEF-upper_arm.R.001
-INFO: Bone [DEF-forearm.R] parent's (DEF-upper_arm.R.001) global transform: mat4x4((0.258289, 0.150806, -0.954224, 0.000000), (-0.564179, 0.825352, -0.022273, 0.000000), (0.784212, 0.544106, 0.298261, 0.000000), (-0.081433, 0.290690, -0.021401, 1.000000))
-INFO: Bone [DEF-forearm.R] final computed transform: mat4x4((0.258289, 0.150806, -0.954225, 0.000000), (-0.493846, 0.869541, 0.003749, 0.000000), (0.830303, 0.470272, 0.299068, 0.000000), (-0.155809, 0.399496, -0.024337, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-forearm.R]: mat4x4((0.258289, -0.493846, 0.830303, -0.000000), (0.150806, 0.869541, 0.470272, 0.000000), (-0.954225, 0.003749, 0.299068, -0.000000), (-0.043226, -0.424232, -0.051225, 1.000000))
-INFO: Using cached global transform for bone DEF-forearm.R
-INFO: Bone [DEF-forearm.R.001] parent's (DEF-forearm.R) global transform: mat4x4((0.258289, 0.150806, -0.954225, 0.000000), (-0.493846, 0.869541, 0.003749, 0.000000), (0.830303, 0.470272, 0.299068, 0.000000), (-0.155809, 0.399496, -0.024337, 1.000000))
-INFO: Bone [DEF-forearm.R.001] final computed transform: mat4x4((0.258289, 0.150806, -0.954225, 0.000000), (-0.493846, 0.869541, 0.003749, 0.000000), (0.830303, 0.470272, 0.299068, 0.000000), (-0.215143, 0.503970, -0.023887, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-forearm.R.001]: mat4x4((0.258289, -0.493846, 0.830303, -0.000000), (0.150806, 0.869541, 0.470272, 0.000000), (-0.954225, 0.003749, 0.299068, -0.000000), (-0.043226, -0.544381, -0.051225, 1.000000))
-INFO: Using cached global transform for bone DEF-forearm.R.001
-INFO: Bone [DEF-hand.R] parent's (DEF-forearm.R.001) global transform: mat4x4((0.258289, 0.150806, -0.954225, 0.000000), (-0.493846, 0.869541, 0.003749, 0.000000), (0.830303, 0.470272, 0.299068, 0.000000), (-0.215143, 0.503970, -0.023887, 1.000000))
-INFO: Bone [DEF-hand.R] final computed transform: mat4x4((0.273062, 0.128397, -0.953390, 0.000000), (-0.546503, 0.836306, -0.043896, 0.000000), (0.791689, 0.533017, 0.298532, 0.000000), (-0.274478, 0.608444, -0.023436, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-hand.R]: mat4x4((0.273062, -0.546503, 0.791689, -0.000000), (0.128397, 0.836306, 0.533017, -0.000000), (-0.953390, -0.043896, 0.298532, -0.000000), (-0.025517, -0.659877, -0.100013, 1.000000))
-INFO: Bone [DEF-breast.L] has no parent; using identity for parent transform.
-INFO: Bone [DEF-breast.L] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-breast.L]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
-INFO: Bone [DEF-breast.R] has no parent; using identity for parent transform.
-INFO: Bone [DEF-breast.R] final computed transform: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: Recomputed Offset Matrix for Bone [DEF-breast.R]: mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
 INFO: Loaded 1 meshes.
 INFO: INFO: Model loaded successfully.
-INFO: DEBUG: Bounding Box Center: (0.000000, 0.940108, -0.027487)
-INFO: DEBUG: Bounding Box Radius: 1.230948
-INFO: DEBUG: Adjusted Camera Position: (0.000000, 0.940108, 7.401939)
+INFO: DEBUG: Bounding Box Center: (0.000000, -2.748672, -94.010834)
+INFO: DEBUG: Bounding Box Radius: 123.094772
+INFO: DEBUG: Adjusted Camera Position: (0.000000, -2.748672, 648.931885)
 INFO: INFO: Attempting to load animation: Action.001 from file: Character_TPose_Anim.fbx
 INFO: Loading animation from: Character_TPose_Anim.fbx
 INFO: INFO: Successfully found animations in file.
@@ -527,9 +205,81 @@ INFO: INFO: Successfully loaded animation: Action.001
 INFO: Switched to animation: Action.001
 INFO: INFO: Set current animation to Action.001.
 INFO: DEBUG: Depth testing and blending enabled.
-INFO: Debug: Animation time updated to: 1.370347
-INFO: INFO: Interpolating keyframes at animation time: 1.370347
+INFO: Debug: Animation time updated to: 4.140574
+INFO: INFO: Interpolating keyframes at animation time: 4.140574
 INFO: INFO: Keyframe count: 31
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.370347
-INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.370347
+INFO: Bone Transform Interpolation at factor: 0.140574
+INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.140574
+WARNING: ANIM FINAL MATRIX: DEF-forearm.L @ time 4.140574
+WARNING: mat4x4((0.999996, 0.000000, -0.002750, 0.000000), (0.000542, 0.980336, 0.197337, 0.000000), (0.002696, -0.197338, 0.980332, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.140574
+INFO: INFO: Interpolated bone: DEF-forearm.L.001 with factor: 0.140574
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.140574
+INFO: INFO: Interpolated bone: DEF-forearm.R with factor: 0.140574
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.140574
+INFO: INFO: Interpolated bone: DEF-forearm.R.001 with factor: 0.140574
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.140574
+INFO: INFO: Interpolated bone: DEF-hand.L with factor: 0.140574
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.140574
+INFO: INFO: Interpolated bone: DEF-hand.R with factor: 0.140574
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.140574
+INFO: INFO: Interpolated bone: DEF-upper_arm.L with factor: 0.140574
+WARNING: ANIM FINAL MATRIX: DEF-upper_arm.L @ time 4.140574
+WARNING: mat4x4((0.211772, -0.215235, 0.953324, 0.000000), (0.605436, 0.794626, 0.044913, 0.000000), (-0.767203, 0.567665, 0.298591, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.140574
+INFO: INFO: Interpolated bone: DEF-upper_arm.L.001 with factor: 0.140574
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.140574
+INFO: INFO: Interpolated bone: DEF-upper_arm.R with factor: 0.140574
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.140574
+INFO: INFO: Interpolated bone: DEF-upper_arm.R.001 with factor: 0.140574
+WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-forearm.L ===
+WARNING: GLOBAL Transform:
+mat4x4((0.999996, 0.000000, -0.002750, 0.000000), (0.000542, 0.980336, 0.197337, 0.000000), (0.002696, -0.197338, 0.980332, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
+WARNING: Offset (Bind Inverse):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+WARNING: Resulting Final:
+mat4x4((0.999996, 0.000000, -0.002750, 0.000000), (0.000542, 0.980336, 0.197337, 0.000000), (0.002696, -0.197338, 0.980332, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
+INFO: Decomposed transform for DEF-forearm.L: Translation(8.48912e-08, 0.131829, 7.44963e-08), Scale(1, 1, 1)
+INFO: DEBUG: After Storing Bone DEF-forearm.L
+INFO: FLAT APPLY: Using global * offset for bone: DEF-forearm.L
+INFO: DEBUG: After Storing Bone DEF-forearm.L.001
+INFO: FLAT APPLY: Using global * offset for bone: DEF-forearm.L.001
+INFO: DEBUG: After Storing Bone DEF-forearm.R
+INFO: FLAT APPLY: Using global * offset for bone: DEF-forearm.R
+INFO: DEBUG: After Storing Bone DEF-forearm.R.001
+INFO: FLAT APPLY: Using global * offset for bone: DEF-forearm.R.001
+INFO: DEBUG: After Storing Bone DEF-hand.L
+INFO: FLAT APPLY: Using global * offset for bone: DEF-hand.L
+INFO: DEBUG: After Storing Bone DEF-hand.R
+INFO: FLAT APPLY: Using global * offset for bone: DEF-hand.R
+WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-upper_arm.L ===
+WARNING: GLOBAL Transform:
+mat4x4((0.211772, -0.215235, 0.953324, 0.000000), (0.605436, 0.794626, 0.044913, 0.000000), (-0.767203, 0.567665, 0.298591, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
+WARNING: Offset (Bind Inverse):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+WARNING: Resulting Final:
+mat4x4((0.211772, -0.215235, 0.953324, 0.000000), (0.605436, 0.794626, 0.044913, 0.000000), (-0.767203, 0.567665, 0.298591, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
+INFO: Decomposed transform for DEF-upper_arm.L: Translation(0.00705806, 0.181885, -0.0184647), Scale(1, 1, 1)
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L
+INFO: FLAT APPLY: Using global * offset for bone: DEF-upper_arm.L
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
+INFO: FLAT APPLY: Using global * offset for bone: DEF-upper_arm.L.001
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R
+INFO: FLAT APPLY: Using global * offset for bone: DEF-upper_arm.R
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
+INFO: FLAT APPLY: Using global * offset for bone: DEF-upper_arm.R.001
+INFO: DEBUG: Max Vertex Attributes: 32
+
+C:\Users\mjgou\source\repos\OpenEngine\x64\Debug\OpenEngine.exe (process 31624) exited with code 3.
+To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
