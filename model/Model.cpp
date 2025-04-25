@@ -40,7 +40,6 @@ void Model::loadModel(const std::string& path) {
 
     globalInverseTransform = glm::inverse(convertAiMatrix(scene->mRootNode->mTransformation));
     Logger::log("Global inverse transform set from root node transformation.", Logger::INFO);
-    Logger::log("Global inverse transform matrix: " + glm::to_string(globalInverseTransform), Logger::INFO);
 
     processNode(scene->mRootNode, scene);
 
@@ -50,36 +49,12 @@ void Model::loadModel(const std::string& path) {
     }
     Logger::log("==== EXPLICIT BONE MAPPING END ====", Logger::INFO);
 
-    if (boneMapping.find("DEF-spine") != boneMapping.end()) {
-        int spineIndex = boneMapping["DEF-spine"];
-        glm::mat4 spineOffsetMatrix = bones[spineIndex].offsetMatrix;
-        Logger::log("DEF-spine offset matrix explicitly logged for verification:", Logger::INFO);
-        Logger::log(glm::to_string(spineOffsetMatrix), Logger::INFO);
-    }
-    else {
-        Logger::log("DEF-spine bone not found for explicit offset matrix logging.", Logger::ERROR);
-    }
-
-    updateBoneHierarchy(scene->mRootNode, "");
-    Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
-
-    // Recalculate offset matrices using the global bind pose
-    std::unordered_map<std::string, glm::mat4> globalBindPoseCache;
-    for (auto& bone : bones) {
-        auto it = boneLocalBindTransforms.find(bone.name);
-        if (it != boneLocalBindTransforms.end()) {
-            glm::mat4 globalBindPose = calculateBoneTransform(bone.name, boneLocalBindTransforms, globalBindPoseCache);
-            boneGlobalBindPose[bone.name] = globalBindPose; // store for animation normalization
-
-            glm::mat4 recalculatedOffset = glm::inverse(globalBindPose);
-
-            Logger::log("Offset matrix from Assimp for bone [" + bone.name + "]:\n" + glm::to_string(bone.offsetMatrix), Logger::WARNING);
-            Logger::log("Recalculated offset matrix from bind pose inverse for bone [" + bone.name + "]:\n" + glm::to_string(recalculatedOffset), Logger::WARNING);
-
-            bone.offsetMatrix = recalculatedOffset;
-        }
-    }
+    // REMOVE or COMMENT OUT:
+    // updateBoneHierarchy(scene->mRootNode, "");
+    // recalculate offset matrices using calculateBoneTransform
 }
+
+
 void Model::processNode(aiNode* node, const aiScene* scene) {
     for (unsigned int i = 0; i < node->mNumMeshes; i++) {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
@@ -116,7 +91,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         }
         else {
             vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-            Logger::log("Vertex[" + std::to_string(i) + "] missing texcoords, set to (0,0)", Logger::WARNING);
         }
 
         vertex.BoneIDs = glm::ivec4(-1);
@@ -132,15 +106,12 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         }
     }
 
-    // Process bones and assign influences to vertices
+    // Process bones
     for (unsigned int i = 0; i < mesh->mNumBones; i++) {
         aiBone* bone = mesh->mBones[i];
         std::string boneName(bone->mName.C_Str());
 
         glm::mat4 offsetMatrix = convertAiMatrix(bone->mOffsetMatrix);
-        // Add this debug log immediately after converting Assimp offset matrix
-        Logger::log("DEBUG: Loaded Assimp Offset Matrix for bone [" + boneName + "]:\n" +
-            glm::to_string(offsetMatrix), Logger::WARNING);
 
         if (boneName.rfind("DEF-", 0) != 0)
             continue;
@@ -154,15 +125,20 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
             newBone.name = boneName;
             newBone.offsetMatrix = offsetMatrix;
             bones.push_back(newBone);
-            Logger::log("New bone added: " + boneName + " assigned index: " + std::to_string(boneIndex), Logger::INFO);
+
+            // new: bind pose is inverse of offsetMatrix
+            glm::mat4 bindPoseMatrix = glm::inverse(offsetMatrix);
+            boneGlobalBindPose[boneName] = bindPoseMatrix;
         }
         else {
             boneIndex = boneMapping[boneName];
         }
 
+        // Assign weights
         for (unsigned int j = 0; j < bone->mNumWeights; j++) {
             unsigned int vertexID = bone->mWeights[j].mVertexId;
             float weight = bone->mWeights[j].mWeight;
+
             bool assigned = false;
             for (int k = 0; k < 4; k++) {
                 if (vertices[vertexID].Weights[k] == 0.0f) {
@@ -178,31 +154,21 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         }
     }
 
-    for (size_t i = 0; i < vertices.size(); i++) {
-        float totalWeight = vertices[i].Weights[0] + vertices[i].Weights[1] +
-            vertices[i].Weights[2] + vertices[i].Weights[3];
-        if (totalWeight == 0.0f) {
-            vertices[i].BoneIDs = glm::ivec4(0);
-            vertices[i].Weights = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
-            Logger::log("Vertex " + std::to_string(i) + " assigned fallback bone (0).", Logger::INFO);
+    // Normalize weights
+    for (auto& vertex : vertices) {
+        float totalWeight = vertex.Weights.x + vertex.Weights.y + vertex.Weights.z + vertex.Weights.w;
+        if (totalWeight > 0.0f) {
+            vertex.Weights /= totalWeight;
         }
         else {
-            vertices[i].Weights /= totalWeight;
+            vertex.BoneIDs = glm::ivec4(0);
+            vertex.Weights = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
         }
-        Logger::log("Vertex[" + std::to_string(i) + "] BoneIDs: [" +
-            std::to_string(vertices[i].BoneIDs.x) + ", " +
-            std::to_string(vertices[i].BoneIDs.y) + ", " +
-            std::to_string(vertices[i].BoneIDs.z) + ", " +
-            std::to_string(vertices[i].BoneIDs.w) + "] Weights: [" +
-            std::to_string(vertices[i].Weights.x) + ", " +
-            std::to_string(vertices[i].Weights.y) + ", " +
-            std::to_string(vertices[i].Weights.z) + ", " +
-            std::to_string(vertices[i].Weights.w) + "]", Logger::DEBUG);
     }
 
-    Logger::log("Mesh loaded successfully with explicit vertex and Assimp offset matrix logging.", Logger::INFO);
     return Mesh(vertices, indices, textures);
 }
+
 
 void Model::Draw(Shader& shader)
 {

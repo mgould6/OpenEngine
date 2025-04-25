@@ -1,933 +1,490 @@
-#define GLM_ENABLE_EXPERIMENTAL
-#include "Model.h"
-#include "../animation/DebugTools.h"
-#include <iostream>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/matrix_decompose.hpp>
-#include "../common_utils/Logger.h"
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/string_cast.hpp> 
-
-// Forward declaration of convertAiMatrix so it can be used in loadModel()
-static glm::mat4 convertAiMatrix(const aiMatrix4x4& from);
-// Just place this near the top of Model.cpp
-static glm::mat4 convertAiMatrix(const aiMatrix4x4& from)
-{
-    return glm::mat4(
-        from.a1, from.b1, from.c1, from.d1,
-        from.a2, from.b2, from.c2, from.d2,
-        from.a3, from.b3, from.c3, from.d3,
-        from.a4, from.b4, from.c4, from.d4
-    );
-}
-Model::Model(const std::string& path) {
-    Logger::log("Loading model from path: " + path, Logger::INFO);
-    loadModel(path);
-    Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
-}
-
-void Model::loadModel(const std::string& path)
-{
-    Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(
-        path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_LimitBoneWeights
-    );
-
-
-    if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode)
-    {
-        Logger::log("ERROR::ASSIMP::" + std::string(importer.GetErrorString()), Logger::ERROR);
-        return;
-    }
-
-    directory = path.substr(0, path.find_last_of('/'));
-
-    globalInverseTransform = glm::inverse(convertAiMatrix(scene->mRootNode->mTransformation));
-    Logger::log("Global inverse transform set from root node transformation.", Logger::INFO);
-    Logger::log("Global inverse transform matrix: " + glm::to_string(globalInverseTransform), Logger::INFO);
-
-    processNode(scene->mRootNode, scene);
-
-    Logger::log("==== Explicit Bone Mapping BEGIN ====", Logger::INFO);
-    for (const auto& bonePair : boneMapping) {
-        Logger::log("Bone Mapping ID[" + std::to_string(bonePair.second) + "] maps to Bone Name[" + bonePair.first + "]", Logger::INFO);
-    }
-    Logger::log("==== EXPLICIT BONE MAPPING END ====", Logger::INFO);
-
-    if (boneMapping.find("DEF-spine") != boneMapping.end()) {
-        int spineIndex = boneMapping["DEF-spine"];
-        glm::mat4 spineOffsetMatrix = bones[spineIndex].offsetMatrix;
-        Logger::log("DEF-spine offset matrix explicitly logged for verification:", Logger::INFO);
-        Logger::log(glm::to_string(spineOffsetMatrix), Logger::INFO);
-    }
-    else {
-        Logger::log("DEF-spine bone not found for explicit offset matrix logging.", Logger::ERROR);
-    }
-
-    updateBoneHierarchy(scene->mRootNode, "");
-    Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
-
-    // Recalculate offset matrices using the global bind pose
-    std::unordered_map<std::string, glm::mat4> globalBindPoseCache;
-    for (auto& bone : bones) {
-        auto it = boneLocalBindTransforms.find(bone.name);
-        if (it != boneLocalBindTransforms.end()) {
-            glm::mat4 globalBindPose = calculateBoneTransform(bone.name, boneLocalBindTransforms, globalBindPoseCache);
-            bone.offsetMatrix = glm::inverse(globalBindPose);
-            Logger::log("Recomputed Offset Matrix for Bone [" + bone.name + "]: " + glm::to_string(bone.offsetMatrix), Logger::INFO);
-        }
-    }
-}
-
-void Model::processNode(aiNode* node, const aiScene* scene) {
-    for (unsigned int i = 0; i < node->mNumMeshes; i++) {
-        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(processMesh(mesh, scene));
-    }
-    for (unsigned int i = 0; i < node->mNumChildren; i++) {
-        processNode(node->mChildren[i], scene);
-    }
-}
-
-
-// New helper function to retrieve a bone name by its index.
-std::string Model::getBoneName(int index) const {
-    if (index >= 0 && index < (int)bones.size()) {
-        return bones[index].name;
-    }
-    return "";
-}
-
-Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
-{
-    std::vector<Vertex> vertices;
-    std::vector<unsigned int> indices;
-    std::vector<Texture> textures;
-
-    // Process vertices
-    for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
-        Vertex vertex;
-        vertex.Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-        vertex.Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
-
-        if (mesh->mTextureCoords[0]) {
-            vertex.TexCoords = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
-        }
-        else {
-            vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-            Logger::log("Vertex[" + std::to_string(i) + "] missing texcoords, set to (0,0)", Logger::WARNING);
-        }
-
-        vertex.BoneIDs = glm::ivec4(-1);
-        vertex.Weights = glm::vec4(0.0f);
-        vertices.push_back(vertex);
-    }
-
-    // Process faces
-    for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
-        aiFace face = mesh->mFaces[i];
-        for (unsigned int j = 0; j < face.mNumIndices; j++) {
-            indices.push_back(face.mIndices[j]);
-        }
-    }
-
-    // Process bones and assign influences to vertices
-    for (unsigned int i = 0; i < mesh->mNumBones; i++) {
-        aiBone* bone = mesh->mBones[i];
-        std::string boneName(bone->mName.C_Str());
-
-        glm::mat4 offsetMatrix = convertAiMatrix(bone->mOffsetMatrix);
-        // Add this debug log immediately after converting Assimp offset matrix
-        Logger::log("DEBUG: Loaded Assimp Offset Matrix for bone [" + boneName + "]:\n" +
-            glm::to_string(offsetMatrix), Logger::WARNING);
-
-        if (boneName.rfind("DEF-", 0) != 0)
-            continue;
-
-        int boneIndex = 0;
-        if (boneMapping.find(boneName) == boneMapping.end()) {
-            boneIndex = bones.size();
-            boneMapping[boneName] = boneIndex;
-
-            Bone newBone;
-            newBone.name = boneName;
-            newBone.offsetMatrix = offsetMatrix;
-            bones.push_back(newBone);
-            Logger::log("New bone added: " + boneName + " assigned index: " + std::to_string(boneIndex), Logger::INFO);
-        }
-        else {
-            boneIndex = boneMapping[boneName];
-        }
-
-        for (unsigned int j = 0; j < bone->mNumWeights; j++) {
-            unsigned int vertexID = bone->mWeights[j].mVertexId;
-            float weight = bone->mWeights[j].mWeight;
-            bool assigned = false;
-            for (int k = 0; k < 4; k++) {
-                if (vertices[vertexID].Weights[k] == 0.0f) {
-                    vertices[vertexID].BoneIDs[k] = boneIndex;
-                    vertices[vertexID].Weights[k] = weight;
-                    assigned = true;
-                    break;
-                }
-            }
-            if (!assigned) {
-                Logger::log("WARNING: Vertex " + std::to_string(vertexID) + " exceeded 4 bone influences.", Logger::WARNING);
-            }
-        }
-    }
-
-    for (size_t i = 0; i < vertices.size(); i++) {
-        float totalWeight = vertices[i].Weights[0] + vertices[i].Weights[1] +
-            vertices[i].Weights[2] + vertices[i].Weights[3];
-        if (totalWeight == 0.0f) {
-            vertices[i].BoneIDs = glm::ivec4(0);
-            vertices[i].Weights = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
-            Logger::log("Vertex " + std::to_string(i) + " assigned fallback bone (0).", Logger::INFO);
-        }
-        else {
-            vertices[i].Weights /= totalWeight;
-        }
-        Logger::log("Vertex[" + std::to_string(i) + "] BoneIDs: [" +
-            std::to_string(vertices[i].BoneIDs.x) + ", " +
-            std::to_string(vertices[i].BoneIDs.y) + ", " +
-            std::to_string(vertices[i].BoneIDs.z) + ", " +
-            std::to_string(vertices[i].BoneIDs.w) + "] Weights: [" +
-            std::to_string(vertices[i].Weights.x) + ", " +
-            std::to_string(vertices[i].Weights.y) + ", " +
-            std::to_string(vertices[i].Weights.z) + ", " +
-            std::to_string(vertices[i].Weights.w) + "]", Logger::DEBUG);
-    }
-
-    Logger::log("Mesh loaded successfully with explicit vertex and Assimp offset matrix logging.", Logger::INFO);
-    return Mesh(vertices, indices, textures);
-}
-
-void Model::Draw(Shader& shader)
-{
-    std::vector<glm::mat4> finalMatrices(bones.size(), glm::mat4(1.0f));
-
-    for (size_t i = 0; i < bones.size(); i++) {
-        glm::mat4 globalTransform = getBoneTransform(bones[i].name);
-
-        // Combine with offset matrix to move from bind pose to animated pose
-        bones[i].finalTransform = globalTransform;
-        finalMatrices[i] = bones[i].finalTransform;
-
-        // Debug output (optional)
-        Logger::log("Bone [" + bones[i].name + "] FINAL TRANSFORM:", Logger::INFO);
-        Logger::log(glm::to_string(bones[i].finalTransform), Logger::INFO);
-
-        glm::vec3 scale, translation, skew;
-        glm::quat rotation;
-        glm::vec4 perspective;
-        glm::decompose(bones[i].finalTransform, scale, rotation, translation, skew, perspective);
-        Logger::log("Bone: " + bones[i].name +
-            " Scale: " + glm::to_string(scale) +
-            " Translation: " + glm::to_string(translation) +
-            " Skew: " + glm::to_string(skew), Logger::INFO);
-
-        DebugTools::logDecomposedTransform(bones[i].name, bones[i].finalTransform);
-    }
-
-    shader.use();
-    shader.setMat4Array("boneTransforms", finalMatrices);
-
-    for (auto& mesh : meshes)
-        mesh.Draw(shader);
-}
-
-
-
-glm::vec3 Model::getBoundingBoxCenter() const {
-    glm::vec3 min(FLT_MAX), max(-FLT_MAX);
-    for (const auto& mesh : meshes) {
-        for (const auto& vertex : mesh.vertices) {
-            min = glm::min(min, vertex.Position);
-            max = glm::max(max, vertex.Position);
-        }
-    }
-    glm::vec3 center = (min + max) / 2.0f;
-
-    Logger::log("DEBUG: Bounding Box Center: (" + std::to_string(center.x) + ", " +
-        std::to_string(center.y) + ", " + std::to_string(center.z) + ")", Logger::INFO);
-
-    return center;
-}
-
-
-float Model::getBoundingBoxRadius() const {
-    glm::vec3 min(FLT_MAX), max(-FLT_MAX);
-    for (const auto& mesh : meshes) {
-        for (const auto& vertex : mesh.vertices) {
-            min = glm::min(min, vertex.Position);
-            max = glm::max(max, vertex.Position);
-        }
-    }
-    float radius = glm::distance(min, max) / 2.0f;
-
-    Logger::log("DEBUG: Bounding Box Radius: " + std::to_string(radius), Logger::INFO);
-
-    return radius;
-}
-
-
-const std::vector<Bone>& Model::getBones() const {
-    return bones;
-}
-
-const std::unordered_map<std::string, glm::mat4>& Model::getBoneTransforms() const {
-    return boneTransforms;
-}
-
-const glm::mat4& Model::getBoneTransform(const std::string& boneName) const {
-    static const glm::mat4 identity = glm::mat4(1.0f);
-    auto it = boneTransforms.find(boneName);
-    return it != boneTransforms.end() ? it->second : identity;
-}
-
-
-void Model::setBoneTransform(const std::string& boneName, const glm::mat4& transform) {
-    boneTransforms[boneName] = transform;
-    Logger::log("DEBUG: After Storing Bone " + boneName, Logger::INFO);
-}
-
-
-
-
-
-std::string Model::getBoneParent(const std::string& boneName) const {
-    for (const auto& bone : bones) {
-        if (bone.name == boneName) {
-            return bone.parentName;
-        }
-    }
-    return "";
-}
-
-void Model::forceTestBoneTransform() {
-
-    //commented out for now
-    //std::string testBone = "DEF-spine";
-
-    //if (boneTransforms.find(testBone) != boneTransforms.end()) {
-    //    glm::mat4 originalTransform = boneTransforms[testBone];
-    //    glm::mat4 incrementalTranslation = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.5f, 0.0f));  // Smaller offset
-    //    boneTransforms[testBone] = originalTransform * incrementalTranslation;
-
-    //    Logger::log("DEBUG: Incrementally overriding bone [" + testBone + "] with Y+0.5 translation.", Logger::INFO);
-    //    Logger::log("DEBUG: Original Transform: " + glm::to_string(originalTransform), Logger::INFO);
-    //    Logger::log("DEBUG: New Incremental Transform: " + glm::to_string(boneTransforms[testBone]), Logger::INFO);
-    //}
-    //else {
-    //    Logger::log("ERROR: Bone " + testBone + " not found in boneTransforms.", Logger::ERROR);
-    //}
-}
-
-int Model::getBoneIndex(const std::string& boneName) const {
-    auto it = boneMapping.find(boneName);
-    return (it != boneMapping.end()) ? it->second : -1;
-}
-
-
-// Recursively update the bone hierarchy using the scene graph
-void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentName) {
-
-
-
-    std::string nodeName(node->mName.C_Str());
-
-    bool isDefBone = nodeName.rfind("DEF-", 0) == 0;
-
-    // If this node is a bone, store its local transformation
-    if (boneMapping.find(nodeName) != boneMapping.end()) {
-        glm::mat4 local = convertAiMatrix(node->mTransformation);
-        boneLocalBindTransforms[nodeName] = local;
-        Logger::log("Captured local bind transform for bone [" + nodeName + "]: " + glm::to_string(local), Logger::INFO);
-    }
-
-    if (nodeName.find("DEF-upper_arm.L") != std::string::npos ||
-        nodeName.find("DEF-forearm.L") != std::string::npos ||
-        nodeName.find("DEF-hand.L") != std::string::npos ||
-        nodeName.find("DEF-shoulder.L") != std::string::npos) {
-        Logger::log("ARM CHAIN NODE FOUND: " + nodeName + "  -> Parent: " + parentName, Logger::WARNING);
-    }
-
-
-    Logger::log("Processing node: " + nodeName + " with parent: " + parentName, Logger::INFO);
-
-    // If this node corresponds to a bone, update its parent info
-    if (boneMapping.find(nodeName) != boneMapping.end()) {
-        for (auto& bone : bones) {
-            if (bone.name == nodeName) {
-                bone.parentName = parentName;
-                Logger::log("Bone [" + bone.name + "] parent set to: " + parentName, Logger::INFO);
-                break;
-            }
-        }
-    }
-    // Always recurse — children might still be DEF bones
-    for (unsigned int i = 0; i < node->mNumChildren; i++) {
-        std::string currentName(node->mChildren[i]->mName.C_Str());
-        std::string thisParent = boneMapping.count(nodeName) ? nodeName : parentName;
-        updateBoneHierarchy(node->mChildren[i], thisParent);
-    }
-
-}
-
-
-// This is the key function for recursively accumulating bone transforms
-glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
-    const std::unordered_map<std::string, glm::mat4>& localTransforms,
-    std::unordered_map<std::string, glm::mat4>& globalTransforms) {
-
-    // If already computed, return the cached transform.
-    auto cached = globalTransforms.find(boneName);
-    if (cached != globalTransforms.end()) {
-        Logger::log("Using cached global transform for bone " + boneName, Logger::INFO);
-        return cached->second;
-    }
-
-    // Retrieve the local transform. Default to identity if not found.
-    glm::mat4 localTransform = glm::mat4(1.0f);
-    auto it = localTransforms.find(boneName);
-    if (it == localTransforms.end()) {
-        // Fallback to bind-pose transform if no animation provided
-        auto bindIt = boneLocalBindTransforms.find(boneName);
-        if (bindIt != boneLocalBindTransforms.end()) {
-            localTransform = bindIt->second;
-            Logger::log("Using bind-pose transform for bone [" + boneName + "]", Logger::DEBUG);
-        }
-        else {
-            Logger::log("No local or bind transform found for bone [" + boneName + "]; using identity.", Logger::WARNING);
-        }
-    }
-    else {
-        localTransform = it->second;
-    }
-
-    // Log local transform specifically for arm bones
-    if (boneName == "DEF-upper_arm.L" || boneName == "DEF-upper_arm.R") {
-        Logger::log("DEBUG: Arm bone [" + boneName + "] local transform: " + glm::to_string(localTransform), Logger::INFO);
-    }
-
-    // Get the parent's name and recursively compute its global transform.
-    std::string parentName = getBoneParent(boneName);
-    glm::mat4 parentTransform = glm::mat4(1.0f);
-    if (!parentName.empty()) {
-        parentTransform = calculateBoneTransform(parentName, localTransforms, globalTransforms);
-        Logger::log("Bone [" + boneName + "] parent's (" + parentName + ") global transform: " + glm::to_string(parentTransform), Logger::INFO);
-    }
-    else {
-        Logger::log("Bone [" + boneName + "] has no parent; using identity for parent transform.", Logger::INFO);
-    }
-
-    // Compute final global transform
-    glm::mat4 finalTransform = parentTransform * localTransform;
-
-    // Log final global transform specifically for arm bones
-    if (boneName == "DEF-upper_arm.L" || boneName == "DEF-upper_arm.R") {
-        Logger::log("DEBUG: Arm bone [" + boneName + "] final global transform: " + glm::to_string(finalTransform), Logger::INFO);
-    }
-
-    globalTransforms[boneName] = finalTransform;
-    Logger::log("Bone [" + boneName + "] final computed transform: " + glm::to_string(finalTransform), Logger::INFO);
-    return finalTransform;
-}
-
-std::vector<glm::mat4> Model::getFinalBoneMatrices() const {
-    std::vector<glm::mat4> matrices;
-    matrices.reserve(bones.size());
-
-    for (const auto& bone : bones) {
-        matrices.push_back(bone.finalTransform);
-    }
-    return matrices;
-}
-
-glm::mat4 Model::getBoneOffsetMatrix(const std::string& boneName) const {
-    int index = getBoneIndex(boneName);
-    if (index >= 0 && index < bones.size()) {
-        return bones[index].offsetMatrix;
-    }
-    return glm::mat4(1.0f); // default to identity if bone not found
-}
-
-glm::mat4 Model::getGlobalInverseTransform() const {
-    return globalInverseTransform;
-}
-
-
-bool Model::hasBone(const std::string& name) const {
-    return boneMapping.find(name) != boneMapping.end();
-}
-
-
-#define GLM_ENABLE_EXPERIMENTAL
-#include "Model.h"
-#include "../animation/DebugTools.h"
-#include <iostream>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/matrix_decompose.hpp>
-#include "../common_utils/Logger.h"
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/string_cast.hpp> 
-
-// Forward declaration of convertAiMatrix so it can be used in loadModel()
-static glm::mat4 convertAiMatrix(const aiMatrix4x4& from);
-// Just place this near the top of Model.cpp
-static glm::mat4 convertAiMatrix(const aiMatrix4x4& from)
-{
-    return glm::mat4(
-        from.a1, from.b1, from.c1, from.d1,
-        from.a2, from.b2, from.c2, from.d2,
-        from.a3, from.b3, from.c3, from.d3,
-        from.a4, from.b4, from.c4, from.d4
-    );
-}
-Model::Model(const std::string& path) {
-    Logger::log("Loading model from path: " + path, Logger::INFO);
-    loadModel(path);
-    Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
-}
-
-void Model::loadModel(const std::string& path)
-{
-    Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(
-        path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_LimitBoneWeights
-    );
-
-    if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode)
-    {
-        Logger::log("ERROR::ASSIMP::" + std::string(importer.GetErrorString()), Logger::ERROR);
-        return;
-    }
-
-    directory = path.substr(0, path.find_last_of('/'));
-
-    globalInverseTransform = glm::inverse(convertAiMatrix(scene->mRootNode->mTransformation));
-    Logger::log("Global inverse transform set from root node transformation.", Logger::INFO);
-    Logger::log("Global inverse transform matrix: " + glm::to_string(globalInverseTransform), Logger::INFO);
-
-    processNode(scene->mRootNode, scene);
-
-    Logger::log("==== Explicit Bone Mapping BEGIN ====", Logger::INFO);
-    for (const auto& bonePair : boneMapping) {
-        Logger::log("Bone Mapping ID[" + std::to_string(bonePair.second) + "] maps to Bone Name[" + bonePair.first + "]", Logger::INFO);
-    }
-    Logger::log("==== EXPLICIT BONE MAPPING END ====", Logger::INFO);
-
-    if (boneMapping.find("DEF-spine") != boneMapping.end()) {
-        int spineIndex = boneMapping["DEF-spine"];
-        glm::mat4 spineOffsetMatrix = bones[spineIndex].offsetMatrix;
-        Logger::log("DEF-spine offset matrix explicitly logged for verification:", Logger::INFO);
-        Logger::log(glm::to_string(spineOffsetMatrix), Logger::INFO);
-    }
-    else {
-        Logger::log("DEF-spine bone not found for explicit offset matrix logging.", Logger::ERROR);
-    }
-
-    updateBoneHierarchy(scene->mRootNode, "");
-    Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
-
-    // Recalculate offset matrices using the global bind pose
-    std::unordered_map<std::string, glm::mat4> globalBindPoseCache;
-    for (auto& bone : bones) {
-        auto it = boneLocalBindTransforms.find(bone.name);
-        if (it != boneLocalBindTransforms.end()) {
-            glm::mat4 globalBindPose = calculateBoneTransform(bone.name, boneLocalBindTransforms, globalBindPoseCache);
-            glm::mat4 recalculatedOffset = glm::inverse(globalBindPose);
-
-            Logger::log("Offset matrix from Assimp for bone [" + bone.name + "]:\n" + glm::to_string(bone.offsetMatrix), Logger::WARNING);
-            Logger::log("Recalculated offset matrix from bind pose inverse for bone [" + bone.name + "]:\n" + glm::to_string(recalculatedOffset), Logger::WARNING);
-
-            bone.offsetMatrix = recalculatedOffset;
-        }
-    }
-}
-
-void Model::processNode(aiNode* node, const aiScene* scene) {
-    for (unsigned int i = 0; i < node->mNumMeshes; i++) {
-        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(processMesh(mesh, scene));
-    }
-    for (unsigned int i = 0; i < node->mNumChildren; i++) {
-        processNode(node->mChildren[i], scene);
-    }
-}
-
-
-// New helper function to retrieve a bone name by its index.
-std::string Model::getBoneName(int index) const {
-    if (index >= 0 && index < (int)bones.size()) {
-        return bones[index].name;
-    }
-    return "";
-}
-
-Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
-{
-    std::vector<Vertex> vertices;
-    std::vector<unsigned int> indices;
-    std::vector<Texture> textures;
-
-    // Process vertices
-    for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
-        Vertex vertex;
-        vertex.Position = glm::vec3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-        vertex.Normal = glm::vec3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
-
-        if (mesh->mTextureCoords[0]) {
-            vertex.TexCoords = glm::vec2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
-        }
-        else {
-            vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-            Logger::log("Vertex[" + std::to_string(i) + "] missing texcoords, set to (0,0)", Logger::WARNING);
-        }
-
-        vertex.BoneIDs = glm::ivec4(-1);
-        vertex.Weights = glm::vec4(0.0f);
-        vertices.push_back(vertex);
-    }
-
-    // Process faces
-    for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
-        aiFace face = mesh->mFaces[i];
-        for (unsigned int j = 0; j < face.mNumIndices; j++) {
-            indices.push_back(face.mIndices[j]);
-        }
-    }
-
-    // Process bones and assign influences to vertices
-    for (unsigned int i = 0; i < mesh->mNumBones; i++) {
-        aiBone* bone = mesh->mBones[i];
-        std::string boneName(bone->mName.C_Str());
-
-        glm::mat4 offsetMatrix = convertAiMatrix(bone->mOffsetMatrix);
-        // Add this debug log immediately after converting Assimp offset matrix
-        Logger::log("DEBUG: Loaded Assimp Offset Matrix for bone [" + boneName + "]:\n" +
-            glm::to_string(offsetMatrix), Logger::WARNING);
-
-        if (boneName.rfind("DEF-", 0) != 0)
-            continue;
-
-        int boneIndex = 0;
-        if (boneMapping.find(boneName) == boneMapping.end()) {
-            boneIndex = bones.size();
-            boneMapping[boneName] = boneIndex;
-
-            Bone newBone;
-            newBone.name = boneName;
-            newBone.offsetMatrix = offsetMatrix;
-            bones.push_back(newBone);
-            Logger::log("New bone added: " + boneName + " assigned index: " + std::to_string(boneIndex), Logger::INFO);
-        }
-        else {
-            boneIndex = boneMapping[boneName];
-        }
-
-        for (unsigned int j = 0; j < bone->mNumWeights; j++) {
-            unsigned int vertexID = bone->mWeights[j].mVertexId;
-            float weight = bone->mWeights[j].mWeight;
-            bool assigned = false;
-            for (int k = 0; k < 4; k++) {
-                if (vertices[vertexID].Weights[k] == 0.0f) {
-                    vertices[vertexID].BoneIDs[k] = boneIndex;
-                    vertices[vertexID].Weights[k] = weight;
-                    assigned = true;
-                    break;
-                }
-            }
-            if (!assigned) {
-                Logger::log("WARNING: Vertex " + std::to_string(vertexID) + " exceeded 4 bone influences.", Logger::WARNING);
-            }
-        }
-    }
-
-    for (size_t i = 0; i < vertices.size(); i++) {
-        float totalWeight = vertices[i].Weights[0] + vertices[i].Weights[1] +
-            vertices[i].Weights[2] + vertices[i].Weights[3];
-        if (totalWeight == 0.0f) {
-            vertices[i].BoneIDs = glm::ivec4(0);
-            vertices[i].Weights = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
-            Logger::log("Vertex " + std::to_string(i) + " assigned fallback bone (0).", Logger::INFO);
-        }
-        else {
-            vertices[i].Weights /= totalWeight;
-        }
-        Logger::log("Vertex[" + std::to_string(i) + "] BoneIDs: [" +
-            std::to_string(vertices[i].BoneIDs.x) + ", " +
-            std::to_string(vertices[i].BoneIDs.y) + ", " +
-            std::to_string(vertices[i].BoneIDs.z) + ", " +
-            std::to_string(vertices[i].BoneIDs.w) + "] Weights: [" +
-            std::to_string(vertices[i].Weights.x) + ", " +
-            std::to_string(vertices[i].Weights.y) + ", " +
-            std::to_string(vertices[i].Weights.z) + ", " +
-            std::to_string(vertices[i].Weights.w) + "]", Logger::DEBUG);
-    }
-
-    Logger::log("Mesh loaded successfully with explicit vertex and Assimp offset matrix logging.", Logger::INFO);
-    return Mesh(vertices, indices, textures);
-}
-
-void Model::Draw(Shader& shader)
-{
-    std::vector<glm::mat4> finalMatrices(bones.size(), glm::mat4(1.0f));
-
-    for (size_t i = 0; i < bones.size(); i++) {
-        glm::mat4 globalTransform = getBoneTransform(bones[i].name);
-
-        // Combine with offset matrix to move from bind pose to animated pose
-        bones[i].finalTransform = globalTransform;
-        finalMatrices[i] = bones[i].finalTransform;
-
-        // Debug output (optional)
-        Logger::log("Bone [" + bones[i].name + "] FINAL TRANSFORM:", Logger::INFO);
-        Logger::log(glm::to_string(bones[i].finalTransform), Logger::INFO);
-
-        glm::vec3 scale, translation, skew;
-        glm::quat rotation;
-        glm::vec4 perspective;
-        glm::decompose(bones[i].finalTransform, scale, rotation, translation, skew, perspective);
-        Logger::log("Bone: " + bones[i].name +
-            " Scale: " + glm::to_string(scale) +
-            " Translation: " + glm::to_string(translation) +
-            " Skew: " + glm::to_string(skew), Logger::INFO);
-
-        DebugTools::logDecomposedTransform(bones[i].name, bones[i].finalTransform);
-    }
-
-    shader.use();
-    shader.setMat4Array("boneTransforms", finalMatrices);
-
-    for (auto& mesh : meshes)
-        mesh.Draw(shader);
-}
-
-
-
-glm::vec3 Model::getBoundingBoxCenter() const {
-    glm::vec3 min(FLT_MAX), max(-FLT_MAX);
-    for (const auto& mesh : meshes) {
-        for (const auto& vertex : mesh.vertices) {
-            min = glm::min(min, vertex.Position);
-            max = glm::max(max, vertex.Position);
-        }
-    }
-    glm::vec3 center = (min + max) / 2.0f;
-
-    Logger::log("DEBUG: Bounding Box Center: (" + std::to_string(center.x) + ", " +
-        std::to_string(center.y) + ", " + std::to_string(center.z) + ")", Logger::INFO);
-
-    return center;
-}
-
-
-float Model::getBoundingBoxRadius() const {
-    glm::vec3 min(FLT_MAX), max(-FLT_MAX);
-    for (const auto& mesh : meshes) {
-        for (const auto& vertex : mesh.vertices) {
-            min = glm::min(min, vertex.Position);
-            max = glm::max(max, vertex.Position);
-        }
-    }
-    float radius = glm::distance(min, max) / 2.0f;
-
-    Logger::log("DEBUG: Bounding Box Radius: " + std::to_string(radius), Logger::INFO);
-
-    return radius;
-}
-
-
-const std::vector<Bone>& Model::getBones() const {
-    return bones;
-}
-
-const std::unordered_map<std::string, glm::mat4>& Model::getBoneTransforms() const {
-    return boneTransforms;
-}
-
-const glm::mat4& Model::getBoneTransform(const std::string& boneName) const {
-    static const glm::mat4 identity = glm::mat4(1.0f);
-    auto it = boneTransforms.find(boneName);
-    return it != boneTransforms.end() ? it->second : identity;
-}
-
-
-void Model::setBoneTransform(const std::string& boneName, const glm::mat4& transform) {
-    boneTransforms[boneName] = transform;
-    Logger::log("DEBUG: After Storing Bone " + boneName, Logger::INFO);
-}
-
-
-
-
-
-std::string Model::getBoneParent(const std::string& boneName) const {
-    for (const auto& bone : bones) {
-        if (bone.name == boneName) {
-            return bone.parentName;
-        }
-    }
-    return "";
-}
-
-void Model::forceTestBoneTransform() {
-
-    //commented out for now
-    //std::string testBone = "DEF-spine";
-
-    //if (boneTransforms.find(testBone) != boneTransforms.end()) {
-    //    glm::mat4 originalTransform = boneTransforms[testBone];
-    //    glm::mat4 incrementalTranslation = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.5f, 0.0f));  // Smaller offset
-    //    boneTransforms[testBone] = originalTransform * incrementalTranslation;
-
-    //    Logger::log("DEBUG: Incrementally overriding bone [" + testBone + "] with Y+0.5 translation.", Logger::INFO);
-    //    Logger::log("DEBUG: Original Transform: " + glm::to_string(originalTransform), Logger::INFO);
-    //    Logger::log("DEBUG: New Incremental Transform: " + glm::to_string(boneTransforms[testBone]), Logger::INFO);
-    //}
-    //else {
-    //    Logger::log("ERROR: Bone " + testBone + " not found in boneTransforms.", Logger::ERROR);
-    //}
-}
-
-int Model::getBoneIndex(const std::string& boneName) const {
-    auto it = boneMapping.find(boneName);
-    return (it != boneMapping.end()) ? it->second : -1;
-}
-
-
-// Recursively update the bone hierarchy using the scene graph
-void Model::updateBoneHierarchy(const aiNode* node, const std::string& parentName) {
-
-
-
-    std::string nodeName(node->mName.C_Str());
-
-    bool isDefBone = nodeName.rfind("DEF-", 0) == 0;
-
-    // If this node is a bone, store its local transformation
-    if (boneMapping.find(nodeName) != boneMapping.end()) {
-        glm::mat4 local = convertAiMatrix(node->mTransformation);
-        boneLocalBindTransforms[nodeName] = local;
-        Logger::log("Captured local bind transform for bone [" + nodeName + "]: " + glm::to_string(local), Logger::INFO);
-    }
-
-    if (nodeName.find("DEF-upper_arm.L") != std::string::npos ||
-        nodeName.find("DEF-forearm.L") != std::string::npos ||
-        nodeName.find("DEF-hand.L") != std::string::npos ||
-        nodeName.find("DEF-shoulder.L") != std::string::npos) {
-        Logger::log("ARM CHAIN NODE FOUND: " + nodeName + "  -> Parent: " + parentName, Logger::WARNING);
-    }
-
-
-    Logger::log("Processing node: " + nodeName + " with parent: " + parentName, Logger::INFO);
-
-    // If this node corresponds to a bone, update its parent info
-    if (boneMapping.find(nodeName) != boneMapping.end()) {
-        for (auto& bone : bones) {
-            if (bone.name == nodeName) {
-                bone.parentName = parentName;
-                Logger::log("Bone [" + bone.name + "] parent set to: " + parentName, Logger::INFO);
-                break;
-            }
-        }
-    }
-    // Always recurse — children might still be DEF bones
-    for (unsigned int i = 0; i < node->mNumChildren; i++) {
-        std::string currentName(node->mChildren[i]->mName.C_Str());
-        std::string thisParent = boneMapping.count(nodeName) ? nodeName : parentName;
-        updateBoneHierarchy(node->mChildren[i], thisParent);
-    }
-
-}
-
-
-// This is the key function for recursively accumulating bone transforms
-glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
-    const std::unordered_map<std::string, glm::mat4>& localTransforms,
-    std::unordered_map<std::string, glm::mat4>& globalTransforms) {
-
-    // If already computed, return the cached transform.
-    auto cached = globalTransforms.find(boneName);
-    if (cached != globalTransforms.end()) {
-        Logger::log("Using cached global transform for bone " + boneName, Logger::INFO);
-        return cached->second;
-    }
-
-    // Retrieve the local transform. Default to identity if not found.
-    glm::mat4 localTransform = glm::mat4(1.0f);
-    auto it = localTransforms.find(boneName);
-    if (it == localTransforms.end()) {
-        // Fallback to bind-pose transform if no animation provided
-        auto bindIt = boneLocalBindTransforms.find(boneName);
-        if (bindIt != boneLocalBindTransforms.end()) {
-            localTransform = bindIt->second;
-            Logger::log("Using bind-pose transform for bone [" + boneName + "]", Logger::DEBUG);
-        }
-        else {
-            Logger::log("No local or bind transform found for bone [" + boneName + "]; using identity.", Logger::WARNING);
-        }
-    }
-    else {
-        localTransform = it->second;
-    }
-
-    // Log local transform specifically for arm bones
-    if (boneName == "DEF-upper_arm.L" || boneName == "DEF-upper_arm.R") {
-        Logger::log("DEBUG: Arm bone [" + boneName + "] local transform: " + glm::to_string(localTransform), Logger::INFO);
-    }
-
-    // Get the parent's name and recursively compute its global transform.
-    std::string parentName = getBoneParent(boneName);
-    glm::mat4 parentTransform = glm::mat4(1.0f);
-    if (!parentName.empty()) {
-        parentTransform = calculateBoneTransform(parentName, localTransforms, globalTransforms);
-        Logger::log("Bone [" + boneName + "] parent's (" + parentName + ") global transform: " + glm::to_string(parentTransform), Logger::INFO);
-    }
-    else {
-        Logger::log("Bone [" + boneName + "] has no parent; using identity for parent transform.", Logger::INFO);
-    }
-
-    // Compute final global transform
-    glm::mat4 finalTransform = parentTransform * localTransform;
-
-    // Log final global transform specifically for arm bones
-    if (boneName == "DEF-upper_arm.L" || boneName == "DEF-upper_arm.R") {
-        Logger::log("DEBUG: Arm bone [" + boneName + "] final global transform: " + glm::to_string(finalTransform), Logger::INFO);
-    }
-
-    globalTransforms[boneName] = finalTransform;
-    Logger::log("Bone [" + boneName + "] final computed transform: " + glm::to_string(finalTransform), Logger::INFO);
-    return finalTransform;
-}
-
-std::vector<glm::mat4> Model::getFinalBoneMatrices() const {
-    std::vector<glm::mat4> matrices;
-    matrices.reserve(bones.size());
-
-    for (const auto& bone : bones) {
-        matrices.push_back(bone.finalTransform);
-    }
-    return matrices;
-}
-
-glm::mat4 Model::getBoneOffsetMatrix(const std::string& boneName) const {
-    int index = getBoneIndex(boneName);
-    if (index >= 0 && index < bones.size()) {
-        return bones[index].offsetMatrix;
-    }
-    return glm::mat4(1.0f); // default to identity if bone not found
-}
-
-glm::mat4 Model::getGlobalInverseTransform() const {
-    return globalInverseTransform;
-}
-
-
-bool Model::hasBone(const std::string& name) const {
-    return boneMapping.find(name) != boneMapping.end();
-}
-
-
+INFO: ImGui initialized successfully.
+INFO: DEBUG: Initializing shaders...
+INFO: DEBUG: Bone shader compiled successfully.
+INFO: Shaders initialized successfully.
+INFO: PhysicsManager initialized successfully.
+INFO: Entering SceneTest2.
+INFO: Loading model from path: Character_TPose_Anim wo NLA.fbx
+INFO: Global inverse transform set from root node transformation.
+INFO: Debug: VAO Bone IDs bound to location 3.
+INFO: Debug: VAO Bone Weights bound to location 4.
+INFO: Explicitly logging vertex attribute configuration:
+INFO: Position bound to location 0
+INFO: Normal bound to location 1
+INFO: TexCoords bound to location 2
+INFO: BoneIDs bound to location 3 (int attribute)
+INFO: Bone Weights bound to location 4 (GL_FLOAT)
+INFO: Vertex data size: 25344
+INFO: Indices count: 25344
+INFO: Vertex[0] Position: vec3(0.077874, 1.767432, -0.061131)
+INFO: Vertex[0] Normal: vec3(0.980582, -0.019239, -0.195162)
+INFO: Vertex[0] TexCoords: vec2(0.750000, 0.125000)
+INFO: Vertex[0] BoneIDs: [5, 6, -1, -1]
+INFO: Vertex[0] Weights: [0.032047, 0.967953, 0.000000, 0.000000]
+INFO: ==== Explicit Bone Mapping BEGIN ====
+INFO: Bone Mapping ID[2] maps to Bone Name[DEF-spine.002]
+INFO: Bone Mapping ID[23] maps to Bone Name[DEF-thigh.L.001]
+INFO: Bone Mapping ID[0] maps to Bone Name[DEF-spine]
+INFO: Bone Mapping ID[1] maps to Bone Name[DEF-spine.001]
+INFO: Bone Mapping ID[3] maps to Bone Name[DEF-spine.003]
+INFO: Bone Mapping ID[4] maps to Bone Name[DEF-spine.004]
+INFO: Bone Mapping ID[22] maps to Bone Name[DEF-thigh.L]
+INFO: Bone Mapping ID[9] maps to Bone Name[DEF-upper_arm.L.001]
+INFO: Bone Mapping ID[5] maps to Bone Name[DEF-spine.005]
+INFO: Bone Mapping ID[32] maps to Bone Name[DEF-shin.R.001]
+INFO: Bone Mapping ID[11] maps to Bone Name[DEF-forearm.L.001]
+INFO: Bone Mapping ID[6] maps to Bone Name[DEF-spine.006]
+INFO: Bone Mapping ID[7] maps to Bone Name[DEF-shoulder.L]
+INFO: Bone Mapping ID[8] maps to Bone Name[DEF-upper_arm.L]
+INFO: Bone Mapping ID[31] maps to Bone Name[DEF-shin.R]
+INFO: Bone Mapping ID[10] maps to Bone Name[DEF-forearm.L]
+INFO: Bone Mapping ID[12] maps to Bone Name[DEF-hand.L]
+INFO: Bone Mapping ID[13] maps to Bone Name[DEF-shoulder.R]
+INFO: Bone Mapping ID[14] maps to Bone Name[DEF-upper_arm.R]
+INFO: Bone Mapping ID[15] maps to Bone Name[DEF-upper_arm.R.001]
+INFO: Bone Mapping ID[24] maps to Bone Name[DEF-shin.L]
+INFO: Bone Mapping ID[16] maps to Bone Name[DEF-forearm.R]
+INFO: Bone Mapping ID[25] maps to Bone Name[DEF-shin.L.001]
+INFO: Bone Mapping ID[17] maps to Bone Name[DEF-forearm.R.001]
+INFO: Bone Mapping ID[18] maps to Bone Name[DEF-hand.R]
+INFO: Bone Mapping ID[19] maps to Bone Name[DEF-breast.L]
+INFO: Bone Mapping ID[20] maps to Bone Name[DEF-breast.R]
+INFO: Bone Mapping ID[21] maps to Bone Name[DEF-pelvis.L]
+INFO: Bone Mapping ID[26] maps to Bone Name[DEF-foot.L]
+INFO: Bone Mapping ID[27] maps to Bone Name[DEF-toe.L]
+INFO: Bone Mapping ID[28] maps to Bone Name[DEF-pelvis.R]
+INFO: Bone Mapping ID[29] maps to Bone Name[DEF-thigh.R]
+INFO: Bone Mapping ID[30] maps to Bone Name[DEF-thigh.R.001]
+INFO: Bone Mapping ID[33] maps to Bone Name[DEF-foot.R]
+INFO: Bone Mapping ID[34] maps to Bone Name[DEF-toe.R]
+INFO: ==== EXPLICIT BONE MAPPING END ====
+INFO: Loaded 1 meshes.
+INFO: INFO: Model loaded successfully.
+INFO: DEBUG: Bounding Box Center: (-0.000000, 0.940108, -0.027487)
+INFO: DEBUG: Bounding Box Radius: 1.230948
+INFO: DEBUG: Adjusted Camera Position: (-0.000000, 0.940108, 7.401939)
+INFO: INFO: Attempting to load animation: Action.001 from file: Character_TPose_Anim.fbx
+INFO: Loading animation from: Character_TPose_Anim.fbx
+WARNING: === DEBUG: Animation Transform at T=0 for DEF-forearm.L ===
+WARNING: animationLocalTransform:
+mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.996212, 0.086960, 0.000000), (0.000000, -0.086960, 0.996212, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
+WARNING: bindPose:
+mat4x4((0.001501, 0.954291, 0.298875, -0.000000), (0.999878, 0.003219, -0.015300, 0.000000), (-0.015563, 0.298861, -0.954170, -0.000000), (0.439895, 1.485949, -0.072786, 1.000000))
+WARNING: correctedLocal (post-fix):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+WARNING: === DEBUG: Animation Transform at T=0 for DEF-upper_arm.L ===
+WARNING: animationLocalTransform:
+mat4x4((0.258290, -0.150805, 0.954224, 0.000000), (0.564178, 0.825353, -0.022273, 0.000000), (-0.784213, 0.544105, 0.298261, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
+WARNING: bindPose:
+mat4x4((0.001501, 0.954291, 0.298874, -0.000000), (0.997444, -0.022782, 0.067732, 0.000000), (0.071445, 0.298008, -0.951886, -0.000000), (0.176911, 1.491956, -0.090644, 1.000000))
+WARNING: correctedLocal (post-fix):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: Remapping animation bone 'breast.L' to 'DEF-breast.L'
+INFO: Remapping animation bone 'breast.R' to 'DEF-breast.R'
+INFO: Remapping animation bone 'foot.L' to 'DEF-foot.L'
+INFO: Remapping animation bone 'foot.R' to 'DEF-foot.R'
+INFO: Remapping animation bone 'forearm.L' to 'DEF-forearm.L'
+WARNING: === DEBUG: Animation Transform at T=0 for DEF-forearm.L ===
+WARNING: animationLocalTransform:
+mat4x4((0.977008, 0.035052, 0.210303, 0.000000), (-0.017402, 0.996212, -0.085200, 0.000000), (-0.212493, 0.079581, 0.973917, 0.000000), (0.000000, 0.263658, 0.000000, 1.000000))
+WARNING: bindPose:
+mat4x4((0.001501, 0.954291, 0.298875, -0.000000), (0.999878, 0.003219, -0.015300, 0.000000), (-0.015563, 0.298861, -0.954170, -0.000000), (0.439895, 1.485949, -0.072786, 1.000000))
+WARNING: correctedLocal (post-fix):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: Remapping animation bone 'forearm.R' to 'DEF-forearm.R'
+INFO: Remapping animation bone 'hand.L' to 'DEF-hand.L'
+INFO: Remapping animation bone 'hand.R' to 'DEF-hand.R'
+INFO: Remapping animation bone 'pelvis.L' to 'DEF-pelvis.L'
+INFO: Remapping animation bone 'pelvis.R' to 'DEF-pelvis.R'
+INFO: Remapping animation bone 'shin.L' to 'DEF-shin.L'
+INFO: Remapping animation bone 'shin.R' to 'DEF-shin.R'
+INFO: Remapping animation bone 'shoulder.L' to 'DEF-shoulder.L'
+INFO: Remapping animation bone 'shoulder.R' to 'DEF-shoulder.R'
+INFO: Remapping animation bone 'spine' to 'DEF-spine'
+INFO: Remapping animation bone 'spine.001' to 'DEF-spine.001'
+INFO: Remapping animation bone 'spine.002' to 'DEF-spine.002'
+INFO: Remapping animation bone 'spine.003' to 'DEF-spine.003'
+INFO: Remapping animation bone 'spine.004' to 'DEF-spine.004'
+INFO: Remapping animation bone 'spine.005' to 'DEF-spine.005'
+INFO: Remapping animation bone 'spine.006' to 'DEF-spine.006'
+INFO: Remapping animation bone 'thigh.L' to 'DEF-thigh.L'
+INFO: Remapping animation bone 'thigh.R' to 'DEF-thigh.R'
+INFO: Remapping animation bone 'toe.L' to 'DEF-toe.L'
+INFO: Remapping animation bone 'toe.R' to 'DEF-toe.R'
+INFO: Remapping animation bone 'upper_arm.L' to 'DEF-upper_arm.L'
+WARNING: === DEBUG: Animation Transform at T=0 for DEF-upper_arm.L ===
+WARNING: animationLocalTransform:
+mat4x4((-0.096130, 0.038874, -0.994609, 0.000000), (0.564177, 0.825354, -0.022270, 0.000000), (0.820039, -0.563276, -0.101273, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
+WARNING: bindPose:
+mat4x4((0.001501, 0.954291, 0.298874, -0.000000), (0.997444, -0.022782, 0.067732, 0.000000), (0.071445, 0.298008, -0.951886, -0.000000), (0.176911, 1.491956, -0.090644, 1.000000))
+WARNING: correctedLocal (post-fix):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: Remapping animation bone 'upper_arm.R' to 'DEF-upper_arm.R'
+INFO: Animation loaded and re-normalized relative to model bind pose.
+INFO: INFO: Successfully loaded animation: Action.001
+INFO: Switched to animation: Action.001
+INFO: INFO: Set current animation to Action.001.
+INFO: DEBUG: Depth testing and blending enabled.
+INFO: Debug: Animation time updated to: 0.447379
+INFO: INFO: Interpolating keyframes at animation time: 0.447379
+INFO: INFO: Keyframe count: 31
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.223689
+INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.223689
+WARNING: ANIM FINAL MATRIX: DEF-forearm.L @ time 0.447379
+WARNING: mat4x4((0.891698, 0.147317, -0.427986, 0.000000), (0.067470, 0.891728, 0.447515, 0.000000), (0.447573, -0.427924, 0.785213, 0.000000), (-0.284339, -0.099612, -0.104530, 1.000000))
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.223689
+INFO: INFO: Interpolated bone: DEF-forearm.L.001 with factor: 0.223689
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.223689
+INFO: INFO: Interpolated bone: DEF-forearm.R with factor: 0.223689
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.223689
+INFO: INFO: Interpolated bone: DEF-forearm.R.001 with factor: 0.223689
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.223689
+INFO: INFO: Interpolated bone: DEF-hand.L with factor: 0.223689
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.223689
+INFO: INFO: Interpolated bone: DEF-hand.R with factor: 0.223689
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.223689
+INFO: INFO: Interpolated bone: DEF-upper_arm.L with factor: 0.223689
+WARNING: ANIM FINAL MATRIX: DEF-upper_arm.L @ time 0.447379
+WARNING: mat4x4((0.942592, -0.059794, -0.328551, 0.000000), (0.131846, 0.970548, 0.201624, 0.000000), (0.306819, -0.233368, 0.922714, 0.000000), (-0.274886, -0.030127, -0.105414, 1.000000))
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.223689
+INFO: INFO: Interpolated bone: DEF-upper_arm.L.001 with factor: 0.223689
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.223689
+INFO: INFO: Interpolated bone: DEF-upper_arm.R with factor: 0.223689
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.223689
+INFO: INFO: Interpolated bone: DEF-upper_arm.R.001 with factor: 0.223689
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-breast.L]:
+mat4x4((-1.000000, -0.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.107252, 0.110391, -1.378726, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-breast.L
+INFO: Applied globalInverse * global * offset for bone: DEF-breast.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-breast.R]:
+mat4x4((-1.000000, 0.000000, -0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.107252, 0.110391, -1.378726, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-breast.R
+INFO: Applied globalInverse * global * offset for bone: DEF-breast.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-foot.L]:
+mat4x4((0.964083, 0.178992, 0.196227, 0.000000), (0.265600, -0.649715, -0.712269, 0.000000), (0.000001, 0.738805, -0.673920, 0.000000), (-0.087785, 0.097230, 0.030920, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-foot.L
+INFO: Applied globalInverse * global * offset for bone: DEF-foot.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-foot.R]:
+mat4x4((0.964083, -0.178992, -0.196227, 0.000000), (-0.265600, -0.649715, -0.712269, 0.000000), (-0.000001, 0.738805, -0.673920, 0.000000), (0.087785, 0.097230, 0.030920, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-foot.R
+INFO: Applied globalInverse * global * offset for bone: DEF-foot.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.L]:
+mat4x4((0.061835, 0.898499, 0.434597, 0.000000), (0.984919, 0.015564, -0.172313, 0.000000), (-0.161587, 0.438699, -0.883987, 0.000000), (-1.786841, -0.486054, -0.104000, 1.000000))
+WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-forearm.L ===
+WARNING: Global Transform:
+mat4x4((0.891698, 0.147317, -0.427986, 0.000000), (0.067470, 0.891728, 0.447515, 0.000000), (0.447573, -0.427924, 0.785213, 0.000000), (-0.284339, -0.099612, -0.104530, 1.000000))
+WARNING: Offset Matrix (Inverse Bind Pose):
+mat4x4((0.001501, 0.999878, -0.015562, 0.000000), (0.954291, 0.003219, 0.298861, 0.000000), (0.298875, -0.015300, -0.954170, 0.000000), (-1.396935, -0.445738, -0.506697, 1.000000))
+WARNING: Global Inverse Transform:
+mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
+WARNING: Resulting Final Transform:
+mat4x4((0.061835, 0.898499, 0.434597, 0.000000), (0.984919, 0.015564, -0.172313, 0.000000), (-0.161587, 0.438699, -0.883987, 0.000000), (-1.786841, -0.486054, -0.104000, 1.000000))
+INFO: Decomposed transform for DEF-forearm.L: Translation(-1.78684, -0.486054, -0.104), Scale(1, 1, 1)
+INFO: DEBUG: After Storing Bone DEF-forearm.L
+INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.L.001]:
+mat4x4((0.034026, 0.902880, 0.428545, 0.000000), (0.987402, 0.035930, -0.154096, 0.000000), (-0.154528, 0.428389, -0.890283, 0.000000), (-1.785031, -0.653571, -0.182705, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-forearm.L.001
+INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.R]:
+mat4x4((0.061836, -0.898499, -0.434597, 0.000000), (-0.984919, 0.015564, -0.172313, 0.000000), (0.161587, 0.438698, -0.883987, 0.000000), (1.786841, -0.486053, -0.103999, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-forearm.R
+INFO: Applied globalInverse * global * offset for bone: DEF-forearm.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.R.001]:
+mat4x4((0.034026, -0.902879, -0.428545, 0.000000), (-0.987402, 0.035930, -0.154096, 0.000000), (0.154528, 0.428390, -0.890283, 0.000000), (1.785031, -0.653571, -0.182706, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-forearm.R.001
+INFO: Applied globalInverse * global * offset for bone: DEF-forearm.R.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-hand.L]:
+mat4x4((0.058373, 0.871476, 0.486952, 0.000000), (0.987332, 0.021694, -0.157181, 0.000000), (-0.147544, 0.489958, -0.859169, 0.000000), (-1.809500, -0.724985, -0.279533, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-hand.L
+INFO: Applied globalInverse * global * offset for bone: DEF-hand.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-hand.R]:
+mat4x4((0.058373, -0.871476, -0.486951, 0.000000), (-0.987332, 0.021695, -0.157181, 0.000000), (0.147544, 0.489957, -0.859170, 0.000000), (1.809500, -0.724986, -0.279532, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-hand.R
+INFO: Applied globalInverse * global * offset for bone: DEF-hand.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-pelvis.L]:
+mat4x4((-0.421772, 0.536322, -0.731073, 0.000000), (-0.276838, 0.691624, 0.667096, 0.000000), (0.863406, 0.483751, -0.143234, 0.000000), (0.369463, -0.615484, -0.664677, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-pelvis.L
+INFO: Applied globalInverse * global * offset for bone: DEF-pelvis.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-pelvis.R]:
+mat4x4((-0.421772, -0.536322, 0.731073, 0.000000), (0.276838, 0.691624, 0.667096, 0.000000), (-0.863406, 0.483751, -0.143234, 0.000000), (-0.369463, -0.615484, -0.664677, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-pelvis.R
+INFO: Applied globalInverse * global * offset for bone: DEF-pelvis.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-shin.L]:
+mat4x4((0.935418, -0.049135, 0.350112, 0.000000), (-0.058899, -0.998115, 0.017290, 0.000000), (0.348603, -0.036795, -0.936548, 0.000000), (-0.033043, 0.533475, -0.071050, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shin.L
+INFO: Applied globalInverse * global * offset for bone: DEF-shin.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-shin.L.001]:
+mat4x4((0.935418, -0.049135, 0.350112, 0.000000), (-0.058899, -0.998115, 0.017290, 0.000000), (0.348602, -0.036795, -0.936549, 0.000000), (-0.033043, 0.321455, -0.071050, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shin.L.001
+INFO: Applied globalInverse * global * offset for bone: DEF-shin.L.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-shin.R]:
+mat4x4((0.935418, 0.049135, -0.350112, 0.000000), (0.058899, -0.998115, 0.017290, 0.000000), (-0.348603, -0.036795, -0.936548, 0.000000), (0.033043, 0.533475, -0.071050, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shin.R
+INFO: Applied globalInverse * global * offset for bone: DEF-shin.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-shin.R.001]:
+mat4x4((0.935418, 0.049135, -0.350112, 0.000000), (0.058899, -0.998115, 0.017290, 0.000000), (-0.348602, -0.036795, -0.936549, 0.000000), (0.033043, 0.321455, -0.071050, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shin.R.001
+INFO: Applied globalInverse * global * offset for bone: DEF-shin.R.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-shoulder.L]:
+mat4x4((0.507095, 0.861890, 0.000529, 0.000000), (-0.000074, -0.000570, 1.000000, 0.000000), (0.861890, -0.507095, -0.000226, 0.000000), (-0.004417, -0.015707, -1.510536, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shoulder.L
+INFO: Applied globalInverse * global * offset for bone: DEF-shoulder.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-shoulder.R]:
+mat4x4((0.507095, -0.861890, -0.000529, 0.000000), (0.000074, -0.000570, 1.000000, 0.000000), (-0.861890, -0.507095, -0.000226, 0.000000), (0.004417, -0.015707, -1.510536, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shoulder.R
+INFO: Applied globalInverse * global * offset for bone: DEF-shoulder.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-spine]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, -0.235478, 0.000000), (0.000000, 0.235478, 0.971880, 0.000000), (0.000000, -0.916629, 0.341921, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine
+INFO: Applied globalInverse * global * offset for bone: DEF-spine
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-spine.001]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.992413, -0.122954, 0.000000), (0.000000, 0.122954, 0.992412, 0.000000), (0.000000, -1.104045, 0.217266, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.001
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-spine.002]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999869, 0.016174, 0.000000), (0.000000, -0.016174, 0.999869, 0.000000), (0.000000, -1.211187, 0.049404, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.002
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.002
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-spine.003]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999592, 0.028560, 0.000000), (0.000000, -0.028560, 0.999592, 0.000000), (0.000000, -1.385738, 0.032239, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.003
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.003
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-spine.004]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.929516, -0.368784, 0.000000), (0.000000, 0.368784, 0.929515, 0.000000), (0.000000, -1.420450, 0.646168, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.004
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.004
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-spine.005]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982436, -0.186599, 0.000000), (0.000000, 0.186599, 0.982436, 0.000000), (0.000000, -1.575778, 0.354954, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.005
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.005
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-spine.006]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (0.000000, -1.670135, 0.044083, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.006
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.006
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-thigh.L]:
+mat4x4((0.935413, -0.093497, 0.340971, 0.000000), (-0.058897, -0.992132, -0.110475, 0.000000), (0.348618, 0.083257, -0.933560, 0.000000), (-0.033043, 1.046192, -0.002256, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-thigh.L
+INFO: Applied globalInverse * global * offset for bone: DEF-thigh.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-thigh.L.001]:
+mat4x4((0.935411, -0.093497, 0.340975, 0.000000), (-0.058896, -0.992132, -0.110475, 0.000000), (0.348622, 0.083257, -0.933559, 0.000000), (-0.033043, 0.792186, -0.002256, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-thigh.L.001
+INFO: Applied globalInverse * global * offset for bone: DEF-thigh.L.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-thigh.R]:
+mat4x4((0.935413, 0.093497, -0.340971, 0.000000), (0.058897, -0.992132, -0.110475, 0.000000), (-0.348618, 0.083257, -0.933560, 0.000000), (0.033043, 1.046192, -0.002256, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-thigh.R
+INFO: Applied globalInverse * global * offset for bone: DEF-thigh.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-thigh.R.001]:
+mat4x4((0.935411, 0.093497, -0.340975, 0.000000), (0.058896, -0.992132, -0.110475, 0.000000), (-0.348622, 0.083257, -0.933559, 0.000000), (0.033043, 0.792186, -0.002256, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-thigh.R.001
+INFO: Applied globalInverse * global * offset for bone: DEF-thigh.R.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-toe.L]:
+mat4x4((-0.964083, 0.000000, -0.265599, 0.000000), (-0.265600, 0.000000, 0.964084, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.087785, -0.018148, -0.025298, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-toe.L
+INFO: Applied globalInverse * global * offset for bone: DEF-toe.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-toe.R]:
+mat4x4((-0.964083, -0.000000, 0.265599, 0.000000), (0.265600, 0.000000, 0.964084, 0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (-0.087785, -0.018148, -0.025298, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-toe.R
+INFO: Applied globalInverse * global * offset for bone: DEF-toe.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.L]:
+mat4x4((0.154845, 0.951304, 0.266539, 0.000000), (0.987938, -0.148718, -0.043151, 0.000000), (-0.001410, 0.270006, -0.962858, 0.000000), (-1.776367, 0.047931, -0.175466, 1.000000))
+WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-upper_arm.L ===
+WARNING: Global Transform:
+mat4x4((0.942592, -0.059794, -0.328551, 0.000000), (0.131846, 0.970548, 0.201624, 0.000000), (0.306819, -0.233368, 0.922714, 0.000000), (-0.274886, -0.030127, -0.105414, 1.000000))
+WARNING: Offset Matrix (Inverse Bind Pose):
+mat4x4((0.001501, 0.997443, 0.071445, 0.000000), (0.954292, -0.022782, 0.298008, 0.000000), (0.298874, 0.067732, -0.951886, 0.000000), (-1.396935, -0.136329, -0.543537, 1.000000))
+WARNING: Global Inverse Transform:
+mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
+WARNING: Resulting Final Transform:
+mat4x4((0.154845, 0.951304, 0.266539, 0.000000), (0.987938, -0.148718, -0.043151, 0.000000), (-0.001410, 0.270006, -0.962858, 0.000000), (-1.776367, 0.047931, -0.175466, 1.000000))
+INFO: Decomposed transform for DEF-upper_arm.L: Translation(-1.77637, 0.0479311, -0.175466), Scale(1, 1, 1)
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L
+INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.L.001]:
+mat4x4((0.056700, 0.858217, 0.510146, 0.000000), (0.985426, 0.033972, -0.166676, 0.000000), (-0.160375, 0.512162, -0.843783, 0.000000), (-1.782183, -0.334064, -0.090903, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
+INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.L.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.R]:
+mat4x4((0.154845, -0.951304, -0.266539, 0.000000), (-0.987938, -0.148718, -0.043151, 0.000000), (0.001411, 0.270005, -0.962858, 0.000000), (1.776367, 0.047931, -0.175466, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R
+INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.R.001]:
+mat4x4((0.056700, -0.858217, -0.510146, 0.000000), (-0.985426, 0.033972, -0.166675, 0.000000), (0.160374, 0.512162, -0.843783, 0.000000), (1.782183, -0.334064, -0.090904, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
+INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.R.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [MCH-spine]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.992412, -0.122954, 0.000000), (0.000000, 0.122954, 0.992412, 0.000000), (0.000000, -0.088520, -0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone MCH-spine
+INFO: Applied globalInverse * global * offset for bone: MCH-spine
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [MCH-spine.001]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.163355, 0.029178, 1.000000))
+INFO: DEBUG: After Storing Bone MCH-spine.001
+INFO: Applied globalInverse * global * offset for bone: MCH-spine.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [MCH-spine.002]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.163355, 0.029178, 1.000000))
+INFO: DEBUG: After Storing Bone MCH-spine.002
+INFO: Applied globalInverse * global * offset for bone: MCH-spine.002
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [MCH-spine.003]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999869, 0.016174, 0.000000), (0.000000, -0.016174, 0.999869, 0.000000), (0.000000, 0.174045, -0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone MCH-spine.003
+INFO: Applied globalInverse * global * offset for bone: MCH-spine.003
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [MCH-torso.parent]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 1.046875, -0.098165, 1.000000))
+INFO: DEBUG: After Storing Bone MCH-torso.parent
+INFO: Applied globalInverse * global * offset for bone: MCH-torso.parent
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [ORG-breast.L]:
+mat4x4((-1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.028560, 0.999592, 0.000000), (0.000000, 0.999592, 0.028560, 0.000000), (0.107252, -0.004422, -0.038731, 1.000000))
+INFO: DEBUG: After Storing Bone ORG-breast.L
+INFO: Applied globalInverse * global * offset for bone: ORG-breast.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [ORG-breast.R]:
+mat4x4((-1.000000, -0.000000, -0.000000, 0.000000), (0.000000, -0.028560, 0.999592, 0.000000), (-0.000000, 0.999592, 0.028560, 0.000000), (-0.107252, -0.004422, -0.038731, 1.000000))
+INFO: DEBUG: After Storing Bone ORG-breast.R
+INFO: Applied globalInverse * global * offset for bone: ORG-breast.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [ORG-pelvis.L]:
+mat4x4((-0.421772, -0.065740, 0.904316, 0.000000), (0.536322, 0.786088, 0.307285, 0.000000), (-0.731073, 0.614609, -0.296292, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone ORG-pelvis.L
+INFO: Applied globalInverse * global * offset for bone: ORG-pelvis.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [ORG-pelvis.R]:
+mat4x4((-0.421772, 0.065740, -0.904316, 0.000000), (-0.536322, 0.786088, 0.307285, 0.000000), (0.731073, 0.614609, -0.296292, 0.000000), (-0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone ORG-pelvis.R
+INFO: Applied globalInverse * global * offset for bone: ORG-pelvis.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [ORG-shoulder.L]:
+mat4x4((0.507095, -0.024689, 0.861537, 0.000000), (0.861890, 0.013912, -0.506904, 0.000000), (0.000529, 0.999598, 0.028334, 0.000000), (0.016577, 0.124301, 0.070883, 1.000000))
+INFO: DEBUG: After Storing Bone ORG-shoulder.L
+INFO: Applied globalInverse * global * offset for bone: ORG-shoulder.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [ORG-shoulder.R]:
+mat4x4((0.507095, 0.024689, -0.861537, 0.000000), (-0.861890, 0.013912, -0.506904, 0.000000), (-0.000529, 0.999598, 0.028334, 0.000000), (-0.016577, 0.124301, 0.070883, 1.000000))
+INFO: DEBUG: After Storing Bone ORG-shoulder.R
+INFO: Applied globalInverse * global * offset for bone: ORG-shoulder.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [ORG-spine]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, -0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone ORG-spine
+INFO: Applied globalInverse * global * offset for bone: ORG-spine
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [ORG-spine.003]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone ORG-spine.003
+INFO: Applied globalInverse * global * offset for bone: ORG-spine.003
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [heel.02.L]:
+mat4x4((-0.153809, 0.738805, -0.656133, 0.000000), (0.983423, 0.178993, -0.028986, 0.000000), (0.096028, -0.649715, -0.754089, 0.000000), (-0.015896, 0.004032, 0.095199, 1.000000))
+INFO: DEBUG: After Storing Bone heel.02.L
+INFO: Applied globalInverse * global * offset for bone: heel.02.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [heel.02.R]:
+mat4x4((-0.153809, -0.738805, 0.656133, 0.000000), (-0.983423, 0.178993, -0.028986, 0.000000), (-0.096028, -0.649715, -0.754089, 0.000000), (0.015896, 0.004032, 0.095199, 1.000000))
+INFO: DEBUG: After Storing Bone heel.02.R
+INFO: Applied globalInverse * global * offset for bone: heel.02.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [metarig]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, -0.000000, -1.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (0.000000, 0.000000, 2.292934, 1.000000))
+INFO: DEBUG: After Storing Bone metarig
+INFO: Applied globalInverse * global * offset for bone: metarig
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [rig]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, -0.000000, -1.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone rig
+INFO: Applied globalInverse * global * offset for bone: rig
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [root]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone root
+INFO: Applied globalInverse * global * offset for bone: root
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [spine_fk]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, 0.235478, 0.000000), (0.000000, -0.235478, 0.971880, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone spine_fk
+INFO: Applied globalInverse * global * offset for bone: spine_fk
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [spine_fk.001]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.992412, 0.122954, 0.000000), (0.000000, -0.122954, 0.992412, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone spine_fk.001
+INFO: Applied globalInverse * global * offset for bone: spine_fk.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [spine_fk.002]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999869, -0.016174, 0.000000), (0.000000, 0.016174, 0.999869, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone spine_fk.002
+INFO: Applied globalInverse * global * offset for bone: spine_fk.002
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [spine_fk.003]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999592, -0.028560, 0.000000), (0.000000, 0.028560, 0.999592, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone spine_fk.003
+INFO: Applied globalInverse * global * offset for bone: spine_fk.003
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [torso]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone torso
+INFO: Applied globalInverse * global * offset for bone: torso
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [tweak_spine]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (0.000000, -0.155383, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone tweak_spine
+INFO: Applied globalInverse * global * offset for bone: tweak_spine
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [tweak_spine.003]:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone tweak_spine.003
+INFO: Applied globalInverse * global * offset for bone: tweak_spine.003
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Model matrix explicitly logged: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: View matrix explicitly logged: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (0.000000, -0.940108, -7.401939, 1.000000))
+INFO: Projection matrix explicitly logged: mat4x4((1.810660, 0.000000, 0.000000, 0.000000), (0.000000, 2.414213, 0.000000, 0.000000), (0.000000, 0.000000, -1.002002, -1.000000), (0.000000, 0.000000, -0.200200, 0.000000))
+INFO: Bone [DEF-spine] FINAL TRANSFORM:
+INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, -0.235478, 0.000000), (0.000000, 0.235478, 0.971880, 0.000000), (0.000000, -0.916629, 0.341921, 1.000000))
+INFO: Bone: DEF-spine Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -0.916629, 0.341921) Skew: vec3(0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine: Translation(0, -0.916629, 0.341921), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.001] FINAL TRANSFORM:
+INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.992413, -0.122954, 0.000000), (0.000000, 0.122954, 0.992412, 0.000000), (0.000000, -1.104045, 0.217266, 1.000000))
+INFO: Bone: DEF-spine.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -1.104045, 0.217266) Skew: vec3(0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine.001: Translation(0, -1.10405, 0.217266), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.002] FINAL TRANSFORM:
+INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999869, 0.016174, 0.000000), (0.000000, -0.016174, 0.999869, 0.000000), (0.000000, -1.211187, 0.049404, 1.000000))
+INFO: Bone: DEF-spine.002 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -1.211187, 0.049404) Skew: vec3(0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine.002: Translation(0, -1.21119, 0.049404), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.003] FINAL TRANSFORM:
+INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999592, 0.028560, 0.000000), (0.000000, -0.028560, 0.999592, 0.000000), (0.000000, -1.385738, 0.032239, 1.000000))
+INFO: Bone: DEF-spine.003 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -1.385738, 0.032239) Skew: vec3(0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine.003: Translation(0, -1.38574, 0.0322388), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.004] FINAL TRANSFORM:
+INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.929516, -0.368784, 0.000000), (0.000000, 0.368784, 0.929515, 0.000000), (0.000000, -1.420450, 0.646168, 1.000000))
+INFO: Bone: DEF-spine.004 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -1.420450, 0.646168) Skew: vec3(0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine.004: Translation(0, -1.42045, 0.646168), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.005] FINAL TRANSFORM:
+INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982436, -0.186599, 0.000000), (0.000000, 0.186599, 0.982436, 0.000000), (0.000000, -1.575778, 0.354954, 1.000000))
+INFO: Bone: DEF-spine.005 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -1.575778, 0.354954) Skew: vec3(0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine.005: Translation(0, -1.57578, 0.354954), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.006] FINAL TRANSFORM:
+INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (0.000000, -1.670135, 0.044083, 1.000000))
+INFO: Bone: DEF-spine.006 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -1.670135, 0.044083) Skew: vec3(0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine.006: Translation(0, -1.67014, 0.0440832), Scale(1, 1, 1)
+INFO: Bone [DEF-shoulder.L] FINAL TRANSFORM:
+INFO: mat4x4((0.507095, 0.861890, 0.000529, 0.000000), (-0.000074, -0.000570, 1.000000, 0.000000), (0.861890, -0.507095, -0.000226, 0.000000), (-0.004417, -0.015707, -1.510536, 1.000000))
+INFO: Bone: DEF-shoulder.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.004417, -0.015707, -1.510536) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-shoulder.L: Translation(-0.0044175, -0.0157067, -1.51054), Scale(1, 1, 1)
+INFO: Bone [DEF-upper_arm.L] FINAL TRANSFORM:
+INFO: mat4x4((0.154845, 0.951304, 0.266539, 0.000000), (0.987938, -0.148718, -0.043151, 0.000000), (-0.001410, 0.270006, -0.962858, 0.000000), (-1.776367, 0.047931, -0.175466, 1.000000))
+INFO: Bone: DEF-upper_arm.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-1.776367, 0.047931, -0.175466) Skew: vec3(-0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-upper_arm.L: Translation(-1.77637, 0.0479311, -0.175466), Scale(1, 1, 1)
+INFO: Bone [DEF-upper_arm.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.056700, 0.858217, 0.510146, 0.000000), (0.985426, 0.033972, -0.166676, 0.000000), (-0.160375, 0.512162, -0.843783, 0.000000), (-1.782183, -0.334064, -0.090903, 1.000000))
+INFO: Bone: DEF-upper_arm.L.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-1.782183, -0.334064, -0.090903) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-upper_arm.L.001: Translation(-1.78218, -0.334064, -0.0909031), Scale(1, 1, 1)
+INFO: Bone [DEF-forearm.L] FINAL TRANSFORM:
+INFO: mat4x4((0.061835, 0.898499, 0.434597, 0.000000), (0.984919, 0.015564, -0.172313, 0.000000), (-0.161587, 0.438699, -0.883987, 0.000000), (-1.786841, -0.486054, -0.104000, 1.000000))
+INFO: Bone: DEF-forearm.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-1.786841, -0.486054, -0.104000) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-forearm.L: Translation(-1.78684, -0.486054, -0.104), Scale(1, 1, 1)
+INFO: Bone [DEF-forearm.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.034026, 0.902880, 0.428545, 0.000000), (0.987402, 0.035930, -0.154096, 0.000000), (-0.154528, 0.428389, -0.890283, 0.000000), (-1.785031, -0.653571, -0.182705, 1.000000))
+INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-1.785031, -0.653571, -0.182705) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-forearm.L.001: Translation(-1.78503, -0.653571, -0.182705), Scale(1, 1, 1)
+INFO: Bone [DEF-hand.L] FINAL TRANSFORM:
+INFO: mat4x4((0.058373, 0.871476, 0.486952, 0.000000), (0.987332, 0.021694, -0.157181, 0.000000), (-0.147544, 0.489958, -0.859169, 0.000000), (-1.809500, -0.724985, -0.279533, 1.000000))
+INFO: Bone: DEF-hand.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-1.809500, -0.724985, -0.279533) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-hand.L: Translation(-1.8095, -0.724985, -0.279533), Scale(1, 1, 1)
+INFO: Bone [DEF-shoulder.R] FINAL TRANSFORM:
+INFO: mat4x4((0.507095, -0.861890, -0.000529, 0.000000), (0.000074, -0.000570, 1.000000, 0.000000), (-0.861890, -0.507095, -0.000226, 0.000000), (0.004417, -0.015707, -1.510536, 1.000000))
+INFO: Bone: DEF-shoulder.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.004417, -0.015707, -1.510536) Skew: vec3(-0.000000, 0.000000, -0.000000)
+INFO: Decomposed transform for DEF-shoulder.R: Translation(0.0044175, -0.0157067, -1.51054), Scale(1, 1, 1)
+INFO: Bone [DEF-upper_arm.R] FINAL TRANSFORM:
+INFO: mat4x4((0.154845, -0.951304, -0.266539, 0.000000), (-0.987938, -0.148718, -0.043151, 0.000000), (0.001411, 0.270005, -0.962858, 0.000000), (1.776367, 0.047931, -0.175466, 1.000000))
+INFO: Bone: DEF-upper_arm.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(1.776367, 0.047931, -0.175466) Skew: vec3(-0.000000, 0.000000, -0.000000)
+INFO: Decomposed transform for DEF-upper_arm.R: Translation(1.77637, 0.0479312, -0.175466), Scale(1, 1, 1)
+INFO: Bone [DEF-upper_arm.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.056700, -0.858217, -0.510146, 0.000000), (-0.985426, 0.033972, -0.166675, 0.000000), (0.1
