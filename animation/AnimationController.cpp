@@ -34,7 +34,7 @@ bool AnimationController::loadAnimation(const std::string& name, const std::stri
         return false;
     }
 
-    Animation* animation = new Animation(filePath);
+    Animation* animation = new Animation(filePath, model);
     if (!animation->isLoaded())
     {
         Logger::log("ERROR: Failed to load animation data from file: " + filePath, Logger::ERROR);
@@ -107,7 +107,7 @@ void AnimationController::applyToModel(Model* model)
     {
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
 
-        // Correctly multiply in the standard Assimp skeletal animation order
+        glm::mat4 globalInverseTransform = model->getGlobalInverseTransform();
         glm::mat4 finalTransform = globalInverseTransform * globalTransform * offsetMatrix;
 
         // Explicit logging of final calculated transforms

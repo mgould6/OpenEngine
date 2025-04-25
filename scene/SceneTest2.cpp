@@ -24,7 +24,7 @@ void SceneTest2(GLFWwindow* window) {
 
     // Load the model
     if (!myModel) {
-        myModel = new Model("Character_TPose_Anim.fbx");
+        myModel = new Model("Character_TPose_Anim wo NLA.fbx");
         if (!myModel) {
             Logger::log("ERROR: Failed to load model.", Logger::ERROR);
             return;

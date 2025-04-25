@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include< unordered_set>
 #include <map>  
 #include <glm/glm.hpp>
 #include "../model/Model.h"
@@ -15,7 +16,7 @@ struct Keyframe {
 
 class Animation {
 public:
-    explicit Animation(const std::string& filePath);
+    explicit Animation(const std::string& filePath, const Model* model);
 
     bool isLoaded() const;
     float getDuration() const;
@@ -31,10 +32,12 @@ private:
     float ticksPerSecond;
     std::vector<Keyframe> keyframes;
 
-    void loadAnimation(const std::string& filePath);
+    void loadAnimation(const std::string& filePath, const Model* model);
     glm::mat4 interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const;
 
     std::vector<std::string> animatedBones;  // Store bone names that exist in this animation
+    std::unordered_map<float, std::map<std::string, glm::mat4>> timestampToBoneMap;
+    std::unordered_set<std::string> bonesWithKeyframes;
 
 };
 

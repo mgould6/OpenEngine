@@ -157,6 +157,7 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="assimp-vc143-mt.dll" />
+    <None Include="Character_TPose_Anim wo NLA.fbx" />
     <None Include="Character_TPose_NoAnim.fbx" />
     <None Include="shaders\bone\bone_fragment_shader.fs" />
     <None Include="shaders\bone\bone_vertex_shader.vs" />

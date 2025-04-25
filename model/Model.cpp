@@ -8,8 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp> 
 
-// Forward declaration of convertAiMatrix so it can be used in loadModel()
-static glm::mat4 convertAiMatrix(const aiMatrix4x4& from);
+
 // Just place this near the top of Model.cpp
 static glm::mat4 convertAiMatrix(const aiMatrix4x4& from)
 {
@@ -26,15 +25,13 @@ Model::Model(const std::string& path) {
     Logger::log("Loaded " + std::to_string(meshes.size()) + " meshes.", Logger::INFO);
 }
 
-void Model::loadModel(const std::string& path)
-{
+void Model::loadModel(const std::string& path) {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(
         path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_LimitBoneWeights
     );
 
-    if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode)
-    {
+    if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode) {
         Logger::log("ERROR::ASSIMP::" + std::string(importer.GetErrorString()), Logger::ERROR);
         return;
     }
@@ -72,6 +69,8 @@ void Model::loadModel(const std::string& path)
         auto it = boneLocalBindTransforms.find(bone.name);
         if (it != boneLocalBindTransforms.end()) {
             glm::mat4 globalBindPose = calculateBoneTransform(bone.name, boneLocalBindTransforms, globalBindPoseCache);
+            boneGlobalBindPose[bone.name] = globalBindPose; // store for animation normalization
+
             glm::mat4 recalculatedOffset = glm::inverse(globalBindPose);
 
             Logger::log("Offset matrix from Assimp for bone [" + bone.name + "]:\n" + glm::to_string(bone.offsetMatrix), Logger::WARNING);
@@ -81,7 +80,6 @@ void Model::loadModel(const std::string& path)
         }
     }
 }
-
 void Model::processNode(aiNode* node, const aiScene* scene) {
     for (unsigned int i = 0; i < node->mNumMeshes; i++) {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
@@ -464,3 +462,14 @@ glm::mat4 Model::getGlobalInverseTransform() const {
 bool Model::hasBone(const std::string& name) const {
     return boneMapping.find(name) != boneMapping.end();
 }
+
+
+glm::mat4 Model::getBindPoseGlobalTransform(const std::string& boneName) const {
+    auto it = boneGlobalBindPose.find(boneName);
+    if (it != boneGlobalBindPose.end()) {
+        return it->second;
+    }
+    return glm::mat4(1.0f); // fallback to identity if not found
+}
+
+

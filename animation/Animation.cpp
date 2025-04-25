@@ -9,10 +9,11 @@
 #include <assimp/postprocess.h>
 #include <unordered_set>
 
-Animation::Animation(const std::string& filePath)
-    : filePath(filePath), loaded(false), duration(0.0f), ticksPerSecond(30.0f) { // Default TPS to 30.0
-    loadAnimation(filePath);
+Animation::Animation(const std::string& filePath, const Model* model)
+    : filePath(filePath), loaded(false), duration(0.0f), ticksPerSecond(30.0f) {
+    loadAnimation(filePath, model);
 }
+
 
 bool Animation::isLoaded() const {
     return loaded;
@@ -51,103 +52,6 @@ void Animation::apply(float animationTime, Model* model) {
     }
 }
 
-void Animation::loadAnimation(const std::string& filePath) {
-    Logger::log("Loading animation from: " + filePath, Logger::INFO);
-
-    Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs);
-
-    if (!scene) {
-        Logger::log("ERROR: Assimp failed to load file! Error: " + std::string(importer.GetErrorString()), Logger::ERROR);
-        return;
-    }
-
-    if (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-        Logger::log("ERROR: Incomplete scene data in animation file.", Logger::ERROR);
-        return;
-    }
-
-    if (!scene->HasAnimations()) {
-        Logger::log("ERROR: No animations found in file!", Logger::ERROR);
-        return;
-    }
-
-    Logger::log("INFO: Successfully found animations in file.", Logger::INFO);
-    aiAnimation* anim = scene->mAnimations[0];
-
-    duration = anim->mDuration;
-    Logger::log("DEBUG: Animation Duration: " + std::to_string(duration), Logger::INFO);
-
-    ticksPerSecond = anim->mTicksPerSecond > 0.0 ? anim->mTicksPerSecond : 30.0f;
-    if (anim->mTicksPerSecond <= 0.0)
-        Logger::log("WARNING: Animation has no ticks per second set. Defaulting to 30.0", Logger::WARNING);
-
-    Logger::log("INFO: Animation has " + std::to_string(anim->mNumChannels) + " bone channels.", Logger::INFO);
-
-    std::unordered_set<std::string> bonesWithKeyframes;
-    std::map<float, std::map<std::string, glm::mat4>> timestampToBoneMap;
-
-    for (unsigned int i = 0; i < anim->mNumChannels; i++) {
-        aiNodeAnim* channel = anim->mChannels[i];
-        std::string boneName = channel->mNodeName.C_Str();
-
-        // Normalize bone name to match DEF- rig convention
-        if (boneName.find("DEF-") != 0) {
-            std::string tryDEF = "DEF-" + boneName;
-            Logger::log("Remapping bone '" + boneName + "' to '" + tryDEF + "'", Logger::INFO);
-            boneName = tryDEF;
-        }
-
-        Logger::log("INFO: Animation Channel [" + std::to_string(i) + "] targets bone: " + boneName, Logger::INFO);
-
-        bonesWithKeyframes.insert(boneName);
-        animatedBones.push_back(boneName);
-
-        unsigned int numKeys = std::min(channel->mNumPositionKeys, channel->mNumRotationKeys);
-
-        for (unsigned int j = 0; j < numKeys; j++) {
-            float timestamp = static_cast<float>(channel->mPositionKeys[j].mTime);
-
-            glm::vec3 position(
-                channel->mPositionKeys[j].mValue.x,
-                channel->mPositionKeys[j].mValue.y,
-                channel->mPositionKeys[j].mValue.z
-            );
-
-            glm::quat rotation(
-                channel->mRotationKeys[j].mValue.w,
-                channel->mRotationKeys[j].mValue.x,
-                channel->mRotationKeys[j].mValue.y,
-                channel->mRotationKeys[j].mValue.z
-            );
-
-            glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * glm::mat4_cast(rotation);
-            timestampToBoneMap[timestamp][boneName] = transform;
-        }
-    }
-
-    for (const auto& [timestamp, boneMap] : timestampToBoneMap) {
-        keyframes.push_back({ timestamp, boneMap });
-    }
-
-    Logger::log("INFO: Checking for missing bones in animation...", Logger::INFO);
-    std::vector<std::string> allBoneNames = {
-        "DEF-breast.L", "DEF-breast.R", "DEF-shoulder.L", "DEF-shoulder.R",
-        "DEF-spine", "DEF-spine.001", "DEF-spine.002", "DEF-spine.003", "DEF-spine.004",
-        "DEF-thigh.L", "DEF-thigh.R", "DEF-foot.L", "DEF-foot.R"
-    };
-
-    for (const auto& bone : allBoneNames) {
-        if (bonesWithKeyframes.find(bone) == bonesWithKeyframes.end()) {
-            Logger::log("WARNING: Bone " + bone + " is missing from animation!", Logger::WARNING);
-        }
-        else {
-            Logger::log("DEBUG: Bone " + bone + " is present in animation.", Logger::DEBUG);
-        }
-    }
-
-    loaded = true;
-}
 
 void Animation::interpolateKeyframes(float animationTime, std::map<std::string, glm::mat4>& finalBoneMatrices) const {
     if (keyframes.empty()) {
@@ -197,6 +101,95 @@ void Animation::interpolateKeyframes(float animationTime, std::map<std::string, 
     }
 }
 
+void Animation::loadAnimation(const std::string& filePath, const Model* model) {
+    Logger::log("Loading animation from: " + filePath, Logger::INFO);
+
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs);
+
+    if (!scene) {
+        Logger::log("ERROR: Assimp failed to load file! Error: " + std::string(importer.GetErrorString()), Logger::ERROR);
+        return;
+    }
+
+    if (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
+        Logger::log("ERROR: Incomplete scene data in animation file.", Logger::ERROR);
+        return;
+    }
+
+    if (!scene->HasAnimations()) {
+        Logger::log("ERROR: No animations found in file!", Logger::ERROR);
+        return;
+    }
+
+    aiAnimation* anim = scene->mAnimations[0];
+    duration = anim->mDuration;
+    ticksPerSecond = anim->mTicksPerSecond > 0.0 ? anim->mTicksPerSecond : 30.0f;
+
+    for (unsigned int i = 0; i < anim->mNumChannels; i++) {
+        aiNodeAnim* channel = anim->mChannels[i];
+        std::string boneName = channel->mNodeName.C_Str();
+
+        if (boneName.find("DEF-") != 0) {
+            std::string tryDEF = "DEF-" + boneName;
+            if (model->hasBone(tryDEF)) {
+                Logger::log("Remapping animation bone '" + boneName + "' to '" + tryDEF + "'", Logger::INFO);
+                boneName = tryDEF;
+            }
+        }
+
+        bonesWithKeyframes.insert(boneName);
+        animatedBones.push_back(boneName);
+
+        unsigned int numKeys = std::min(channel->mNumPositionKeys, channel->mNumRotationKeys);
+
+        for (unsigned int j = 0; j < numKeys; j++) {
+            float timestamp = static_cast<float>(channel->mPositionKeys[j].mTime);
+
+            glm::vec3 position(
+                channel->mPositionKeys[j].mValue.x,
+                channel->mPositionKeys[j].mValue.y,
+                channel->mPositionKeys[j].mValue.z
+            );
+
+            glm::quat rotation(
+                channel->mRotationKeys[j].mValue.w,
+                channel->mRotationKeys[j].mValue.x,
+                channel->mRotationKeys[j].mValue.y,
+                channel->mRotationKeys[j].mValue.z
+            );
+
+            glm::mat4 translation = glm::translate(glm::mat4(1.0f), position);
+            glm::mat4 rotationMat = glm::mat4_cast(glm::normalize(rotation));
+            glm::mat4 animationLocalTransform = translation * rotationMat;
+
+            // Normalize animation to be relative to bind pose
+            glm::mat4 bindPose = model->getBindPoseGlobalTransform(boneName);
+            glm::mat4 correctedLocal = glm::inverse(bindPose) * animationLocalTransform;
+
+            // FORCE clean identity at T=0 for DEF bones
+            if (timestamp == 0.0f && boneName.find("DEF-") == 0) {
+                correctedLocal = glm::mat4(1.0f);
+            }
+
+            if (timestamp == 0.0f && (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L")) {
+                Logger::log("=== DEBUG: Animation Transform at T=0 for " + boneName + " ===", Logger::WARNING);
+                Logger::log("animationLocalTransform:\n" + glm::to_string(animationLocalTransform), Logger::WARNING);
+                Logger::log("bindPose:\n" + glm::to_string(bindPose), Logger::WARNING);
+                Logger::log("correctedLocal (post-fix):\n" + glm::to_string(correctedLocal), Logger::WARNING);
+            }
+
+            timestampToBoneMap[timestamp][boneName] = correctedLocal;
+        }
+    }
+
+    for (const auto& [timestamp, boneMap] : timestampToBoneMap) {
+        keyframes.push_back({ timestamp, boneMap });
+    }
+
+    loaded = true;
+    Logger::log("Animation loaded and re-normalized relative to model bind pose.", Logger::INFO);
+}
 
 
 glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const {
