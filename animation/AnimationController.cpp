@@ -107,7 +107,6 @@ void AnimationController::applyToModel(Model* model)
     {
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
 
-        glm::mat4 globalInverseTransform = model->getGlobalInverseTransform();
         glm::mat4 finalTransform = globalInverseTransform * globalTransform * offsetMatrix;
 
         // Explicit logging of final calculated transforms
