@@ -38,7 +38,7 @@ void SceneTest2(GLFWwindow* window) {
     // Initialize the animation controller
     if (!animationController) {
         animationController = new AnimationController(myModel);
-        if (!animationController->loadAnimation("Action.001", "Character_TPose_Anim.fbx")) {
+        if (!animationController->loadAnimation("Action.001", "Character_TPose_Anim wo NLA.fbx")) {
             Logger::log("ERROR: AnimationController failed to load animation!", Logger::ERROR);
             return;
         }

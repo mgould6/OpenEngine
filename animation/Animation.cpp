@@ -101,6 +101,7 @@ void Animation::interpolateKeyframes(float animationTime, std::map<std::string, 
     }
 }
 
+
 void Animation::loadAnimation(const std::string& filePath, const Model* model) {
     Logger::log("Loading animation from: " + filePath, Logger::INFO);
 

@@ -137,36 +137,38 @@ glm::mat4 AnimationController::buildGlobalTransform(
     std::map<std::string, glm::mat4>& globalBoneMatrices
 )
 {
-    // If we've already computed this bone's global transform, just return it
+    // Check if already computed
     if (globalBoneMatrices.find(boneName) != globalBoneMatrices.end())
-    {
         return globalBoneMatrices[boneName];
-    }
 
-    // 1) Get this bone's local (animated) transform
-    glm::mat4 localTransform(1.0f);
-    auto itLocal = localBoneMatrices.find(boneName);
-    if (itLocal != localBoneMatrices.end())
-    {
-        localTransform = itLocal->second;
-    }
-
-    // 2) Find the parent's global transform (recursively)
+    // Step 1: Get parent global transform
+    glm::mat4 parentGlobal = glm::mat4(1.0f);
     std::string parentName = model->getBoneParent(boneName);
-    glm::mat4 parentGlobal(1.0f);
     if (!parentName.empty())
-    {
         parentGlobal = buildGlobalTransform(parentName, localBoneMatrices, model, globalBoneMatrices);
-    }
 
-    // 3) Multiply: final = parentGlobal * local
-    glm::mat4 globalTransform = parentGlobal * localTransform;
+    // Step 2: Get local bind pose transform
+    glm::mat4 localBind = model->getLocalBindPose(boneName);
 
-    // 4) Cache it so we don't do repeated recursion
+    // Step 3: Get animated delta transform
+    glm::mat4 animatedDelta = glm::mat4(1.0f);
+    auto it = localBoneMatrices.find(boneName);
+    if (it != localBoneMatrices.end())
+        animatedDelta = it->second;
+
+    // Step 4: Compute final local transform
+    glm::mat4 finalLocal = localBind * animatedDelta;
+
+    // Step 5: Build global transform
+    glm::mat4 globalTransform = parentGlobal * finalLocal;
+
+    // Cache it
     globalBoneMatrices[boneName] = globalTransform;
 
     return globalTransform;
 }
+
+
 
 bool AnimationController::isAnimationPlaying() const
 {

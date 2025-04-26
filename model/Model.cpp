@@ -49,9 +49,8 @@ void Model::loadModel(const std::string& path) {
     }
     Logger::log("==== EXPLICIT BONE MAPPING END ====", Logger::INFO);
 
-    // REMOVE or COMMENT OUT:
-    // updateBoneHierarchy(scene->mRootNode, "");
-    // recalculate offset matrices using calculateBoneTransform
+    updateBoneHierarchy(scene->mRootNode, "");
+    Logger::log("Bone hierarchy successfully built from scene graph.", Logger::INFO);
 }
 
 
@@ -439,3 +438,12 @@ glm::mat4 Model::getBindPoseGlobalTransform(const std::string& boneName) const {
 }
 
 
+glm::mat4 Model::getLocalBindPose(const std::string& boneName) const
+{
+    auto it = boneLocalBindTransforms.find(boneName);
+    if (it != boneLocalBindTransforms.end())
+    {
+        return it->second;
+    }
+    return glm::mat4(1.0f); // identity fallback if missing
+}
