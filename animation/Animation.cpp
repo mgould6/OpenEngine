@@ -165,7 +165,7 @@ void Animation::loadAnimation(const std::string& filePath, const Model* model) {
 
             // Normalize animation to be relative to bind pose
             glm::mat4 bindPose = model->getBindPoseGlobalTransform(boneName);
-            glm::mat4 correctedLocal = glm::inverse(bindPose) * animationLocalTransform;
+            glm::mat4 correctedLocal =  animationLocalTransform;
 
             // FORCE clean identity at T=0 for DEF bones
             if (timestamp == 0.0f && boneName.find("DEF-") == 0) {
