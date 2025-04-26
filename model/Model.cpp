@@ -357,18 +357,7 @@ glm::mat4 Model::calculateBoneTransform(const std::string& boneName,
     // Retrieve the local transform. Default to identity if not found.
     glm::mat4 localTransform = glm::mat4(1.0f);
     auto it = localTransforms.find(boneName);
-    if (it == localTransforms.end()) {
-        // Fallback to bind-pose transform if no animation provided
-        auto bindIt = boneLocalBindTransforms.find(boneName);
-        if (bindIt != boneLocalBindTransforms.end()) {
-            localTransform = bindIt->second;
-            Logger::log("Using bind-pose transform for bone [" + boneName + "]", Logger::DEBUG);
-        }
-        else {
-            Logger::log("No local or bind transform found for bone [" + boneName + "]; using identity.", Logger::WARNING);
-        }
-    }
-    else {
+    if (it != localTransforms.end()) {
         localTransform = it->second;
     }
 
