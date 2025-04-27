@@ -149,7 +149,7 @@ INFO: Bone [DEF-shin.L.001] parent set to: DEF-shin.L
 INFO: Captured local bind transform for bone [DEF-foot.L]: mat4x4((0.886178, -0.312474, 0.342123, 0.000000), (0.463249, 0.612520, -0.640484, 0.000000), (-0.009423, 0.726071, 0.687555, 0.000000), (0.000000, 0.212020, 0.000000, 1.000000))
 INFO: Processing node: DEF-foot.L with parent: DEF-shin.L.001
 INFO: Bone [DEF-foot.L] parent set to: DEF-shin.L.001
-INFO: Captured local bind transform for bone [DEF-toe.L]: mat4x4((-1.000000, -0.000008, 0.000000, 0.000000), (-0.000006, 0.738795, -0.673930, 0.000000), (0.000005, -0.673930, -0.738795, 0.000000), (0.000000, 0.093590, -0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-toe.L]: mat4x4((-1.000000, -0.000008, 0.000000, 0.000000), (-0.000006, 0.738795, -0.673930, 0.000000), (0.000005, -0.673930, -0.738795, 0.000000), (-0.000000, 0.093590, -0.000000, 1.000000))
 INFO: Processing node: DEF-toe.L with parent: DEF-foot.L
 INFO: Bone [DEF-toe.L] parent set to: DEF-foot.L
 INFO: Captured local bind transform for bone [DEF-pelvis.R]: mat4x4((-0.421772, 0.168578, -0.890893, 0.000000), (-0.536322, 0.745855, 0.395043, 0.000000), (0.731073, 0.644423, -0.224169, 0.000000), (-0.000000, -0.154366, -0.017744, 1.000000))
@@ -202,61 +202,61 @@ INFO: INFO: Successfully loaded animation: Action.001
 INFO: Switched to animation: Action.001
 INFO: INFO: Set current animation to Action.001.
 INFO: DEBUG: Depth testing and blending enabled.
-INFO: Debug: Animation time updated to: 0.309225
-INFO: INFO: Interpolating keyframes at animation time: 0.309225
+INFO: Debug: Animation time updated to: 0.322934
+INFO: INFO: Interpolating keyframes at animation time: 0.322934
 INFO: INFO: Keyframe count: 31
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.154613
-WARNING: ANIM FINAL MATRIX: DEF-forearm.L @ time 0.309225
-WARNING: mat4x4((1.000000, -0.000001, -0.000068, 0.000000), (0.000007, 0.996428, 0.084446, 0.000000), (0.000068, -0.084446, 0.996428, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.161467
+WARNING: ANIM FINAL MATRIX: DEF-forearm.L @ time 0.322934
+WARNING: mat4x4((1.000000, -0.000001, -0.000072, 0.000000), (0.000007, 0.996421, 0.084524, 0.000000), (0.000071, -0.084524, 0.996421, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-forearm.L.001 with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-forearm.L.001 with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-forearm.R with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-forearm.R with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-forearm.R.001 with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-forearm.R.001 with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-hand.L with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-hand.L with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-hand.R with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-hand.R with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-shin.L with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-shin.L with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-shin.L.001 with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-shin.L.001 with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-shin.R with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-shin.R with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-shin.R.001 with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-shin.R.001 with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-thigh.L.001 with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-thigh.L.001 with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-thigh.R.001 with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-thigh.R.001 with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-upper_arm.L with factor: 0.154613
-WARNING: ANIM FINAL MATRIX: DEF-upper_arm.L @ time 0.309225
-WARNING: mat4x4((0.256604, -0.153469, 0.954255, 0.000000), (0.563293, 0.826048, -0.018623, 0.000000), (-0.785402, 0.542303, 0.298415, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-upper_arm.L with factor: 0.161467
+WARNING: ANIM FINAL MATRIX: DEF-upper_arm.L @ time 0.322934
+WARNING: mat4x4((0.256529, -0.153586, 0.954256, 0.000000), (0.563324, 0.826029, -0.018488, 0.000000), (-0.785404, 0.542298, 0.298420, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-upper_arm.L.001 with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-upper_arm.L.001 with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-upper_arm.R with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-upper_arm.R with factor: 0.161467
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.154613
-INFO: INFO: Interpolated bone: DEF-upper_arm.R.001 with factor: 0.154613
+INFO: Bone Transform Interpolation at factor: 0.161467
+INFO: INFO: Interpolated bone: DEF-upper_arm.R.001 with factor: 0.161467
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-breast.L]:
 mat4x4((1.000000, -0.000000, 0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, -0.000000, 0.000001, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-breast.L
@@ -274,37 +274,37 @@ mat4x4((1.000000, -0.000005, 0.000012, 0.000000), (0.000004, 1.000000, 0.000012,
 INFO: DEBUG: After Storing Bone DEF-foot.R
 INFO: Applied globalInverse * global * offset for bone: DEF-foot.R
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.L]:
-mat4x4((0.999995, 0.002902, 0.001290, 0.000000), (-0.002902, 0.999996, 0.000027, 0.000000), (-0.001290, -0.000030, 0.999999, 0.000000), (0.004261, -0.000311, -0.000901, 1.000000))
+mat4x4((0.999994, 0.003061, 0.001252, 0.000000), (-0.003061, 0.999996, 0.000028, 0.000000), (-0.001252, -0.000032, 0.999999, 0.000000), (0.004499, -0.000345, -0.000876, 1.000000))
 WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-forearm.L ===
 WARNING: Global Transform:
-mat4x4((-0.001654, 0.954283, 0.298902, 0.000000), (0.999883, 0.006121, -0.014010, 0.000000), (-0.015199, 0.298844, -0.954181, 0.000000), (0.439935, 1.486911, -0.073080, 1.000000))
+mat4x4((-0.001794, 0.954282, 0.298903, 0.000000), (0.999882, 0.006280, -0.014048, 0.000000), (-0.015283, 0.298843, -0.954180, 0.000000), (0.439935, 1.486946, -0.073070, 1.000000))
 WARNING: Offset Matrix (Inverse Bind Pose):
 mat4x4((0.001501, 0.999878, -0.015562, 0.000000), (0.954291, 0.003219, 0.298861, 0.000000), (0.298875, -0.015300, -0.954170, 0.000000), (-1.396935, -0.445738, -0.506697, 1.000000))
 WARNING: Global Inverse Transform:
 mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
 WARNING: Resulting Final Transform:
-mat4x4((0.999995, 0.002902, 0.001290, 0.000000), (-0.002902, 0.999996, 0.000027, 0.000000), (-0.001290, -0.000030, 0.999999, 0.000000), (0.004261, -0.000311, -0.000901, 1.000000))
-INFO: Decomposed transform for DEF-forearm.L: Translation(0.00426108, -0.000311494, -0.00090082), Scale(1, 1, 1)
+mat4x4((0.999994, 0.003061, 0.001252, 0.000000), (-0.003061, 0.999996, 0.000028, 0.000000), (-0.001252, -0.000032, 0.999999, 0.000000), (0.004499, -0.000345, -0.000876, 1.000000))
+INFO: Decomposed transform for DEF-forearm.L: Translation(0.00449947, -0.000345111, -0.000876382), Scale(1, 1, 1)
 INFO: DEBUG: After Storing Bone DEF-forearm.L
 INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.L.001]:
-mat4x4((0.999995, 0.002900, 0.001289, 0.000000), (-0.002901, 0.999996, 0.000099, 0.000000), (-0.001289, -0.000103, 0.999999, 0.000000), (0.004258, -0.000316, -0.001009, 1.000000))
+mat4x4((0.999994, 0.003059, 0.001251, 0.000000), (-0.003059, 0.999996, 0.000104, 0.000000), (-0.001251, -0.000108, 0.999999, 0.000000), (0.004497, -0.000350, -0.000990, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-forearm.L.001
 INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L.001
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.R]:
-mat4x4((0.999995, -0.002901, -0.001289, 0.000000), (0.002901, 0.999996, 0.000026, 0.000000), (0.001289, -0.000030, 0.999999, 0.000000), (-0.004259, -0.000311, -0.000900, 1.000000))
+mat4x4((0.999994, -0.003060, -0.001251, 0.000000), (0.003060, 0.999995, 0.000027, 0.000000), (0.001251, -0.000031, 0.999999, 0.000000), (-0.004498, -0.000345, -0.000875, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-forearm.R
 INFO: Applied globalInverse * global * offset for bone: DEF-forearm.R
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.R.001]:
-mat4x4((0.999995, -0.002900, -0.001289, 0.000000), (0.002900, 0.999996, 0.000099, 0.000000), (0.001288, -0.000102, 0.999999, 0.000000), (-0.004257, -0.000315, -0.001007, 1.000000))
+mat4x4((0.999995, -0.003058, -0.001251, 0.000000), (0.003058, 0.999996, 0.000104, 0.000000), (0.001251, -0.000107, 0.999999, 0.000000), (-0.004495, -0.000350, -0.000989, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-forearm.R.001
 INFO: Applied globalInverse * global * offset for bone: DEF-forearm.R.001
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-hand.L]:
-mat4x4((0.999965, 0.008314, 0.000004, 0.000000), (-0.008314, 0.999966, 0.000110, 0.000000), (-0.000003, -0.000111, 1.000000, 0.000000), (0.012425, -0.003954, -0.000151, 1.000000))
+mat4x4((0.999962, 0.008683, 0.000004, 0.000000), (-0.008683, 0.999963, 0.000115, 0.000000), (-0.000004, -0.000116, 1.000000, 0.000000), (0.012975, -0.004127, -0.000158, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-hand.L
 INFO: Applied globalInverse * global * offset for bone: DEF-hand.L
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-hand.R]:
-mat4x4((0.999966, -0.008314, -0.000004, 0.000000), (0.008314, 0.999965, 0.000111, 0.000000), (0.000003, -0.000111, 1.000000, 0.000000), (-0.012425, -0.003954, -0.000152, 1.000000))
+mat4x4((0.999962, -0.008683, -0.000004, 0.000000), (0.008683, 0.999963, 0.000115, 0.000000), (0.000003, -0.000116, 1.000000, 0.000000), (-0.012975, -0.004127, -0.000158, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-hand.R
 INFO: Applied globalInverse * global * offset for bone: DEF-hand.R
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-pelvis.L]:
@@ -384,37 +384,37 @@ mat4x4((1.000000, 0.000000, 0.000011, 0.000000), (-0.000000, 1.000000, -0.000001
 INFO: DEBUG: After Storing Bone DEF-thigh.R.001
 INFO: Applied globalInverse * global * offset for bone: DEF-thigh.R.001
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-toe.L]:
-mat4x4((1.000000, -0.000001, -0.000001, 0.000000), (0.000001, 1.000000, -0.000000, 0.000000), (0.000001, 0.000000, 1.000000, 0.000000), (0.000000, -0.000001, 0.000001, 1.000000))
+mat4x4((1.000000, -0.000001, -0.000001, 0.000000), (0.000001, 1.000000, 0.000000, 0.000000), (0.000001, 0.000000, 1.000000, 0.000000), (0.000000, -0.000001, 0.000001, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-toe.L
 INFO: Applied globalInverse * global * offset for bone: DEF-toe.L
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-toe.R]:
-mat4x4((1.000000, 0.000000, 0.000001, 0.000000), (-0.000001, 1.000000, 0.000000, 0.000000), (-0.000001, 0.000000, 1.000000, 0.000000), (-0.000001, -0.000001, 0.000001, 1.000000))
+mat4x4((1.000000, 0.000000, 0.000001, 0.000000), (-0.000001, 1.000000, -0.000000, 0.000000), (-0.000001, 0.000001, 1.000000, 0.000000), (-0.000001, -0.000001, 0.000001, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-toe.R
 INFO: Applied globalInverse * global * offset for bone: DEF-toe.R
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.L]:
-mat4x4((0.999993, 0.003648, -0.001121, 0.000000), (-0.003649, 0.999994, -0.000105, 0.000000), (0.001121, 0.000109, 0.999999, 0.000000), (0.005546, -0.000626, 0.000355, 1.000000))
+mat4x4((0.999992, 0.003783, -0.001084, 0.000000), (-0.003783, 0.999993, -0.000110, 0.000000), (0.001084, 0.000114, 0.999999, 0.000000), (0.005744, -0.000648, 0.000355, 1.000000))
 WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-upper_arm.L ===
 WARNING: Global Transform:
-mat4x4((-0.001645, 0.954323, 0.298772, 0.000000), (0.997595, -0.019136, 0.066616, 0.000000), (0.069290, 0.298163, -0.951997, 0.000000), (0.176911, 1.491956, -0.090643, 1.000000))
+mat4x4((-0.001785, 0.954325, 0.298768, 0.000000), (0.997595, -0.019001, 0.066653, 0.000000), (0.069285, 0.298168, -0.951996, 0.000000), (0.176911, 1.491956, -0.090643, 1.000000))
 WARNING: Offset Matrix (Inverse Bind Pose):
 mat4x4((0.001501, 0.997443, 0.071445, 0.000000), (0.954292, -0.022782, 0.298008, 0.000000), (0.298874, 0.067732, -0.951886, 0.000000), (-1.396935, -0.136329, -0.543537, 1.000000))
 WARNING: Global Inverse Transform:
 mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
 WARNING: Resulting Final Transform:
-mat4x4((0.999993, 0.003648, -0.001121, 0.000000), (-0.003649, 0.999994, -0.000105, 0.000000), (0.001121, 0.000109, 0.999999, 0.000000), (0.005546, -0.000626, 0.000355, 1.000000))
-INFO: Decomposed transform for DEF-upper_arm.L: Translation(0.00554612, -0.00062573, 0.000354566), Scale(1, 1, 1)
+mat4x4((0.999992, 0.003783, -0.001084, 0.000000), (-0.003783, 0.999993, -0.000110, 0.000000), (0.001084, 0.000114, 0.999999, 0.000000), (0.005744, -0.000648, 0.000355, 1.000000))
+INFO: Decomposed transform for DEF-upper_arm.L: Translation(0.00574368, -0.000648379, 0.000355341), Scale(1, 1, 1)
 INFO: DEBUG: After Storing Bone DEF-upper_arm.L
 INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.L
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.L.001]:
-mat4x4((0.999992, 0.003650, -0.001120, 0.000000), (-0.003650, 0.999994, -0.000037, 0.000000), (0.001119, 0.000041, 1.000000, 0.000000), (0.005549, -0.000632, 0.000254, 1.000000))
+mat4x4((0.999992, 0.003785, -0.001083, 0.000000), (-0.003785, 0.999993, -0.000039, 0.000000), (0.001083, 0.000043, 1.000000, 0.000000), (0.005747, -0.000655, 0.000250, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
 INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.L.001
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.R]:
-mat4x4((0.999993, -0.003646, 0.001121, 0.000000), (0.003646, 0.999993, -0.000104, 0.000000), (-0.001121, 0.000108, 0.999999, 0.000000), (-0.005543, -0.000625, 0.000354, 1.000000))
+mat4x4((0.999992, -0.003781, 0.001085, 0.000000), (0.003781, 0.999993, -0.000109, 0.000000), (-0.001084, 0.000113, 0.999999, 0.000000), (-0.005741, -0.000648, 0.000355, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-upper_arm.R
 INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.R
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.R.001]:
-mat4x4((0.999993, -0.003654, 0.001119, 0.000000), (0.003654, 0.999993, -0.000038, 0.000000), (-0.001118, 0.000042, 0.999999, 0.000000), (-0.005554, -0.000633, 0.000254, 1.000000))
+mat4x4((0.999992, -0.003789, 0.001082, 0.000000), (0.003789, 0.999993, -0.000040, 0.000000), (-0.001082, 0.000044, 0.999999, 0.000000), (-0.005752, -0.000656, 0.000251, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
 INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.R.001
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [root]:
@@ -458,49 +458,49 @@ INFO: mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 1.000000, -0
 INFO: Bone: DEF-shoulder.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.000000, -0.000000, 0.000001) Skew: vec3(-0.000000, -0.000000, 0.000000)
 INFO: Decomposed transform for DEF-shoulder.L: Translation(-2.01166e-07, -2.38419e-07, 5.20144e-07), Scale(1, 1, 1)
 INFO: Bone [DEF-upper_arm.L] FINAL TRANSFORM:
-INFO: mat4x4((0.999993, 0.003648, -0.001121, 0.000000), (-0.003649, 0.999994, -0.000105, 0.000000), (0.001121, 0.000109, 0.999999, 0.000000), (0.005546, -0.000626, 0.000355, 1.000000))
-INFO: Bone: DEF-upper_arm.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.005546, -0.000626, 0.000355) Skew: vec3(-0.000000, 0.000000, 0.000000)
-INFO: Decomposed transform for DEF-upper_arm.L: Translation(0.00554612, -0.00062573, 0.000354566), Scale(1, 1, 1)
+INFO: mat4x4((0.999992, 0.003783, -0.001084, 0.000000), (-0.003783, 0.999993, -0.000110, 0.000000), (0.001084, 0.000114, 0.999999, 0.000000), (0.005744, -0.000648, 0.000355, 1.000000))
+INFO: Bone: DEF-upper_arm.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.005744, -0.000648, 0.000355) Skew: vec3(-0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-upper_arm.L: Translation(0.00574368, -0.000648379, 0.000355341), Scale(1, 1, 1)
 INFO: Bone [DEF-upper_arm.L.001] FINAL TRANSFORM:
-INFO: mat4x4((0.999992, 0.003650, -0.001120, 0.000000), (-0.003650, 0.999994, -0.000037, 0.000000), (0.001119, 0.000041, 1.000000, 0.000000), (0.005549, -0.000632, 0.000254, 1.000000))
-INFO: Bone: DEF-upper_arm.L.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.005549, -0.000632, 0.000254) Skew: vec3(-0.000000, -0.000000, 0.000000)
-INFO: Decomposed transform for DEF-upper_arm.L.001: Translation(0.00554892, -0.00063169, 0.00025399), Scale(1, 1, 1)
+INFO: mat4x4((0.999992, 0.003785, -0.001083, 0.000000), (-0.003785, 0.999993, -0.000039, 0.000000), (0.001083, 0.000043, 1.000000, 0.000000), (0.005747, -0.000655, 0.000250, 1.000000))
+INFO: Bone: DEF-upper_arm.L.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.005747, -0.000655, 0.000250) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-upper_arm.L.001: Translation(0.00574681, -0.000654697, 0.00025034), Scale(1, 1, 1)
 INFO: Bone [DEF-forearm.L] FINAL TRANSFORM:
-INFO: mat4x4((0.999995, 0.002902, 0.001290, 0.000000), (-0.002902, 0.999996, 0.000027, 0.000000), (-0.001290, -0.000030, 0.999999, 0.000000), (0.004261, -0.000311, -0.000901, 1.000000))
-INFO: Bone: DEF-forearm.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.004261, -0.000311, -0.000901) Skew: vec3(-0.000000, -0.000000, 0.000000)
-INFO: Decomposed transform for DEF-forearm.L: Translation(0.00426108, -0.000311494, -0.00090082), Scale(1, 1, 1)
+INFO: mat4x4((0.999994, 0.003061, 0.001252, 0.000000), (-0.003061, 0.999996, 0.000028, 0.000000), (-0.001252, -0.000032, 0.999999, 0.000000), (0.004499, -0.000345, -0.000876, 1.000000))
+INFO: Bone: DEF-forearm.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.004499, -0.000345, -0.000876) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-forearm.L: Translation(0.00449947, -0.000345111, -0.000876382), Scale(1, 1, 1)
 INFO: Bone [DEF-forearm.L.001] FINAL TRANSFORM:
-INFO: mat4x4((0.999995, 0.002900, 0.001289, 0.000000), (-0.002901, 0.999996, 0.000099, 0.000000), (-0.001289, -0.000103, 0.999999, 0.000000), (0.004258, -0.000316, -0.001009, 1.000000))
-INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.004258, -0.000316, -0.001009) Skew: vec3(-0.000000, -0.000000, 0.000000)
-INFO: Decomposed transform for DEF-forearm.L.001: Translation(0.00425828, -0.000316381, -0.00100864), Scale(1, 1, 1)
+INFO: mat4x4((0.999994, 0.003059, 0.001251, 0.000000), (-0.003059, 0.999996, 0.000104, 0.000000), (-0.001251, -0.000108, 0.999999, 0.000000), (0.004497, -0.000350, -0.000990, 1.000000))
+INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.004497, -0.000350, -0.000990) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-forearm.L.001: Translation(0.00449663, -0.000350237, -0.000989951), Scale(1, 1, 1)
 INFO: Bone [DEF-hand.L] FINAL TRANSFORM:
-INFO: mat4x4((0.999965, 0.008314, 0.000004, 0.000000), (-0.008314, 0.999966, 0.000110, 0.000000), (-0.000003, -0.000111, 1.000000, 0.000000), (0.012425, -0.003954, -0.000151, 1.000000))
-INFO: Bone: DEF-hand.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.012425, -0.003954, -0.000151) Skew: vec3(-0.000000, -0.000000, 0.000000)
-INFO: Decomposed transform for DEF-hand.L: Translation(0.0124254, -0.00395358, -0.000151418), Scale(1, 1, 1)
+INFO: mat4x4((0.999962, 0.008683, 0.000004, 0.000000), (-0.008683, 0.999963, 0.000115, 0.000000), (-0.000004, -0.000116, 1.000000, 0.000000), (0.012975, -0.004127, -0.000158, 1.000000))
+INFO: Bone: DEF-hand.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.012975, -0.004127, -0.000158) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-hand.L: Translation(0.0129751, -0.00412655, -0.000158302), Scale(1, 1, 1)
 INFO: Bone [DEF-shoulder.R] FINAL TRANSFORM:
 INFO: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, -0.000000, 0.000001, 1.000000))
 INFO: Bone: DEF-shoulder.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -0.000000, 0.000001) Skew: vec3(-0.000000, 0.000000, -0.000000)
 INFO: Decomposed transform for DEF-shoulder.R: Translation(2.01166e-07, -2.38419e-07, 5.20144e-07), Scale(1, 1, 1)
 INFO: Bone [DEF-upper_arm.R] FINAL TRANSFORM:
-INFO: mat4x4((0.999993, -0.003646, 0.001121, 0.000000), (0.003646, 0.999993, -0.000104, 0.000000), (-0.001121, 0.000108, 0.999999, 0.000000), (-0.005543, -0.000625, 0.000354, 1.000000))
-INFO: Bone: DEF-upper_arm.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.005543, -0.000625, 0.000354) Skew: vec3(-0.000000, 0.000000, -0.000000)
-INFO: Decomposed transform for DEF-upper_arm.R: Translation(-0.00554284, -0.000625014, 0.000354119), Scale(1, 1, 1)
+INFO: mat4x4((0.999992, -0.003781, 0.001085, 0.000000), (0.003781, 0.999993, -0.000109, 0.000000), (-0.001084, 0.000113, 0.999999, 0.000000), (-0.005741, -0.000648, 0.000355, 1.000000))
+INFO: Bone: DEF-upper_arm.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.005741, -0.000648, 0.000355) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-upper_arm.R: Translation(-0.00574064, -0.000647902, 0.000355154), Scale(1, 1, 1)
 INFO: Bone [DEF-upper_arm.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.999993, -0.003654, 0.001119, 0.000000), (0.003654, 0.999993, -0.000038, 0.000000), (-0.001118, 0.000042, 0.999999, 0.000000), (-0.005554, -0.000633, 0.000254, 1.000000))
-INFO: Bone: DEF-upper_arm.R.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.005554, -0.000633, 0.000254) Skew: vec3(-0.000000, 0.000000, -0.000000)
-INFO: Decomposed transform for DEF-upper_arm.R.001: Translation(-0.00555441, -0.000632763, 0.000254318), Scale(1, 1, 1)
+INFO: mat4x4((0.999992, -0.003789, 0.001082, 0.000000), (0.003789, 0.999993, -0.000040, 0.000000), (-0.001082, 0.000044, 0.999999, 0.000000), (-0.005752, -0.000656, 0.000251, 1.000000))
+INFO: Bone: DEF-upper_arm.R.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.005752, -0.000656, 0.000251) Skew: vec3(-0.000000, 0.000000, -0.000000)
+INFO: Decomposed transform for DEF-upper_arm.R.001: Translation(-0.00575241, -0.000656128, 0.000250906), Scale(1, 1, 1)
 INFO: Bone [DEF-forearm.R] FINAL TRANSFORM:
-INFO: mat4x4((0.999995, -0.002901, -0.001289, 0.000000), (0.002901, 0.999996, 0.000026, 0.000000), (0.001289, -0.000030, 0.999999, 0.000000), (-0.004259, -0.000311, -0.000900, 1.000000))
-INFO: Bone: DEF-forearm.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.004259, -0.000311, -0.000900) Skew: vec3(-0.000000, 0.000000, -0.000000)
-INFO: Decomposed transform for DEF-forearm.R: Translation(-0.00425932, -0.000310779, -0.000899605), Scale(1, 1, 1)
+INFO: mat4x4((0.999994, -0.003060, -0.001251, 0.000000), (0.003060, 0.999995, 0.000027, 0.000000), (0.001251, -0.000031, 0.999999, 0.000000), (-0.004498, -0.000345, -0.000875, 1.000000))
+INFO: Bone: DEF-forearm.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.004498, -0.000345, -0.000875) Skew: vec3(-0.000000, 0.000000, -0.000000)
+INFO: Decomposed transform for DEF-forearm.R: Translation(-0.00449786, -0.000344634, -0.000874862), Scale(1, 1, 1)
 INFO: Bone [DEF-forearm.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.999995, -0.002900, -0.001289, 0.000000), (0.002900, 0.999996, 0.000099, 0.000000), (0.001288, -0.000102, 0.999999, 0.000000), (-0.004257, -0.000315, -0.001007, 1.000000))
-INFO: Bone: DEF-forearm.R.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.004257, -0.000315, -0.001007) Skew: vec3(-0.000000, 0.000000, -0.000000)
-INFO: Decomposed transform for DEF-forearm.R.001: Translation(-0.00425673, -0.000315309, -0.00100746), Scale(1, 1, 1)
+INFO: mat4x4((0.999995, -0.003058, -0.001251, 0.000000), (0.003058, 0.999996, 0.000104, 0.000000), (0.001251, -0.000107, 0.999999, 0.000000), (-0.004495, -0.000350, -0.000989, 1.000000))
+INFO: Bone: DEF-forearm.R.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.004495, -0.000350, -0.000989) Skew: vec3(-0.000000, 0.000000, -0.000000)
+INFO: Decomposed transform for DEF-forearm.R.001: Translation(-0.00449508, -0.000349522, -0.000988528), Scale(1, 1, 1)
 INFO: Bone [DEF-hand.R] FINAL TRANSFORM:
-INFO: mat4x4((0.999966, -0.008314, -0.000004, 0.000000), (0.008314, 0.999965, 0.000111, 0.000000), (0.000003, -0.000111, 1.000000, 0.000000), (-0.012425, -0.003954, -0.000152, 1.000000))
-INFO: Bone: DEF-hand.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.012425, -0.003954, -0.000152) Skew: vec3(0.000000, 0.000000, -0.000000)
-INFO: Decomposed transform for DEF-hand.R: Translation(-0.012425, -0.00395358, -0.000151686), Scale(1, 1, 1)
+INFO: mat4x4((0.999962, -0.008683, -0.000004, 0.000000), (0.008683, 0.999963, 0.000115, 0.000000), (0.000003, -0.000116, 1.000000, 0.000000), (-0.012975, -0.004127, -0.000158, 1.000000))
+INFO: Bone: DEF-hand.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.012975, -0.004127, -0.000158) Skew: vec3(-0.000000, 0.000000, -0.000000)
+INFO: Decomposed transform for DEF-hand.R: Translation(-0.0129748, -0.00412679, -0.000158295), Scale(1, 1, 1)
 INFO: Bone [DEF-breast.L] FINAL TRANSFORM:
 INFO: mat4x4((1.000000, -0.000000, 0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, -0.000000, 0.000001, 1.000000))
 INFO: Bone: DEF-breast.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.000000, -0.000000, 0.000001) Skew: vec3(-0.000000, -0.000000, -0.000000)
@@ -520,23 +520,23 @@ INFO: Decomposed transform for DEF-thigh.L: Translation(1.78814e-07, 0, 1.81049e
 INFO: Bone [DEF-thigh.L.001] FINAL TRANSFORM:
 INFO: mat4x4((1.000000, -0.000000, -0.000011, 0.000000), (0.000001, 1.000000, -0.000001, 0.000000), (0.000012, 0.000001, 1.000000, 0.000000), (0.000000, 0.000000, 0.000002, 1.000000))
 INFO: Bone: DEF-thigh.L.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, 0.000000, 0.000002) Skew: vec3(0.000000, 0.000000, 0.000000)
-INFO: Decomposed transform for DEF-thigh.L.001: Translation(1.56462e-07, 1.78814e-07, 2.2538e-06), Scale(1, 1, 1)
+INFO: Decomposed transform for DEF-thigh.L.001: Translation(1.49012e-07, 1.78814e-07, 2.2538e-06), Scale(1, 1, 1)
 INFO: Bone [DEF-shin.L] FINAL TRANSFORM:
 INFO: mat4x4((1.000000, -0.000001, -0.000018, 0.000000), (0.000002, 1.000000, -0.000001, 0.000000), (0.000018, 0.000002, 1.000000, 0.000000), (-0.000000, -0.000000, 0.000003, 1.000000))
 INFO: Bone: DEF-shin.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.000000, -0.000000, 0.000003) Skew: vec3(0.000000, 0.000000, 0.000000)
-INFO: Decomposed transform for DEF-shin.L: Translation(-7.45058e-08, -5.96046e-08, 3.11434e-06), Scale(1, 1, 1)
+INFO: Decomposed transform for DEF-shin.L: Translation(-7.45058e-08, -5.96046e-08, 3.11807e-06), Scale(1, 1, 1)
 INFO: Bone [DEF-shin.L.001] FINAL TRANSFORM:
 INFO: mat4x4((1.000000, -0.000001, -0.000013, 0.000000), (0.000002, 1.000000, -0.000002, 0.000000), (0.000013, 0.000002, 1.000000, 0.000000), (-0.000000, -0.000000, 0.000003, 1.000000))
 INFO: Bone: DEF-shin.L.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.000000, -0.000000, 0.000003) Skew: vec3(0.000000, 0.000000, 0.000000)
-INFO: Decomposed transform for DEF-shin.L.001: Translation(-3.12924e-07, -5.96046e-08, 2.84985e-06), Scale(1, 1, 1)
+INFO: Decomposed transform for DEF-shin.L.001: Translation(-3.05474e-07, -5.96046e-08, 2.84985e-06), Scale(1, 1, 1)
 INFO: Bone [DEF-foot.L] FINAL TRANSFORM:
 INFO: mat4x4((1.000000, 0.000004, -0.000011, 0.000000), (-0.000004, 1.000000, 0.000012, 0.000000), (0.000012, -0.000011, 1.000000, 0.000000), (0.000000, -0.000001, 0.000001, 1.000000))
-INFO: Bone: DEF-foot.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -0.000001, 0.000001) Skew: vec3(0.000000, 0.000000, 0.000000)
-INFO: Decomposed transform for DEF-foot.L: Translation(2.49594e-07, -9.53674e-07, 1.30758e-06), Scale(1, 1, 1)
+INFO: Bone: DEF-foot.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -0.000001, 0.000001) Skew: vec3(0.000001, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-foot.L: Translation(2.27243e-07, -9.61125e-07, 1.3113e-06), Scale(1, 1, 1)
 INFO: Bone [DEF-toe.L] FINAL TRANSFORM:
-INFO: mat4x4((1.000000, -0.000001, -0.000001, 0.000000), (0.000001, 1.000000, -0.000000, 0.000000), (0.000001, 0.000000, 1.000000, 0.000000), (0.000000, -0.000001, 0.000001, 1.000000))
-INFO: Bone: DEF-toe.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -0.000001, 0.000001) Skew: vec3(0.000000, 0.000000, 0.000000)
-INFO: Decomposed transform for DEF-toe.L: Translation(2.08616e-07, -7.78586e-07, 1.04308e-06), Scale(1, 1, 1)
+INFO: mat4x4((1.000000, -0.000001, -0.000001, 0.000000), (0.000001, 1.000000, 0.000000, 0.000000), (0.000001, 0.000000, 1.000000, 0.000000), (0.000000, -0.000001, 0.000001, 1.000000))
+INFO: Bone: DEF-toe.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.000000, -0.000001, 0.000001) Skew: vec3(0.000001, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-toe.L: Translation(2.01166e-07, -7.52509e-07, 1.03004e-06), Scale(1, 1, 1)
 INFO: Bone [DEF-pelvis.R] FINAL TRANSFORM:
 INFO: mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, -0.000000, -0.000000, 1.000000))
 INFO: Bone: DEF-pelvis.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.000000, -0.000000, -0.000000) Skew: vec3(0.000000, -0.000000, -0.000000)
@@ -552,7 +552,7 @@ INFO: Decomposed transform for DEF-thigh.R.001: Translation(-4.91738e-07, 1.1920
 INFO: Bone [DEF-shin.R] FINAL TRANSFORM:
 INFO: mat4x4((1.000000, 0.000001, 0.000018, 0.000000), (-0.000001, 1.000000, -0.000001, 0.000000), (-0.000018, 0.000002, 1.000000, 0.000000), (-0.000000, -0.000000, 0.000003, 1.000000))
 INFO: Bone: DEF-shin.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.000000, -0.000000, 0.000003) Skew: vec3(0.000000, -0.000000, -0.000000)
-INFO: Decomposed transform for DEF-shin.R: Translation(-2.6077e-07, -1.78814e-07, 3.12552e-06), Scale(1, 1, 1)
+INFO: Decomposed transform for DEF-shin.R: Translation(-2.68221e-07, -1.78814e-07, 3.12924e-06), Scale(1, 1, 1)
 INFO: Bone [DEF-shin.R.001] FINAL TRANSFORM:
 INFO: mat4x4((1.000000, 0.000001, 0.000013, 0.000000), (-0.000001, 1.000000, -0.000001, 0.000000), (-0.000013, 0.000002, 1.000000, 0.000000), (-0.000000, -0.000000, 0.000003, 1.000000))
 INFO: Bone: DEF-shin.R.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.000000, -0.000000, 0.000003) Skew: vec3(0.000000, -0.000000, -0.000000)
@@ -560,69 +560,69 @@ INFO: Decomposed transform for DEF-shin.R.001: Translation(-7.45058e-09, -1.4901
 INFO: Bone [DEF-foot.R] FINAL TRANSFORM:
 INFO: mat4x4((1.000000, -0.000005, 0.000012, 0.000000), (0.000004, 1.000000, 0.000012, 0.000000), (-0.000012, -0.000011, 1.000000, 0.000000), (-0.000001, -0.000001, 0.000001, 1.000000))
 INFO: Bone: DEF-foot.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.000001, -0.000001, 0.000001) Skew: vec3(0.000000, -0.000000, -0.000000)
-INFO: Decomposed transform for DEF-foot.R: Translation(-5.96046e-07, -1.09524e-06, 1.3113e-06), Scale(1, 1, 1)
+INFO: Decomposed transform for DEF-foot.R: Translation(-5.81145e-07, -1.08778e-06, 1.32248e-06), Scale(1, 1, 1)
 INFO: Bone [DEF-toe.R] FINAL TRANSFORM:
-INFO: mat4x4((1.000000, 0.000000, 0.000001, 0.000000), (-0.000001, 1.000000, 0.000000, 0.000000), (-0.000001, 0.000000, 1.000000, 0.000000), (-0.000001, -0.000001, 0.000001, 1.000000))
-INFO: Bone: DEF-toe.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.000001, -0.000001, 0.000001) Skew: vec3(0.000000, -0.000000, -0.000000)
-INFO: Decomposed transform for DEF-toe.R: Translation(-5.36442e-07, -9.05246e-07, 1.04494e-06), Scale(1, 1, 1)
+INFO: mat4x4((1.000000, 0.000000, 0.000001, 0.000000), (-0.000001, 1.000000, -0.000000, 0.000000), (-0.000001, 0.000001, 1.000000, 0.000000), (-0.000001, -0.000001, 0.000001, 1.000000))
+INFO: Bone: DEF-toe.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.000001, -0.000001, 0.000001) Skew: vec3(0.000001, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-toe.R: Translation(-5.36442e-07, -8.79169e-07, 1.04494e-06), Scale(1, 1, 1)
 INFO: DEBUG: Max Vertex Attributes: 32
 INFO: Drawing mesh with VAO: 1
 INFO: DEBUG: Depth testing and blending enabled.
-INFO: Debug: Animation time updated to: 0.377151
-INFO: INFO: Interpolating keyframes at animation time: 0.377151
+INFO: Debug: Animation time updated to: 0.381692
+INFO: INFO: Interpolating keyframes at animation time: 0.381692
 INFO: INFO: Keyframe count: 31
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.188576
-WARNING: ANIM FINAL MATRIX: DEF-forearm.L @ time 0.377151
-WARNING: mat4x4((1.000000, -0.000002, -0.000083, 0.000000), (0.000009, 0.996395, 0.084832, 0.000000), (0.000083, -0.084832, 0.996395, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.190846
+WARNING: ANIM FINAL MATRIX: DEF-forearm.L @ time 0.381692
+WARNING: mat4x4((1.000000, -0.000002, -0.000084, 0.000000), (0.000009, 0.996393, 0.084858, 0.000000), (0.000084, -0.084858, 0.996393, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-forearm.L.001 with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-forearm.L.001 with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-forearm.R with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-forearm.R with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-forearm.R.001 with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-forearm.R.001 with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-hand.L with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-hand.L with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-hand.R with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-hand.R with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-shin.L with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-shin.L with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-shin.L.001 with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-shin.L.001 with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-shin.R with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-shin.R with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-shin.R.001 with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-shin.R.001 with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-thigh.L.001 with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-thigh.L.001 with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-thigh.R.001 with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-thigh.R.001 with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-upper_arm.L with factor: 0.188576
-WARNING: ANIM FINAL MATRIX: DEF-upper_arm.L @ time 0.377151
-WARNING: mat4x4((0.256234, -0.154053, 0.954260, 0.000000), (0.563449, 0.825955, -0.017956, 0.000000), (-0.785410, 0.542278, 0.298439, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-upper_arm.L with factor: 0.190846
+WARNING: ANIM FINAL MATRIX: DEF-upper_arm.L @ time 0.381692
+WARNING: mat4x4((0.256209, -0.154092, 0.954260, 0.000000), (0.563460, 0.825949, -0.017911, 0.000000), (-0.785411, 0.542277, 0.298440, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-upper_arm.L.001 with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-upper_arm.L.001 with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-upper_arm.R with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-upper_arm.R with factor: 0.190846
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.188576
-INFO: INFO: Interpolated bone: DEF-upper_arm.R.001 with factor: 0.188576
+INFO: Bone Transform Interpolation at factor: 0.190846
+INFO: INFO: Interpolated bone: DEF-upper_arm.R.001 with factor: 0.190846
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-breast.L]:
 mat4x4((1.000000, -0.000000, 0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, -0.000000, 0.000001, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-breast.L
@@ -640,37 +640,37 @@ mat4x4((1.000000, -0.000005, 0.000012, 0.000000), (0.000004, 1.000000, 0.000012,
 INFO: DEBUG: After Storing Bone DEF-foot.R
 INFO: Applied globalInverse * global * offset for bone: DEF-foot.R
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.L]:
-mat4x4((0.999992, 0.003687, 0.001102, 0.000000), (-0.003687, 0.999993, 0.000033, 0.000000), (-0.001102, -0.000037, 0.999999, 0.000000), (0.005442, -0.000477, -0.000780, 1.000000))
+mat4x4((0.999992, 0.003740, 0.001090, 0.000000), (-0.003740, 0.999993, 0.000033, 0.000000), (-0.001090, -0.000037, 1.000000, 0.000000), (0.005521, -0.000489, -0.000772, 1.000000))
 WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-forearm.L ===
 WARNING: Global Transform:
-mat4x4((-0.002347, 0.954279, 0.298908, 0.000000), (0.999875, 0.006906, -0.014197, 0.000000), (-0.015613, 0.298837, -0.954176, 0.000000), (0.439935, 1.487087, -0.073032, 1.000000))
+mat4x4((-0.002393, 0.954279, 0.298908, 0.000000), (0.999875, 0.006959, -0.014210, 0.000000), (-0.015640, 0.298837, -0.954176, 0.000000), (0.439935, 1.487098, -0.073028, 1.000000))
 WARNING: Offset Matrix (Inverse Bind Pose):
 mat4x4((0.001501, 0.999878, -0.015562, 0.000000), (0.954291, 0.003219, 0.298861, 0.000000), (0.298875, -0.015300, -0.954170, 0.000000), (-1.396935, -0.445738, -0.506697, 1.000000))
 WARNING: Global Inverse Transform:
 mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
 WARNING: Resulting Final Transform:
-mat4x4((0.999992, 0.003687, 0.001102, 0.000000), (-0.003687, 0.999993, 0.000033, 0.000000), (-0.001102, -0.000037, 0.999999, 0.000000), (0.005442, -0.000477, -0.000780, 1.000000))
-INFO: Decomposed transform for DEF-forearm.L: Translation(0.0054422, -0.000477076, -0.000779822), Scale(1, 1, 1)
+mat4x4((0.999992, 0.003740, 0.001090, 0.000000), (-0.003740, 0.999993, 0.000033, 0.000000), (-0.001090, -0.000037, 1.000000, 0.000000), (0.005521, -0.000489, -0.000772, 1.000000))
+INFO: Decomposed transform for DEF-forearm.L: Translation(0.00552124, -0.00048852, -0.000771753), Scale(1, 1, 1)
 INFO: DEBUG: After Storing Bone DEF-forearm.L
 INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.L.001]:
-mat4x4((0.999992, 0.003685, 0.001102, 0.000000), (-0.003685, 0.999993, 0.000125, 0.000000), (-0.001101, -0.000129, 0.999999, 0.000000), (0.005439, -0.000483, -0.000916, 1.000000))
+mat4x4((0.999992, 0.003737, 0.001089, 0.000000), (-0.003738, 0.999993, 0.000127, 0.000000), (-0.001089, -0.000131, 1.000000, 0.000000), (0.005518, -0.000495, -0.000910, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-forearm.L.001
 INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L.001
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.R]:
-mat4x4((0.999992, -0.003686, -0.001102, 0.000000), (0.003686, 0.999993, 0.000032, 0.000000), (0.001102, -0.000036, 0.999999, 0.000000), (-0.005441, -0.000477, -0.000779, 1.000000))
+mat4x4((0.999992, -0.003739, -0.001089, 0.000000), (0.003739, 0.999993, 0.000033, 0.000000), (0.001089, -0.000037, 0.999999, 0.000000), (-0.005520, -0.000488, -0.000771, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-forearm.R
 INFO: Applied globalInverse * global * offset for bone: DEF-forearm.R
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.R.001]:
-mat4x4((0.999993, -0.003684, -0.001101, 0.000000), (0.003684, 0.999993, 0.000124, 0.000000), (0.001101, -0.000128, 0.999999, 0.000000), (-0.005437, -0.000482, -0.000915, 1.000000))
+mat4x4((0.999992, -0.003737, -0.001089, 0.000000), (0.003737, 0.999993, 0.000126, 0.000000), (0.001088, -0.000130, 0.999999, 0.000000), (-0.005516, -0.000494, -0.000909, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-forearm.R.001
 INFO: Applied globalInverse * global * offset for bone: DEF-forearm.R.001
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-hand.L]:
-mat4x4((0.999948, 0.010141, 0.000005, 0.000000), (-0.010140, 0.999948, 0.000135, 0.000000), (-0.000004, -0.000135, 1.000000, 0.000000), (0.015150, -0.004808, -0.000186, 1.000000))
+mat4x4((0.999947, 0.010263, 0.000005, 0.000000), (-0.010263, 0.999948, 0.000137, 0.000000), (-0.000004, -0.000137, 1.000000, 0.000000), (0.015332, -0.004865, -0.000188, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-hand.L
 INFO: Applied globalInverse * global * offset for bone: DEF-hand.L
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-hand.R]:
-mat4x4((0.999949, -0.010140, -0.000005, 0.000000), (0.010140, 0.999948, 0.000135, 0.000000), (0.000004, -0.000136, 0.999999, 0.000000), (-0.015150, -0.004808, -0.000186, 1.000000))
+mat4x4((0.999947, -0.010263, -0.000005, 0.000000), (0.010262, 0.999947, 0.000137, 0.000000), (0.000004, -0.000137, 1.000000, 0.000000), (-0.015332, -0.004865, -0.000189, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-hand.R
 INFO: Applied globalInverse * global * offset for bone: DEF-hand.R
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-pelvis.L]:
@@ -750,44 +750,11 @@ mat4x4((1.000000, 0.000000, 0.000012, 0.000000), (-0.000000, 1.000000, -0.000001
 INFO: DEBUG: After Storing Bone DEF-thigh.R.001
 INFO: Applied globalInverse * global * offset for bone: DEF-thigh.R.001
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-toe.L]:
-mat4x4((1.000000, -0.000001, -0.000001, 0.000000), (0.000001, 1.000000, -0.000000, 0.000000), (0.000001, 0.000000, 1.000000, 0.000000), (0.000000, -0.000001, 0.000001, 1.000000))
+mat4x4((1.000000, -0.000001, -0.000001, 0.000000), (0.000001, 1.000000, 0.000000, 0.000000), (0.000001, 0.000000, 1.000000, 0.000000), (0.000000, -0.000001, 0.000001, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-toe.L
 INFO: Applied globalInverse * global * offset for bone: DEF-toe.L
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-toe.R]:
-mat4x4((1.000000, 0.000000, 0.000001, 0.000000), (-0.000001, 1.000000, -0.000000, 0.000000), (-0.000001, 0.000000, 1.000000, 0.000000), (-0.000001, -0.000001, 0.000001, 1.000000))
+mat4x4((1.000000, 0.000000, 0.000001, 0.000000), (-0.000001, 1.000000, -0.000000, 0.000000), (-0.000001, 0.000001, 1.000000, 0.000000), (-0.000001, -0.000001, 0.000001, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-toe.R
 INFO: Applied globalInverse * global * offset for bone: DEF-toe.R
 WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.L]:
-mat4x4((0.999990, 0.004315, -0.000939, 0.000000), (-0.004315, 0.999991, -0.000129, 0.000000), (0.000939, 0.000133, 0.999999, 0.000000), (0.006525, -0.000737, 0.000358, 1.000000))
-WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-upper_arm.L ===
-WARNING: Global Transform:
-mat4x4((-0.002336, 0.954329, 0.298749, 0.000000), (0.997596, -0.018469, 0.066798, 0.000000), (0.069265, 0.298187, -0.951991, 0.000000), (0.176911, 1.491956, -0.090643, 1.000000))
-WARNING: Offset Matrix (Inverse Bind Pose):
-mat4x4((0.001501, 0.997443, 0.071445, 0.000000), (0.954292, -0.022782, 0.298008, 0.000000), (0.298874, 0.067732, -0.951886, 0.000000), (-1.396935, -0.136329, -0.543537, 1.000000))
-WARNING: Global Inverse Transform:
-mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
-WARNING: Resulting Final Transform:
-mat4x4((0.999990, 0.004315, -0.000939, 0.000000), (-0.004315, 0.999991, -0.000129, 0.000000), (0.000939, 0.000133, 0.999999, 0.000000), (0.006525, -0.000737, 0.000358, 1.000000))
-INFO: Decomposed transform for DEF-upper_arm.L: Translation(0.00652505, -0.000737429, 0.000358388), Scale(1, 1, 1)
-INFO: DEBUG: After Storing Bone DEF-upper_arm.L
-INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.L
-WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.L.001]:
-mat4x4((0.999990, 0.004318, -0.000938, 0.000000), (-0.004318, 0.999991, -0.000047, 0.000000), (0.000937, 0.000050, 1.000000, 0.000000), (0.006529, -0.000745, 0.000236, 1.000000))
-INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
-INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.L.001
-WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.R]:
-mat4x4((0.999990, -0.004313, 0.000940, 0.000000), (0.004313, 0.999991, -0.000128, 0.000000), (-0.000939, 0.000132, 0.999999, 0.000000), (-0.006522, -0.000737, 0.000358, 1.000000))
-INFO: DEBUG: After Storing Bone DEF-upper_arm.R
-INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.R
-WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-upper_arm.R.001]:
-mat4x4((0.999990, -0.004322, 0.000937, 0.000000), (0.004322, 0.999991, -0.000047, 0.000000), (-0.000936, 0.000051, 0.999999, 0.000000), (-0.006535, -0.000746, 0.000236, 1.000000))
-INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
-INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.R.001
-WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [root]:
-mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: DEBUG: After Storing Bone root
-INFO: Applied globalInverse * global * offset for bone: root
-INFO: DEBUG: Max Vertex Attributes: 32
-INFO: Model matrix explicitly logged: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
-INFO: View matrix explicitly logged: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (0.000000, -0.940108, -7.401939, 1.000000))
-INFO: Projection matrix explicitly logged: mat4x4((1.810660, 0.000000, 0.000000, 0.000000), (0.000000, 2.414213, 0.000000, 0.000000), (0.000000, 0.000000, -1.002002, -1.000000), (0.000000, 0
