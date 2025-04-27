@@ -137,36 +137,32 @@ glm::mat4 AnimationController::buildGlobalTransform(
     std::map<std::string, glm::mat4>& globalBoneMatrices
 )
 {
-    // Check if already computed
+    // Already computed?
     if (globalBoneMatrices.find(boneName) != globalBoneMatrices.end())
         return globalBoneMatrices[boneName];
 
-    // Step 1: Get parent global transform
+    // Get parent's global transform
     glm::mat4 parentGlobal = glm::mat4(1.0f);
     std::string parentName = model->getBoneParent(boneName);
     if (!parentName.empty())
         parentGlobal = buildGlobalTransform(parentName, localBoneMatrices, model, globalBoneMatrices);
 
-    // Step 2: Get local bind pose transform
-    glm::mat4 localBind = model->getLocalBindPose(boneName);
-
-    // Step 3: Get animated delta transform
-    glm::mat4 animatedDelta = glm::mat4(1.0f);
+    // Get animated local transform if available
+    glm::mat4 animatedLocal = glm::mat4(1.0f);
     auto it = localBoneMatrices.find(boneName);
     if (it != localBoneMatrices.end())
-        animatedDelta = it->second;
+        animatedLocal = it->second;
+    else
+        animatedLocal = model->getLocalBindPose(boneName);  // fallback to bind pose local if no animation!
 
-    // Step 4: Compute final local transform
-    glm::mat4 finalLocal = animatedDelta;
+    // Build global transform
+    glm::mat4 globalTransform = parentGlobal * animatedLocal;
 
-    // Step 5: Build global transform
-    glm::mat4 globalTransform = parentGlobal * finalLocal;
-
-    // Cache it
+    // Cache
     globalBoneMatrices[boneName] = globalTransform;
-
     return globalTransform;
 }
+
 
 
 
