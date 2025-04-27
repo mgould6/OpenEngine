@@ -164,14 +164,22 @@ void Animation::loadAnimation(const std::string& filePath, const Model* model) {
             glm::mat4 rotationMat = glm::mat4_cast(glm::normalize(rotation));
             glm::mat4 animationLocalTransform = translation * rotationMat;
 
+            // If animationLocalTransform is very close to identity, inject bind pose
+            if (glm::all(glm::epsilonEqual(animationLocalTransform[0], glm::vec4(1, 0, 0, 0), 0.01f)) &&
+                glm::all(glm::epsilonEqual(animationLocalTransform[1], glm::vec4(0, 1, 0, 0), 0.01f)) &&
+                glm::all(glm::epsilonEqual(animationLocalTransform[2], glm::vec4(0, 0, 1, 0), 0.01f)) &&
+                glm::all(glm::epsilonEqual(animationLocalTransform[3], glm::vec4(0, 0, 0, 1), 0.01f)))
+            {
+                Logger::log("Injecting bind pose for bone: " + boneName, Logger::WARNING);
+                animationLocalTransform = model->getLocalBindPose(boneName);
+            }
+
+
             // Normalize animation to be relative to bind pose
             glm::mat4 bindPose = model->getBindPoseGlobalTransform(boneName);
             glm::mat4 correctedLocal =  animationLocalTransform;
 
-            // FORCE clean identity at T=0 for DEF bones
-            if (timestamp == 0.0f && boneName.find("DEF-") == 0) {
-                correctedLocal = glm::mat4(1.0f);
-            }
+
 
             if (timestamp == 0.0f && (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L")) {
                 Logger::log("=== DEBUG: Animation Transform at T=0 for " + boneName + " ===", Logger::WARNING);

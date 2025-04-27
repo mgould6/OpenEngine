@@ -157,7 +157,7 @@ glm::mat4 AnimationController::buildGlobalTransform(
         animatedDelta = it->second;
 
     // Step 4: Compute final local transform
-    glm::mat4 finalLocal = localBind * animatedDelta;
+    glm::mat4 finalLocal = animatedDelta;
 
     // Step 5: Build global transform
     glm::mat4 globalTransform = parentGlobal * finalLocal;
