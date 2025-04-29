@@ -75,12 +75,9 @@ void AnimationController::update(float deltaTime)
         return;
     }
 
-    // Instead of deltaTime accumulation, we frame-lock based on ticks
-    const float framesPerSecond = 30.0f; // Blender's export bake rate
     const float ticksPerSecond = currentAnimation->getTicksPerSecond();
-    const float ticksPerFrame = ticksPerSecond / framesPerSecond;
+    animationTime += deltaTime * ticksPerSecond;
 
-    animationTime += ticksPerFrame;
     animationTime = fmod(animationTime, currentAnimation->getDuration());
 
     Logger::log("Debug: Animation time updated to: " + std::to_string(animationTime), Logger::INFO);
