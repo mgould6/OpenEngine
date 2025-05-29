@@ -3,8 +3,8 @@ INFO: DEBUG: Initializing shaders...
 INFO: DEBUG: Bone shader compiled successfully.
 INFO: Shaders initialized successfully.
 INFO: PhysicsManager initialized successfully.
-INFO: Entering SceneTest2.
-INFO: Loading model from path: Character_TPose_Anim wo NLA.fbx
+INFO: Entering SceneTest3 for animation system expansion testing.
+INFO: Loading model from path: CharacterModel.fbx
 INFO: Global inverse transform set from root node transformation.
 INFO: Debug: VAO Bone IDs bound to location 3.
 INFO: Debug: VAO Bone Weights bound to location 4.
@@ -17,171 +17,1810 @@ INFO: Bone Weights bound to location 4 (GL_FLOAT)
 INFO: Vertex data size: 25344
 INFO: Indices count: 25344
 INFO: Vertex[0] Position: vec3(0.077874, 1.767432, -0.061131)
-INFO: Vertex[0] Normal: vec3(0.980582, -0.019239, -0.195162)
+INFO: Vertex[0] Normal: vec3(0.980581, -0.019240, -0.195170)
 INFO: Vertex[0] TexCoords: vec2(0.750000, 0.125000)
-INFO: Vertex[0] BoneIDs: [5, 6, -1, -1]
+INFO: Vertex[0] BoneIDs: [4, 5, -1, -1]
 INFO: Vertex[0] Weights: [0.032047, 0.967953, 0.000000, 0.000000]
 INFO: ==== Explicit Bone Mapping BEGIN ====
-INFO: Bone Mapping ID[2] maps to Bone Name[DEF-spine.002]
-INFO: Bone Mapping ID[23] maps to Bone Name[DEF-thigh.L.001]
-INFO: Bone Mapping ID[0] maps to Bone Name[DEF-spine]
-INFO: Bone Mapping ID[1] maps to Bone Name[DEF-spine.001]
-INFO: Bone Mapping ID[3] maps to Bone Name[DEF-spine.003]
-INFO: Bone Mapping ID[4] maps to Bone Name[DEF-spine.004]
-INFO: Bone Mapping ID[22] maps to Bone Name[DEF-thigh.L]
-INFO: Bone Mapping ID[9] maps to Bone Name[DEF-upper_arm.L.001]
-INFO: Bone Mapping ID[5] maps to Bone Name[DEF-spine.005]
-INFO: Bone Mapping ID[32] maps to Bone Name[DEF-shin.R.001]
-INFO: Bone Mapping ID[11] maps to Bone Name[DEF-forearm.L.001]
-INFO: Bone Mapping ID[6] maps to Bone Name[DEF-spine.006]
-INFO: Bone Mapping ID[7] maps to Bone Name[DEF-shoulder.L]
-INFO: Bone Mapping ID[8] maps to Bone Name[DEF-upper_arm.L]
-INFO: Bone Mapping ID[31] maps to Bone Name[DEF-shin.R]
-INFO: Bone Mapping ID[10] maps to Bone Name[DEF-forearm.L]
-INFO: Bone Mapping ID[12] maps to Bone Name[DEF-hand.L]
-INFO: Bone Mapping ID[13] maps to Bone Name[DEF-shoulder.R]
-INFO: Bone Mapping ID[14] maps to Bone Name[DEF-upper_arm.R]
-INFO: Bone Mapping ID[15] maps to Bone Name[DEF-upper_arm.R.001]
-INFO: Bone Mapping ID[24] maps to Bone Name[DEF-shin.L]
-INFO: Bone Mapping ID[16] maps to Bone Name[DEF-forearm.R]
-INFO: Bone Mapping ID[25] maps to Bone Name[DEF-shin.L.001]
-INFO: Bone Mapping ID[17] maps to Bone Name[DEF-forearm.R.001]
-INFO: Bone Mapping ID[18] maps to Bone Name[DEF-hand.R]
-INFO: Bone Mapping ID[19] maps to Bone Name[DEF-breast.L]
-INFO: Bone Mapping ID[20] maps to Bone Name[DEF-breast.R]
-INFO: Bone Mapping ID[21] maps to Bone Name[DEF-pelvis.L]
-INFO: Bone Mapping ID[26] maps to Bone Name[DEF-foot.L]
-INFO: Bone Mapping ID[27] maps to Bone Name[DEF-toe.L]
-INFO: Bone Mapping ID[28] maps to Bone Name[DEF-pelvis.R]
-INFO: Bone Mapping ID[29] maps to Bone Name[DEF-thigh.R]
-INFO: Bone Mapping ID[30] maps to Bone Name[DEF-thigh.R.001]
-INFO: Bone Mapping ID[33] maps to Bone Name[DEF-foot.R]
-INFO: Bone Mapping ID[34] maps to Bone Name[DEF-toe.R]
+INFO: Bone Mapping ID[0] maps to Bone Name[DEF-spine.001]
+INFO: Bone Mapping ID[7] maps to Bone Name[DEF-pelvis.R]
+INFO: Bone Mapping ID[1] maps to Bone Name[DEF-spine.002]
+INFO: Bone Mapping ID[2] maps to Bone Name[DEF-spine.003]
+INFO: Bone Mapping ID[6] maps to Bone Name[DEF-pelvis.L]
+INFO: Bone Mapping ID[3] maps to Bone Name[DEF-spine.004]
+INFO: Bone Mapping ID[22] maps to Bone Name[DEF-upper_arm.L.001]
+INFO: Bone Mapping ID[8] maps to Bone Name[DEF-thigh.L]
+INFO: Bone Mapping ID[4] maps to Bone Name[DEF-spine.005]
+INFO: Bone Mapping ID[24] maps to Bone Name[DEF-forearm.L.001]
+INFO: Bone Mapping ID[17] maps to Bone Name[DEF-shin.R.001]
+INFO: Bone Mapping ID[5] maps to Bone Name[DEF-spine.006]
+INFO: Bone Mapping ID[9] maps to Bone Name[DEF-thigh.L.001]
+INFO: Bone Mapping ID[29] maps to Bone Name[DEF-forearm.R]
+INFO: Bone Mapping ID[10] maps to Bone Name[DEF-shin.L]
+INFO: Bone Mapping ID[30] maps to Bone Name[DEF-forearm.R.001]
+INFO: Bone Mapping ID[11] maps to Bone Name[DEF-shin.L.001]
+INFO: Bone Mapping ID[12] maps to Bone Name[DEF-foot.L]
+INFO: Bone Mapping ID[13] maps to Bone Name[DEF-toe.L]
+INFO: Bone Mapping ID[14] maps to Bone Name[DEF-thigh.R]
+INFO: Bone Mapping ID[15] maps to Bone Name[DEF-thigh.R.001]
+INFO: Bone Mapping ID[23] maps to Bone Name[DEF-forearm.L]
+INFO: Bone Mapping ID[16] maps to Bone Name[DEF-shin.R]
+INFO: Bone Mapping ID[18] maps to Bone Name[DEF-foot.R]
+INFO: Bone Mapping ID[19] maps to Bone Name[DEF-toe.R]
+INFO: Bone Mapping ID[20] maps to Bone Name[DEF-shoulder.L]
+INFO: Bone Mapping ID[21] maps to Bone Name[DEF-upper_arm.L]
+INFO: Bone Mapping ID[25] maps to Bone Name[DEF-hand.L]
+INFO: Bone Mapping ID[26] maps to Bone Name[DEF-shoulder.R]
+INFO: Bone Mapping ID[27] maps to Bone Name[DEF-upper_arm.R]
+INFO: Bone Mapping ID[28] maps to Bone Name[DEF-upper_arm.R.001]
+INFO: Bone Mapping ID[31] maps to Bone Name[DEF-hand.R]
+INFO: Bone Mapping ID[32] maps to Bone Name[DEF-breast.L]
+INFO: Bone Mapping ID[33] maps to Bone Name[DEF-breast.R]
 INFO: ==== EXPLICIT BONE MAPPING END ====
 INFO: Processing node: RootNode with parent:
 INFO: Processing node: Sphere with parent:
 INFO: Processing node: rig with parent:
 INFO: Processing node: root with parent:
-INFO: Captured local bind transform for bone [DEF-spine]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.971880, 0.235478, 0.000000), (0.000000, -0.235478, 0.971880, 0.000000), (0.000000, 0.971368, -0.116460, 1.000000))
 INFO: Processing node: DEF-spine with parent:
-INFO: Bone [DEF-spine] parent set to:
-INFO: Captured local bind transform for bone [DEF-spine.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.993458, -0.114195, 0.000000), (0.000000, 0.114195, 0.993458, 0.000000), (0.000000, 0.155383, 0.000000, 1.000000))
-INFO: Processing node: DEF-spine.001 with parent: DEF-spine
-INFO: Bone [DEF-spine.001] parent set to: DEF-spine
-INFO: Captured local bind transform for bone [DEF-spine.002]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.990294, -0.138989, 0.000000), (0.000000, 0.138989, 0.990294, 0.000000), (0.000000, 0.088519, 0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-spine.001]: mat4x4((0.999920, -0.005672, 0.011343, 0.000000), (0.006217, 0.998801, -0.048555, 0.000000), (-0.011054, 0.048622, 0.998756, 0.000000), (0.000000, 0.196740, 0.000000, 1.000000))
+INFO: Processing node: DEF-spine.001 with parent:
+INFO: Bone [DEF-spine.001] parent set to:
+INFO: Captured local bind transform for bone [DEF-spine.002]: mat4x4((1.000000, -0.000000, 0.000000, 0.000000), (0.000000, 0.987999, -0.154463, 0.000000), (0.000000, 0.154463, 0.987999, 0.000000), (0.000000, 0.121011, 0.000000, 1.000000))
 INFO: Processing node: DEF-spine.002 with parent: DEF-spine.001
 INFO: Bone [DEF-spine.002] parent set to: DEF-spine.001
-INFO: Captured local bind transform for bone [DEF-spine.003]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.999923, -0.012389, 0.000000), (0.000000, 0.012389, 0.999923, 0.000000), (0.000000, 0.174045, 0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-spine.003]: mat4x4((0.999925, 0.005520, -0.010950, 0.000000), (-0.005484, 0.999980, 0.003254, 0.000000), (0.010968, -0.003194, 0.999935, 0.000000), (-0.000000, 0.153116, -0.000000, 1.000000))
 INFO: Processing node: DEF-spine.003 with parent: DEF-spine.002
 INFO: Bone [DEF-spine.003] parent set to: DEF-spine.002
-INFO: Captured local bind transform for bone [DEF-spine.004]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.918603, 0.395181, 0.000000), (0.000000, -0.395181, 0.918603, 0.000000), (0.000000, 0.174446, 0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-spine.004]: mat4x4((0.999152, 0.034363, -0.022674, 0.000000), (-0.022627, 0.918468, 0.394848, 0.000000), (0.034394, -0.394000, 0.918467, 0.000000), (0.000000, 0.170558, -0.000000, 1.000000))
 INFO: Processing node: DEF-spine.004 with parent: DEF-spine.003
 INFO: Bone [DEF-spine.004] parent set to: DEF-spine.003
-INFO: Captured local bind transform for bone [DEF-spine.005]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982004, -0.188860, 0.000000), (0.000000, 0.188860, 0.982004, 0.000000), (0.000000, 0.059934, -0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-spine.005]: mat4x4((0.998205, -0.026677, 0.053621, 0.000000), (0.027615, 0.999477, -0.016819, 0.000000), (-0.053145, 0.018269, 0.998420, 0.000000), (0.000000, 0.058613, 0.000000, 1.000000))
 INFO: Processing node: DEF-spine.005 with parent: DEF-spine.004
 INFO: Bone [DEF-spine.005] parent set to: DEF-spine.004
-INFO: Captured local bind transform for bone [DEF-spine.006]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 0.982436, -0.186599, 0.000000), (0.000000, 0.186599, 0.982436, 0.000000), (0.000000, 0.056798, -0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-spine.006]: mat4x4((0.999970, 0.003473, -0.006946, 0.000000), (-0.005695, 0.936028, -0.351878, 0.000000), (0.005280, 0.351907, 0.936020, 0.000000), (0.000000, 0.091536, -0.000000, 1.000000))
 INFO: Processing node: DEF-spine.006 with parent: DEF-spine.005
 INFO: Bone [DEF-spine.006] parent set to: DEF-spine.005
-INFO: Captured local bind transform for bone [DEF-shoulder.L]: mat4x4((0.507095, -0.024689, 0.861537, 0.000000), (0.861890, 0.013912, -0.506904, 0.000000), (0.000529, 0.999598, 0.028334, 0.000000), (0.016577, 0.124301, 0.070883, 1.000000))
-WARNING: ARM CHAIN NODE FOUND: DEF-shoulder.L  -> Parent: DEF-spine.003
-INFO: Processing node: DEF-shoulder.L with parent: DEF-spine.003
-INFO: Bone [DEF-shoulder.L] parent set to: DEF-spine.003
-INFO: Captured local bind transform for bone [DEF-upper_arm.L]: mat4x4((0.258287, -0.150809, 0.954224, 0.000000), (0.562575, 0.826463, -0.021659, 0.000000), (-0.785364, 0.542417, 0.298306, 0.000000), (0.007058, 0.181885, -0.018465, 1.000000))
-WARNING: ARM CHAIN NODE FOUND: DEF-upper_arm.L  -> Parent: DEF-shoulder.L
-INFO: Processing node: DEF-upper_arm.L with parent: DEF-shoulder.L
-INFO: Bone [DEF-upper_arm.L] parent set to: DEF-shoulder.L
-INFO: Captured local bind transform for bone [DEF-upper_arm.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.131829, -0.000000, 1.000000))
+INFO: Processing node: MCH-torso.parent with parent:
+INFO: Processing node: torso with parent:
+INFO: Processing node: MCH-spine.001 with parent:
+INFO: Processing node: spine_fk.001 with parent:
+INFO: Processing node: MCH-spine with parent:
+INFO: Processing node: spine_fk with parent:
+INFO: Processing node: tweak_spine with parent:
+INFO: Processing node: ORG-spine with parent:
+INFO: Processing node: ORG-pelvis.L with parent:
+INFO: Captured local bind transform for bone [DEF-pelvis.L]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: Processing node: DEF-pelvis.L with parent:
+INFO: Bone [DEF-pelvis.L] parent set to:
+INFO: Processing node: ORG-pelvis.R with parent:
+INFO: Captured local bind transform for bone [DEF-pelvis.R]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: Processing node: DEF-pelvis.R with parent:
+INFO: Bone [DEF-pelvis.R] parent set to:
+INFO: Captured local bind transform for bone [DEF-thigh.L]: mat4x4((0.962708, -0.074570, -0.260063, 0.000000), (-0.008300, -0.968951, 0.247113, 0.000000), (-0.270416, -0.235739, -0.933436, 0.000000), (0.079644, 0.154808, -0.015211, 1.000000))
+INFO: Processing node: DEF-thigh.L with parent:
+INFO: Bone [DEF-thigh.L] parent set to:
+INFO: Captured local bind transform for bone [DEF-thigh.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.288056, 0.000000, 1.000000))
+INFO: Processing node: DEF-thigh.L.001 with parent: DEF-thigh.L
+INFO: Bone [DEF-thigh.L.001] parent set to: DEF-thigh.L
+INFO: Captured local bind transform for bone [DEF-shin.L]: mat4x4((1.000000, 0.000001, 0.000025, 0.000000), (-0.000004, 0.990952, 0.134219, 0.000000), (-0.000025, -0.134219, 0.990952, 0.000000), (0.000000, 0.288056, -0.000000, 1.000000))
+INFO: Processing node: DEF-shin.L with parent: DEF-thigh.L.001
+INFO: Bone [DEF-shin.L] parent set to: DEF-thigh.L.001
+INFO: Captured local bind transform for bone [DEF-shin.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.203971, 0.000000, 1.000000))
+INFO: Processing node: DEF-shin.L.001 with parent: DEF-shin.L
+INFO: Bone [DEF-shin.L.001] parent set to: DEF-shin.L
+INFO: Captured local bind transform for bone [DEF-foot.L]: mat4x4((0.917548, -0.309025, -0.250218, 0.000000), (-0.099858, 0.430030, -0.897275, 0.000000), (0.384881, 0.848279, 0.363715, 0.000000), (0.000000, 0.203971, 0.000000, 1.000000))
+INFO: Processing node: DEF-foot.L with parent: DEF-shin.L.001
+INFO: Bone [DEF-foot.L] parent set to: DEF-shin.L.001
+INFO: Captured local bind transform for bone [DEF-toe.L]: mat4x4((-1.000000, -0.000000, 0.000000, 0.000000), (-0.000000, 0.866205, -0.499688, 0.000000), (-0.000000, -0.499688, -0.866205, 0.000000), (0.000000, 0.112059, -0.000000, 1.000000))
+INFO: Processing node: DEF-toe.L with parent: DEF-foot.L
+INFO: Bone [DEF-toe.L] parent set to: DEF-foot.L
+INFO: Captured local bind transform for bone [DEF-thigh.R]: mat4x4((0.854581, 0.121450, 0.504918, 0.000000), (-0.008300, -0.968951, 0.247113, 0.000000), (0.519252, -0.215369, -0.827039, 0.000000), (-0.093927, 0.155792, -0.017180, 1.000000))
+INFO: Processing node: DEF-thigh.R with parent:
+INFO: Bone [DEF-thigh.R] parent set to:
+INFO: Captured local bind transform for bone [DEF-thigh.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.288056, -0.000000, 1.000000))
+INFO: Processing node: DEF-thigh.R.001 with parent: DEF-thigh.R
+INFO: Bone [DEF-thigh.R.001] parent set to: DEF-thigh.R
+INFO: Captured local bind transform for bone [DEF-shin.R]: mat4x4((1.000000, -0.000001, -0.000008, 0.000000), (0.000002, 0.988439, 0.151617, 0.000000), (0.000008, -0.151617, 0.988439, 0.000000), (-0.000000, 0.288056, -0.000000, 1.000000))
+INFO: Processing node: DEF-shin.R with parent: DEF-thigh.R.001
+INFO: Bone [DEF-shin.R] parent set to: DEF-thigh.R.001
+INFO: Captured local bind transform for bone [DEF-shin.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.197625, 0.000000, 1.000000))
+INFO: Processing node: DEF-shin.R.001 with parent: DEF-shin.R
+INFO: Bone [DEF-shin.R.001] parent set to: DEF-shin.R
+INFO: Captured local bind transform for bone [DEF-foot.R]: mat4x4((0.859444, 0.077786, 0.505278, 0.000000), (0.410988, 0.482686, -0.773372, 0.000000), (-0.304048, 0.872332, 0.382872, 0.000000), (-0.000000, 0.197625, -0.000000, 1.000000))
+INFO: Processing node: DEF-foot.R with parent: DEF-shin.R.001
+INFO: Bone [DEF-foot.R] parent set to: DEF-shin.R.001
+INFO: Captured local bind transform for bone [DEF-toe.R]: mat4x4((-0.890313, -0.410935, 0.196152, 0.000000), (-0.455349, 0.803767, -0.382904, 0.000000), (-0.000312, -0.430222, -0.902723, 0.000000), (-0.000000, 0.114465, -0.000000, 1.000000))
+INFO: Processing node: DEF-toe.R with parent: DEF-foot.R
+INFO: Bone [DEF-toe.R] parent set to: DEF-foot.R
+INFO: Processing node: MCH-spine.002 with parent:
+INFO: Processing node: spine_fk.002 with parent:
+INFO: Processing node: MCH-spine.003 with parent:
+INFO: Processing node: spine_fk.003 with parent:
+INFO: Processing node: ORG-spine.004 with parent:
+INFO: Processing node: ORG-spine.005 with parent:
+INFO: Processing node: ORG-spine.006 with parent:
+INFO: Processing node: ORG-face with parent:
+INFO: Processing node: DEF-forehead.L with parent:
+INFO: Processing node: DEF-forehead.R with parent:
+INFO: Processing node: DEF-forehead.L.001 with parent:
+INFO: Processing node: DEF-forehead.R.001 with parent:
+INFO: Processing node: DEF-forehead.L.002 with parent:
+INFO: Processing node: DEF-forehead.R.002 with parent:
+INFO: Processing node: DEF-temple.L with parent:
+INFO: Processing node: DEF-temple.R with parent:
+INFO: Processing node: master_eye.L with parent:
+INFO: Processing node: brow.B.L with parent:
+INFO: Processing node: DEF-brow.B.L with parent:
+INFO: Processing node: brow.B.L.001 with parent:
+INFO: Processing node: DEF-brow.B.L.001 with parent:
+INFO: Processing node: brow.B.L.002 with parent:
+INFO: Processing node: DEF-brow.B.L.002 with parent:
+INFO: Processing node: brow.B.L.003 with parent:
+INFO: Processing node: DEF-brow.B.L.003 with parent:
+INFO: Processing node: MCH-lid.B.L with parent:
+INFO: Processing node: DEF-lid.B.L with parent:
+INFO: Processing node: MCH-lid.B.L.001 with parent:
+INFO: Processing node: DEF-lid.B.L.001 with parent:
+INFO: Processing node: MCH-lid.B.L.002 with parent:
+INFO: Processing node: DEF-lid.B.L.002 with parent:
+INFO: Processing node: MCH-lid.B.L.003 with parent:
+INFO: Processing node: DEF-lid.B.L.003 with parent:
+INFO: Processing node: MCH-lid.T.L with parent:
+INFO: Processing node: DEF-lid.T.L with parent:
+INFO: Processing node: MCH-lid.T.L.001 with parent:
+INFO: Processing node: DEF-lid.T.L.001 with parent:
+INFO: Processing node: MCH-lid.T.L.002 with parent:
+INFO: Processing node: DEF-lid.T.L.002 with parent:
+INFO: Processing node: MCH-lid.T.L.003 with parent:
+INFO: Processing node: DEF-lid.T.L.003 with parent:
+INFO: Processing node: master_eye.R with parent:
+INFO: Processing node: brow.B.R with parent:
+INFO: Processing node: DEF-brow.B.R with parent:
+INFO: Processing node: brow.B.R.001 with parent:
+INFO: Processing node: DEF-brow.B.R.001 with parent:
+INFO: Processing node: brow.B.R.002 with parent:
+INFO: Processing node: DEF-brow.B.R.002 with parent:
+INFO: Processing node: brow.B.R.003 with parent:
+INFO: Processing node: DEF-brow.B.R.003 with parent:
+INFO: Processing node: MCH-lid.B.R with parent:
+INFO: Processing node: DEF-lid.B.R with parent:
+INFO: Processing node: MCH-lid.B.R.001 with parent:
+INFO: Processing node: DEF-lid.B.R.001 with parent:
+INFO: Processing node: MCH-lid.B.R.002 with parent:
+INFO: Processing node: DEF-lid.B.R.002 with parent:
+INFO: Processing node: MCH-lid.B.R.003 with parent:
+INFO: Processing node: DEF-lid.B.R.003 with parent:
+INFO: Processing node: MCH-lid.T.R with parent:
+INFO: Processing node: DEF-lid.T.R with parent:
+INFO: Processing node: MCH-lid.T.R.001 with parent:
+INFO: Processing node: DEF-lid.T.R.001 with parent:
+INFO: Processing node: MCH-lid.T.R.002 with parent:
+INFO: Processing node: DEF-lid.T.R.002 with parent:
+INFO: Processing node: MCH-lid.T.R.003 with parent:
+INFO: Processing node: DEF-lid.T.R.003 with parent:
+INFO: Processing node: ear.L with parent:
+INFO: Processing node: DEF-ear.L with parent:
+INFO: Processing node: DEF-ear.L.001 with parent:
+INFO: Processing node: ear.L.002 with parent:
+INFO: Processing node: DEF-ear.L.002 with parent:
+INFO: Processing node: ear.L.003 with parent:
+INFO: Processing node: DEF-ear.L.003 with parent:
+INFO: Processing node: ear.L.004 with parent:
+INFO: Processing node: DEF-ear.L.004 with parent:
+INFO: Processing node: ear.R with parent:
+INFO: Processing node: DEF-ear.R with parent:
+INFO: Processing node: DEF-ear.R.001 with parent:
+INFO: Processing node: ear.R.002 with parent:
+INFO: Processing node: DEF-ear.R.002 with parent:
+INFO: Processing node: ear.R.003 with parent:
+INFO: Processing node: DEF-ear.R.003 with parent:
+INFO: Processing node: ear.R.004 with parent:
+INFO: Processing node: DEF-ear.R.004 with parent:
+INFO: Processing node: jaw_master with parent:
+INFO: Processing node: tongue_master with parent:
+INFO: Processing node: tongue with parent:
+INFO: Processing node: DEF-tongue with parent:
+INFO: Processing node: chin with parent:
+INFO: Processing node: DEF-chin with parent:
+INFO: Processing node: chin.001 with parent:
+INFO: Processing node: DEF-chin.001 with parent:
+INFO: Processing node: chin.L with parent:
+INFO: Processing node: DEF-chin.L with parent:
+INFO: Processing node: chin.R with parent:
+INFO: Processing node: DEF-chin.R with parent:
+INFO: Processing node: jaw with parent:
+INFO: Processing node: DEF-jaw with parent:
+INFO: Processing node: jaw.L.001 with parent:
+INFO: Processing node: DEF-jaw.L.001 with parent:
+INFO: Processing node: jaw.R.001 with parent:
+INFO: Processing node: DEF-jaw.R.001 with parent:
+INFO: Processing node: MCH-tongue.001 with parent:
+INFO: Processing node: tongue.001 with parent:
+INFO: Processing node: DEF-tongue.001 with parent:
+INFO: Processing node: MCH-tongue.002 with parent:
+INFO: Processing node: tongue.002 with parent:
+INFO: Processing node: DEF-tongue.002 with parent:
+INFO: Processing node: brow.T.L with parent:
+INFO: Processing node: DEF-cheek.T.L with parent:
+INFO: Processing node: DEF-brow.T.L with parent:
+INFO: Processing node: brow.T.L.001 with parent:
+INFO: Processing node: DEF-brow.T.L.001 with parent:
+INFO: Processing node: brow.T.L.002 with parent:
+INFO: Processing node: DEF-brow.T.L.002 with parent:
+INFO: Processing node: brow.T.L.003 with parent:
+INFO: Processing node: DEF-brow.T.L.003 with parent:
+INFO: Processing node: brow.T.R with parent:
+INFO: Processing node: DEF-cheek.T.R with parent:
+INFO: Processing node: DEF-brow.T.R with parent:
+INFO: Processing node: brow.T.R.001 with parent:
+INFO: Processing node: DEF-brow.T.R.001 with parent:
+INFO: Processing node: brow.T.R.002 with parent:
+INFO: Processing node: DEF-brow.T.R.002 with parent:
+INFO: Processing node: brow.T.R.003 with parent:
+INFO: Processing node: DEF-brow.T.R.003 with parent:
+INFO: Processing node: jaw.L with parent:
+INFO: Processing node: DEF-jaw.L with parent:
+INFO: Processing node: jaw.R with parent:
+INFO: Processing node: DEF-jaw.R with parent:
+INFO: Processing node: nose with parent:
+INFO: Processing node: DEF-nose with parent:
+INFO: Processing node: nose.L with parent:
+INFO: Processing node: DEF-nose.L with parent:
+INFO: Processing node: nose.R with parent:
+INFO: Processing node: DEF-nose.R with parent:
+INFO: Processing node: MCH-jaw_master with parent:
+INFO: Processing node: lip.B with parent:
+INFO: Processing node: DEF-lip.B.L with parent:
+INFO: Processing node: DEF-lip.B.R with parent:
+INFO: Processing node: MCH-jaw_master.001 with parent:
+INFO: Processing node: lip.B.L.001 with parent:
+INFO: Processing node: DEF-lip.B.L.001 with parent:
+INFO: Processing node: lip.B.R.001 with parent:
+INFO: Processing node: DEF-lip.B.R.001 with parent:
+INFO: Processing node: MCH-jaw_master.002 with parent:
+INFO: Processing node: cheek.B.L.001 with parent:
+INFO: Processing node: DEF-cheek.B.L.001 with parent:
+INFO: Processing node: cheek.B.R.001 with parent:
+INFO: Processing node: DEF-cheek.B.R.001 with parent:
+INFO: Processing node: lips.L with parent:
+INFO: Processing node: DEF-cheek.B.L with parent:
+INFO: Processing node: lips.R with parent:
+INFO: Processing node: DEF-cheek.B.R with parent:
+INFO: Processing node: MCH-jaw_master.003 with parent:
+INFO: Processing node: lip.T.L.001 with parent:
+INFO: Processing node: DEF-lip.T.L.001 with parent:
+INFO: Processing node: lip.T.R.001 with parent:
+INFO: Processing node: DEF-lip.T.R.001 with parent:
+INFO: Processing node: lip.T with parent:
+INFO: Processing node: DEF-lip.T.L with parent:
+INFO: Processing node: DEF-lip.T.R with parent:
+INFO: Processing node: MCH-jaw_master.004 with parent:
+INFO: Processing node: nose_master with parent:
+INFO: Processing node: nose.002 with parent:
+INFO: Processing node: DEF-nose.002 with parent:
+INFO: Processing node: nose.001 with parent:
+INFO: Processing node: DEF-nose.001 with parent:
+INFO: Processing node: nose.003 with parent:
+INFO: Processing node: DEF-nose.003 with parent:
+INFO: Processing node: nose.004 with parent:
+INFO: Processing node: DEF-nose.004 with parent:
+INFO: Processing node: nose.L.001 with parent:
+INFO: Processing node: DEF-nose.L.001 with parent:
+INFO: Processing node: nose.R.001 with parent:
+INFO: Processing node: DEF-nose.R.001 with parent:
+INFO: Processing node: cheek.T.L.001 with parent:
+INFO: Processing node: DEF-cheek.T.L.001 with parent:
+INFO: Processing node: cheek.T.R.001 with parent:
+INFO: Processing node: DEF-cheek.T.R.001 with parent:
+INFO: Processing node: tweak_spine.003 with parent:
+INFO: Processing node: ORG-spine.003 with parent:
+INFO: Processing node: ORG-shoulder.L with parent:
+INFO: Captured local bind transform for bone [DEF-shoulder.L]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+WARNING: ARM CHAIN NODE FOUND: DEF-shoulder.L  -> Parent:
+INFO: Processing node: DEF-shoulder.L with parent:
+INFO: Bone [DEF-shoulder.L] parent set to:
+INFO: Captured local bind transform for bone [DEF-upper_arm.L]: mat4x4((-0.991783, 0.109342, 0.066411, 0.000000), (0.065079, 0.878149, -0.473940, 0.000000), (-0.110141, -0.465723, -0.878049, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
+WARNING: ARM CHAIN NODE FOUND: DEF-upper_arm.L  -> Parent:
+INFO: Processing node: DEF-upper_arm.L with parent:
+INFO: Bone [DEF-upper_arm.L] parent set to:
+INFO: Captured local bind transform for bone [DEF-upper_arm.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.129911, 0.000000, 1.000000))
 WARNING: ARM CHAIN NODE FOUND: DEF-upper_arm.L.001  -> Parent: DEF-upper_arm.L
 INFO: Processing node: DEF-upper_arm.L.001 with parent: DEF-upper_arm.L
 INFO: Bone [DEF-upper_arm.L.001] parent set to: DEF-upper_arm.L
-INFO: Captured local bind transform for bone [DEF-forearm.L]: mat4x4((1.000000, -0.000001, -0.000000, 0.000000), (0.000001, 0.996575, 0.082688, 0.000000), (0.000000, -0.082688, 0.996575, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-forearm.L]: mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998323, 0.057882, 0.000000), (0.000000, -0.057882, 0.998323, 0.000000), (0.000000, 0.129912, -0.000000, 1.000000))
 WARNING: ARM CHAIN NODE FOUND: DEF-forearm.L  -> Parent: DEF-upper_arm.L.001
 INFO: Processing node: DEF-forearm.L with parent: DEF-upper_arm.L.001
 INFO: Bone [DEF-forearm.L] parent set to: DEF-upper_arm.L.001
-INFO: Captured local bind transform for bone [DEF-forearm.L.001]: mat4x4((1.000000, -0.000000, 0.000015, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (-0.000015, 0.000000, 1.000000, 0.000000), (-0.000000, 0.120149, -0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-forearm.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.117819, -0.000000, 1.000000))
 WARNING: ARM CHAIN NODE FOUND: DEF-forearm.L.001  -> Parent: DEF-forearm.L
 INFO: Processing node: DEF-forearm.L.001 with parent: DEF-forearm.L
 INFO: Bone [DEF-forearm.L.001] parent set to: DEF-forearm.L
-INFO: Captured local bind transform for bone [DEF-hand.L]: mat4x4((0.999639, 0.026781, -0.001931, 0.000000), (-0.026851, 0.997089, -0.071362, 0.000000), (0.000014, 0.071388, 0.997449, 0.000000), (0.000000, 0.120149, -0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-hand.L]: mat4x4((0.997335, 0.072809, 0.004740, 0.000000), (-0.072963, 0.995228, 0.064787, 0.000000), (-0.000000, -0.064960, 0.997888, 0.000000), (-0.000000, 0.117819, -0.000000, 1.000000))
 WARNING: ARM CHAIN NODE FOUND: DEF-hand.L  -> Parent: DEF-forearm.L.001
 INFO: Processing node: DEF-hand.L with parent: DEF-forearm.L.001
 INFO: Bone [DEF-hand.L] parent set to: DEF-forearm.L.001
-INFO: Captured local bind transform for bone [DEF-shoulder.R]: mat4x4((0.507095, 0.024689, -0.861537, 0.000000), (-0.861890, 0.013912, -0.506904, 0.000000), (-0.000529, 0.999598, 0.028334, 0.000000), (-0.016577, 0.124301, 0.070883, 1.000000))
-INFO: Processing node: DEF-shoulder.R with parent: DEF-spine.003
-INFO: Bone [DEF-shoulder.R] parent set to: DEF-spine.003
-INFO: Captured local bind transform for bone [DEF-upper_arm.R]: mat4x4((0.258289, 0.150807, -0.954224, 0.000000), (-0.562574, 0.826463, -0.021662, 0.000000), (0.785364, 0.542417, 0.298306, 0.000000), (-0.007058, 0.181885, -0.018465, 1.000000))
-INFO: Processing node: DEF-upper_arm.R with parent: DEF-shoulder.R
-INFO: Bone [DEF-upper_arm.R] parent set to: DEF-shoulder.R
-INFO: Captured local bind transform for bone [DEF-upper_arm.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.131829, -0.000000, 1.000000))
+INFO: Processing node: ORG-palm.01.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_index.01.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_index.02.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_index.03.L with parent: DEF-hand.L
+INFO: Processing node: DEF-thumb.01.L with parent: DEF-hand.L
+INFO: Processing node: DEF-thumb.02.L with parent: DEF-hand.L
+INFO: Processing node: DEF-thumb.03.L with parent: DEF-hand.L
+INFO: Processing node: DEF-palm.01.L with parent: DEF-hand.L
+INFO: Processing node: ORG-palm.02.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_middle.01.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_middle.02.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_middle.03.L with parent: DEF-hand.L
+INFO: Processing node: DEF-palm.02.L with parent: DEF-hand.L
+INFO: Processing node: ORG-palm.03.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_ring.01.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_ring.02.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_ring.03.L with parent: DEF-hand.L
+INFO: Processing node: DEF-palm.03.L with parent: DEF-hand.L
+INFO: Processing node: ORG-palm.04.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_pinky.01.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_pinky.02.L with parent: DEF-hand.L
+INFO: Processing node: DEF-f_pinky.03.L with parent: DEF-hand.L
+INFO: Processing node: DEF-palm.04.L with parent: DEF-hand.L
+INFO: Processing node: ORG-shoulder.R with parent:
+INFO: Captured local bind transform for bone [DEF-shoulder.R]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: Processing node: DEF-shoulder.R with parent:
+INFO: Bone [DEF-shoulder.R] parent set to:
+INFO: Captured local bind transform for bone [DEF-upper_arm.R]: mat4x4((-0.991783, -0.109342, -0.066410, 0.000000), (-0.065079, 0.878149, -0.473940, 0.000000), (0.110140, -0.465724, -0.878049, 0.000000), (0.016838, 0.177829, -0.009489, 1.000000))
+INFO: Processing node: DEF-upper_arm.R with parent:
+INFO: Bone [DEF-upper_arm.R] parent set to:
+INFO: Captured local bind transform for bone [DEF-upper_arm.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
 INFO: Processing node: DEF-upper_arm.R.001 with parent: DEF-upper_arm.R
 INFO: Bone [DEF-upper_arm.R.001] parent set to: DEF-upper_arm.R
-INFO: Captured local bind transform for bone [DEF-forearm.R]: mat4x4((1.000000, -0.000005, -0.000000, 0.000000), (0.000005, 0.996575, 0.082688, 0.000000), (-0.000000, -0.082688, 0.996575, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-forearm.R]: mat4x4((1.000000, 0.000000, -0.000000, 0.000000), (0.000000, 0.998323, 0.057882, 0.000000), (0.000000, -0.057882, 0.998323, 0.000000), (0.000000, 0.129911, -0.000000, 1.000000))
 INFO: Processing node: DEF-forearm.R with parent: DEF-upper_arm.R.001
 INFO: Bone [DEF-forearm.R] parent set to: DEF-upper_arm.R.001
-INFO: Captured local bind transform for bone [DEF-forearm.R.001]: mat4x4((1.000000, 0.000000, -0.000015, 0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000015, 0.000000, 1.000000, 0.000000), (0.000000, 0.120149, -0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-forearm.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.117819, -0.000000, 1.000000))
 INFO: Processing node: DEF-forearm.R.001 with parent: DEF-forearm.R
 INFO: Bone [DEF-forearm.R.001] parent set to: DEF-forearm.R
-INFO: Captured local bind transform for bone [DEF-hand.R]: mat4x4((0.999640, -0.026780, 0.001932, 0.000000), (0.026850, 0.997089, -0.071362, 0.000000), (-0.000016, 0.071389, 0.997449, 0.000000), (0.000000, 0.120149, -0.000000, 1.000000))
+INFO: Captured local bind transform for bone [DEF-hand.R]: mat4x4((0.997335, -0.072809, -0.004740, 0.000000), (0.072963, 0.995228, 0.064787, 0.000000), (0.000000, -0.064960, 0.997888, 0.000000), (-0.000000, 0.117819, 0.000000, 1.000000))
 INFO: Processing node: DEF-hand.R with parent: DEF-forearm.R.001
 INFO: Bone [DEF-hand.R] parent set to: DEF-forearm.R.001
-INFO: Captured local bind transform for bone [DEF-breast.L]: mat4x4((-1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.028560, 0.999592, 0.000000), (0.000000, 0.999592, 0.028560, 0.000000), (0.107252, -0.004422, -0.038731, 1.000000))
-INFO: Processing node: DEF-breast.L with parent: DEF-spine.003
-INFO: Bone [DEF-breast.L] parent set to: DEF-spine.003
-INFO: Captured local bind transform for bone [DEF-breast.R]: mat4x4((-1.000000, -0.000000, -0.000000, 0.000000), (0.000000, -0.028560, 0.999592, 0.000000), (-0.000000, 0.999592, 0.028560, 0.000000), (-0.107252, -0.004422, -0.038731, 1.000000))
-INFO: Processing node: DEF-breast.R with parent: DEF-spine.003
-INFO: Bone [DEF-breast.R] parent set to: DEF-spine.003
-INFO: Captured local bind transform for bone [DEF-pelvis.L]: mat4x4((-0.421772, -0.168578, 0.890893, 0.000000), (0.536322, 0.745855, 0.395043, 0.000000), (-0.731073, 0.644423, -0.224169, 0.000000), (0.000000, -0.154366, -0.017744, 1.000000))
-INFO: Processing node: DEF-pelvis.L with parent: DEF-spine.001
-INFO: Bone [DEF-pelvis.L] parent set to: DEF-spine.001
-INFO: Captured local bind transform for bone [DEF-thigh.L]: mat4x4((-0.077224, 0.629594, -0.773077, 0.000000), (0.385980, -0.696050, -0.605420, 0.000000), (-0.919269, -0.345146, -0.189259, 0.000000), (-0.038970, 0.132744, -0.057264, 1.000000))
-INFO: Processing node: DEF-thigh.L with parent: DEF-pelvis.L
-INFO: Bone [DEF-thigh.L] parent set to: DEF-pelvis.L
-INFO: Captured local bind transform for bone [DEF-thigh.L.001]: mat4x4((1.000000, -0.000000, 0.000010, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (-0.000010, -0.000000, 1.000000, 0.000000), (-0.000000, 0.254006, -0.000000, 1.000000))
-INFO: Processing node: DEF-thigh.L.001 with parent: DEF-thigh.L
-INFO: Bone [DEF-thigh.L.001] parent set to: DEF-thigh.L
-INFO: Captured local bind transform for bone [DEF-shin.L]: mat4x4((1.000000, 0.000000, 0.000026, 0.000000), (-0.000003, 0.991792, 0.127862, 0.000000), (-0.000025, -0.127862, 0.991792, 0.000000), (0.000000, 0.254006, -0.000000, 1.000000))
-INFO: Processing node: DEF-shin.L with parent: DEF-thigh.L.001
-INFO: Bone [DEF-shin.L] parent set to: DEF-thigh.L.001
-INFO: Captured local bind transform for bone [DEF-shin.L.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.212020, 0.000000, 1.000000))
-INFO: Processing node: DEF-shin.L.001 with parent: DEF-shin.L
-INFO: Bone [DEF-shin.L.001] parent set to: DEF-shin.L
-INFO: Captured local bind transform for bone [DEF-foot.L]: mat4x4((0.886178, -0.312474, 0.342123, 0.000000), (0.463249, 0.612520, -0.640484, 0.000000), (-0.009423, 0.726071, 0.687555, 0.000000), (0.000000, 0.212020, 0.000000, 1.000000))
-INFO: Processing node: DEF-foot.L with parent: DEF-shin.L.001
-INFO: Bone [DEF-foot.L] parent set to: DEF-shin.L.001
-INFO: Captured local bind transform for bone [DEF-toe.L]: mat4x4((-1.000000, -0.000008, 0.000000, 0.000000), (-0.000006, 0.738795, -0.673930, 0.000000), (0.000005, -0.673930, -0.738795, 0.000000), (-0.000000, 0.093590, -0.000000, 1.000000))
-INFO: Processing node: DEF-toe.L with parent: DEF-foot.L
-INFO: Bone [DEF-toe.L] parent set to: DEF-foot.L
-INFO: Captured local bind transform for bone [DEF-pelvis.R]: mat4x4((-0.421772, 0.168578, -0.890893, 0.000000), (-0.536322, 0.745855, 0.395043, 0.000000), (0.731073, 0.644423, -0.224169, 0.000000), (-0.000000, -0.154366, -0.017744, 1.000000))
-INFO: Processing node: DEF-pelvis.R with parent: DEF-spine.001
-INFO: Bone [DEF-pelvis.R] parent set to: DEF-spine.001
-INFO: Captured local bind transform for bone [DEF-thigh.R]: mat4x4((-0.077224, -0.629594, 0.773077, 0.000000), (-0.385980, -0.696050, -0.605420, 0.000000), (0.919269, -0.345146, -0.189259, 0.000000), (0.038970, 0.132744, -0.057264, 1.000000))
-INFO: Processing node: DEF-thigh.R with parent: DEF-pelvis.R
-INFO: Bone [DEF-thigh.R] parent set to: DEF-pelvis.R
-INFO: Captured local bind transform for bone [DEF-thigh.R.001]: mat4x4((1.000000, -0.000000, -0.000010, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000010, -0.000000, 1.000000, 0.000000), (0.000000, 0.254006, -0.000000, 1.000000))
-INFO: Processing node: DEF-thigh.R.001 with parent: DEF-thigh.R
-INFO: Bone [DEF-thigh.R.001] parent set to: DEF-thigh.R
-INFO: Captured local bind transform for bone [DEF-shin.R]: mat4x4((1.000000, -0.000000, -0.000026, 0.000000), (0.000003, 0.991792, 0.127862, 0.000000), (0.000025, -0.127862, 0.991792, 0.000000), (-0.000000, 0.254006, 0.000000, 1.000000))
-INFO: Processing node: DEF-shin.R with parent: DEF-thigh.R.001
-INFO: Bone [DEF-shin.R] parent set to: DEF-thigh.R.001
-INFO: Captured local bind transform for bone [DEF-shin.R.001]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.212020, 0.000000, 1.000000))
-INFO: Processing node: DEF-shin.R.001 with parent: DEF-shin.R
-INFO: Bone [DEF-shin.R.001] parent set to: DEF-shin.R
-INFO: Captured local bind transform for bone [DEF-foot.R]: mat4x4((0.886178, 0.312474, -0.342123, 0.000000), (-0.463249, 0.612520, -0.640484, 0.000000), (0.009423, 0.726071, 0.687555, 0.000000), (-0.000000, 0.212020, -0.000000, 1.000000))
-INFO: Processing node: DEF-foot.R with parent: DEF-shin.R.001
-INFO: Bone [DEF-foot.R] parent set to: DEF-shin.R.001
-INFO: Captured local bind transform for bone [DEF-toe.R]: mat4x4((-1.000000, 0.000008, -0.000000, 0.000000), (0.000006, 0.738795, -0.673930, 0.000000), (-0.000005, -0.673930, -0.738795, 0.000000), (0.000000, 0.093590, 0.000000, 1.000000))
-INFO: Processing node: DEF-toe.R with parent: DEF-foot.R
-INFO: Bone [DEF-toe.R] parent set to: DEF-foot.R
+INFO: Processing node: ORG-palm.01.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_index.01.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_index.02.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_index.03.R with parent: DEF-hand.R
+INFO: Processing node: DEF-thumb.01.R with parent: DEF-hand.R
+INFO: Processing node: DEF-thumb.02.R with parent: DEF-hand.R
+INFO: Processing node: DEF-thumb.03.R with parent: DEF-hand.R
+INFO: Processing node: DEF-palm.01.R with parent: DEF-hand.R
+INFO: Processing node: ORG-palm.02.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_middle.01.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_middle.02.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_middle.03.R with parent: DEF-hand.R
+INFO: Processing node: DEF-palm.02.R with parent: DEF-hand.R
+INFO: Processing node: ORG-palm.03.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_ring.01.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_ring.02.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_ring.03.R with parent: DEF-hand.R
+INFO: Processing node: DEF-palm.03.R with parent: DEF-hand.R
+INFO: Processing node: ORG-palm.04.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_pinky.01.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_pinky.02.R with parent: DEF-hand.R
+INFO: Processing node: DEF-f_pinky.03.R with parent: DEF-hand.R
+INFO: Processing node: DEF-palm.04.R with parent: DEF-hand.R
+INFO: Processing node: ORG-breast.L with parent:
+INFO: Captured local bind transform for bone [DEF-breast.L]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: Processing node: DEF-breast.L with parent:
+INFO: Bone [DEF-breast.L] parent set to:
+INFO: Processing node: ORG-breast.R with parent:
+INFO: Captured local bind transform for bone [DEF-breast.R]: mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: Processing node: DEF-breast.R with parent:
+INFO: Bone [DEF-breast.R] parent set to:
 INFO: Bone hierarchy successfully built from scene graph.
 INFO: Loaded 1 meshes.
 INFO: INFO: Model loaded successfully.
-INFO: DEBUG: Bounding Box Center: (-0.000000, 0.940108, -0.027487)
+INFO: DEBUG: Bounding Box Center: (0.000000, 0.940108, -0.027487)
 INFO: DEBUG: Bounding Box Radius: 1.230948
-INFO: DEBUG: Adjusted Camera Position: (-0.000000, 0.940108, 7.401939)
-INFO: INFO: Attempting to load animation: Action.001 from file: Character_TPose_Anim wo NLA.fbx
-INFO: Loading animation from: Character_TPose_Anim wo NLA.fbx
+INFO: DEBUG: Adjusted Camera Position: (0.000000, 0.940108, 7.401939)
+INFO: INFO: Attempting to load animation: Idle from file: animations/Idle.fbx
+INFO: Loading animation from: animations/Idle.fbx
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.L
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-breast.R
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.L
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
+WARNING: Injecting bind pose for bone: DEF-ear.R
 WARNING: === DEBUG: Animation Transform at T=0 for DEF-forearm.L ===
 WARNING: animationLocalTransform:
-mat4x4((1.000000, -0.000001, -0.000000, 0.000000), (0.000001, 0.996575, 0.082688, 0.000000), (0.000000, -0.082688, 0.996575, 0.000000), (0.000000, 0.131829, 0.000000, 1.000000))
+mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
 WARNING: bindPose:
+mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999532, -0.019876, 0.023229, 0.000000), (-0.027289, -0.237528, 0.970997, -0.000000), (0.427342, 1.488614, -0.078006, 1.000000))
+WARNING: correctedLocal (post-fix):
+mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.L
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.01.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.L
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.02.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.L
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.03.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.L
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-palm.04.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.L
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-pelvis.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.L
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: Injecting bind pose for bone: DEF-shoulder.R
+WARNING: === DEBUG: Animation Transform at T=0 for DEF-upper_arm.L ===
+WARNING: animationLocalTransform:
+mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
+WARNING: bindPose:
+mat4x4((-0.013782, -0.971178, -0.237959, 0.000000), (0.999436, -0.006094, -0.033014, 0.000000), (0.030612, -0.238280, 0.970714, -0.000000), (0.167666, 1.490198, -0.069429, 1.000000))
+WARNING: correctedLocal (post-fix):
+mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-face
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: ORG-spine.003
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.001
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: nose.003
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: root
+WARNING: Injecting bind pose for bone: torso
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+WARNING: Injecting bind pose for bone: tweak_spine.003
+INFO: Animation loaded and re-normalized relative to model bind pose.
+INFO: INFO: Successfully loaded animation: Idle
+INFO: INFO: Attempting to load animation: Stance1 from file: animations/Stance1.fbx
+ERROR: ERROR: Animation file not found: animations/Stance1.fbx
+INFO: INFO: Attempting to load animation: Jab_Head from file: animations/Jab_Head.fbx
+ERROR: ERROR: Animation file not found: animations/Jab_Head.fbx
+INFO: Switched to animation: Idle
+INFO: INFO: Set current animation to Idle.
+INFO: DEBUG: Depth testing and blending enabl

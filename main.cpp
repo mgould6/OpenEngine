@@ -15,7 +15,7 @@
 #include <cstddef> // For std::size
 #include "setup/GraphicsSetup.h"
 #include "setup/InputCallbacks.h"
-#include "scene/SceneTest2.h"
+#include "scene/SceneTest3.h"
 
 // Cube and Plane VAOs and VBOs
 unsigned int cubeVAO, cubeVBO;
@@ -77,7 +77,7 @@ int main() {
     physicsManager.Initialize();
 
     // Run the scene
-    SceneTest2(window);
+    SceneTest3(window);
 
     // Shutdown ImGui
     Renderer::ShutdownImGui();

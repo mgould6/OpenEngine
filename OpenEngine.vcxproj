@@ -156,9 +156,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="animations\Idle.fbx" />
+    <None Include="animations\Jab_Head.fbx" />
+    <None Include="animations\Stance1.fbx" />
     <None Include="assimp-vc143-mt.dll" />
+    <None Include="CharacterModel.fbx" />
     <None Include="Character_TPose_Anim wo NLA.fbx" />
-    <None Include="Character_TPose_NoAnim.fbx" />
     <None Include="shaders\bone\bone_fragment_shader.fs" />
     <None Include="shaders\bone\bone_vertex_shader.vs" />
     <None Include="shaders\post_processing\blur.fs" />
@@ -219,6 +222,7 @@
     <ClCompile Include="animation\DebugTools.cpp" />
     <ClCompile Include="cleanup\Cleanup.cpp" />
     <ClCompile Include="scene\SceneTest2.cpp" />
+    <ClCompile Include="scene\SceneTest3.cpp" />
     <ClCompile Include="setup\Globals.cpp" />
     <ClCompile Include="setup\GraphicsSetup.cpp" />
     <ClCompile Include="setup\InputCallbacks.cpp" />
@@ -243,6 +247,7 @@
     <ClInclude Include="animation\DebugTools.h" />
     <ClInclude Include="cleanup\Cleanup.h" />
     <ClInclude Include="scene\SceneTest2.h" />
+    <ClInclude Include="scene\SceneTest3.h" />
     <ClInclude Include="setup\Globals.h" />
     <ClInclude Include="setup\GraphicsSetup.h" />
     <ClInclude Include="setup\InputCallbacks.h" />
