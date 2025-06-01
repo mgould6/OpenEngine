@@ -3,9 +3,13 @@
 
 #include "../model/Camera.h"
 #include "../model/Model.h"
+#include "../animation/AnimationController.h"
 
+class Model;
+class AnimationController;
 extern Camera camera;
 extern Model* myModel;
+extern AnimationController* animationController;
 extern float deltaTime;
 extern float lastFrame;
 extern unsigned int depthMapFBO[];

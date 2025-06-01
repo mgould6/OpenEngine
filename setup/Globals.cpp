@@ -1,5 +1,10 @@
 #include "Globals.h"
 #include "../render_utils/Renderer.h"
+#include "../model/Model.h"
+#include "../animation/AnimationController.h"
+
+Model* myModel = nullptr;
+AnimationController* animationController = nullptr;
 
 // Define other global variables
 

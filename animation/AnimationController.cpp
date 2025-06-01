@@ -47,19 +47,24 @@ bool AnimationController::loadAnimation(const std::string& name, const std::stri
     return true;
 }
 
-void AnimationController::setCurrentAnimation(const std::string& name)
-{
-    if (animations.find(name) != animations.end())
-    {
-        currentAnimation = animations[name];
-        resetAnimation();
-        Logger::log("Switched to animation: " + name, Logger::INFO);
-    }
-    else
-    {
+void AnimationController::setCurrentAnimation(const std::string& name) {
+    auto it = animations.find(name);
+    if (it == animations.end()) {
         Logger::log("Animation not found: " + name, Logger::ERROR);
+        return;
     }
+
+    if (currentAnimation == it->second) {
+        Logger::log("Animation already playing: " + name, Logger::INFO);
+        return;
+    }
+
+    currentAnimation = it->second;
+    animationTime = 0.0f; // Reset to start of animation
+    Logger::log("Switched to animation: " + name, Logger::INFO);
 }
+
+
 
 void AnimationController::update(float deltaTime)
 {

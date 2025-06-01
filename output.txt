@@ -406,10 +406,6 @@ INFO: DEBUG: Bounding Box Radius: 1.230948
 INFO: DEBUG: Adjusted Camera Position: (0.000000, 0.940108, 7.401939)
 INFO: INFO: Attempting to load animation: Idle from file: animations/Idle.fbx
 INFO: Loading animation from: animations/Idle.fbx
-WARNING: Injecting bind pose for bone: DEF-ear.L
-WARNING: Injecting bind pose for bone: DEF-ear.L
-WARNING: Injecting bind pose for bone: DEF-ear.R
-WARNING: Injecting bind pose for bone: DEF-ear.R
 WARNING: === DEBUG: Animation Transform at T=0 for DEF-forearm.L ===
 WARNING: animationLocalTransform:
 mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
@@ -417,22 +413,6 @@ WARNING: bindPose:
 mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999532, -0.019876, 0.023229, 0.000000), (-0.027288, -0.237527, 0.970997, -0.000000), (0.427342, 1.488614, -0.078006, 1.000000))
 WARNING: correctedLocal (post-fix):
 mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
-WARNING: Injecting bind pose for bone: DEF-palm.01.L
-WARNING: Injecting bind pose for bone: DEF-palm.01.L
-WARNING: Injecting bind pose for bone: DEF-palm.01.R
-WARNING: Injecting bind pose for bone: DEF-palm.01.R
-WARNING: Injecting bind pose for bone: DEF-palm.02.L
-WARNING: Injecting bind pose for bone: DEF-palm.02.L
-WARNING: Injecting bind pose for bone: DEF-palm.02.R
-WARNING: Injecting bind pose for bone: DEF-palm.02.R
-WARNING: Injecting bind pose for bone: DEF-palm.03.L
-WARNING: Injecting bind pose for bone: DEF-palm.03.L
-WARNING: Injecting bind pose for bone: DEF-palm.03.R
-WARNING: Injecting bind pose for bone: DEF-palm.03.R
-WARNING: Injecting bind pose for bone: DEF-palm.04.L
-WARNING: Injecting bind pose for bone: DEF-palm.04.L
-WARNING: Injecting bind pose for bone: DEF-palm.04.R
-WARNING: Injecting bind pose for bone: DEF-palm.04.R
 WARNING: === DEBUG: Animation Transform at T=0 for DEF-upper_arm.L ===
 WARNING: animationLocalTransform:
 mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
@@ -440,23 +420,12 @@ WARNING: bindPose:
 mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999436, -0.006094, -0.033014, 0.000000), (0.030612, -0.238280, 0.970714, -0.000000), (0.167666, 1.490198, -0.069429, 1.000000))
 WARNING: correctedLocal (post-fix):
 mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
-WARNING: Injecting bind pose for bone: ORG-face
-WARNING: Injecting bind pose for bone: ORG-face
-WARNING: Injecting bind pose for bone: nose.001
-WARNING: Injecting bind pose for bone: nose.001
-WARNING: Injecting bind pose for bone: nose.003
-WARNING: Injecting bind pose for bone: nose.003
 WARNING: Injecting bind pose for bone: root
 WARNING: Injecting bind pose for bone: root
-WARNING: Injecting bind pose for bone: torso
 INFO: Animation loaded and re-normalized relative to model bind pose.
 INFO: INFO: Successfully loaded animation: Idle
 INFO: INFO: Attempting to load animation: Stance1 from file: animations/Stance1.fbx
 INFO: Loading animation from: animations/Stance1.fbx
-WARNING: Injecting bind pose for bone: DEF-ear.L
-WARNING: Injecting bind pose for bone: DEF-ear.L
-WARNING: Injecting bind pose for bone: DEF-ear.R
-WARNING: Injecting bind pose for bone: DEF-ear.R
 WARNING: === DEBUG: Animation Transform at T=0 for DEF-forearm.L ===
 WARNING: animationLocalTransform:
 mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
@@ -464,46 +433,19 @@ WARNING: bindPose:
 mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999532, -0.019876, 0.023229, 0.000000), (-0.027288, -0.237527, 0.970997, -0.000000), (0.427342, 1.488614, -0.078006, 1.000000))
 WARNING: correctedLocal (post-fix):
 mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
-WARNING: Injecting bind pose for bone: DEF-palm.01.L
-WARNING: Injecting bind pose for bone: DEF-palm.01.L
-WARNING: Injecting bind pose for bone: DEF-palm.01.R
-WARNING: Injecting bind pose for bone: DEF-palm.01.R
-WARNING: Injecting bind pose for bone: DEF-palm.02.L
-WARNING: Injecting bind pose for bone: DEF-palm.02.L
-WARNING: Injecting bind pose for bone: DEF-palm.02.R
-WARNING: Injecting bind pose for bone: DEF-palm.02.R
-WARNING: Injecting bind pose for bone: DEF-palm.03.L
-WARNING: Injecting bind pose for bone: DEF-palm.03.L
-WARNING: Injecting bind pose for bone: DEF-palm.03.R
-WARNING: Injecting bind pose for bone: DEF-palm.03.R
-WARNING: Injecting bind pose for bone: DEF-palm.04.L
-WARNING: Injecting bind pose for bone: DEF-palm.04.L
-WARNING: Injecting bind pose for bone: DEF-palm.04.R
-WARNING: Injecting bind pose for bone: DEF-palm.04.R
 WARNING: === DEBUG: Animation Transform at T=0 for DEF-upper_arm.L ===
 WARNING: animationLocalTransform:
-mat4x4((-0.991784, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
+mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016839, 0.177828, -0.009489, 1.000000))
 WARNING: bindPose:
 mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999436, -0.006094, -0.033014, 0.000000), (0.030612, -0.238280, 0.970714, -0.000000), (0.167666, 1.490198, -0.069429, 1.000000))
 WARNING: correctedLocal (post-fix):
-mat4x4((-0.991784, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
-WARNING: Injecting bind pose for bone: ORG-face
-WARNING: Injecting bind pose for bone: ORG-face
-WARNING: Injecting bind pose for bone: nose.001
-WARNING: Injecting bind pose for bone: nose.001
-WARNING: Injecting bind pose for bone: nose.003
-WARNING: Injecting bind pose for bone: nose.003
+mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016839, 0.177828, -0.009489, 1.000000))
 WARNING: Injecting bind pose for bone: root
 WARNING: Injecting bind pose for bone: root
-WARNING: Injecting bind pose for bone: torso
 INFO: Animation loaded and re-normalized relative to model bind pose.
 INFO: INFO: Successfully loaded animation: Stance1
 INFO: INFO: Attempting to load animation: Jab_Head from file: animations/Jab_Head.fbx
 INFO: Loading animation from: animations/Jab_Head.fbx
-WARNING: Injecting bind pose for bone: DEF-ear.L
-WARNING: Injecting bind pose for bone: DEF-ear.L
-WARNING: Injecting bind pose for bone: DEF-ear.R
-WARNING: Injecting bind pose for bone: DEF-ear.R
 WARNING: === DEBUG: Animation Transform at T=0 for DEF-forearm.L ===
 WARNING: animationLocalTransform:
 mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
@@ -511,141 +453,22 @@ WARNING: bindPose:
 mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999532, -0.019876, 0.023229, 0.000000), (-0.027288, -0.237527, 0.970997, -0.000000), (0.427342, 1.488614, -0.078006, 1.000000))
 WARNING: correctedLocal (post-fix):
 mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
-WARNING: Injecting bind pose for bone: DEF-palm.01.L
-WARNING: Injecting bind pose for bone: DEF-palm.01.L
-WARNING: Injecting bind pose for bone: DEF-palm.01.R
-WARNING: Injecting bind pose for bone: DEF-palm.01.R
-WARNING: Injecting bind pose for bone: DEF-palm.02.L
-WARNING: Injecting bind pose for bone: DEF-palm.02.L
-WARNING: Injecting bind pose for bone: DEF-palm.02.R
-WARNING: Injecting bind pose for bone: DEF-palm.02.R
-WARNING: Injecting bind pose for bone: DEF-palm.03.L
-WARNING: Injecting bind pose for bone: DEF-palm.03.L
-WARNING: Injecting bind pose for bone: DEF-palm.03.R
-WARNING: Injecting bind pose for bone: DEF-palm.03.R
-WARNING: Injecting bind pose for bone: DEF-palm.04.L
-WARNING: Injecting bind pose for bone: DEF-palm.04.L
-WARNING: Injecting bind pose for bone: DEF-palm.04.R
-WARNING: Injecting bind pose for bone: DEF-palm.04.R
 WARNING: === DEBUG: Animation Transform at T=0 for DEF-upper_arm.L ===
 WARNING: animationLocalTransform:
-mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
+mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016839, 0.177828, -0.009489, 1.000000))
 WARNING: bindPose:
 mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999436, -0.006094, -0.033014, 0.000000), (0.030612, -0.238280, 0.970714, -0.000000), (0.167666, 1.490198, -0.069429, 1.000000))
 WARNING: correctedLocal (post-fix):
-mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
-WARNING: Injecting bind pose for bone: ORG-face
-WARNING: Injecting bind pose for bone: ORG-face
-WARNING: Injecting bind pose for bone: nose.001
-WARNING: Injecting bind pose for bone: nose.001
-WARNING: Injecting bind pose for bone: nose.003
-WARNING: Injecting bind pose for bone: nose.003
+mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016839, 0.177828, -0.009489, 1.000000))
 WARNING: Injecting bind pose for bone: root
 WARNING: Injecting bind pose for bone: root
-WARNING: Injecting bind pose for bone: torso
 INFO: Animation loaded and re-normalized relative to model bind pose.
 INFO: INFO: Successfully loaded animation: Jab_Head
 INFO: Switched to animation: Idle
 INFO: INFO: Set current animation to Idle.
 INFO: DEBUG: Depth testing and blending enabled.
-INFO: Debug: Animation time updated to: 55.068081
-INFO: INFO: Interpolating keyframes at animation time: 55.068081
-INFO: INFO: Keyframe count: 60
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-foot.L with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-foot.R with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.754255
-WARNING: ANIM FINAL MATRIX: DEF-forearm.L @ time 55.068081
-WARNING: mat4x4((0.981371, 0.000365, -0.192120, 0.000000), (0.157521, 0.570967, 0.805719, 0.000000), (0.109989, -0.820973, 0.560273, 0.000000), (-0.000000, 0.129911, 0.000000, 1.000000))
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-forearm.L.001 with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-forearm.R with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-forearm.R.001 with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-hand.L with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-hand.R with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-shin.L with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-shin.L.001 with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-shin.R with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-shin.R.001 with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-spine with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-thigh.L with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-thigh.L.001 with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-thigh.R with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-thigh.R.001 with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-toe.L with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-upper_arm.L with factor: 0.754255
-WARNING: ANIM FINAL MATRIX: DEF-upper_arm.L @ time 55.068081
-WARNING: mat4x4((-0.435849, -0.864572, 0.250102, 0.000000), (-0.845124, 0.488711, 0.216626, 0.000000), (-0.309516, -0.116951, -0.943675, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-upper_arm.R with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: DEF-upper_arm.R.001 with factor: 0.754255
-INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.754255
-INFO: INFO: Interpolated bone: torso with factor: 0.754255
-WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-foot.L]:
-mat4x4((0.999951, -0.005144, 0.008548, 0.000000), (0.006547, 0.984869, -0.173185, 0.000000), (-0.007527, 0.173234, 0.984853, 0.000000), (0.109726, -0.875713, 0.249684, 1.000000))
-INFO: DEBUG: After Storing Bone DEF-foot.L
-INFO: Applied globalInverse * global * offset for bone: DEF-foot.L
-WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-foot.R]:
-mat4x4((0.999893, -0.005366, 0.013626, 0.000000), (0.007633, 0.985027, -0.172231, 0.000000), (-0.012497, 0.172316, 0.984962, 0.000000), (-0.099889, -0.875136, 0.247209, 1.000000))
-INFO: DEBUG: After Storing Bone DEF-foot.R
-INFO: Applied globalInverse * global * offset for bone: DEF-foot.R
-WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.L]:
-mat4x4((0.149423, -0.850386, 0.504496, 0.000000), (0.988395, 0.114344, -0.100004, 0.000000), (0.027356, 0.513584, 0.857603, 0.000000), (-1.299735, 0.570249, -0.172653, 1.000000))
-WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-forearm.L ===
-WARNING: Global Transform:
-mat4x4((-0.968476, -0.221540, -0.113906, 0.000000), (0.130343, -0.840331, 0.526168, 0.000000), (-0.212286, 0.494735, 0.842717, 0.000000), (0.233325, 0.336995, -0.172826, 1.000000))
-WARNING: Offset Matrix (Inverse Bind Pose):
-mat4x4((-0.013782, 0.999533, -0.027289, 0.000000), (-0.971178, -0.019876, -0.237527, 0.000000), (-0.237959, 0.023228, 0.970998, 0.000000), (1.433036, -0.395743, 0.440992, 1.000000))
-WARNING: Global Inverse Transform:
-mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
-WARNING: Resulting Final Transform:
-mat4x4((0.149423, -0.850386, 0.504496, 0.000000), (0.988395, 0.114344, -0.100004, 0.000000), (0.027356, 0.513584, 0.857603, 0.000000), (-1.299735, 0.570249, -0.172653, 1.000000))
-INFO: Decomposed transform for DEF-forearm.L: Translation(-1.29973, 0.570249, -0.172653), Scale(1, 1, 1)
-INFO: DEBUG: After Storing Bone DEF-forearm.L
-INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L
-WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.L.001]:
-mat4x4((0.150400, -0.849832, 0.505138, 0.000000), (0.988518, 0.136819, -0.064141, 0.000000), (-0.014603, 0.508985, 0.860652, 0.000000), (-1.303608, 0.536198, -0.226076, 1.000000))
-INFO: DEBUG: After Storing Bone DEF-forearm.L.001
-INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L.001
-WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.R]:
-mat4x4((0.097956, 0.845932, -0.524217, 0.000000), (-0.991982, 0.040731, -0.119635, 0.000000), (-0.079852, 0.53173
+Assertion failed: (g.FrameCount == 0 || g.FrameCountEnded == g.FrameCount) && "Forgot to call Render() or EndFrame() at the end of the previous frame?", file C:\Users\mjgou\source\repos\OpenEngine\vcpkg\buildtrees\imgui\src\v1.90.7-cda29176bb.clean\imgui.cpp, line 9868
+
+C:\Users\mjgou\source\repos\OpenEngine\x64\Debug\OpenEngine.exe (process 17480) exited with code 3.
+To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .

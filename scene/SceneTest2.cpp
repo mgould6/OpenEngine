@@ -16,8 +16,6 @@
 Camera camera;
 float lastFrame = 0.0f;
 float deltaTime = 0.0f;
-Model* myModel = nullptr;
-AnimationController* animationController = nullptr;
 
 void SceneTest2(GLFWwindow* window) {
     Logger::log("Entering SceneTest2.", Logger::INFO);

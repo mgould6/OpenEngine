@@ -12,6 +12,7 @@
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+#include "../Animation/AnimationController.h"
 
 // Static variable definitions
 const int NUM_CASCADES = Renderer::NUM_CASCADES;
@@ -497,23 +498,31 @@ void Renderer::RenderImGui() {
         return;
     }
 
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
+    extern Model* myModel;
+    extern AnimationController* animationController;
 
-    ImGui::Begin("Parameters");
-    static float lightIntensity = Renderer::getLightIntensity();
-    ImGui::SliderFloat("Light Intensity", &lightIntensity, 0.0f, 10.0f);
-    Renderer::setLightIntensity(lightIntensity);
+    ImGui::Begin("Animation Controller");
 
-    static float cameraSpeed = Renderer::getCameraSpeed();
-    ImGui::SliderFloat("Camera Speed", &cameraSpeed, 0.0f, 10.0f);
-    Renderer::setCameraSpeed(cameraSpeed);
+    static int currentAnimIndex = 0;
+    const char* animNames[] = { "Idle", "Stance1", "Jab_Head" };
+
+    if (ImGui::Combo("Select Animation", &currentAnimIndex, animNames, IM_ARRAYSIZE(animNames))) {
+        if (myModel && animationController) {
+            animationController->setCurrentAnimation(animNames[currentAnimIndex]);
+            animationController->update(0.0f);
+            animationController->applyToModel(myModel);
+            Logger::log("Switched animation to " + std::string(animNames[currentAnimIndex]), Logger::INFO);
+        } else {
+            Logger::log("Model or animation controller is null during ImGui switch.", Logger::WARNING);
+        }
+    }
+
     ImGui::End();
-
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
+
+
 
 void Renderer::ShutdownImGui() {
     if (!ImGui::GetCurrentContext()) {
@@ -545,6 +554,12 @@ void Renderer::setLightIntensity(float intensity) {
 
 
 void Renderer::BeginFrame() {
+    if (ImGui::GetCurrentContext()) {
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+    }
+
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
     glEnable(GL_BLEND);
@@ -552,6 +567,7 @@ void Renderer::BeginFrame() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Logger::log("DEBUG: Depth testing and blending enabled.", Logger::INFO);
 }
+
 
 void Renderer::EndFrame(GLFWwindow* window) {
     glfwSwapBuffers(window);

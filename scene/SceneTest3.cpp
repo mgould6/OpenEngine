@@ -12,10 +12,7 @@
 #include "../animation/AnimationController.h"
 #include <glm/gtx/string_cast.hpp>
 
-
-
 void SceneTest3(GLFWwindow* window) {
-
     // Global variables
     Camera camera;
     float lastFrame = 0.0f;
@@ -26,27 +23,25 @@ void SceneTest3(GLFWwindow* window) {
     Logger::log("Entering SceneTest3 for animation system expansion testing.", Logger::INFO);
 
     // Load the model
+    myModel = new Model("CharacterModel.fbx");
     if (!myModel) {
-        myModel = new Model("CharacterModel.fbx");
-        if (!myModel) {
-            Logger::log("ERROR: Failed to load model.", Logger::ERROR);
-            return;
-        }
-        Logger::log("INFO: Model loaded successfully.", Logger::INFO);
-
-        // Adjust camera to fit model
-        camera.setCameraToFitModel(*myModel);
+        Logger::log("ERROR: Failed to load model.", Logger::ERROR);
+        return;
     }
+    Logger::log("INFO: Model loaded successfully.", Logger::INFO);
+    camera.setCameraToFitModel(*myModel);
 
     // Initialize the animation controller
-    if (!animationController) {
-        animationController = new AnimationController(myModel);
-        animationController->loadAnimation("Idle", "animations/Idle.fbx");
-        animationController->loadAnimation("Stance1", "animations/Stance1.fbx");
-        animationController->loadAnimation("Jab_Head", "animations/Jab_Head.fbx");
-        animationController->setCurrentAnimation("Idle");
-        Logger::log("INFO: Set current animation to Idle.", Logger::INFO);
-    }
+    animationController = new AnimationController(myModel);
+    animationController->loadAnimation("Idle", "animations/Idle.fbx");
+    animationController->loadAnimation("Stance1", "animations/Stance1.fbx");
+    animationController->loadAnimation("Jab_Head", "animations/Jab_Head.fbx");
+    animationController->setCurrentAnimation("Idle");
+    Logger::log("INFO: Set current animation to Idle.", Logger::INFO);
+
+    // Sync globals for ImGui to access
+    ::myModel = myModel;
+    ::animationController = animationController;
 
     while (!glfwWindowShouldClose(window)) {
         float currentFrame = static_cast<float>(glfwGetTime());
@@ -55,7 +50,6 @@ void SceneTest3(GLFWwindow* window) {
 
         InputManager::processInput(window, deltaTime);
         Renderer::BeginFrame();
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Update and apply animation
         if (animationController) {
@@ -76,19 +70,14 @@ void SceneTest3(GLFWwindow* window) {
 
         glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
         activeShader->setMat4("model", modelMatrix);
-
-        // Set bone transformations
         activeShader->setMat4Array("boneTransforms", myModel->getFinalBoneMatrices());
 
         glDisable(GL_CULL_FACE);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-        // Draw model with animations applied
         myModel->Draw(*activeShader);
 
-        Renderer::RenderImGui();
+        Renderer::RenderImGui(); // All GUI logic is handled here
         Renderer::EndFrame(window);
-
     }
 
     Logger::log("Exiting SceneTest3.", Logger::INFO);
