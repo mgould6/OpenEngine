@@ -99,31 +99,45 @@ void AnimationController::applyToModel(Model* model)
     float currentTime = animationTime;
     currentAnimation->interpolateKeyframes(currentTime, localBoneMatrices);
 
+    // Inject bind pose transforms for any missing bones
+    for (const auto& bone : model->getBones()) {
+        const std::string& boneName = bone.name;
+        if (localBoneMatrices.find(boneName) == localBoneMatrices.end()) {
+            localBoneMatrices[boneName] = model->getLocalBindPose(boneName);
+            Logger::log("Injected bind pose for unkeyed bone: " + boneName, Logger::DEBUG);
+        }
+    }
+
     // Step 2: Recursively compute global transforms
     std::map<std::string, glm::mat4> globalBoneMatrices;
 
     for (const auto& [boneName, _] : localBoneMatrices)
     {
-        buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
+        glm::mat4 globalTransform = buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
+
+        // Extra NAN check to prevent corrupted data propagation
+        if (glm::isnan(globalTransform[0][0])) {
+            Logger::log("ERROR: NaN detected in globalTransform for bone: " + boneName, Logger::ERROR);
+            globalTransform = glm::mat4(1.0f); // reset to identity
+        }
+
+        globalBoneMatrices[boneName] = globalTransform;
     }
 
-    // Retrieve the global inverse transform from Model (critical step!)
+    // Step 3: Apply final skinning transforms to model
     glm::mat4 globalInverseTransform = model->getGlobalInverseTransform();
 
-    // Step 3: Apply final skinning transforms to model
     for (const auto& [boneName, globalTransform] : globalBoneMatrices)
     {
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
 
+        if (offsetMatrix == glm::mat4(1.0f)) {
+            Logger::log("WARNING: Bone " + boneName + " has default offset matrix (possible missing mapping).", Logger::WARNING);
+        }
+
         glm::mat4 finalTransform = globalInverseTransform * globalTransform * offsetMatrix;
 
-        // Explicit logging of final calculated transforms
-        Logger::log("DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [" + boneName + "]:\n" +
-            glm::to_string(finalTransform), Logger::WARNING);
-
-        // Diagnostic: Target specific bones for detailed inspection
-        if (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L")
-        {
+        if (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L") {
             Logger::log("=== DEBUG: FINAL TRANSFORM APPLY FOR " + boneName + " ===", Logger::WARNING);
             Logger::log("Global Transform:\n" + glm::to_string(globalTransform), Logger::WARNING);
             Logger::log("Offset Matrix (Inverse Bind Pose):\n" + glm::to_string(offsetMatrix), Logger::WARNING);
@@ -137,6 +151,8 @@ void AnimationController::applyToModel(Model* model)
         Logger::log("Applied globalInverse * global * offset for bone: " + boneName, Logger::INFO);
     }
 }
+
+
 
 glm::mat4 AnimationController::buildGlobalTransform(
     const std::string& boneName,

@@ -198,6 +198,15 @@ void Animation::loadAnimation(const std::string& filePath, const Model* model) {
 
     loaded = true;
     Logger::log("Animation loaded and re-normalized relative to model bind pose.", Logger::INFO);
+
+    for (const auto& bone : model->getBones()) {
+        const std::string& boneName = bone.name;
+        if (bonesWithKeyframes.find(boneName) == bonesWithKeyframes.end()) {
+            Logger::log("WARNING: Bone not animated in file: " + filePath + " -> " + boneName, Logger::WARNING);
+        }
+    }
+
+
 }
 
 

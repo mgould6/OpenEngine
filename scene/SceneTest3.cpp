@@ -54,6 +54,16 @@ void SceneTest3(GLFWwindow* window) {
 
         // Update and apply animation
         if (animationController) {
+            // Debug injection here:
+            static bool dumpedOnce = false;
+            if (!dumpedOnce && lastFrame == 0.0f) {
+                dumpedOnce = true;
+                Logger::log("DEBUG: Dumping all bone transforms at T=0", Logger::INFO);
+                for (const auto& bone : myModel->getBones()) {
+                    glm::mat4 m = myModel->getBoneTransform(bone.name);
+                    Logger::log("Bone [" + bone.name + "] T0 Transform: \n" + glm::to_string(m), Logger::INFO);
+                }
+            }
             animationController->update(deltaTime);
             animationController->applyToModel(myModel);
         }
