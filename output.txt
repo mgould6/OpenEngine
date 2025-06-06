@@ -404,26 +404,6 @@ INFO: INFO: Model loaded successfully.
 INFO: DEBUG: Bounding Box Center: (0.000000, 0.940108, -0.027487)
 INFO: DEBUG: Bounding Box Radius: 1.230948
 INFO: DEBUG: Adjusted Camera Position: (0.000000, 0.940108, 7.401939)
-INFO: INFO: Attempting to load animation: Idle from file: animations/Idle.fbx
-INFO: Loading animation from: animations/Idle.fbx
-WARNING: === DEBUG: Animation Transform at T=0 for DEF-forearm.L ===
-WARNING: animationLocalTransform:
-mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
-WARNING: bindPose:
-mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999532, -0.019876, 0.023229, 0.000000), (-0.027288, -0.237527, 0.970997, -0.000000), (0.427342, 1.488614, -0.078006, 1.000000))
-WARNING: correctedLocal (post-fix):
-mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
-WARNING: === DEBUG: Animation Transform at T=0 for DEF-upper_arm.L ===
-WARNING: animationLocalTransform:
-mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
-WARNING: bindPose:
-mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999436, -0.006094, -0.033014, 0.000000), (0.030612, -0.238280, 0.970714, -0.000000), (0.167666, 1.490198, -0.069429, 1.000000))
-WARNING: correctedLocal (post-fix):
-mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016838, 0.177829, -0.009489, 1.000000))
-WARNING: Injecting bind pose for bone: root
-WARNING: Injecting bind pose for bone: root
-INFO: Animation loaded and re-normalized relative to model bind pose.
-INFO: INFO: Successfully loaded animation: Idle
 INFO: INFO: Attempting to load animation: Stance1 from file: animations/Stance1.fbx
 INFO: Loading animation from: animations/Stance1.fbx
 WARNING: === DEBUG: Animation Transform at T=0 for DEF-forearm.L ===
@@ -464,11 +444,111 @@ WARNING: Injecting bind pose for bone: root
 WARNING: Injecting bind pose for bone: root
 INFO: Animation loaded and re-normalized relative to model bind pose.
 INFO: INFO: Successfully loaded animation: Jab_Head
-INFO: Switched to animation: Idle
-INFO: INFO: Set current animation to Idle.
+INFO: Switched to animation: Stance1
+INFO: INFO: Set current animation to Stance1.
 INFO: DEBUG: Depth testing and blending enabled.
-Assertion failed: (g.FrameCount == 0 || g.FrameCountEnded == g.FrameCount) && "Forgot to call Render() or EndFrame() at the end of the previous frame?", file C:\Users\mjgou\source\repos\OpenEngine\vcpkg\buildtrees\imgui\src\v1.90.7-cda29176bb.clean\imgui.cpp, line 9868
-
-C:\Users\mjgou\source\repos\OpenEngine\x64\Debug\OpenEngine.exe (process 17480) exited with code 3.
-To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
-Press any key to close this window . . .
+INFO: Debug: Animation time updated to: 43.775532
+INFO: INFO: Interpolating keyframes at animation time: 43.775532
+INFO: INFO: Keyframe count: 60
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-chin with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-chin.001 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.759555
+WARNING: ANIM FINAL MATRIX: DEF-forearm.L @ time 43.775532
+WARNING: mat4x4((-0.833969, 0.400651, 0.379440, 0.000000), (-0.534635, -0.756895, -0.375867, 0.000000), (0.136605, -0.516323, 0.845429, 0.000000), (-0.000000, 0.129911, -0.000000, 1.000000))
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-forearm.L.001 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-hand.L with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-hand.R with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-lid.B.L.003 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-lid.B.R.003 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-nose.001 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-nose.002 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-nose.003 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-nose.004 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-spine.002 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-spine.003 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-spine.004 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-spine.006 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-tongue with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-tongue.001 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-tongue.002 with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-upper_arm.L with factor: 0.759555
+WARNING: ANIM FINAL MATRIX: DEF-upper_arm.L @ time 43.775532
+WARNING: mat4x4((-0.903833, -0.038123, 0.426184, 0.000000), (-0.420628, 0.261829, -0.868630, 0.000000), (-0.078472, -0.964361, -0.252686, 0.000000), (-0.009270, 0.144956, -0.036628, 1.000000))
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-upper_arm.R with factor: 0.759555
+INFO: Interpolating Keyframes
+INFO: Bone Transform Interpolation at factor: 0.759555
+INFO: INFO: Interpolated bone: DEF-upper_arm.R.001 with factor: 0.759555
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-chin]:
+mat4x4((1.000000, 0.000000, 0.000002, 0.000000), (0.000002, 0.280544, -0.959841, 0.000000), (-0.000001, 0.959841, 0.280544, 0.000000), (0.000000, 0.037921, -0.000001, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-chin
+INFO: Applied globalInverse * global * offset for bone: DEF-chin
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-chin.001]:
+mat4x4((1.000000, 0.000002, -0.000000, 0.000000), (-0.000002, 0.864834, -0.502057, 0.000000), (-0.000001, 0.502057, 0.864834, 0.000000), (0.000000, 0.021155, 0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-chin.001
+INFO: Applied globalInverse * global * offset for bone: DEF-chin.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.L]:
+mat4x4((-0.264847, 0.964214, 0.012169, 0.000000), (-0.215907, -0.046996, -0.975283, 0.000000), (-0.939809, -0.260928, 0.220627, 0.000000), (0.702208, 0.067488, 1.410183, 1.000000))
+WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-forearm.L ===
+WARNING: Global Transform:
+mat4x4((0.436970, 0.094442, 0.894505, 0.000000), (-0.282262, 0.958637, 0.036673, 0.000000), (-0.854041, -0.268510, 0.445552, 0.000000), (0.340937, 0.429933, -0.053647, 1.000000))
+WARNING: Offset Matrix (Inverse Bind Pose):
+mat4x4((-0.013782, 0.999533, -0.027289, 0.000000), (-0.971178, -0.019876, -0.237527, 0.000000), (-0.237959, 0.023228, 0.970998, 0.000000), (1.433036, -0.395743, 0.440992, 1.000000))
+WARNING: Global Inverse Transform:
+mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
+WARNING: Resulting Final Transform:
+mat4x4((-0.264847, 0.964214, 0.012169, 0.000000), (-0.215907, -0.046996, -0.975283, 0.000000), (-0.939809, -0.260928, 0.220627, 0.000000), (0.702208, 0.067488, 1.410183, 1.000000))
+INFO: Decomposed transform for DEF-forearm.L: Translation(0.702208, 0.0674877, 1.41018), Scale(1, 1, 1)
+INFO: DEBUG: After Storing Bone DEF-forearm.L
+INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.L.001]:
+mat4x4((-0.254503, 0.966704, 0.026712, 0.000000), (0.348206, 0.117371, -0.930042, 0.000000), (-0.902209, -0.227397, -0.366484, 0.000000), (-0.139026, -0.175639, 1.290823, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-forearm.L.001
+INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L.001
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.R]:
+mat4x4((-0.398639, -0.916882, -0.020365, 0.000000), (-0.333998, 0.165824, -0.927873, 0.000000), (0.854127, -0.363084, -0.372340, 0.000000), (0.117114, -0.317770, 1.499735, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-forearm.R
+INFO: Applied globalInverse * global * offset for bone: DEF-forearm.R
+WARNING: DEBUG: Final (GlobalInverse * Global * Offset) Transform for bone [DEF-forearm.R.001]:
+mat4x4((-0.399039, -0.916733, -0.019186, 0.000000), (-0.299081, 0.149908, -0.942379, 0.000000), (0.866786, -0.

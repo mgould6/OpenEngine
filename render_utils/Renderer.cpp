@@ -504,7 +504,7 @@ void Renderer::RenderImGui() {
     ImGui::Begin("Animation Controller");
 
     static int currentAnimIndex = 0;
-    const char* animNames[] = { "Idle", "Stance1", "Jab_Head" };
+    const char* animNames[] = { "Stance1", "Jab_Head" };
 
     if (ImGui::Combo("Select Animation", &currentAnimIndex, animNames, IM_ARRAYSIZE(animNames))) {
         if (myModel && animationController) {
