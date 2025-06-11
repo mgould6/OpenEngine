@@ -8,20 +8,16 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <unordered_set>
+#include <algorithm>          // std::max
 
 Animation::Animation(const std::string& filePath, const Model* model)
-    : filePath(filePath), loaded(false), duration(0.0f), ticksPerSecond(60.0f) {
+    : loaded(false), duration(0.0f), ticksPerSecond(60.0f)
+{
     loadAnimation(filePath, model);
 }
 
 
-bool Animation::isLoaded() const {
-    return loaded;
-}
 
-float Animation::getDuration() const {
-    return duration;
-}
 
 void Animation::apply(float animationTime, Model* model) {
     if (!loaded || keyframes.empty()) {
@@ -84,7 +80,7 @@ void Animation::interpolateKeyframes(float animationTime, std::map<std::string, 
     for (const auto& [boneName, transform1] : prev->boneTransforms) {
         if (next->boneTransforms.find(boneName) != next->boneTransforms.end()) {
             const glm::mat4& transform2 = next->boneTransforms.at(boneName);
-            glm::mat4 interpolated = interpolateKeyframes(transform1, transform2, factor);
+            glm::mat4 interpolated = interpolateMatrices(transform1, transform2, factor);
             finalBoneMatrices[boneName] = interpolated;
 
             Logger::log("INFO: Interpolated bone: " + boneName + " with factor: " + std::to_string(factor), Logger::INFO);
@@ -106,6 +102,7 @@ void Animation::loadAnimation(const std::string& filePath, const Model* model)
 {
     Logger::log("Loading animation from: " + filePath, Logger::INFO);
 
+    /* ---------- Assimp read ---------- */
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(
         filePath,
@@ -129,28 +126,31 @@ void Animation::loadAnimation(const std::string& filePath, const Model* model)
         return;
     }
 
-    /* ------------------------------------------------------------ */
+    /* ---------- meta ---------- */
     aiAnimation* anim = scene->mAnimations[0];
 
     duration = static_cast<float>(anim->mDuration);
     ticksPerSecond = (anim->mTicksPerSecond > 0.0f)
         ? static_cast<float>(anim->mTicksPerSecond)
-        : 24.0f;                 // FBX default fallback
+        : 24.0f;                     // FBX fallback
 
     const float clipSeconds = duration / ticksPerSecond;
-
     Logger::log("META  tps=" + std::to_string(ticksPerSecond) +
         "  durationTicks=" + std::to_string(duration) +
         "  clipSeconds=" + std::to_string(clipSeconds),
         Logger::INFO);
 
-    /* ------------- build keyframes (logic unchanged) ------------- */
+    /* ========== keyframe harvest ========== */
+    timestampToBoneMap.clear();
+    bonesWithKeyframes.clear();
+    animatedBones.clear();
+
     for (unsigned int i = 0; i < anim->mNumChannels; ++i)
     {
         aiNodeAnim* channel = anim->mChannels[i];
         std::string boneName = channel->mNodeName.C_Str();
 
-        // remap non-DEF bones to DEF-* if present in the model
+        // map non-"DEF-" names to model bones when possible
         if (boneName.rfind("DEF-", 0) != 0)
         {
             std::string tryDEF = "DEF-" + boneName;
@@ -165,53 +165,70 @@ void Animation::loadAnimation(const std::string& filePath, const Model* model)
         bonesWithKeyframes.insert(boneName);
         animatedBones.push_back(boneName);
 
-        const unsigned int numKeys = std::min(
+        /* -----------------------------------------------------------------
+           Harvest every key on the longest track, but set the timestamp
+           to whichever track we’re *actually* using for that step.
+           ----------------------------------------------------------------- */
+        const unsigned int maxKeyCount = std::max({
             channel->mNumPositionKeys,
-            channel->mNumRotationKeys
-        );
+            channel->mNumRotationKeys,
+            channel->mNumScalingKeys
+            });
 
-        for (unsigned int j = 0; j < numKeys; ++j)
+
+        unsigned int lastPosIdx = channel->mNumPositionKeys ? 0 : UINT_MAX;
+        unsigned int lastRotIdx = channel->mNumRotationKeys ? 0 : UINT_MAX;
+        unsigned int lastSclIdx = channel->mNumScalingKeys ? 0 : UINT_MAX;
+
+        for (unsigned int k = 0; k < maxKeyCount; ++k)
         {
-            float timestamp = static_cast<float>(channel->mPositionKeys[j].mTime);
+            /* clamp indices so we reuse the final key once we run out */
+            unsigned int pIdx = std::min(k,
+                channel->mNumPositionKeys ? channel->mNumPositionKeys - 1 : 0);
+            unsigned int rIdx = std::min(k,
+                channel->mNumRotationKeys ? channel->mNumRotationKeys - 1 : 0);
+            unsigned int sIdx = std::min(k,
+                channel->mNumScalingKeys ? channel->mNumScalingKeys - 1 : 0);
 
-            // local transform (pos + rot)
-            glm::vec3 position(
-                channel->mPositionKeys[j].mValue.x,
-                channel->mPositionKeys[j].mValue.y,
-                channel->mPositionKeys[j].mValue.z
-            );
-            glm::quat rotation(
-                channel->mRotationKeys[j].mValue.w,
-                channel->mRotationKeys[j].mValue.x,
-                channel->mRotationKeys[j].mValue.y,
-                channel->mRotationKeys[j].mValue.z
-            );
+            /* choose timestamp from the track that *owns* this step          */
+            float timestamp = 0.0f;
+            if (channel->mNumRotationKeys && k < channel->mNumRotationKeys)
+                timestamp = static_cast<float>(channel->mRotationKeys[rIdx].mTime);
+            else if (channel->mNumPositionKeys && k < channel->mNumPositionKeys)
+                timestamp = static_cast<float>(channel->mPositionKeys[pIdx].mTime);
+            else
+                timestamp = static_cast<float>(channel->mScalingKeys[sIdx].mTime);
 
-            glm::mat4 animationLocal =
+            /* fetch transforms -------------------------------------------- */
+            const aiVector3D& pos = channel->mPositionKeys[pIdx].mValue;
+            glm::vec3 position(pos.x, pos.y, pos.z);
+
+            const aiQuaternion& rot = channel->mRotationKeys[rIdx].mValue;
+            glm::quat rotation(rot.w, rot.x, rot.y, rot.z);
+
+            const aiVector3D& scl = channel->mScalingKeys[sIdx].mValue;
+            glm::vec3 scaleVec(scl.x, scl.y, scl.z);
+
+            glm::mat4 local =
                 glm::translate(glm::mat4(1.0f), position)
-                * glm::mat4_cast(glm::normalize(rotation));
+                * glm::mat4_cast(glm::normalize(rotation))
+                * glm::scale(glm::mat4(1.0f), scaleVec);
 
-            // inject bind pose if truly identity (skip root)
-            const bool isAlmostIdentity =
-                glm::all(glm::epsilonEqual(animationLocal[0],
-                    glm::vec4(1, 0, 0, 0), 0.01f))
-                && glm::all(glm::epsilonEqual(animationLocal[1],
-                    glm::vec4(0, 1, 0, 0), 0.01f))
-                && glm::all(glm::epsilonEqual(animationLocal[2],
-                    glm::vec4(0, 0, 1, 0), 0.01f));
+            /* stricter identity test (unchanged) --------------------------- */
+            bool noTranslation = glm::length(position) < 1e-4f;
+            glm::vec3 rotVec(rotation.x, rotation.y, rotation.z);
+            bool noRotation =
+                std::abs(rotation.w - 1.0f) < 1e-4f && glm::length(rotVec) < 1e-4f;
 
-            if (isAlmostIdentity && boneName != "root")
-            {
-                Logger::log("Injecting bind pose for: " + boneName,
-                    Logger::WARNING);
-                animationLocal = model->getLocalBindPose(boneName);
-            }
+            if (noTranslation && noRotation && boneName != "root")
+                local = model->getLocalBindPose(boneName);
 
-            timestampToBoneMap[timestamp][boneName] = animationLocal;
+            timestampToBoneMap[timestamp][boneName] = local;
         }
     }
 
-    // collapse timestamp map into ordered vector
+    /* push ordered map into vector for fast playback */
+    keyframes.clear();
     for (const auto& kv : timestampToBoneMap)
         keyframes.push_back({ kv.first, kv.second });
 
@@ -220,8 +237,7 @@ void Animation::loadAnimation(const std::string& filePath, const Model* model)
         std::to_string(keyframes.size()), Logger::INFO);
 }
 
-
-glm::mat4 Animation::interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const {
+glm::mat4 Animation::interpolateMatrices(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const {
     glm::vec3 pos1, pos2, scale1, scale2;
     glm::quat rot1, rot2;
     glm::vec4 persp;

@@ -4,41 +4,66 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include< unordered_set>
-#include <map>  
+#include <unordered_set>
+#include <map>
 #include <glm/glm.hpp>
+
 #include "../model/Model.h"
 
-struct Keyframe {
-    float timestamp;
-    std::map<std::string, glm::mat4> boneTransforms;
+/* ------------------------------------------------------------------
+   A single point on the timeline
+   ------------------------------------------------------------------ */
+struct Keyframe
+{
+    float timestamp;                                   // Assimp "ticks"
+    std::map<std::string, glm::mat4> boneTransforms;   // local space
 };
 
-class Animation {
+class Animation
+{
 public:
     explicit Animation(const std::string& filePath, const Model* model);
 
-    bool isLoaded() const;
-    float getDuration() const;
-    float getTicksPerSecond() const { return ticksPerSecond; }
+    /* state -------------------------------------------------------- */
+    bool  isLoaded() const { return loaded; }
 
-    void apply(float animationTime, Model* model);
-    void interpolateKeyframes(float animationTime, std::map<std::string, glm::mat4>& finalBoneMatrices) const;
+    /* timeline meta ------------------------------------------------ */
+    float getTicksPerSecond()  const { return ticksPerSecond; }
+    float getDurationTicks()   const { return duration; }
+    float getDurationSeconds() const
+    {
+        return (ticksPerSecond > 0.0f) ? duration / ticksPerSecond : 0.0f;
+    }
+
+    /* legacy (controller still calls this) ------------------------ */
+    float getDuration() const { return duration; }
+
+    /* playback ----------------------------------------------------- */
+    void  apply(float animationTimeTicks, Model* model);
+    void  interpolateKeyframes(float animationTimeTicks,
+        std::map<std::string, glm::mat4>&
+        finalBoneMatrices) const;
 
 private:
-    std::string filePath;
-    bool loaded;
-    float duration;
-    float ticksPerSecond;
+    /* data loaded from file --------------------------------------- */
+    bool  loaded = false;
+    float duration = 0.0f;   // ticks
+    float ticksPerSecond = 24.0f;  // fallback
+
     std::vector<Keyframe> keyframes;
 
-    void loadAnimation(const std::string& filePath, const Model* model);
-    glm::mat4 interpolateKeyframes(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const;
+    /* helpers ------------------------------------------------------ */
+    void        loadAnimation(const std::string& filePath,
+        const Model* model);
+    glm::mat4   interpolateMatrices(const glm::mat4& m1,
+        const glm::mat4& m2,
+        float factor) const;      // <- name fixed
 
-    std::vector<std::string> animatedBones;  // Store bone names that exist in this animation
-    std::unordered_map<float, std::map<std::string, glm::mat4>> timestampToBoneMap;
+    /* bookkeeping -------------------------------------------------- */
+    std::vector<std::string> animatedBones;
+    std::unordered_map<float, std::map<std::string, glm::mat4>>
+        timestampToBoneMap;
     std::unordered_set<std::string> bonesWithKeyframes;
-
 };
 
-#endif // ANIMATION_H
+#endif /* ANIMATION_H */
