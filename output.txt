@@ -406,47 +406,44 @@ INFO: DEBUG: Bounding Box Radius: 1.230948
 INFO: DEBUG: Adjusted Camera Position: (0.000000, 0.940108, 7.401939)
 INFO: INFO: Attempting to load animation: Stance1 from file: animations/Stance1.fbx
 INFO: Loading animation from: animations/Stance1.fbx
-WARNING: === DEBUG: Animation Transform at T=0 for DEF-forearm.L ===
-WARNING: animationLocalTransform:
-mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
-WARNING: bindPose:
-mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999532, -0.019876, 0.023229, 0.000000), (-0.027288, -0.237527, 0.970997, -0.000000), (0.427342, 1.488614, -0.078006, 1.000000))
-WARNING: correctedLocal (post-fix):
-mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
-WARNING: === DEBUG: Animation Transform at T=0 for DEF-upper_arm.L ===
-WARNING: animationLocalTransform:
-mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016839, 0.177828, -0.009489, 1.000000))
-WARNING: bindPose:
-mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999436, -0.006094, -0.033014, 0.000000), (0.030612, -0.238280, 0.970714, -0.000000), (0.167666, 1.490198, -0.069429, 1.000000))
-WARNING: correctedLocal (post-fix):
-mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016839, 0.177828, -0.009489, 1.000000))
-WARNING: Injecting bind pose for bone: root
-WARNING: Injecting bind pose for bone: root
-INFO: Animation loaded and re-normalized relative to model bind pose.
+INFO: META  tps=60.000000  durationTicks=59.000000  clipSeconds=0.983333
+WARNING: Injecting bind pose for: DEF-forearm.L.001
+WARNING: Injecting bind pose for: DEF-forearm.R.001
+WARNING: Injecting bind pose for: DEF-shin.L.001
+WARNING: Injecting bind pose for: DEF-shin.R.001
+WARNING: Injecting bind pose for: DEF-thigh.L.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-upper_arm.L.001
+WARNING: Injecting bind pose for: DEF-upper_arm.R.001
+INFO: Animation loaded.  keyframes=60
 INFO: INFO: Successfully loaded animation: Stance1
 INFO: INFO: Attempting to load animation: Jab_Head from file: animations/Jab_Head.fbx
 INFO: Loading animation from: animations/Jab_Head.fbx
-WARNING: === DEBUG: Animation Transform at T=0 for DEF-forearm.L ===
-WARNING: animationLocalTransform:
-mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
-WARNING: bindPose:
-mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999532, -0.019876, 0.023229, 0.000000), (-0.027288, -0.237527, 0.970997, -0.000000), (0.427342, 1.488614, -0.078006, 1.000000))
-WARNING: correctedLocal (post-fix):
-mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 0.998367, 0.057133, 0.000000), (0.000000, -0.057133, 0.998367, 0.000000), (-0.000000, 0.129912, -0.000000, 1.000000))
-WARNING: === DEBUG: Animation Transform at T=0 for DEF-upper_arm.L ===
-WARNING: animationLocalTransform:
-mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016839, 0.177828, -0.009489, 1.000000))
-WARNING: bindPose:
-mat4x4((-0.013782, -0.971177, -0.237959, 0.000000), (0.999436, -0.006094, -0.033014, 0.000000), (0.030612, -0.238280, 0.970714, -0.000000), (0.167666, 1.490198, -0.069429, 1.000000))
-WARNING: correctedLocal (post-fix):
-mat4x4((-0.991783, 0.109342, 0.066412, 0.000000), (0.065039, 0.877983, -0.474253, 0.000000), (-0.110164, -0.466037, -0.877880, 0.000000), (-0.016839, 0.177828, -0.009489, 1.000000))
-WARNING: Injecting bind pose for bone: root
-WARNING: Injecting bind pose for bone: root
-INFO: Animation loaded and re-normalized relative to model bind pose.
+INFO: META  tps=60.000000  durationTicks=59.000000  clipSeconds=0.983333
+WARNING: Injecting bind pose for: DEF-forearm.L.001
+WARNING: Injecting bind pose for: DEF-forearm.R.001
+WARNING: Injecting bind pose for: DEF-shin.L.001
+WARNING: Injecting bind pose for: DEF-shin.R.001
+WARNING: Injecting bind pose for: DEF-thigh.L.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-thigh.R.001
+WARNING: Injecting bind pose for: DEF-upper_arm.L.001
+WARNING: Injecting bind pose for: DEF-upper_arm.R.001
+INFO: Animation loaded.  keyframes=19
 INFO: INFO: Successfully loaded animation: Jab_Head
 INFO: Switched to animation: Stance1
 INFO: INFO: Set current animation to Stance1.
-INFO: Debug: Animation time updated to: 0.000000
 INFO: INFO: Interpolating keyframes at animation time: 0.000000
 INFO: INFO: Keyframe count: 60
 INFO: Interpolating Keyframes
@@ -662,79 +659,78 @@ INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.R
 INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
 INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.R.001
 INFO: DEBUG: Depth testing and blending enabled.
-INFO: Debug: Animation time updated to: 41.978485
-INFO: INFO: Interpolating keyframes at animation time: 41.978485
+INFO: INFO: Interpolating keyframes at animation time: 46.708382
 INFO: INFO: Keyframe count: 60
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-chin with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-chin with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-chin.001 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-chin.001 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.726882
-WARNING: ANIM FINAL MATRIX: DEF-forearm.L @ time 41.978485
-WARNING: mat4x4((-0.833927, 0.400631, 0.379554, 0.000000), (-0.534669, -0.756905, -0.375798, 0.000000), (0.136730, -0.516323, 0.845408, 0.000000), (-0.000000, 0.129911, -0.000000, 1.000000))
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-forearm.L with factor: 0.812880
+WARNING: ANIM FINAL MATRIX: DEF-forearm.L @ time 46.708382
+WARNING: mat4x4((-0.834038, 0.400684, 0.379254, 0.000000), (-0.534581, -0.756877, -0.375980, 0.000000), (0.136399, -0.516323, 0.845462, 0.000000), (-0.000000, 0.129911, -0.000000, 1.000000))
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-forearm.L.001 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-forearm.L.001 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-hand.L with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-hand.L with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-hand.R with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-hand.R with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-lid.B.L.003 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-lid.B.L.003 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-lid.B.R.003 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-lid.B.R.003 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-nose.001 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-nose.001 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-nose.002 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-nose.002 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-nose.003 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-nose.003 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-nose.004 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-nose.004 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-spine.002 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-spine.002 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-spine.003 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-spine.003 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-spine.004 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-spine.004 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-spine.006 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-spine.006 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-tongue with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-tongue with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-tongue.001 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-tongue.001 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-tongue.002 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-tongue.002 with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-upper_arm.L with factor: 0.726882
-WARNING: ANIM FINAL MATRIX: DEF-upper_arm.L @ time 41.978485
-WARNING: mat4x4((-0.903777, -0.038859, 0.426237, 0.000000), (-0.420835, 0.262199, -0.868418, 0.000000), (-0.078013, -0.964231, -0.253322, 0.000000), (-0.009251, 0.144962, -0.036625, 1.000000))
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-upper_arm.L with factor: 0.812880
+WARNING: ANIM FINAL MATRIX: DEF-upper_arm.L @ time 46.708382
+WARNING: mat4x4((-0.903925, -0.036923, 0.426096, 0.000000), (-0.420291, 0.261225, -0.868975, 0.000000), (-0.079222, -0.964572, -0.251647, 0.000000), (-0.009302, 0.144945, -0.036634, 1.000000))
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-upper_arm.R with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-upper_arm.R with factor: 0.812880
 INFO: Interpolating Keyframes
-INFO: Bone Transform Interpolation at factor: 0.726882
-INFO: INFO: Interpolated bone: DEF-upper_arm.R.001 with factor: 0.726882
+INFO: Bone Transform Interpolation at factor: 0.812880
+INFO: INFO: Interpolated bone: DEF-upper_arm.R.001 with factor: 0.812880
 INFO: DEBUG: After Storing Bone DEF-breast.L
 INFO: Applied globalInverse * global * offset for bone: DEF-breast.L
 INFO: DEBUG: After Storing Bone DEF-breast.R
@@ -751,14 +747,14 @@ INFO: DEBUG: After Storing Bone DEF-foot.R
 INFO: Applied globalInverse * global * offset for bone: DEF-foot.R
 WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-forearm.L ===
 WARNING: Global Transform:
-mat4x4((0.437569, 0.094403, 0.894216, 0.000000), (-0.282087, 0.958682, 0.036826, 0.000000), (-0.853792, -0.268360, 0.446119, 0.000000), (0.340901, 0.429939, -0.053734, 1.000000))
+mat4x4((0.435992, 0.094507, 0.894975, 0.000000), (-0.282548, 0.958562, 0.036423, 0.000000), (-0.854446, -0.268753, 0.444627, 0.000000), (0.340995, 0.429922, -0.053506, 1.000000))
 WARNING: Offset Matrix (Inverse Bind Pose):
 mat4x4((-0.013782, 0.999533, -0.027289, 0.000000), (-0.971178, -0.019876, -0.237527, 0.000000), (-0.237959, 0.023228, 0.970998, 0.000000), (1.433036, -0.395743, 0.440992, 1.000000))
 WARNING: Global Inverse Transform:
 mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
 WARNING: Resulting Final Transform:
-mat4x4((-0.264686, 0.964256, 0.012311, 0.000000), (-0.216551, -0.046994, -0.975140, 0.000000), (-0.939706, -0.260773, 0.221249, 0.000000), (0.703071, 0.067485, 1.409871, 1.000000))
-INFO: Decomposed transform for DEF-forearm.L: Translation(0.703071, 0.0674853, 1.40987), Scale(1, 1, 1)
+mat4x4((-0.265108, 0.964145, 0.011938, 0.000000), (-0.214855, -0.046999, -0.975515, 0.000000), (-0.939976, -0.261182, 0.219611, 0.000000), (0.700799, 0.067492, 1.410689, 1.000000))
+INFO: Decomposed transform for DEF-forearm.L: Translation(0.700799, 0.0674917, 1.41069), Scale(1, 1, 1)
 INFO: DEBUG: After Storing Bone DEF-forearm.L
 INFO: Applied globalInverse * global * offset for bone: DEF-forearm.L
 INFO: DEBUG: After Storing Bone DEF-forearm.L.001
@@ -781,4 +777,97 @@ WARNING: WARNING: Bone DEF-lip.B.L.001 has default offset matrix (possible missi
 INFO: DEBUG: After Storing Bone DEF-lip.B.L.001
 INFO: Applied globalInverse * global * offset for bone: DEF-lip.B.L.001
 WARNING: WARNING: Bone DEF-nose.001 has default offset matrix (possible missing mapping).
-
+INFO: DEBUG: After Storing Bone DEF-nose.001
+INFO: Applied globalInverse * global * offset for bone: DEF-nose.001
+WARNING: WARNING: Bone DEF-nose.002 has default offset matrix (possible missing mapping).
+INFO: DEBUG: After Storing Bone DEF-nose.002
+INFO: Applied globalInverse * global * offset for bone: DEF-nose.002
+WARNING: WARNING: Bone DEF-nose.003 has default offset matrix (possible missing mapping).
+INFO: DEBUG: After Storing Bone DEF-nose.003
+INFO: Applied globalInverse * global * offset for bone: DEF-nose.003
+WARNING: WARNING: Bone DEF-nose.004 has default offset matrix (possible missing mapping).
+INFO: DEBUG: After Storing Bone DEF-nose.004
+INFO: Applied globalInverse * global * offset for bone: DEF-nose.004
+INFO: DEBUG: After Storing Bone DEF-pelvis.L
+INFO: Applied globalInverse * global * offset for bone: DEF-pelvis.L
+INFO: DEBUG: After Storing Bone DEF-pelvis.R
+INFO: Applied globalInverse * global * offset for bone: DEF-pelvis.R
+INFO: DEBUG: After Storing Bone DEF-shin.L
+INFO: Applied globalInverse * global * offset for bone: DEF-shin.L
+INFO: DEBUG: After Storing Bone DEF-shin.L.001
+INFO: Applied globalInverse * global * offset for bone: DEF-shin.L.001
+INFO: DEBUG: After Storing Bone DEF-shin.R
+INFO: Applied globalInverse * global * offset for bone: DEF-shin.R
+INFO: DEBUG: After Storing Bone DEF-shin.R.001
+INFO: Applied globalInverse * global * offset for bone: DEF-shin.R.001
+INFO: DEBUG: After Storing Bone DEF-shoulder.L
+INFO: Applied globalInverse * global * offset for bone: DEF-shoulder.L
+INFO: DEBUG: After Storing Bone DEF-shoulder.R
+INFO: Applied globalInverse * global * offset for bone: DEF-shoulder.R
+INFO: DEBUG: After Storing Bone DEF-spine.001
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.001
+INFO: DEBUG: After Storing Bone DEF-spine.002
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.002
+INFO: DEBUG: After Storing Bone DEF-spine.003
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.003
+INFO: DEBUG: After Storing Bone DEF-spine.004
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.004
+INFO: DEBUG: After Storing Bone DEF-spine.005
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.005
+INFO: DEBUG: After Storing Bone DEF-spine.006
+INFO: Applied globalInverse * global * offset for bone: DEF-spine.006
+INFO: DEBUG: After Storing Bone DEF-thigh.L
+INFO: Applied globalInverse * global * offset for bone: DEF-thigh.L
+INFO: DEBUG: After Storing Bone DEF-thigh.L.001
+INFO: Applied globalInverse * global * offset for bone: DEF-thigh.L.001
+INFO: DEBUG: After Storing Bone DEF-thigh.R
+INFO: Applied globalInverse * global * offset for bone: DEF-thigh.R
+INFO: DEBUG: After Storing Bone DEF-thigh.R.001
+INFO: Applied globalInverse * global * offset for bone: DEF-thigh.R.001
+INFO: DEBUG: After Storing Bone DEF-toe.L
+INFO: Applied globalInverse * global * offset for bone: DEF-toe.L
+INFO: DEBUG: After Storing Bone DEF-toe.R
+INFO: Applied globalInverse * global * offset for bone: DEF-toe.R
+WARNING: WARNING: Bone DEF-tongue has default offset matrix (possible missing mapping).
+INFO: DEBUG: After Storing Bone DEF-tongue
+INFO: Applied globalInverse * global * offset for bone: DEF-tongue
+WARNING: WARNING: Bone DEF-tongue.001 has default offset matrix (possible missing mapping).
+INFO: DEBUG: After Storing Bone DEF-tongue.001
+INFO: Applied globalInverse * global * offset for bone: DEF-tongue.001
+WARNING: WARNING: Bone DEF-tongue.002 has default offset matrix (possible missing mapping).
+INFO: DEBUG: After Storing Bone DEF-tongue.002
+INFO: Applied globalInverse * global * offset for bone: DEF-tongue.002
+WARNING: === DEBUG: FINAL TRANSFORM APPLY FOR DEF-upper_arm.L ===
+WARNING: Global Transform:
+mat4x4((-0.534578, -0.833695, -0.138487, 0.000000), (0.829719, -0.548883, 0.101463, 0.000000), (-0.160602, -0.060665, 0.985153, 0.000000), (0.125415, 0.572534, -0.079868, 1.000000))
+WARNING: Offset Matrix (Inverse Bind Pose):
+mat4x4((-0.013782, 0.999436, 0.030612, 0.000000), (-0.971178, -0.006094, -0.238279, 0.000000), (-0.237959, -0.033014, 0.970714, 0.000000), (1.433036, -0.160782, 0.417346, 1.000000))
+WARNING: Global Inverse Transform:
+mat4x4((1.000000, -0.000000, 0.000000, -0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
+WARNING: Resulting Final Transform:
+mat4x4((0.831702, -0.538940, 0.133472, 0.000000), (0.552382, 0.827467, -0.100865, 0.000000), (-0.056084, 0.157617, 0.985906, 0.000000), (-0.841086, -0.559249, 0.116512, 1.000000))
+INFO: Decomposed transform for DEF-upper_arm.L: Translation(-0.841086, -0.559249, 0.116512), Scale(1, 1, 1)
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L
+INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.L
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
+INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.L.001
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R
+INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.R
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
+INFO: Applied globalInverse * global * offset for bone: DEF-upper_arm.R.001
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Bone [DEF-spine.001] FINAL TRANSFORM:
+INFO: mat4x4((0.999919, -0.005672, 0.011344, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010206, 0.171058, 0.985208, 0.000000), (-0.010782, -0.888171, 0.250189, 1.000000))
+INFO: Bone: DEF-spine.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250189) Skew: vec3(0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.001: Translation(-0.0107821, -0.888171, 0.250189), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.002] FINAL TRANSFORM:
+INFO: mat4x4((0.989696, 0.063305, -0.128429, 0.000000), (-0.075046, 0.993223, -0.088747, 0.000000), (0.121940, 0.097471, 0.987740, 0.000000), (0.097053, -0.901518, 0.149248, 1.000000))
+INFO: Bone: DEF-spine.002 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.097053, -0.901518, 0.149248) Skew: vec3(-0.000000, 0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.002: Translation(0.0970535, -0.901518, 0.149248), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.003] FINAL TRANSFORM:
+INFO: mat4x4((0.953850, 0.020002, -0.299616, 0.000000), (0.005190, 0.996532, 0.083050, 0.000000), (0.300238, -0.080772, 0.950438, 0.000000), (-0.004907, -0.915115, -0.090269, 1.000000))
+INFO: Bone: DEF-spine.003 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.004907, -0.915115, -0.090269) Skew: vec3(0.000000, 0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.003: Translation(-0.00490683, -0.915115, -0.0902693), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.004] FINAL TRANSFORM:
+INFO: mat4x4((0.803948, -0.040797, -0.593298, 0.000000), (0.011296, 0.998512, -0.053354, 0.000000), (0.594592, 0.036192, 0.803212, 0.000000), (0.002172, -0.911606, 0.113915, 1.000000))
+INFO: Bone: DEF-spine.004 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.002172, -0.911606, 0.113915) Skew: vec3(0.000000, -0.000000, -0.000000)

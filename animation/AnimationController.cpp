@@ -70,24 +70,29 @@ void AnimationController::update(float deltaTime)
 {
     if (!currentAnimation)
     {
-        Logger::log("ERROR: No current animation set in AnimationController!", Logger::ERROR);
+        Logger::log("ERROR: No current animation!", Logger::ERROR);
         return;
     }
-
     if (currentAnimation->getDuration() <= 0.0f)
     {
-        Logger::log("ERROR: Animation duration is zero or invalid!", Logger::ERROR);
+        Logger::log("ERROR: Animation duration <= 0!", Logger::ERROR);
         return;
     }
 
-    const float ticksPerSecond = currentAnimation->getTicksPerSecond();
-    animationTime += deltaTime * ticksPerSecond;
+    const float tps = currentAnimation->getTicksPerSecond();
+    const float duration = currentAnimation->getDuration();   // in ticks
 
-    animationTime = fmod(animationTime, currentAnimation->getDuration());
+    animationTime += deltaTime * tps;
+    animationTime = fmod(animationTime, duration);
 
-    Logger::log("Debug: Animation time updated to: " + std::to_string(animationTime), Logger::INFO);
+    Logger::log("CTRL  dt=" + std::to_string(deltaTime) +
+        "  tps=" + std::to_string(tps) +
+        "  animTick=" + std::to_string(animationTime) +
+        " / " + std::to_string(duration),
+        Logger::DEBUG);
+
+    // pose application happens in applyToModel() after this call
 }
-
 
 void AnimationController::applyToModel(Model* model)
 {

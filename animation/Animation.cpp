@@ -10,7 +10,7 @@
 #include <unordered_set>
 
 Animation::Animation(const std::string& filePath, const Model* model)
-    : filePath(filePath), loaded(false), duration(0.0f), ticksPerSecond(30.0f) {
+    : filePath(filePath), loaded(false), duration(0.0f), ticksPerSecond(60.0f) {
     loadAnimation(filePath, model);
 }
 
@@ -102,39 +102,62 @@ void Animation::interpolateKeyframes(float animationTime, std::map<std::string, 
 }
 
 
-void Animation::loadAnimation(const std::string& filePath, const Model* model) {
+void Animation::loadAnimation(const std::string& filePath, const Model* model)
+{
     Logger::log("Loading animation from: " + filePath, Logger::INFO);
 
     Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(filePath, aiProcess_Triangulate | aiProcess_FlipUVs);
+    const aiScene* scene = importer.ReadFile(
+        filePath,
+        aiProcess_Triangulate | aiProcess_FlipUVs
+    );
 
-    if (!scene) {
-        Logger::log("ERROR: Assimp failed to load file! Error: " + std::string(importer.GetErrorString()), Logger::ERROR);
+    if (!scene)
+    {
+        Logger::log("ERROR: Assimp failed!  " +
+            std::string(importer.GetErrorString()), Logger::ERROR);
+        return;
+    }
+    if (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+    {
+        Logger::log("ERROR: Incomplete scene data.", Logger::ERROR);
+        return;
+    }
+    if (!scene->HasAnimations())
+    {
+        Logger::log("ERROR: No animations in file!", Logger::ERROR);
         return;
     }
 
-    if (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-        Logger::log("ERROR: Incomplete scene data in animation file.", Logger::ERROR);
-        return;
-    }
-
-    if (!scene->HasAnimations()) {
-        Logger::log("ERROR: No animations found in file!", Logger::ERROR);
-        return;
-    }
-
+    /* ------------------------------------------------------------ */
     aiAnimation* anim = scene->mAnimations[0];
-    duration = anim->mDuration;
-    ticksPerSecond = anim->mTicksPerSecond > 0.0 ? anim->mTicksPerSecond : 30.0f;
 
-    for (unsigned int i = 0; i < anim->mNumChannels; i++) {
+    duration = static_cast<float>(anim->mDuration);
+    ticksPerSecond = (anim->mTicksPerSecond > 0.0f)
+        ? static_cast<float>(anim->mTicksPerSecond)
+        : 24.0f;                 // FBX default fallback
+
+    const float clipSeconds = duration / ticksPerSecond;
+
+    Logger::log("META  tps=" + std::to_string(ticksPerSecond) +
+        "  durationTicks=" + std::to_string(duration) +
+        "  clipSeconds=" + std::to_string(clipSeconds),
+        Logger::INFO);
+
+    /* ------------- build keyframes (logic unchanged) ------------- */
+    for (unsigned int i = 0; i < anim->mNumChannels; ++i)
+    {
         aiNodeAnim* channel = anim->mChannels[i];
         std::string boneName = channel->mNodeName.C_Str();
 
-        if (boneName.find("DEF-") != 0) {
+        // remap non-DEF bones to DEF-* if present in the model
+        if (boneName.rfind("DEF-", 0) != 0)
+        {
             std::string tryDEF = "DEF-" + boneName;
-            if (model->hasBone(tryDEF)) {
-                Logger::log("Remapping animation bone '" + boneName + "' to '" + tryDEF + "'", Logger::INFO);
+            if (model->hasBone(tryDEF))
+            {
+                Logger::log("Remapping '" + boneName +
+                    "' -> '" + tryDEF + "'", Logger::INFO);
                 boneName = tryDEF;
             }
         }
@@ -142,17 +165,21 @@ void Animation::loadAnimation(const std::string& filePath, const Model* model) {
         bonesWithKeyframes.insert(boneName);
         animatedBones.push_back(boneName);
 
-        unsigned int numKeys = std::min(channel->mNumPositionKeys, channel->mNumRotationKeys);
+        const unsigned int numKeys = std::min(
+            channel->mNumPositionKeys,
+            channel->mNumRotationKeys
+        );
 
-        for (unsigned int j = 0; j < numKeys; j++) {
+        for (unsigned int j = 0; j < numKeys; ++j)
+        {
             float timestamp = static_cast<float>(channel->mPositionKeys[j].mTime);
 
+            // local transform (pos + rot)
             glm::vec3 position(
                 channel->mPositionKeys[j].mValue.x,
                 channel->mPositionKeys[j].mValue.y,
                 channel->mPositionKeys[j].mValue.z
             );
-
             glm::quat rotation(
                 channel->mRotationKeys[j].mValue.w,
                 channel->mRotationKeys[j].mValue.x,
@@ -160,53 +187,37 @@ void Animation::loadAnimation(const std::string& filePath, const Model* model) {
                 channel->mRotationKeys[j].mValue.z
             );
 
-            glm::mat4 translation = glm::translate(glm::mat4(1.0f), position);
-            glm::mat4 rotationMat = glm::mat4_cast(glm::normalize(rotation));
-            glm::mat4 animationLocalTransform = translation * rotationMat;
+            glm::mat4 animationLocal =
+                glm::translate(glm::mat4(1.0f), position)
+                * glm::mat4_cast(glm::normalize(rotation));
 
-            // If animationLocalTransform is very close to identity, inject bind pose
-            if (glm::all(glm::epsilonEqual(animationLocalTransform[0], glm::vec4(1, 0, 0, 0), 0.01f)) &&
-                glm::all(glm::epsilonEqual(animationLocalTransform[1], glm::vec4(0, 1, 0, 0), 0.01f)) &&
-                glm::all(glm::epsilonEqual(animationLocalTransform[2], glm::vec4(0, 0, 1, 0), 0.01f)) &&
-                glm::all(glm::epsilonEqual(animationLocalTransform[3], glm::vec4(0, 0, 0, 1), 0.01f)))
+            // inject bind pose if truly identity (skip root)
+            const bool isAlmostIdentity =
+                glm::all(glm::epsilonEqual(animationLocal[0],
+                    glm::vec4(1, 0, 0, 0), 0.01f))
+                && glm::all(glm::epsilonEqual(animationLocal[1],
+                    glm::vec4(0, 1, 0, 0), 0.01f))
+                && glm::all(glm::epsilonEqual(animationLocal[2],
+                    glm::vec4(0, 0, 1, 0), 0.01f));
+
+            if (isAlmostIdentity && boneName != "root")
             {
-                Logger::log("Injecting bind pose for bone: " + boneName, Logger::WARNING);
-                animationLocalTransform = model->getLocalBindPose(boneName);
+                Logger::log("Injecting bind pose for: " + boneName,
+                    Logger::WARNING);
+                animationLocal = model->getLocalBindPose(boneName);
             }
 
-
-            // Normalize animation to be relative to bind pose
-            glm::mat4 bindPose = model->getBindPoseGlobalTransform(boneName);
-            glm::mat4 correctedLocal =  animationLocalTransform;
-
-
-
-            if (timestamp == 0.0f && (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L")) {
-                Logger::log("=== DEBUG: Animation Transform at T=0 for " + boneName + " ===", Logger::WARNING);
-                Logger::log("animationLocalTransform:\n" + glm::to_string(animationLocalTransform), Logger::WARNING);
-                Logger::log("bindPose:\n" + glm::to_string(bindPose), Logger::WARNING);
-                Logger::log("correctedLocal (post-fix):\n" + glm::to_string(correctedLocal), Logger::WARNING);
-            }
-
-            timestampToBoneMap[timestamp][boneName] = correctedLocal;
+            timestampToBoneMap[timestamp][boneName] = animationLocal;
         }
     }
 
-    for (const auto& [timestamp, boneMap] : timestampToBoneMap) {
-        keyframes.push_back({ timestamp, boneMap });
-    }
+    // collapse timestamp map into ordered vector
+    for (const auto& kv : timestampToBoneMap)
+        keyframes.push_back({ kv.first, kv.second });
 
     loaded = true;
-    Logger::log("Animation loaded and re-normalized relative to model bind pose.", Logger::INFO);
-
-    for (const auto& bone : model->getBones()) {
-        const std::string& boneName = bone.name;
-        if (bonesWithKeyframes.find(boneName) == bonesWithKeyframes.end()) {
-            Logger::log("WARNING: Bone not animated in file: " + filePath + " -> " + boneName, Logger::WARNING);
-        }
-    }
-
-
+    Logger::log("Animation loaded.  keyframes=" +
+        std::to_string(keyframes.size()), Logger::INFO);
 }
 
 
