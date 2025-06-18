@@ -44,6 +44,10 @@ public:
         std::map<std::string, glm::mat4>&
         finalBoneMatrices) const;
 
+    const std::string& getName()           const { return name; }
+    size_t             getKeyframeCount()  const { return keyframes.size(); }
+
+
 private:
     /* data loaded from file --------------------------------------- */
     bool  loaded = false;
@@ -51,6 +55,9 @@ private:
     float ticksPerSecond = 24.0f;  // fallback
 
     std::vector<Keyframe> keyframes;
+    std::string name;
+
+
 
     /* helpers ------------------------------------------------------ */
     void        loadAnimation(const std::string& filePath,

@@ -23,7 +23,7 @@ void SceneTest3(GLFWwindow* window) {
     Logger::log("Entering SceneTest3 for animation system expansion testing.", Logger::INFO);
 
     // Load the model
-    myModel = new Model("CharacterModel.fbx");
+    myModel = new Model("CharacterModelTPose.fbx");
     if (!myModel) {
         Logger::log("ERROR: Failed to load model.", Logger::ERROR);
         return;

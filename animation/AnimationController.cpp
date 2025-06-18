@@ -6,9 +6,9 @@
 #include <glm/gtx/string_cast.hpp>
 #include "DebugTools.h"
 #include <GLFW/glfw3.h>
-
-// Include your "Animation.h" if needed, or forward declare
-// #include "Animation.h"
+#include <iomanip>   // for std::setw
+#include <cmath>        // fmodf, fabsf
+#include "Animation.h"
 
 AnimationController::AnimationController(Model* model)
     : model(model)
@@ -17,55 +17,69 @@ AnimationController::AnimationController(Model* model)
 {
 }
 
-bool AnimationController::loadAnimation(const std::string& name, const std::string& filePath)
+/*  loadAnimation
+    - If the clip name already exists and forceReload == true,
+      delete the old Animation* and replace it with a fresh one.
+----------------------------------------------------------------*/
+bool AnimationController::loadAnimation(const std::string& name,
+    const std::string& filePath,
+    bool forceReload)
 {
-    if (animations.find(name) != animations.end())
+    auto it = animations.find(name);
+
+    if (it != animations.end() && !forceReload)
+        return true;                       // nothing to do
+
+    if (it != animations.end())            // delete old copy
     {
-        Logger::log("Animation already loaded: " + name, Logger::WARNING);
-        return false;
+        delete it->second;
+        animations.erase(it);
     }
 
-    Logger::log("INFO: Attempting to load animation: " + name + " from file: " + filePath, Logger::INFO);
-
-    std::ifstream file(filePath);
-    if (!file.good())
+    Animation* clip = new Animation(filePath, model);
+    if (!clip->isLoaded())
     {
-        Logger::log("ERROR: Animation file not found: " + filePath, Logger::ERROR);
+        delete clip;
         return false;
     }
+    animations[name] = clip;
 
-    Animation* animation = new Animation(filePath, model);
-    if (!animation->isLoaded())
+    /* — NEW — if this clip is the current one, re-bind it immediately */
+    if (currentAnimation == nullptr || currentAnimation->getName() == name)
     {
-        Logger::log("ERROR: Failed to load animation data from file: " + filePath, Logger::ERROR);
-        delete animation;
-        return false;
+        currentAnimation = clip;
+        animationTime = 0.0f;
+        Logger::log("NOW PLAYING: " + name +
+            "  keyframes=" + std::to_string(clip->getKeyframeCount()),
+            Logger::INFO);
     }
-
-    animations[name] = animation;
-    Logger::log("INFO: Successfully loaded animation: " + name, Logger::INFO);
     return true;
 }
-
-void AnimationController::setCurrentAnimation(const std::string& name) {
+void AnimationController::setCurrentAnimation(const std::string& name)
+{
     auto it = animations.find(name);
-    if (it == animations.end()) {
+    if (it == animations.end())
+    {
         Logger::log("Animation not found: " + name, Logger::ERROR);
         return;
     }
 
-    if (currentAnimation == it->second) {
-        Logger::log("Animation already playing: " + name, Logger::INFO);
-        return;
-    }
-
     currentAnimation = it->second;
-    animationTime = 0.0f; // Reset to start of animation
-    Logger::log("Switched to animation: " + name, Logger::INFO);
+    animationTime = 0.0f;
+
+    Logger::log("NOW PLAYING: " + name +
+        "  keyframes=" +
+        std::to_string(currentAnimation->getKeyframeCount()),
+        Logger::INFO);
 }
 
 
-
+/*---------------------------------------------------------------
+    Advance the animation clock.
+    – We ignore deltaTime and simply add ONE Assimp “tick”
+      every rendered frame (engine runs at 60 Hz, clip is
+      resampled to 60 fps, so 1 tick == 1 frame).
+----------------------------------------------------------------*/
 void AnimationController::update(float deltaTime)
 {
     if (!currentAnimation)
@@ -73,88 +87,94 @@ void AnimationController::update(float deltaTime)
         Logger::log("ERROR: No current animation!", Logger::ERROR);
         return;
     }
-    if (currentAnimation->getDuration() <= 0.0f)
+
+    const float duration = currentAnimation->getDuration();      // ticks
+    const float ticksPerSecond = currentAnimation->getTicksPerSecond();
+
+    if (duration <= 0.0f || ticksPerSecond <= 0.0f)
     {
-        Logger::log("ERROR: Animation duration <= 0!", Logger::ERROR);
+        Logger::log("ERROR: Invalid animation meta!", Logger::ERROR);
         return;
     }
 
-    const float tps = currentAnimation->getTicksPerSecond();
-    const float duration = currentAnimation->getDuration();   // in ticks
+    /* 1  advance clock in FRACTIONAL ticks */
+    float deltaTicks = deltaTime * ticksPerSecond;
+    animationTime += deltaTicks;
 
-    animationTime += deltaTime * tps;
-    animationTime = fmod(animationTime, duration);
+    /* 2  wrap at clip end */
+    if (animationTime >= duration)
+        animationTime = fmodf(animationTime, duration);
 
-    Logger::log("CTRL  dt=" + std::to_string(deltaTime) +
-        "  tps=" + std::to_string(tps) +
-        "  animTick=" + std::to_string(animationTime) +
-        " / " + std::to_string(duration),
-        Logger::DEBUG);
+    /* 3  diagnostic: flag jumps bigger than 1.2 ticks */
+    static float lastTime = -1.0f;
+    if (lastTime >= 0.0f)
+    {
+        float diff = fabsf(animationTime - lastTime);
+        if (diff > 1.2f)            // anything > 2 frames at 60 fps
+        {
+            Logger::log("WARN  tick jump " +
+                std::to_string(lastTime) + " -> " +
+                std::to_string(animationTime) +
+                "  (Delta " + std::to_string(diff) + ")", Logger::WARNING);
+        }
+    }
+    lastTime = animationTime;
 
-    // pose application happens in applyToModel() after this call
+    /* optional per-frame debug print */
+    Logger::log("CTRL  animTime = " +
+        std::to_string(animationTime) + " ticks (" +
+        std::to_string(deltaTicks) + " Delta ) / " +
+        std::to_string(duration), Logger::DEBUG);
+
+    /* pose application happens later in applyToModel() */
 }
-
 void AnimationController::applyToModel(Model* model)
 {
     if (!model || !currentAnimation)
         return;
 
-    // Step 1: Interpolate local (animated) transforms for each bone
+    /* -------- 1. interpolate local (animated) transforms -------- */
     std::map<std::string, glm::mat4> localBoneMatrices;
-    float currentTime = animationTime;
-    currentAnimation->interpolateKeyframes(currentTime, localBoneMatrices);
+    currentAnimation->interpolateKeyframes(animationTime, localBoneMatrices);
 
-    // Inject bind pose transforms for any missing bones
-    for (const auto& bone : model->getBones()) {
-        const std::string& boneName = bone.name;
-        if (localBoneMatrices.find(boneName) == localBoneMatrices.end()) {
-            localBoneMatrices[boneName] = model->getLocalBindPose(boneName);
-            Logger::log("Injected bind pose for unkeyed bone: " + boneName, Logger::DEBUG);
-        }
-    }
-
-    // Step 2: Recursively compute global transforms
-    std::map<std::string, glm::mat4> globalBoneMatrices;
-
-    for (const auto& [boneName, _] : localBoneMatrices)
+    /* inject bind pose for any bones that lack keys */
+    for (const auto& bone : model->getBones())
     {
-        glm::mat4 globalTransform = buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
-
-        // Extra NAN check to prevent corrupted data propagation
-        if (glm::isnan(globalTransform[0][0])) {
-            Logger::log("ERROR: NaN detected in globalTransform for bone: " + boneName, Logger::ERROR);
-            globalTransform = glm::mat4(1.0f); // reset to identity
-        }
-
-        globalBoneMatrices[boneName] = globalTransform;
+        const std::string& boneName = bone.name;
+        if (localBoneMatrices.find(boneName) == localBoneMatrices.end())
+            localBoneMatrices[boneName] = model->getLocalBindPose(boneName);
     }
 
-    // Step 3: Apply final skinning transforms to model
-    glm::mat4 globalInverseTransform = model->getGlobalInverseTransform();
+    /* -------- 2. recursively build global transforms ------------ */
+    std::map<std::string, glm::mat4> globalBoneMatrices;
+    for (const auto& [boneName, _] : localBoneMatrices)
+        globalBoneMatrices[boneName] =
+        buildGlobalTransform(boneName,
+            localBoneMatrices,
+            model,
+            globalBoneMatrices);
 
+    const glm::mat4 globalInverse = model->getGlobalInverseTransform();
+
+    /* -------- 3. apply skinning transforms (strip scale BEFORE offset) --- */
     for (const auto& [boneName, globalTransform] : globalBoneMatrices)
     {
-        glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
+        /* 1) remove scale from the GLOBAL transform */
+        glm::mat4 rotOnly = globalTransform;
+        glm::vec3 x = glm::normalize(glm::vec3(rotOnly[0]));
+        glm::vec3 y = glm::normalize(glm::vec3(rotOnly[1]));
+        glm::vec3 z = glm::normalize(glm::vec3(rotOnly[2]));
+        rotOnly[0] = glm::vec4(x, 0.0f);
+        rotOnly[1] = glm::vec4(y, 0.0f);
+        rotOnly[2] = glm::vec4(z, 0.0f);
 
-        if (offsetMatrix == glm::mat4(1.0f)) {
-            Logger::log("WARNING: Bone " + boneName + " has default offset matrix (possible missing mapping).", Logger::WARNING);
-        }
+        /* 2) apply offset AFTER we’ve removed scale */
+        glm::mat4 offset = model->getBoneOffsetMatrix(boneName);
+        glm::mat4 final = model->getGlobalInverseTransform() * rotOnly * offset;
 
-        glm::mat4 finalTransform = globalInverseTransform * globalTransform * offsetMatrix;
-
-        if (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L") {
-            Logger::log("=== DEBUG: FINAL TRANSFORM APPLY FOR " + boneName + " ===", Logger::WARNING);
-            Logger::log("Global Transform:\n" + glm::to_string(globalTransform), Logger::WARNING);
-            Logger::log("Offset Matrix (Inverse Bind Pose):\n" + glm::to_string(offsetMatrix), Logger::WARNING);
-            Logger::log("Global Inverse Transform:\n" + glm::to_string(globalInverseTransform), Logger::WARNING);
-            Logger::log("Resulting Final Transform:\n" + glm::to_string(finalTransform), Logger::WARNING);
-
-            DebugTools::logDecomposedTransform(boneName, finalTransform);
-        }
-
-        model->setBoneTransform(boneName, finalTransform);
-        Logger::log("Applied globalInverse * global * offset for bone: " + boneName, Logger::INFO);
+        model->setBoneTransform(boneName, final);
     }
+
 }
 
 

@@ -492,36 +492,73 @@ void Renderer::InitializeImGui(GLFWwindow* window) {
 
     Logger::log("ImGui initialized successfully.", Logger::INFO);
 }
-void Renderer::RenderImGui() {
-    if (!ImGui::GetCurrentContext()) {
-        Logger::log("ImGui context is not initialized. Skipping ImGui render.", Logger::ERROR);
+// -----------------------------------------------------------------------------
+//  Renderer::RenderImGui
+//  Draw a combo box, reload a clip the first time it’s requested, bind it,
+//  and push the first-frame pose so there’s no visible stall.
+// -----------------------------------------------------------------------------
+void Renderer::RenderImGui()
+{
+    if (!ImGui::GetCurrentContext())
         return;
-    }
 
-    extern Model* myModel;
+    extern Model* myModel;                       // <- already declared elsewhere
     extern AnimationController* animationController;
 
     ImGui::Begin("Animation Controller");
 
-    static int currentAnimIndex = 0;
-    const char* animNames[] = { "Stance1", "Jab_Head" };
+    /* 1. Clip names and file paths */
+    static const char* animNames[] = { "Stance1", "Jab_Head" };
+    static const char* animFiles[] = {
+        "animations/Stance1.fbx",
+        "animations/Jab_Head.fbx"
+    };
 
-    if (ImGui::Combo("Select Animation", &currentAnimIndex, animNames, IM_ARRAYSIZE(animNames))) {
-        if (myModel && animationController) {
-            animationController->setCurrentAnimation(animNames[currentAnimIndex]);
-            animationController->update(0.0f);
-            animationController->applyToModel(myModel);
-            Logger::log("Switched animation to " + std::string(animNames[currentAnimIndex]), Logger::INFO);
-        } else {
-            Logger::log("Model or animation controller is null during ImGui switch.", Logger::WARNING);
+    /* 2. Track current vs. previous selection */
+    static int currentIndex = 0;
+    static int oldIndex = currentIndex;
+
+    /* 3. Combo box – user pick updates currentIndex */
+    ImGui::Combo("Animation",
+        &currentIndex,
+        animNames,
+        IM_ARRAYSIZE(animNames));
+
+    /* 4. If user picked a new clip this frame… */
+    if (currentIndex != oldIndex)
+    {
+        const char* clipName = animNames[currentIndex];
+        const char* clipPath = animFiles[currentIndex];
+
+        /* (a) Load only if we haven’t loaded this clip before */
+        if (!animationController->isClipLoaded(clipName))
+        {
+            if (!animationController->loadAnimation(clipName, clipPath, false))
+            {
+                Logger::log("Failed to load " + std::string(clipPath),
+                    Logger::ERROR);
+                ImGui::End();
+                return;
+            }
         }
+
+        /* (b) Bind it for immediate playback */
+        animationController->setCurrentAnimation(clipName);
+
+        /* (c) Push first frame pose so no one-frame pop */
+        animationController->update(0.0f);
+        animationController->applyToModel(myModel);   // <- use the real model ptr
+
+        Logger::log("NOW PLAYING: " + std::string(clipName), Logger::INFO);
     }
+
+    /* 5. store selection for next frame AFTER comparison */
+    oldIndex = currentIndex;
 
     ImGui::End();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
-
 
 
 void Renderer::ShutdownImGui() {

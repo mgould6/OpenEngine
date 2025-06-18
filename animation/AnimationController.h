@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <map>
+#include <glm/glm.hpp>
 #include "../model/Model.h"
 #include "Animation.h"
 
@@ -12,33 +13,39 @@ class AnimationController {
 public:
     explicit AnimationController(Model* model);
 
-    // Load an animation from file and associate it with a name
-    bool loadAnimation(const std::string& name, const std::string& filePath);
+    /* load (or reload) a clip  
+       – if forceReload == true and a clip with the same name
+         already exists, the old one is deleted and re-loaded       */
+    bool loadAnimation(const std::string& name,
+        const std::string& filePath,
+        bool forceReload = false);
 
-    // Set the current animation to play by its name
+    /* bind a previously loaded clip for playback                   */
     void setCurrentAnimation(const std::string& name);
 
-    // Update the animation based on deltaTime
+    /* advance the clock – now one tick per rendered frame          */
     void update(float deltaTime);
 
-    // Apply the current animation to the model
+    /* push the current pose into the model for GPU skinning        */
     void applyToModel(Model* model);
 
-    // Check if an animation is currently playing
     bool isAnimationPlaying() const;
-
-    // Stop the current animation
     void stopAnimation();
 
+    bool isClipLoaded(const std::string& name) const
+    {
+        return animations.find(name) != animations.end();
+    }
+
 private:
-    Model* model; // The model controlled by this animation system
-    std::unordered_map<std::string, Animation*> animations; // Loaded animations mapped by name
-    Animation* currentAnimation; // Currently playing animation
-    float animationTime; // Current time in the animation playback
+    Model* model;                                           // target model
+    std::unordered_map<std::string, Animation*> animations; // loaded clips
+    Animation* currentAnimation = nullptr;                  // playing clip
+    float animationTime = 0.0f;                             // tick clock
 
-    void resetAnimation(); // Reset the animation to its start
+    void resetAnimation();
 
-    // *** NEW: Declaration for buildGlobalTransform ***
+    /* hierarchy helper */
     glm::mat4 buildGlobalTransform(
         const std::string& boneName,
         const std::map<std::string, glm::mat4>& localBoneMatrices,
