@@ -113,15 +113,10 @@ void Animation::loadAnimation(const std::string& filePath,
         aiProcess_Triangulate | aiProcess_FlipUVs
     );
 
-    if (!scene)
+    if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode)
     {
-        Logger::log("ERROR: Assimp failed!  " +
-            std::string(importer.GetErrorString()), Logger::ERROR);
-        return;
-    }
-    if (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-    {
-        Logger::log("ERROR: Incomplete scene data.", Logger::ERROR);
+        Logger::log("ERROR: Assimp failed or scene incomplete!  "
+            + std::string(importer.GetErrorString()), Logger::ERROR);
         return;
     }
     if (!scene->HasAnimations())
@@ -136,15 +131,14 @@ void Animation::loadAnimation(const std::string& filePath,
     duration = static_cast<float>(anim->mDuration);
     ticksPerSecond = (anim->mTicksPerSecond > 0.0f)
         ? static_cast<float>(anim->mTicksPerSecond)
-        : 24.0f;                     // FBX fallback
+        : 24.0f;            // FBX fallback
 
-    const float clipSeconds = duration / ticksPerSecond;
     Logger::log("META  tps=" + std::to_string(ticksPerSecond) +
         "  durationTicks=" + std::to_string(duration) +
-        "  clipSeconds=" + std::to_string(clipSeconds),
+        "  clipSeconds=" + std::to_string(duration / ticksPerSecond),
         Logger::INFO);
 
-    /* ========== harvest keyframes ========== */
+    /* ---------- harvest keyframes ---------- */
     timestampToBoneMap.clear();
     bonesWithKeyframes.clear();
     animatedBones.clear();
@@ -154,7 +148,7 @@ void Animation::loadAnimation(const std::string& filePath,
         aiNodeAnim* channel = anim->mChannels[i];
         std::string boneName = channel->mNodeName.C_Str();
 
-        /* map non-"DEF-" names to model bones when possible */
+        /* map non-DEF names to model bones if possible */
         if (boneName.rfind("DEF-", 0) != 0)
         {
             std::string tryDEF = "DEF-" + boneName;
@@ -169,13 +163,13 @@ void Animation::loadAnimation(const std::string& filePath,
         bonesWithKeyframes.insert(boneName);
         animatedBones.push_back(boneName);
 
-        const unsigned int maxKeyCount = std::max({
+        const unsigned int maxKeys = std::max({
             channel->mNumPositionKeys,
             channel->mNumRotationKeys,
             channel->mNumScalingKeys
             });
 
-        for (unsigned int k = 0; k < maxKeyCount; ++k)
+        for (unsigned int k = 0; k < maxKeys; ++k)
         {
             /* clamp indices so we reuse the final key once we run out */
             unsigned int pIdx = std::min(k,
@@ -185,7 +179,7 @@ void Animation::loadAnimation(const std::string& filePath,
             unsigned int sIdx = std::min(k,
                 channel->mNumScalingKeys ? channel->mNumScalingKeys - 1 : 0);
 
-            /* choose timestamp from the track we’re sampling */
+            /* choose timestamp from whatever track we still have */
             float timestamp = 0.0f;
             if (channel->mNumRotationKeys && k < channel->mNumRotationKeys)
                 timestamp = static_cast<float>(channel->mRotationKeys[rIdx].mTime);
@@ -205,21 +199,9 @@ void Animation::loadAnimation(const std::string& filePath,
             glm::vec3 scaleVec(scl.x, scl.y, scl.z);
 
             glm::mat4 local =
-                glm::translate(glm::mat4(1.0f), position)
-                * glm::mat4_cast(glm::normalize(rotation))
-                * glm::scale(glm::mat4(1.0f), scaleVec);
-
-            /* bind-pose fallback (looser thresholds) */
-            bool tinyPos = glm::length(position) < 1e-4f;
-            float rotDeg = glm::degrees(glm::angle(rotation));   // 0–180
-            bool tinyRot = rotDeg < 0.1f;
-
-            if (tinyPos && tinyRot && boneName != "root")
-            {
-                Logger::log("Injecting bind pose for: " + boneName,
-                    Logger::WARNING);
-                local = model->getLocalBindPose(boneName);
-            }
+                glm::translate(glm::mat4(1.0f), position) *
+                glm::mat4_cast(glm::normalize(rotation)) *
+                glm::scale(glm::mat4(1.0f), scaleVec);
 
             timestampToBoneMap[timestamp][boneName] = local;
         }
@@ -230,25 +212,11 @@ void Animation::loadAnimation(const std::string& filePath,
     for (const auto& kv : timestampToBoneMap)
         keyframes.push_back({ kv.first, kv.second });
 
-    ///* ---------- resample to strict 60-fps ---------- */
-    //{
-    //    std::vector<Keyframe> resampled;
-    //    for (int f = 0; f < 60; ++f)
-    //    {
-    //        float t = static_cast<float>(f);             // ticks at 60 fps
-    //        std::map<std::string, glm::mat4> pose;
-    //        interpolateKeyframes(t, pose);               // uses current keyframes
-    //        resampled.push_back({ t, std::move(pose) });
-    //    }
-    //    keyframes.swap(resampled);
-    //    Logger::log("Resampled to 60 fps, keyframes = " +
-    //        std::to_string(keyframes.size()), Logger::INFO);
-    //}
+    /* 60-fps resample block REMOVED – we now keep the original keys */
 
     loaded = true;
     Logger::log("Animation loaded successfully.", Logger::INFO);
 }
-
 
 glm::mat4 Animation::interpolateMatrices(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const {
     glm::vec3 pos1, pos2, scale1, scale2;

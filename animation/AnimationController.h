@@ -51,6 +51,9 @@ private:
         const std::map<std::string, glm::mat4>& localBoneMatrices,
         Model* model,
         std::map<std::string, glm::mat4>& globalBoneMatrices);
+
+
 };
 
 #endif // ANIMATIONCONTROLLER_H
+

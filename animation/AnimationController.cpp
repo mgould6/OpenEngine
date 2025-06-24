@@ -10,6 +10,11 @@
 #include <cmath>        // fmodf, fabsf
 #include "Animation.h"
 
+
+// Forward declaration ­
+static glm::mat4 removeScale(const glm::mat4& m);
+
+
 AnimationController::AnimationController(Model* model)
     : model(model)
     , currentAnimation(nullptr)
@@ -85,15 +90,14 @@ void AnimationController::setCurrentAnimation(const std::string& name)
 ------------------------------------------------------------------*/
 void AnimationController::update(float deltaTime)
 {
-    // 0. early-out checks
     if (!currentAnimation)
     {
         Logger::log("ERROR: No current animation!", Logger::ERROR);
         return;
     }
 
-    const float durationTicks = currentAnimation->getDuration();        // clip length (ticks)
-    const float ticksPerSecond = currentAnimation->getTicksPerSecond();  // 60 for your exports
+    const float durationTicks = currentAnimation->getDuration();
+    const float ticksPerSecond = currentAnimation->getTicksPerSecond();
 
     if (durationTicks <= 0.0f || ticksPerSecond <= 0.0f)
     {
@@ -101,47 +105,36 @@ void AnimationController::update(float deltaTime)
         return;
     }
 
-    // 1. seconds -> fractional ticks
+    /* 1. seconds -> fractional ticks */
     float deltaTicks = deltaTime * ticksPerSecond;
 
-    // Clamp unusually large advances (for example, first frame after a long stall)
-    const float kMaxTickDelta = 2.0f;   // roughly two frames at 60 fps
+    const float kMaxTickDelta = 2.0f;                  // clamp
     if (deltaTicks > kMaxTickDelta) deltaTicks = kMaxTickDelta;
     if (deltaTicks < -kMaxTickDelta) deltaTicks = -kMaxTickDelta;
 
     float newTime = animationTime + deltaTicks;
 
-    // 2. wrap playhead into [0, duration)
+    /* 2. wrap */
     if (newTime >= durationTicks)
         newTime = fmodf(newTime, durationTicks);
     else if (newTime < 0.0f)
-        newTime = durationTicks + fmodf(newTime, durationTicks); // handle rewinds
+        newTime = durationTicks + fmodf(newTime, durationTicks);
 
-    // 3. diagnostics
+    /* 3. diagnostics (ignore normal 2-tick step) */
     static float lastTime = -1.0f;
     if (lastTime >= 0.0f)
     {
         float diff = fabsf(newTime - lastTime);
-
-        // Ignore the normal wrap-around jump at clip end
-        if (diff > 1.2f && diff < durationTicks - 1.2f)
+        if (diff > 1.2f + kMaxTickDelta && diff < durationTicks - 1.2f)
         {
-            Logger::log("WARN  tick jump " +
-                std::to_string(lastTime) + " -> " +
-                std::to_string(newTime) +
-                "  (d " + std::to_string(diff) + ")", Logger::WARNING);
+            Logger::log("WARN  tick jump "
+                + std::to_string(lastTime) + " -> "
+                + std::to_string(newTime) + "  (d "
+                + std::to_string(diff) + ")", Logger::WARNING);
         }
     }
     lastTime = newTime;
     animationTime = newTime;
-
-    // 4. optional per-frame debug output
-    Logger::log("CTRL  animTime = " +
-        std::to_string(animationTime) + " ticks (" +
-        std::to_string(deltaTicks) + " d ) / " +
-        std::to_string(durationTicks), Logger::DEBUG);
-
-    // pose application happens later in applyToModel()
 }
 
 void AnimationController::applyToModel(Model* model)
@@ -172,12 +165,12 @@ void AnimationController::applyToModel(Model* model)
 
     const glm::mat4 globalInverse = model->getGlobalInverseTransform();
 
-    /* -------- 3. apply skinning transforms (keep full T-R-S) -------- */
+    /* 3. build and send final skin matrices (strip parent scale) */
     for (const auto& [boneName, globalTransform] : globalBoneMatrices)
     {
         glm::mat4 final =
             model->getGlobalInverseTransform()
-            * globalTransform                         // no scale stripping
+            * removeScale(globalTransform)                 // scale removed
             * model->getBoneOffsetMatrix(boneName);
 
         model->setBoneTransform(boneName, final);
@@ -238,4 +231,20 @@ void AnimationController::stopAnimation()
 void AnimationController::resetAnimation()
 {
     animationTime = 0.0f;
+}
+
+
+// Remove scale from a TRS matrix but keep translation & rotation
+static glm::mat4 removeScale(const glm::mat4& m)
+{
+    // 1. extract translation (x,y,z from the 4th column)
+    glm::vec3 t(m[3].x, m[3].y, m[3].z);
+
+    // 2. extract pure rotation (quat kills scale/shear)
+    glm::quat r = glm::quat_cast(m);
+    glm::mat4 out = glm::mat4_cast(r);
+
+    // 3. re-attach translation
+    out[3] = glm::vec4(t, 1.0f);
+    return out;
 }
