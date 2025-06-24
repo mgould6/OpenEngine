@@ -230,20 +230,20 @@ void Animation::loadAnimation(const std::string& filePath,
     for (const auto& kv : timestampToBoneMap)
         keyframes.push_back({ kv.first, kv.second });
 
-    /* ---------- resample to strict 60-fps ---------- */
-    {
-        std::vector<Keyframe> resampled;
-        for (int f = 0; f < 60; ++f)
-        {
-            float t = static_cast<float>(f);             // ticks at 60 fps
-            std::map<std::string, glm::mat4> pose;
-            interpolateKeyframes(t, pose);               // uses current keyframes
-            resampled.push_back({ t, std::move(pose) });
-        }
-        keyframes.swap(resampled);
-        Logger::log("Resampled to 60 fps, keyframes = " +
-            std::to_string(keyframes.size()), Logger::INFO);
-    }
+    ///* ---------- resample to strict 60-fps ---------- */
+    //{
+    //    std::vector<Keyframe> resampled;
+    //    for (int f = 0; f < 60; ++f)
+    //    {
+    //        float t = static_cast<float>(f);             // ticks at 60 fps
+    //        std::map<std::string, glm::mat4> pose;
+    //        interpolateKeyframes(t, pose);               // uses current keyframes
+    //        resampled.push_back({ t, std::move(pose) });
+    //    }
+    //    keyframes.swap(resampled);
+    //    Logger::log("Resampled to 60 fps, keyframes = " +
+    //        std::to_string(keyframes.size()), Logger::INFO);
+    //}
 
     loaded = true;
     Logger::log("Animation loaded successfully.", Logger::INFO);

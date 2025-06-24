@@ -74,60 +74,76 @@ void AnimationController::setCurrentAnimation(const std::string& name)
 }
 
 
-/*---------------------------------------------------------------
-    Advance the animation clock.
-    – We ignore deltaTime and simply add ONE Assimp “tick”
-      every rendered frame (engine runs at 60 Hz, clip is
-      resampled to 60 fps, so 1 tick == 1 frame).
-----------------------------------------------------------------*/
+/*------------------------------------------------------------------
+  Advance the animation clock
+  ---------------------------------------------------------------
+  - deltaTime arrives in seconds from the game loop.
+  - We convert it to fractional Assimp "ticks":
+        deltaTicks = deltaTime * ticksPerSecond;
+  - animationTime is stored in ticks because the rest of the
+    controller and applyToModel() expect that unit.
+------------------------------------------------------------------*/
 void AnimationController::update(float deltaTime)
 {
+    // 0. early-out checks
     if (!currentAnimation)
     {
         Logger::log("ERROR: No current animation!", Logger::ERROR);
         return;
     }
 
-    const float duration = currentAnimation->getDuration();      // ticks
-    const float ticksPerSecond = currentAnimation->getTicksPerSecond();
+    const float durationTicks = currentAnimation->getDuration();        // clip length (ticks)
+    const float ticksPerSecond = currentAnimation->getTicksPerSecond();  // 60 for your exports
 
-    if (duration <= 0.0f || ticksPerSecond <= 0.0f)
+    if (durationTicks <= 0.0f || ticksPerSecond <= 0.0f)
     {
         Logger::log("ERROR: Invalid animation meta!", Logger::ERROR);
         return;
     }
 
-    /* 1  advance clock in FRACTIONAL ticks */
+    // 1. seconds -> fractional ticks
     float deltaTicks = deltaTime * ticksPerSecond;
-    animationTime += deltaTicks;
 
-    /* 2  wrap at clip end */
-    if (animationTime >= duration)
-        animationTime = fmodf(animationTime, duration);
+    // Clamp unusually large advances (for example, first frame after a long stall)
+    const float kMaxTickDelta = 2.0f;   // roughly two frames at 60 fps
+    if (deltaTicks > kMaxTickDelta) deltaTicks = kMaxTickDelta;
+    if (deltaTicks < -kMaxTickDelta) deltaTicks = -kMaxTickDelta;
 
-    /* 3  diagnostic: flag jumps bigger than 1.2 ticks */
+    float newTime = animationTime + deltaTicks;
+
+    // 2. wrap playhead into [0, duration)
+    if (newTime >= durationTicks)
+        newTime = fmodf(newTime, durationTicks);
+    else if (newTime < 0.0f)
+        newTime = durationTicks + fmodf(newTime, durationTicks); // handle rewinds
+
+    // 3. diagnostics
     static float lastTime = -1.0f;
     if (lastTime >= 0.0f)
     {
-        float diff = fabsf(animationTime - lastTime);
-        if (diff > 1.2f)            // anything > 2 frames at 60 fps
+        float diff = fabsf(newTime - lastTime);
+
+        // Ignore the normal wrap-around jump at clip end
+        if (diff > 1.2f && diff < durationTicks - 1.2f)
         {
             Logger::log("WARN  tick jump " +
                 std::to_string(lastTime) + " -> " +
-                std::to_string(animationTime) +
-                "  (Delta " + std::to_string(diff) + ")", Logger::WARNING);
+                std::to_string(newTime) +
+                "  (d " + std::to_string(diff) + ")", Logger::WARNING);
         }
     }
-    lastTime = animationTime;
+    lastTime = newTime;
+    animationTime = newTime;
 
-    /* optional per-frame debug print */
+    // 4. optional per-frame debug output
     Logger::log("CTRL  animTime = " +
         std::to_string(animationTime) + " ticks (" +
-        std::to_string(deltaTicks) + " Delta ) / " +
-        std::to_string(duration), Logger::DEBUG);
+        std::to_string(deltaTicks) + " d ) / " +
+        std::to_string(durationTicks), Logger::DEBUG);
 
-    /* pose application happens later in applyToModel() */
+    // pose application happens later in applyToModel()
 }
+
 void AnimationController::applyToModel(Model* model)
 {
     if (!model || !currentAnimation)
@@ -156,21 +172,13 @@ void AnimationController::applyToModel(Model* model)
 
     const glm::mat4 globalInverse = model->getGlobalInverseTransform();
 
-    /* -------- 3. apply skinning transforms (strip scale BEFORE offset) --- */
+    /* -------- 3. apply skinning transforms (keep full T-R-S) -------- */
     for (const auto& [boneName, globalTransform] : globalBoneMatrices)
     {
-        /* 1) remove scale from the GLOBAL transform */
-        glm::mat4 rotOnly = globalTransform;
-        glm::vec3 x = glm::normalize(glm::vec3(rotOnly[0]));
-        glm::vec3 y = glm::normalize(glm::vec3(rotOnly[1]));
-        glm::vec3 z = glm::normalize(glm::vec3(rotOnly[2]));
-        rotOnly[0] = glm::vec4(x, 0.0f);
-        rotOnly[1] = glm::vec4(y, 0.0f);
-        rotOnly[2] = glm::vec4(z, 0.0f);
-
-        /* 2) apply offset AFTER we’ve removed scale */
-        glm::mat4 offset = model->getBoneOffsetMatrix(boneName);
-        glm::mat4 final = model->getGlobalInverseTransform() * rotOnly * offset;
+        glm::mat4 final =
+            model->getGlobalInverseTransform()
+            * globalTransform                         // no scale stripping
+            * model->getBoneOffsetMatrix(boneName);
 
         model->setBoneTransform(boneName, final);
     }
