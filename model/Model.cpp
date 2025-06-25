@@ -19,6 +19,17 @@ static glm::mat4 convertAiMatrix(const aiMatrix4x4& from)
         from.a4, from.b4, from.c4, from.d4
     );
 }
+
+// remove scale but keep translation + rotation
+static glm::mat4 removeScale(const glm::mat4& m)
+{
+    glm::vec3 t(m[3].x, m[3].y, m[3].z);           // translation
+    glm::quat r = glm::quat_cast(m);               // pure rotation
+    glm::mat4 out = glm::mat4_cast(r);
+    out[3] = glm::vec4(t, 1.0f);
+    return out;
+}
+
 Model::Model(const std::string& path) {
     Logger::log("Loading model from path: " + path, Logger::INFO);
     loadModel(path);
@@ -438,6 +449,23 @@ glm::mat4 Model::getBoneOffsetMatrix(const std::string& boneName) const {
     }
     return glm::mat4(1.0f); // default to identity if bone not found
 }
+
+// -----------------------------------------------------------------------------
+//  getBoneOffsetMatrixNoScale
+//  Return inverse( bindPose WITHOUT parent-scale ) so the final skin
+//  matrix stays free of inherited scale.
+// -----------------------------------------------------------------------------
+glm::mat4 Model::getBoneOffsetMatrixNoScale(const std::string& boneName) const
+{
+    // existing offset (inverse of scaled bind pose)
+    glm::mat4 offsetScaled = getBoneOffsetMatrix(boneName);
+
+    // recover the original bind pose, strip scale, invert again
+    glm::mat4 bindScaled = glm::inverse(offsetScaled);
+    glm::mat4 bindNoScale = removeScale(bindScaled);
+    return glm::inverse(bindNoScale);              // final, scale-free offset
+}
+
 
 glm::mat4 Model::getGlobalInverseTransform() const {
     return globalInverseTransform;

@@ -53,6 +53,10 @@ public:
     bool hasBone(const std::string& name) const;
     glm::mat4 getLocalBindPose(const std::string& boneName) const;
 
+    // Bind-pose offset with SCALE stripped out   (inverse( bindNoScale ))
+    glm::mat4 getBoneOffsetMatrixNoScale(const std::string& boneName) const;
+
+
 private:
     std::vector<Mesh> meshes;
     std::string directory;

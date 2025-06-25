@@ -165,15 +165,22 @@ void AnimationController::applyToModel(Model* model)
 
     const glm::mat4 globalInverse = model->getGlobalInverseTransform();
 
-    /* 3. build and send final skin matrices (strip parent scale) */
-    for (const auto& [boneName, globalTransform] : globalBoneMatrices)
+    /* ------------------------------------------------------------------
+       3. build and store the final skin matrices
+          – global pose  : scale removed
+          – bind pose    : scale removed
+    ------------------------------------------------------------------ */
+    for (const auto& pair : globalBoneMatrices)
     {
+        const std::string& name = pair.first;
+        const glm::mat4& globalScaled = pair.second;
+
         glm::mat4 final =
             model->getGlobalInverseTransform()
-            * removeScale(globalTransform)                 // scale removed
-            * model->getBoneOffsetMatrix(boneName);
+            * removeScale(globalScaled)                         // pose  (T * R)
+            * model->getBoneOffsetMatrixNoScale(name);          // bind (no S)
 
-        model->setBoneTransform(boneName, final);
+        model->setBoneTransform(name, final);
     }
 
 }
