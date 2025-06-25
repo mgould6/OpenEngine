@@ -70,7 +70,7 @@ void AnimationController::setCurrentAnimation(const std::string& name)
     }
 
     currentAnimation = it->second;
-    animationTime = 0.0f;
+    animationTime = 0.00001f;   /* avoid evaluating exactly at 0 */
 
     Logger::log("NOW PLAYING: " + name +
         "  keyframes=" +
@@ -96,45 +96,20 @@ void AnimationController::update(float deltaTime)
         return;
     }
 
-    const float durationTicks = currentAnimation->getDuration();
-    const float ticksPerSecond = currentAnimation->getTicksPerSecond();
-
-    if (durationTicks <= 0.0f || ticksPerSecond <= 0.0f)
+    float clipSeconds = currentAnimation->getClipDurationSeconds();
+    if (clipSeconds <= 0.0f)
     {
-        Logger::log("ERROR: Invalid animation meta!", Logger::ERROR);
+        Logger::log("ERROR: Invalid clip length!", Logger::ERROR);
         return;
     }
 
-    /* 1. seconds -> fractional ticks */
-    float deltaTicks = deltaTime * ticksPerSecond;
+    animationTime += deltaTime;               /* seconds */
 
-    const float kMaxTickDelta = 2.0f;                  // clamp
-    if (deltaTicks > kMaxTickDelta) deltaTicks = kMaxTickDelta;
-    if (deltaTicks < -kMaxTickDelta) deltaTicks = -kMaxTickDelta;
-
-    float newTime = animationTime + deltaTicks;
-
-    /* 2. wrap */
-    if (newTime >= durationTicks)
-        newTime = fmodf(newTime, durationTicks);
-    else if (newTime < 0.0f)
-        newTime = durationTicks + fmodf(newTime, durationTicks);
-
-    /* 3. diagnostics (ignore normal 2-tick step) */
-    static float lastTime = -1.0f;
-    if (lastTime >= 0.0f)
-    {
-        float diff = fabsf(newTime - lastTime);
-        if (diff > 1.2f + kMaxTickDelta && diff < durationTicks - 1.2f)
-        {
-            Logger::log("WARN  tick jump "
-                + std::to_string(lastTime) + " -> "
-                + std::to_string(newTime) + "  (d "
-                + std::to_string(diff) + ")", Logger::WARNING);
-        }
-    }
-    lastTime = newTime;
-    animationTime = newTime;
+    /* wrap clock */
+    if (animationTime >= clipSeconds)
+        animationTime = std::fmod(animationTime, clipSeconds);
+    else if (animationTime < 0.0f)
+        animationTime = clipSeconds + std::fmod(animationTime, clipSeconds);
 }
 
 void AnimationController::applyToModel(Model* model)

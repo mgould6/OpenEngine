@@ -508,9 +508,10 @@ void Renderer::RenderImGui()
     ImGui::Begin("Animation Controller");
 
     /* 1. Clip names and file paths */
-    static const char* animNames[] = { "Stance1", "Jab_Head" };
+    static const char* animNames[] = { "Idle", "Stance1", "Jab_Head" };
     static const char* animFiles[] = {
         "animations/Stance1.fbx",
+        "animations/Idle.fbx",
         "animations/Jab_Head.fbx"
     };
 

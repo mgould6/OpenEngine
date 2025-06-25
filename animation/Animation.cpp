@@ -1,177 +1,178 @@
 #define GLM_ENABLE_EXPERIMENTAL
+
 #include "Animation.h"
+#include "../model/Model.h"
 #include "../common_utils/Logger.h"
-#include <glm/gtx/matrix_decompose.hpp>
-#include <glm/gtc/quaternion.hpp>
-#include <glm/gtx/string_cast.hpp>
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include <unordered_set>
-#include <algorithm>          // std::max
 
-Animation::Animation(const std::string& filePath, const Model* model)
-    : loaded(false),
-    duration(0.0f),
-    ticksPerSecond(60.0f),
-    name(filePath)            // <-- save the clip name
+#include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtc/quaternion.hpp>
+
+#include <algorithm>
+#include <cmath>
+
+Animation::Animation(const std::string& filePath,
+    const Model* model)
+    : name(filePath)
 {
     loadAnimation(filePath, model);
 }
 
-
-
-
-void Animation::apply(float animationTime, Model* model) {
-    if (!loaded || keyframes.empty()) {
-        Logger::log("ERROR: Animation is not loaded or has no keyframes!", Logger::ERROR);
+/* -------------------------------------------------------------- */
+/*  Public: apply final pose to model (simple hold-last approach) */
+/* -------------------------------------------------------------- */
+void Animation::apply(float animationTimeSeconds, Model* model) const
+{
+    if (!loaded || keyframes.empty() || model == nullptr)
+    {
+        Logger::log("Animation::apply called with invalid state",
+            Logger::ERROR);
         return;
     }
 
-    Logger::log("DEBUG: Entering apply() at time: " + std::to_string(animationTime), Logger::INFO);
+    std::map<std::string, glm::mat4> pose;
+    interpolateKeyframes(animationTimeSeconds, pose);
 
-    std::unordered_map<std::string, glm::mat4> globalBoneTransforms;
+    for (const auto& pair : pose)
+        model->setBoneTransform(pair.first, pair.second);
+}
 
-    for (const auto& keyframe : keyframes) {
-        if (animationTime >= keyframe.timestamp) {
-            for (const auto& [boneName, transform] : keyframe.boneTransforms) {
-                globalBoneTransforms[boneName] = transform;
-            }
-        }
-    }
-
-    if (globalBoneTransforms.empty()) {
-        Logger::log("ERROR: No valid bone transforms computed!", Logger::ERROR);
+/* -------------------------------------------------------------- */
+/*  Public: produce blended pose at time                          */
+/* -------------------------------------------------------------- */
+void Animation::interpolateKeyframes(float animationTimeSeconds,
+    std::map<std::string, glm::mat4>&
+    outPose) const
+{
+    if (keyframes.empty())
         return;
-    }
 
-    for (const auto& [boneName, transform] : globalBoneTransforms) {
-        model->setBoneTransform(boneName, transform);
-        Logger::log("DEBUG: Applied Transform to Bone " + boneName, Logger::INFO);
+    auto indices = findKeyframeIndices(animationTimeSeconds);
+    const Keyframe& kfA = keyframes[indices.first];
+    const Keyframe& kfB = keyframes[indices.second];
+
+    float span = kfB.time - kfA.time;
+    if (span < 0.0f)
+        span += clipDurationSecs;
+
+    float factor = (span > 0.0f)
+        ? (animationTimeSeconds - kfA.time) / span
+        : 0.0f;
+    if (factor < 0.0f)
+        factor += 1.0f;
+
+    for (const auto& pairA : kfA.boneTransforms)
+    {
+        const std::string& bone = pairA.first;
+        const glm::mat4& matA = pairA.second;
+
+        auto itB = kfB.boneTransforms.find(bone);
+        if (itB != kfB.boneTransforms.end())
+            outPose[bone] = interpolateMatrices(matA, itB->second, factor);
+        else
+            outPose[bone] = matA;
     }
 }
 
+/* -------------------------------------------------------------- */
+/*  Helper: find surrounding keyframes (seconds domain)           */
+/* -------------------------------------------------------------- */
+std::pair<size_t, size_t>
+Animation::findKeyframeIndices(float timeSeconds) const
+{
+    const size_t count = keyframes.size();
+    if (count == 0)
+        return { 0, 0 };
 
-void Animation::interpolateKeyframes(float animationTime, std::map<std::string, glm::mat4>& finalBoneMatrices) const {
-    if (keyframes.empty()) {
-        Logger::log("ERROR: No keyframes available for interpolation!", Logger::ERROR);
-        return;
+    float t = std::fmod(timeSeconds, clipDurationSecs);
+    if (t < 0.0f)
+        t += clipDurationSecs;
+
+    for (size_t i = 0; i < count; ++i)
+    {
+        size_t next = (i + 1) % count;
+        if (t >= keyframes[i].time && t < keyframes[next].time)
+            return { i, next };
     }
-
-    Logger::log("INFO: Interpolating keyframes at animation time: " + std::to_string(animationTime), Logger::INFO);
-    Logger::log("INFO: Keyframe count: " + std::to_string(keyframes.size()), Logger::INFO);
-
-    // Find the two keyframes surrounding the current time
-    const Keyframe* prev = nullptr;
-    const Keyframe* next = nullptr;
-
-    for (size_t i = 0; i < keyframes.size(); ++i) {
-        if (keyframes[i].timestamp > animationTime) {
-            next = &keyframes[i];
-            if (i > 0)
-                prev = &keyframes[i - 1];
-            break;
-        }
-    }
-
-    if (!prev) prev = &keyframes.front();
-    if (!next) next = &keyframes.back();
-
-    float dt = next->timestamp - prev->timestamp;
-    float factor = (dt > 0.0f) ? (animationTime - prev->timestamp) / dt : 0.0f;
-
-    for (const auto& [boneName, transform1] : prev->boneTransforms) {
-        if (next->boneTransforms.find(boneName) != next->boneTransforms.end()) {
-            const glm::mat4& transform2 = next->boneTransforms.at(boneName);
-            glm::mat4 interpolated = interpolateMatrices(transform1, transform2, factor);
-            finalBoneMatrices[boneName] = interpolated;
-
-            Logger::log("INFO: Interpolated bone: " + boneName + " with factor: " + std::to_string(factor), Logger::INFO);
-
-            if (boneName == "DEF-upper_arm.L" || boneName == "DEF-forearm.L") {
-                Logger::log("ANIM FINAL MATRIX: " + boneName + " @ time " + std::to_string(animationTime), Logger::WARNING);
-                Logger::log(glm::to_string(interpolated), Logger::WARNING);
-            }
-        }
-        else {
-            finalBoneMatrices[boneName] = transform1;
-            Logger::log("INFO: Bone " + boneName + " has no match in next keyframe — using fallback.", Logger::DEBUG);
-        }
-    }
+    return { count - 1, 0 };
 }
 
+/* -------------------------------------------------------------- */
+/*  Helper: blend two 4x4 local matrices (SRT decompose)          */
+/* -------------------------------------------------------------- */
+glm::mat4 Animation::interpolateMatrices(const glm::mat4& a,
+    const glm::mat4& b,
+    float            factor) const
+{
+    glm::vec3   scaleA, translationA, skewA;
+    glm::quat   rotA;
+    glm::vec4   perspectiveA;
+    glm::decompose(a, scaleA, rotA, translationA, skewA, perspectiveA);
 
+    glm::vec3   scaleB, translationB, skewB;
+    glm::quat   rotB;
+    glm::vec4   perspectiveB;
+    glm::decompose(b, scaleB, rotB, translationB, skewB, perspectiveB);
+
+    glm::vec3   scale = glm::mix(scaleA, scaleB, factor);
+    glm::quat   rotation = glm::slerp(rotA, rotB, factor);
+    glm::vec3   position = glm::mix(translationA, translationB, factor);
+
+    glm::mat4 m(1.0f);
+    m = glm::translate(m, position);
+    m *= glm::mat4_cast(glm::normalize(rotation));
+    m = glm::scale(m, scale);
+
+    return m;
+}
+
+/* -------------------------------------------------------------- */
+/*  Load animation from file into seconds-based keyframes         */
+/* -------------------------------------------------------------- */
 void Animation::loadAnimation(const std::string& filePath,
     const Model* model)
 {
-    Logger::log("Loading animation from: " + filePath, Logger::INFO);
-
-    /* ---------- Assimp read ---------- */
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(
         filePath,
-        aiProcess_Triangulate | aiProcess_FlipUVs
-    );
+        aiProcess_Triangulate | aiProcess_FlipUVs);
 
-    if (!scene || (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) || !scene->mRootNode)
+    if (!scene || !scene->HasAnimations() || scene->mAnimations[0] == nullptr)
     {
-        Logger::log("ERROR: Assimp failed or scene incomplete!  "
-            + std::string(importer.GetErrorString()), Logger::ERROR);
-        return;
-    }
-    if (!scene->HasAnimations())
-    {
-        Logger::log("ERROR: No animations in file!", Logger::ERROR);
+        Logger::log("Assimp failed to load animation: " + filePath,
+            Logger::ERROR);
         return;
     }
 
-    /* ---------- meta ---------- */
-    aiAnimation* anim = scene->mAnimations[0];
+    const aiAnimation* anim = scene->mAnimations[0];
 
-    duration = static_cast<float>(anim->mDuration);
+    durationTicks = static_cast<float>(anim->mDuration);
     ticksPerSecond = (anim->mTicksPerSecond > 0.0f)
         ? static_cast<float>(anim->mTicksPerSecond)
-        : 24.0f;            // FBX fallback
+        : 24.0f;
+    clipDurationSecs = durationTicks / ticksPerSecond;
 
-    Logger::log("META  tps=" + std::to_string(ticksPerSecond) +
-        "  durationTicks=" + std::to_string(duration) +
-        "  clipSeconds=" + std::to_string(duration / ticksPerSecond),
-        Logger::INFO);
+    /* convert every key to seconds and store */
+    keyframes.clear();
 
-    /* ---------- harvest keyframes ---------- */
-    timestampToBoneMap.clear();
-    bonesWithKeyframes.clear();
-    animatedBones.clear();
+    std::unordered_map<float,
+        std::map<std::string, glm::mat4>> tempTimeline;
 
-    for (unsigned int i = 0; i < anim->mNumChannels; ++i)
+    for (unsigned int c = 0; c < anim->mNumChannels; ++c)
     {
-        aiNodeAnim* channel = anim->mChannels[i];
+        const aiNodeAnim* channel = anim->mChannels[c];
         std::string boneName = channel->mNodeName.C_Str();
-
-        /* map non-DEF names to model bones if possible */
-        if (boneName.rfind("DEF-", 0) != 0)
-        {
-            std::string tryDEF = "DEF-" + boneName;
-            if (model->hasBone(tryDEF))
-            {
-                Logger::log("Remapping '" + boneName +
-                    "' -> '" + tryDEF + "'", Logger::INFO);
-                boneName = tryDEF;
-            }
-        }
-
-        bonesWithKeyframes.insert(boneName);
-        animatedBones.push_back(boneName);
 
         const unsigned int maxKeys = std::max({
             channel->mNumPositionKeys,
             channel->mNumRotationKeys,
-            channel->mNumScalingKeys
-            });
+            channel->mNumScalingKeys });
 
         for (unsigned int k = 0; k < maxKeys; ++k)
         {
-            /* clamp indices so we reuse the final key once we run out */
             unsigned int pIdx = std::min(k,
                 channel->mNumPositionKeys ? channel->mNumPositionKeys - 1 : 0);
             unsigned int rIdx = std::min(k,
@@ -179,16 +180,17 @@ void Animation::loadAnimation(const std::string& filePath,
             unsigned int sIdx = std::min(k,
                 channel->mNumScalingKeys ? channel->mNumScalingKeys - 1 : 0);
 
-            /* choose timestamp from whatever track we still have */
-            float timestamp = 0.0f;
-            if (channel->mNumRotationKeys && k < channel->mNumRotationKeys)
-                timestamp = static_cast<float>(channel->mRotationKeys[rIdx].mTime);
-            else if (channel->mNumPositionKeys && k < channel->mNumPositionKeys)
-                timestamp = static_cast<float>(channel->mPositionKeys[pIdx].mTime);
+            float timestampTick = 0.0f;
+            if (k < channel->mNumRotationKeys)
+                timestampTick = static_cast<float>(channel->mRotationKeys[rIdx].mTime);
+            else if (k < channel->mNumPositionKeys)
+                timestampTick = static_cast<float>(channel->mPositionKeys[pIdx].mTime);
             else
-                timestamp = static_cast<float>(channel->mScalingKeys[sIdx].mTime);
+                timestampTick = static_cast<float>(channel->mScalingKeys[sIdx].mTime);
 
-            /* fetch transforms */
+            float timeSecs = timestampTick / ticksPerSecond;
+
+            /* build SRT */
             const aiVector3D& pos = channel->mPositionKeys[pIdx].mValue;
             glm::vec3 position(pos.x, pos.y, pos.z);
 
@@ -198,45 +200,20 @@ void Animation::loadAnimation(const std::string& filePath,
             const aiVector3D& scl = channel->mScalingKeys[sIdx].mValue;
             glm::vec3 scaleVec(scl.x, scl.y, scl.z);
 
-            glm::mat4 local =
-                glm::translate(glm::mat4(1.0f), position) *
-                glm::mat4_cast(glm::normalize(rotation)) *
-                glm::scale(glm::mat4(1.0f), scaleVec);
+            glm::mat4 local(1.0f);
+            local = glm::translate(local, position);
+            local *= glm::mat4_cast(glm::normalize(rotation));
+            local = glm::scale(local, scaleVec);
 
-            timestampToBoneMap[timestamp][boneName] = local;
+            tempTimeline[timeSecs][boneName] = local;
         }
     }
 
-    /* ---------- push map into vector ---------- */
-    keyframes.clear();
-    for (const auto& kv : timestampToBoneMap)
-        keyframes.push_back({ kv.first, kv.second });
-
-    /* 60-fps resample block REMOVED – we now keep the original keys */
+    /* transfer ordered map into vector */
+    for (const auto& t : tempTimeline)
+        keyframes.push_back({ t.first, t.second });
 
     loaded = true;
-    Logger::log("Animation loaded successfully.", Logger::INFO);
 }
 
-glm::mat4 Animation::interpolateMatrices(const glm::mat4& transform1, const glm::mat4& transform2, float factor) const {
-    glm::vec3 pos1, pos2, scale1, scale2;
-    glm::quat rot1, rot2;
-    glm::vec4 persp;
-    glm::vec3 skew;
-
-    glm::decompose(transform1, scale1, rot1, pos1, skew, persp);
-    glm::decompose(transform2, scale2, rot2, pos2, skew, persp);
-
-    glm::vec3 interpolatedPos = glm::mix(pos1, pos2, factor);
-    glm::quat interpolatedRot = glm::slerp(rot1, rot2, factor);
-    glm::vec3 interpolatedScale = glm::mix(scale1, scale2, factor);
-
-    Logger::log("Interpolating Keyframes", Logger::INFO);
-    Logger::log("Bone Transform Interpolation at factor: " + std::to_string(factor), Logger::INFO);
-
-    glm::mat4 translation = glm::translate(glm::mat4(1.0f), interpolatedPos);
-    glm::mat4 rotation = glm::mat4_cast(interpolatedRot);
-    glm::mat4 scale = glm::scale(glm::mat4(1.0f), interpolatedScale);
-
-    return translation * rotation * scale;
-}
+/* -------------------------------------------------------------- */

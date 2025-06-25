@@ -3,74 +3,64 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <unordered_map>
 #include <unordered_set>
-#include <map>
+#include <utility>
 #include <glm/glm.hpp>
 
-#include "../model/Model.h"
+class Model;
 
-/* ------------------------------------------------------------------
-   A single point on the timeline
-   ------------------------------------------------------------------ */
+/* Each keyframe is stored in SECONDS, not ticks */
 struct Keyframe
 {
-    float timestamp;                                   // Assimp "ticks"
-    std::map<std::string, glm::mat4> boneTransforms;   // local space
+    float time;                                          /* seconds */
+    std::map<std::string, glm::mat4> boneTransforms;     /* local */
 };
 
 class Animation
 {
 public:
-    explicit Animation(const std::string& filePath, const Model* model);
+    explicit Animation(const std::string& filePath,
+        const Model* model);
 
-    /* state -------------------------------------------------------- */
+    /* status ---------------------------------------------------- */
     bool  isLoaded() const { return loaded; }
 
-    /* timeline meta ------------------------------------------------ */
-    float getTicksPerSecond()  const { return ticksPerSecond; }
-    float getDurationTicks()   const { return duration; }
-    float getDurationSeconds() const
-    {
-        return (ticksPerSecond > 0.0f) ? duration / ticksPerSecond : 0.0f;
-    }
+    /* timeline meta --------------------------------------------- */
+    float getTicksPerSecond()   const { return ticksPerSecond; }
+    float getDurationTicks()    const { return durationTicks; }
+    float getClipDurationSeconds() const { return clipDurationSecs; } /* <-- restored */
 
-    /* legacy (controller still calls this) ------------------------ */
-    float getDuration() const { return duration; }
+    /* runtime --------------------------------------------------- */
+    void  apply(float animationTimeSeconds, Model* model) const;
+    void  interpolateKeyframes(float animationTimeSeconds,
+        std::map<std::string, glm::mat4>& outPose) const;
 
-    /* playback ----------------------------------------------------- */
-    void  apply(float animationTimeTicks, Model* model);
-    void  interpolateKeyframes(float animationTimeTicks,
-        std::map<std::string, glm::mat4>&
-        finalBoneMatrices) const;
-
-    const std::string& getName()           const { return name; }
-    size_t             getKeyframeCount()  const { return keyframes.size(); }
-
+    /* debug helpers --------------------------------------------- */
+    size_t          getKeyframeCount() const { return keyframes.size(); }
+    const std::string& getName() const { return name; }
 
 private:
-    /* data loaded from file --------------------------------------- */
+    /* helpers --------------------------------------------------- */
+    void  loadAnimation(const std::string& filePath, const Model* model);
+    glm::mat4 interpolateMatrices(const glm::mat4& a,
+        const glm::mat4& b,
+        float            factor) const;
+    std::pair<size_t, size_t>
+        findKeyframeIndices(float timeSeconds) const;
+
+    /* data ------------------------------------------------------ */
     bool  loaded = false;
-    float duration = 0.0f;   // ticks
-    float ticksPerSecond = 24.0f;  // fallback
+    float durationTicks = 0.0f;
+    float ticksPerSecond = 24.0f;
+    float clipDurationSecs = 0.0f;
 
     std::vector<Keyframe> keyframes;
-    std::string name;
+    std::string           name;
 
-
-
-    /* helpers ------------------------------------------------------ */
-    void        loadAnimation(const std::string& filePath,
-        const Model* model);
-    glm::mat4   interpolateMatrices(const glm::mat4& m1,
-        const glm::mat4& m2,
-        float factor) const;      // <- name fixed
-
-    /* bookkeeping -------------------------------------------------- */
+    /* optional bookkeeping ------------------------------------- */
     std::vector<std::string> animatedBones;
-    std::unordered_map<float, std::map<std::string, glm::mat4>>
-        timestampToBoneMap;
-    std::unordered_set<std::string> bonesWithKeyframes;
 };
 
 #endif /* ANIMATION_H */
