@@ -40,42 +40,6 @@ void Animation::apply(float animationTimeSeconds, Model* model) const
         model->setBoneTransform(pair.first, pair.second);
 }
 
-/* -------------------------------------------------------------- */
-/*  Public: produce blended pose at time                          */
-/* -------------------------------------------------------------- */
-void Animation::interpolateKeyframes(float animationTimeSeconds,
-    std::map<std::string, glm::mat4>&
-    outPose) const
-{
-    if (keyframes.empty())
-        return;
-
-    auto indices = findKeyframeIndices(animationTimeSeconds);
-    const Keyframe& kfA = keyframes[indices.first];
-    const Keyframe& kfB = keyframes[indices.second];
-
-    float span = kfB.time - kfA.time;
-    if (span < 0.0f)
-        span += clipDurationSecs;
-
-    float factor = (span > 0.0f)
-        ? (animationTimeSeconds - kfA.time) / span
-        : 0.0f;
-    if (factor < 0.0f)
-        factor += 1.0f;
-
-    for (const auto& pairA : kfA.boneTransforms)
-    {
-        const std::string& bone = pairA.first;
-        const glm::mat4& matA = pairA.second;
-
-        auto itB = kfB.boneTransforms.find(bone);
-        if (itB != kfB.boneTransforms.end())
-            outPose[bone] = interpolateMatrices(matA, itB->second, factor);
-        else
-            outPose[bone] = matA;
-    }
-}
 
 /* -------------------------------------------------------------- */
 /*  Helper: find surrounding keyframes (seconds domain)           */
@@ -129,8 +93,11 @@ glm::mat4 Animation::interpolateMatrices(const glm::mat4& a,
     return m;
 }
 
+
 /* -------------------------------------------------------------- */
 /*  Load animation from file into seconds-based keyframes         */
+/*  - fills missing bones so every keyframe is complete           */
+/*  - removes bind pose frame and re-bases timeline               */
 /* -------------------------------------------------------------- */
 void Animation::loadAnimation(const std::string& filePath,
     const Model* model)
@@ -155,18 +122,18 @@ void Animation::loadAnimation(const std::string& filePath,
         : 24.0f;
     clipDurationSecs = durationTicks / ticksPerSecond;
 
-    /* convert every key to seconds and store */
-    keyframes.clear();
-
+    /* first pass: collect raw keys ----------------------------- */
     std::unordered_map<float,
         std::map<std::string, glm::mat4>> tempTimeline;
+    std::unordered_set<std::string> allBones;
 
     for (unsigned int c = 0; c < anim->mNumChannels; ++c)
     {
         const aiNodeAnim* channel = anim->mChannels[c];
         std::string boneName = channel->mNodeName.C_Str();
+        allBones.insert(boneName);
 
-        const unsigned int maxKeys = std::max({
+        unsigned int maxKeys = std::max({
             channel->mNumPositionKeys,
             channel->mNumRotationKeys,
             channel->mNumScalingKeys });
@@ -180,17 +147,17 @@ void Animation::loadAnimation(const std::string& filePath,
             unsigned int sIdx = std::min(k,
                 channel->mNumScalingKeys ? channel->mNumScalingKeys - 1 : 0);
 
-            float timestampTick = 0.0f;
+            float tick = 0.0f;
             if (k < channel->mNumRotationKeys)
-                timestampTick = static_cast<float>(channel->mRotationKeys[rIdx].mTime);
+                tick = static_cast<float>(channel->mRotationKeys[rIdx].mTime);
             else if (k < channel->mNumPositionKeys)
-                timestampTick = static_cast<float>(channel->mPositionKeys[pIdx].mTime);
+                tick = static_cast<float>(channel->mPositionKeys[pIdx].mTime);
             else
-                timestampTick = static_cast<float>(channel->mScalingKeys[sIdx].mTime);
+                tick = static_cast<float>(channel->mScalingKeys[sIdx].mTime);
 
-            float timeSecs = timestampTick / ticksPerSecond;
+            float tSec = tick / ticksPerSecond;
 
-            /* build SRT */
+            /* build SRT ----------------------------------------- */
             const aiVector3D& pos = channel->mPositionKeys[pIdx].mValue;
             glm::vec3 position(pos.x, pos.y, pos.z);
 
@@ -205,15 +172,97 @@ void Animation::loadAnimation(const std::string& filePath,
             local *= glm::mat4_cast(glm::normalize(rotation));
             local = glm::scale(local, scaleVec);
 
-            tempTimeline[timeSecs][boneName] = local;
+            tempTimeline[tSec][boneName] = local;
         }
     }
 
-    /* transfer ordered map into vector */
-    for (const auto& t : tempTimeline)
-        keyframes.push_back({ t.first, t.second });
+    /* second pass: move to vector ------------------------------- */
+    keyframes.clear();
+    for (const auto& pair : tempTimeline)
+        keyframes.push_back({ pair.first, pair.second });
+
+    /* forward-fill missing bones so every frame is complete ----- */
+    std::map<std::string, glm::mat4> lastPose;
+
+    for (Keyframe& kf : keyframes)
+    {
+        for (const auto& lp : lastPose)
+            if (kf.boneTransforms.find(lp.first) == kf.boneTransforms.end())
+                kf.boneTransforms[lp.first] = lp.second;
+
+        for (const auto& cur : kf.boneTransforms)
+            lastPose[cur.first] = cur.second;
+    }
+
+    /* remove bind-pose frame and re-base timeline --------------- */
+    if (keyframes.size() > 1)
+    {
+        float minPositive = std::numeric_limits<float>::max();
+        for (const auto& kf : keyframes)
+            if (kf.time > 1e-6f && kf.time < minPositive)
+                minPositive = kf.time;
+
+        if (minPositive < std::numeric_limits<float>::max())
+        {
+            clipDurationSecs -= minPositive;
+
+            for (auto& kf : keyframes)
+            {
+                kf.time -= minPositive;
+                if (kf.time < 0.0f)
+                    kf.time += clipDurationSecs;
+            }
+
+            std::sort(keyframes.begin(), keyframes.end(),
+                [](const Keyframe& a, const Keyframe& b)
+                { return a.time < b.time; });
+
+            if (std::fabs(keyframes[0].time) > 1e-6f)
+                keyframes.insert(keyframes.begin(),
+                    { 0.0f, keyframes.back().boneTransforms });
+        }
+    }
 
     loaded = true;
 }
+/* -------------------------------------------------------------- */
 
+
+/* -------------------------------------------------------------- */
+/*  Blend pose - uses union of bones in kfA and kfB               */
+/* -------------------------------------------------------------- */
+void Animation::interpolateKeyframes(float animationTimeSeconds,
+    std::map<std::string, glm::mat4>& outPose) const
+{
+    if (keyframes.empty())
+        return;
+
+    auto idx = findKeyframeIndices(animationTimeSeconds);
+    const Keyframe& kfA = keyframes[idx.first];
+    const Keyframe& kfB = keyframes[idx.second];
+
+    float span = kfB.time - kfA.time;
+    if (span < 0.0f) span += clipDurationSecs;
+
+    float factor = (span > 0.0f)
+        ? std::fmod(animationTimeSeconds - kfA.time + clipDurationSecs,
+            clipDurationSecs) / span
+        : 0.0f;
+
+    outPose.clear();
+
+    /* default to kfA pose -------------------------------------- */
+    for (const auto& p : kfA.boneTransforms)
+        outPose[p.first] = p.second;
+
+    /* blend where kfB has data --------------------------------- */
+    for (const auto& pB : kfB.boneTransforms)
+    {
+        const std::string& bone = pB.first;
+
+        const glm::mat4& matA = outPose.count(bone) ? outPose[bone]
+            : pB.second;
+        outPose[bone] = interpolateMatrices(matA, pB.second, factor);
+    }
+}
 /* -------------------------------------------------------------- */
