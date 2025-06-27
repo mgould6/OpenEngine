@@ -94,138 +94,6 @@ glm::mat4 Animation::interpolateMatrices(const glm::mat4& a,
 }
 
 
-/* -------------------------------------------------------------- */
-/*  Load animation from file into seconds-based keyframes         */
-/*  - fills missing bones so every keyframe is complete           */
-/*  - removes bind pose frame and re-bases timeline               */
-/* -------------------------------------------------------------- */
-void Animation::loadAnimation(const std::string& filePath,
-    const Model* model)
-{
-    Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(
-        filePath,
-        aiProcess_Triangulate | aiProcess_FlipUVs);
-
-    if (!scene || !scene->HasAnimations() || scene->mAnimations[0] == nullptr)
-    {
-        Logger::log("Assimp failed to load animation: " + filePath,
-            Logger::ERROR);
-        return;
-    }
-
-    const aiAnimation* anim = scene->mAnimations[0];
-
-    durationTicks = static_cast<float>(anim->mDuration);
-    ticksPerSecond = (anim->mTicksPerSecond > 0.0f)
-        ? static_cast<float>(anim->mTicksPerSecond)
-        : 24.0f;
-    clipDurationSecs = durationTicks / ticksPerSecond;
-
-    /* first pass: collect raw keys ----------------------------- */
-    std::unordered_map<float,
-        std::map<std::string, glm::mat4>> tempTimeline;
-    std::unordered_set<std::string> allBones;
-
-    for (unsigned int c = 0; c < anim->mNumChannels; ++c)
-    {
-        const aiNodeAnim* channel = anim->mChannels[c];
-        std::string boneName = channel->mNodeName.C_Str();
-        allBones.insert(boneName);
-
-        unsigned int maxKeys = std::max({
-            channel->mNumPositionKeys,
-            channel->mNumRotationKeys,
-            channel->mNumScalingKeys });
-
-        for (unsigned int k = 0; k < maxKeys; ++k)
-        {
-            unsigned int pIdx = std::min(k,
-                channel->mNumPositionKeys ? channel->mNumPositionKeys - 1 : 0);
-            unsigned int rIdx = std::min(k,
-                channel->mNumRotationKeys ? channel->mNumRotationKeys - 1 : 0);
-            unsigned int sIdx = std::min(k,
-                channel->mNumScalingKeys ? channel->mNumScalingKeys - 1 : 0);
-
-            float tick = 0.0f;
-            if (k < channel->mNumRotationKeys)
-                tick = static_cast<float>(channel->mRotationKeys[rIdx].mTime);
-            else if (k < channel->mNumPositionKeys)
-                tick = static_cast<float>(channel->mPositionKeys[pIdx].mTime);
-            else
-                tick = static_cast<float>(channel->mScalingKeys[sIdx].mTime);
-
-            float tSec = tick / ticksPerSecond;
-
-            /* build SRT ----------------------------------------- */
-            const aiVector3D& pos = channel->mPositionKeys[pIdx].mValue;
-            glm::vec3 position(pos.x, pos.y, pos.z);
-
-            const aiQuaternion& rot = channel->mRotationKeys[rIdx].mValue;
-            glm::quat rotation(rot.w, rot.x, rot.y, rot.z);
-
-            const aiVector3D& scl = channel->mScalingKeys[sIdx].mValue;
-            glm::vec3 scaleVec(scl.x, scl.y, scl.z);
-
-            glm::mat4 local(1.0f);
-            local = glm::translate(local, position);
-            local *= glm::mat4_cast(glm::normalize(rotation));
-            local = glm::scale(local, scaleVec);
-
-            tempTimeline[tSec][boneName] = local;
-        }
-    }
-
-    /* second pass: move to vector ------------------------------- */
-    keyframes.clear();
-    for (const auto& pair : tempTimeline)
-        keyframes.push_back({ pair.first, pair.second });
-
-    /* forward-fill missing bones so every frame is complete ----- */
-    std::map<std::string, glm::mat4> lastPose;
-
-    for (Keyframe& kf : keyframes)
-    {
-        for (const auto& lp : lastPose)
-            if (kf.boneTransforms.find(lp.first) == kf.boneTransforms.end())
-                kf.boneTransforms[lp.first] = lp.second;
-
-        for (const auto& cur : kf.boneTransforms)
-            lastPose[cur.first] = cur.second;
-    }
-
-    /* remove bind-pose frame and re-base timeline --------------- */
-    if (keyframes.size() > 1)
-    {
-        float minPositive = std::numeric_limits<float>::max();
-        for (const auto& kf : keyframes)
-            if (kf.time > 1e-6f && kf.time < minPositive)
-                minPositive = kf.time;
-
-        if (minPositive < std::numeric_limits<float>::max())
-        {
-            clipDurationSecs -= minPositive;
-
-            for (auto& kf : keyframes)
-            {
-                kf.time -= minPositive;
-                if (kf.time < 0.0f)
-                    kf.time += clipDurationSecs;
-            }
-
-            std::sort(keyframes.begin(), keyframes.end(),
-                [](const Keyframe& a, const Keyframe& b)
-                { return a.time < b.time; });
-
-            if (std::fabs(keyframes[0].time) > 1e-6f)
-                keyframes.insert(keyframes.begin(),
-                    { 0.0f, keyframes.back().boneTransforms });
-        }
-    }
-
-    loaded = true;
-}
-/* -------------------------------------------------------------- */
 
 
 /* -------------------------------------------------------------- */
@@ -266,3 +134,203 @@ void Animation::interpolateKeyframes(float animationTimeSeconds,
     }
 }
 /* -------------------------------------------------------------- */
+
+
+
+//helper for load animation
+/* utility – compare two mat4s with an epsilon --------------------------------*/
+static bool matNearlyEqual(const glm::mat4& a,
+    const glm::mat4& b,
+    float            eps = 1e-4f)
+{
+    for (int c = 0; c < 4; ++c)
+        for (int r = 0; r < 4; ++r)
+            if (std::fabs(a[c][r] - b[c][r]) > eps)
+                return false;
+    return true;
+}
+
+/* -------------------------------------------------------------- */
+/*  Animation::loadAnimation                                      */
+/*  – parses the FBX clip, auto-detects fps if mTicksPerSecond=0  */
+/*  – forward + reverse fills so every keyframe has every bone    */
+/*  – strips any bind-pose frame and re-bases the timeline        */
+/* -------------------------------------------------------------- */
+void Animation::loadAnimation(const std::string& filePath,
+    const Model* model)
+{
+    Assimp::Importer importer;
+    const aiScene* scene = importer.ReadFile(
+        filePath,
+        aiProcess_Triangulate | aiProcess_FlipUVs);
+
+    if (!scene || !scene->HasAnimations() || !scene->mAnimations[0])
+    {
+        Logger::log("Assimp failed to load animation: " + filePath,
+            Logger::ERROR);
+        loaded = false;
+        return;
+    }
+
+    const aiAnimation* src = scene->mAnimations[0];
+    durationTicks = static_cast<float>(src->mDuration);
+
+    /* ----------- choose ticksPerSecond ------------------------ */
+    if (src->mTicksPerSecond > 0.0)
+    {
+        ticksPerSecond = static_cast<float>(src->mTicksPerSecond);
+    }
+    else
+    {
+        /* detect fps from key spacing                            */
+        float minDelta = std::numeric_limits<float>::max();
+        for (unsigned int c = 0; c < src->mNumChannels; ++c)
+        {
+            const aiNodeAnim* ch = src->mChannels[c];
+            for (unsigned int k = 1; k < ch->mNumRotationKeys; ++k)
+            {
+                float d = float(ch->mRotationKeys[k].mTime
+                    - ch->mRotationKeys[k - 1].mTime);
+                if (d > 0.0f && d < minDelta) minDelta = d;
+            }
+        }
+
+        if (std::fabs(minDelta - 1.0f) < 1e-3f)
+        {
+            if (std::fmod(durationTicks, 60.0f) < 1e-3f)
+                ticksPerSecond = 60.0f;
+            else if (std::fmod(durationTicks, 30.0f) < 1e-3f)
+                ticksPerSecond = 30.0f;
+            else
+                ticksPerSecond = 24.0f;
+        }
+        else
+        {
+            ticksPerSecond = 1.0f / std::max(minDelta, 1e-6f);
+        }
+    }
+    clipDurationSecs = durationTicks / ticksPerSecond;
+
+    /* ----------- gather sparse timeline ----------------------- */
+    std::unordered_map<float,
+        std::map<std::string, glm::mat4>> sparse;
+
+    for (unsigned int c = 0; c < src->mNumChannels; ++c)
+    {
+        const aiNodeAnim* ch = src->mChannels[c];
+        std::string bone = ch->mNodeName.C_Str();
+
+        unsigned int maxK = std::max({ ch->mNumPositionKeys,
+                                       ch->mNumRotationKeys,
+                                       ch->mNumScalingKeys });
+
+        for (unsigned int k = 0; k < maxK; ++k)
+        {
+            unsigned p = std::min(k, ch->mNumPositionKeys ? ch->mNumPositionKeys - 1 : 0u);
+            unsigned r = std::min(k, ch->mNumRotationKeys ? ch->mNumRotationKeys - 1 : 0u);
+            unsigned s = std::min(k, ch->mNumScalingKeys ? ch->mNumScalingKeys - 1 : 0u);
+
+            float tick = (k < ch->mNumRotationKeys) ? float(ch->mRotationKeys[r].mTime)
+                : (k < ch->mNumPositionKeys) ? float(ch->mPositionKeys[p].mTime)
+                : float(ch->mScalingKeys[s].mTime);
+
+            float tSec = tick / ticksPerSecond;
+
+            const aiVector3D& pos = ch->mPositionKeys[p].mValue;
+            const aiQuaternion& rot = ch->mRotationKeys[r].mValue;
+            const aiVector3D& scl = ch->mScalingKeys[s].mValue;
+
+            glm::mat4 m(1.0f);
+            m = glm::translate(m, { pos.x, pos.y, pos.z });
+            m *= glm::mat4_cast(glm::normalize(glm::quat(rot.w, rot.x, rot.y, rot.z)));
+            m = glm::scale(m, { scl.x, scl.y, scl.z });
+
+            sparse[tSec][bone] = m;
+        }
+    }
+
+    /* ----------- move to ordered vector ----------------------- */
+    keyframes.clear();
+    for (const auto& p : sparse)
+        keyframes.push_back({ p.first, p.second });
+
+    if (keyframes.empty())
+    {
+        loaded = false;
+        return;
+    }
+
+    /* forward-fill --------------------------------------------- */
+    std::map<std::string, glm::mat4> last = keyframes.front().boneTransforms;
+    for (Keyframe& kf : keyframes)
+    {
+        for (const auto& kv : last)
+            if (!kf.boneTransforms.count(kv.first))
+                kf.boneTransforms[kv.first] = kv.second;
+        last = kf.boneTransforms;
+    }
+
+    /* reverse-fill --------------------------------------------- */
+    std::map<std::string, glm::mat4> next = keyframes.back().boneTransforms;
+    for (int i = int(keyframes.size()) - 1; i >= 0; --i)
+    {
+        for (const auto& kv : next)
+            if (!keyframes[i].boneTransforms.count(kv.first))
+                keyframes[i].boneTransforms[kv.first] = kv.second;
+        next = keyframes[i].boneTransforms;
+    }
+
+    /* strip bind-pose frame at t == 0 if present                 */
+    if (keyframes.size() > 1 && keyframes[0].time < 1e-6f)
+        keyframes.erase(keyframes.begin());
+
+    /* re-base timeline to start at 0                             */
+    if (!keyframes.empty())
+    {
+        float t0 = keyframes.front().time;
+        clipDurationSecs -= t0;
+        for (Keyframe& kf : keyframes)
+        {
+            kf.time -= t0;
+            if (kf.time < 0.0f) kf.time += clipDurationSecs;
+        }
+        std::sort(keyframes.begin(), keyframes.end(),
+            [](const Keyframe& a, const Keyframe& b)
+            { return a.time < b.time; });
+    }
+
+    /* --------------------------------------------------------------
+   REMOVE last key-frame if it holds the same pose as the first
+   (common when exporters append the bind pose at the end)
+-------------------------------------------------------------- */
+    if (keyframes.size() > 1)
+    {
+        const Keyframe& firstKF = keyframes.front();
+        const Keyframe& lastKF = keyframes.back();
+
+        bool samePose = true;
+        for (const auto& kv : firstKF.boneTransforms)
+        {
+            auto it = lastKF.boneTransforms.find(kv.first);
+            if (it == lastKF.boneTransforms.end() ||
+                !matNearlyEqual(kv.second, it->second))
+            {
+                samePose = false;
+                break;
+            }
+        }
+
+
+        if (samePose)
+        {
+            /* shorten the clip so we never sample the duplicate */
+            clipDurationSecs = lastKF.time;
+            keyframes.pop_back();
+        }
+    }
+
+    loaded = true;
+    Logger::log("Loaded clip '" + filePath + "' fps=" +
+        std::to_string(ticksPerSecond), Logger::INFO);
+}
+

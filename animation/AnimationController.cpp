@@ -22,44 +22,67 @@ AnimationController::AnimationController(Model* model)
 {
 }
 
-/*  loadAnimation
-    - If the clip name already exists and forceReload == true,
-      delete the old Animation* and replace it with a fresh one.
-----------------------------------------------------------------*/
+/*--------------------------------------------------------------
+    loadAnimation
+    – Registers or reloads a clip and (optionally) makes it
+      the active animation.
+    – If forceReload == true and a clip with the same name
+      already exists, the old one is deleted and replaced.
+--------------------------------------------------------------*/
 bool AnimationController::loadAnimation(const std::string& name,
     const std::string& filePath,
-    bool forceReload)
+    bool              forceReload)
 {
+    /* ----------------------------------------------------------
+       1.  Handle duplicates / hot-reloads
+    ---------------------------------------------------------- */
     auto it = animations.find(name);
 
     if (it != animations.end() && !forceReload)
         return true;                       // nothing to do
 
-    if (it != animations.end())            // delete old copy
+    if (it != animations.end())            // replace old clip
     {
         delete it->second;
         animations.erase(it);
     }
 
+    /* ----------------------------------------------------------
+       2.  Load the new clip
+    ---------------------------------------------------------- */
     Animation* clip = new Animation(filePath, model);
     if (!clip->isLoaded())
     {
+        Logger::log("Failed to load animation: " + filePath,
+            Logger::ERROR);
         delete clip;
         return false;
     }
     animations[name] = clip;
 
-    /* — NEW — if this clip is the current one, re-bind it immediately */
+    /* ----------------------------------------------------------
+       3.  Auto-bind if this is the selected clip
+           (or if nothing is currently playing)
+    ---------------------------------------------------------- */
     if (currentAnimation == nullptr || currentAnimation->getName() == name)
     {
         currentAnimation = clip;
-        animationTime = 0.0f;
+
+        // UPDATE: start slightly after 0 to avoid sampling the bind pose
+        animationTime = 1e-5f;
+
         Logger::log("NOW PLAYING: " + name +
-            "  keyframes=" + std::to_string(clip->getKeyframeCount()),
+            " | keyframes = " +
+            std::to_string(clip->getKeyframeCount()) +
+            " | length = " +
+            std::to_string(clip->getClipDurationSeconds()) + " s",
             Logger::INFO);
     }
+
     return true;
 }
+
+
 void AnimationController::setCurrentAnimation(const std::string& name)
 {
     auto it = animations.find(name);
@@ -69,8 +92,12 @@ void AnimationController::setCurrentAnimation(const std::string& name)
         return;
     }
 
+    /* avoid resetting if already playing this clip */
+    if (currentAnimation == it->second)
+        return;
+
     currentAnimation = it->second;
-    animationTime = 0.00001f;   /* avoid evaluating exactly at 0 */
+    animationTime = 0.00001f;     /* skip exact 0 */
 
     Logger::log("NOW PLAYING: " + name +
         "  keyframes=" +
@@ -79,37 +106,40 @@ void AnimationController::setCurrentAnimation(const std::string& name)
 }
 
 
+
 /*------------------------------------------------------------------
-  Advance the animation clock
-  ---------------------------------------------------------------
   - deltaTime arrives in seconds from the game loop.
   - We convert it to fractional Assimp "ticks":
         deltaTicks = deltaTime * ticksPerSecond;
   - animationTime is stored in ticks because the rest of the
     controller and applyToModel() expect that unit.
 ------------------------------------------------------------------*/
+/*------------------------------------------------------------------
+  Advance the animation clock – seconds domain
+------------------------------------------------------------------*/
 void AnimationController::update(float deltaTime)
 {
     if (!currentAnimation)
-    {
-        Logger::log("ERROR: No current animation!", Logger::ERROR);
         return;
-    }
+
+    /* clamp huge pauses (alt-tab, breakpoint) */
+    const float MAX_DT = 0.05f;          /* 20 fps floor */
+    if (deltaTime > MAX_DT)
+        deltaTime = MAX_DT;
+
+    animationTime += deltaTime;          /* seconds */
 
     float clipSeconds = currentAnimation->getClipDurationSeconds();
     if (clipSeconds <= 0.0f)
-    {
-        Logger::log("ERROR: Invalid clip length!", Logger::ERROR);
         return;
-    }
 
-    animationTime += deltaTime;               /* seconds */
+    /*  wrap, but never sample exactly at 0 or clipSeconds  */
+    const float EPS = 1e-4f;             /* 0.0001 s */
+    if (animationTime >= clipSeconds - EPS)
+        animationTime = EPS;             /* restart *after* 0 */
 
-    /* wrap clock */
-    if (animationTime >= clipSeconds)
-        animationTime = std::fmod(animationTime, clipSeconds);
-    else if (animationTime < 0.0f)
-        animationTime = clipSeconds + std::fmod(animationTime, clipSeconds);
+    if (animationTime < EPS)
+        animationTime = EPS;
 }
 
 void AnimationController::applyToModel(Model* model)
