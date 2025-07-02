@@ -1,64 +1,47 @@
-INFO: Decomposed transform for DEF-spine.005: Translation(0.228166, -0.909434, 0.00178269), Scale(1.01348, 1.002, 1.01318)
-INFO: Bone [DEF-spine.006] FINAL TRANSFORM:
-INFO: mat4x4((0.723998, -0.052005, -0.693242, 0.000000), (-0.150441, 0.961272, -0.233175, 0.000000), (0.678717, 0.272577, 0.688097, 0.000000), (0.245555, -0.871791, 0.388891, 1.000000))
-INFO: Bone: DEF-spine.006 Scale: vec3(1.003724, 1.000520, 1.004207) Translation: vec3(0.245555, -0.871791, 0.388891) Skew: vec3(-0.000531, 0.000195, 0.002725)
-INFO: Decomposed transform for DEF-spine.006: Translation(0.245555, -0.871791, 0.388891), Scale(1.00372, 1.00052, 1.00421)
-INFO: Bone [DEF-shoulder.L] FINAL TRANSFORM:
-INFO: mat4x4((0.721021, -0.102720, -0.736911, 0.000000), (-0.086609, 1.049476, -0.114076, 0.000000), (0.758923, 0.123964, 0.766629, 0.000000), (0.135582, -0.985945, 0.198649, 1.000000))
-INFO: Bone: DEF-shoulder.L Scale: vec3(1.036079, 1.055933, 1.085173) Translation: vec3(0.135582, -0.985945, 0.198649) Skew: vec3(-0.022282, -0.027101, -0.078777)
-INFO: Decomposed transform for DEF-shoulder.L: Translation(0.135582, -0.985945, 0.198649), Scale(1.03608, 1.05593, 1.08517)
-INFO: Bone [DEF-upper_arm.L] FINAL TRANSFORM:
-INFO: mat4x4((0.852977, -0.517702, 0.132609, 0.000000), (0.532784, 0.843163, -0.134492, 0.000000), (-0.041135, 0.185098, 0.982048, 0.000000), (-0.816114, -0.575277, 0.148606, 1.000000))
-INFO: Bone: DEF-upper_arm.L Scale: vec3(1.006563, 1.006415, 1.000183) Translation: vec3(-0.816114, -0.575277, 0.148606) Skew: vec3(0.002060, -0.000680, 0.000109)
-INFO: Decomposed transform for DEF-upper_arm.L: Translation(-0.816114, -0.575277, 0.148606), Scale(1.00656, 1.00641, 1.00018)
-INFO: Bone [DEF-upper_arm.L.001] FINAL TRANSFORM:
-INFO: mat4x4((0.834529, -0.555727, 0.152861, 0.000000), (0.415192, 0.765292, 0.519635, 0.000000), (-0.394198, -0.365884, 0.843867, 0.000000), (-0.661227, -0.474825, -0.837263, 1.000000))
-INFO: Bone: DEF-upper_arm.L.001 Scale: vec3(1.014218, 1.013941, 1.000668) Translation: vec3(-0.661227, -0.474825, -0.837263) Skew: vec3(-0.005100, 0.003308, 0.000610)
-INFO: Decomposed transform for DEF-upper_arm.L.001: Translation(-0.661227, -0.474825, -0.837263), Scale(1.01422, 1.01394, 1.00067)
 INFO: Bone [DEF-forearm.L] FINAL TRANSFORM:
-INFO: mat4x4((-0.283375, 0.959816, 0.004902, 0.000000), (-0.166851, -0.049390, -0.997654, 0.000000), (-0.957973, -0.279790, 0.173309, 0.000000), (0.640029, 0.113272, 1.434217, 1.000000))
-INFO: Bone: DEF-forearm.L Scale: vec3(1.000786, 1.012703, 1.012924) Translation: vec3(0.640029, 0.113272, 1.434217) Skew: vec3(0.000754, 0.003717, -0.004948)
-INFO: Decomposed transform for DEF-forearm.L: Translation(0.640029, 0.113272, 1.43422), Scale(1.00079, 1.0127, 1.01292)
+INFO: mat4x4((-0.281406, 0.960373, 0.007894, 0.000000), (-0.173147, -0.047792, -0.996653, 0.000000), (-0.957428, -0.278141, 0.178919, 0.000000), (0.648404, 0.111017, 1.430970, 1.000000))
+INFO: Bone: DEF-forearm.L Scale: vec3(1.000784, 1.012697, 1.012931) Translation: vec3(0.648404, 0.111017, 1.430970) Skew: vec3(0.000748, 0.003669, -0.004973)
+INFO: Decomposed transform for DEF-forearm.L: Translation(0.648404, 0.111017, 1.43097), Scale(1.00078, 1.0127, 1.01293)
 INFO: Bone [DEF-forearm.L.001] FINAL TRANSFORM:
-INFO: mat4x4((-0.334173, 0.943454, -0.058202, 0.000000), (0.332628, 0.035804, -0.999257, 0.000000), (-0.942818, -0.339530, -0.328457, 0.000000), (-0.067953, -0.017372, 1.425587, 1.000000))
-INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.002579, 1.053599, 1.054454) Translation: vec3(-0.067953, -0.017372, 1.425587) Skew: vec3(0.002443, 0.013101, -0.018192)
-INFO: Decomposed transform for DEF-forearm.L.001: Translation(-0.0679528, -0.0173718, 1.42559), Scale(1.00258, 1.0536, 1.05445)
+INFO: mat4x4((-0.334945, 0.943450, -0.054840, 0.000000), (0.330093, 0.038026, -1.001157, 0.000000), (-0.944652, -0.339536, -0.326852, 0.000000), (-0.063963, -0.020435, 1.425948, 1.000000))
+INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.002643, 1.054672, 1.055596) Translation: vec3(-0.063963, -0.020435, 1.425948) Skew: vec3(0.002489, 0.013224, -0.018709)
+INFO: Decomposed transform for DEF-forearm.L.001: Translation(-0.0639634, -0.0204349, 1.42595), Scale(1.00264, 1.05467, 1.0556)
 INFO: Bone [DEF-hand.L] FINAL TRANSFORM:
-INFO: mat4x4((0.162111, 0.967449, -0.195334, 0.000000), (0.694493, -0.255965, -0.712352, 0.000000), (-0.738851, -0.017981, -0.713635, 0.000000), (-0.906454, 0.416856, 1.063960, 1.000000))
-INFO: Bone: DEF-hand.L Scale: vec3(1.000197, 1.027262, 1.027372) Translation: vec3(-0.906454, 0.416856, 1.063960) Skew: vec3(-0.000165, 0.002166, 0.003989)
-INFO: Decomposed transform for DEF-hand.L: Translation(-0.906454, 0.416856, 1.06396), Scale(1.0002, 1.02726, 1.02737)
+INFO: mat4x4((0.158849, 0.967788, -0.196335, 0.000000), (0.694952, -0.254537, -0.713287, 0.000000), (-0.739961, -0.020836, -0.713268, 0.000000), (-0.904975, 0.414545, 1.065451, 1.000000))
+INFO: Bone: DEF-hand.L Scale: vec3(1.000197, 1.027866, 1.027969) Translation: vec3(-0.904975, 0.414545, 1.065451) Skew: vec3(-0.000169, 0.002269, 0.003986)
+INFO: Decomposed transform for DEF-hand.L: Translation(-0.904975, 0.414545, 1.06545), Scale(1.0002, 1.02787, 1.02797)
 INFO: Bone [DEF-shoulder.R] FINAL TRANSFORM:
-INFO: mat4x4((0.807725, 0.006606, -0.527500, 0.000000), (-0.130436, 0.961148, -0.092063, 0.000000), (0.529440, 0.122291, 0.775986, 0.000000), (0.201659, -0.852937, 0.167025, 1.000000))
-INFO: Bone: DEF-shoulder.R Scale: vec3(0.964738, 0.972913, 0.946845) Translation: vec3(0.201659, -0.852937, 0.167025) Skew: vec3(-0.023797, 0.020928, -0.053744)
-INFO: Decomposed transform for DEF-shoulder.R: Translation(0.201659, -0.852937, 0.167025), Scale(0.964738, 0.972913, 0.946845)
+INFO: mat4x4((0.807595, 0.008597, -0.527792, 0.000000), (-0.131287, 0.961348, -0.090021, 0.000000), (0.529632, 0.121164, 0.776265, 0.000000), (0.202583, -0.853335, 0.164759, 1.000000))
+INFO: Bone: DEF-shoulder.R Scale: vec3(0.964804, 0.973046, 0.947038) Translation: vec3(0.202583, -0.853335, 0.164759) Skew: vec3(-0.023771, 0.020864, -0.053525)
+INFO: Decomposed transform for DEF-shoulder.R: Translation(0.202583, -0.853335, 0.164759), Scale(0.964804, 0.973046, 0.947038)
 INFO: Bone [DEF-upper_arm.R] FINAL TRANSFORM:
-INFO: mat4x4((0.209042, 0.992412, -0.650181, 0.000000), (-0.204358, 0.677780, 0.907243, 0.000000), (1.063601, -0.105295, 0.088748, 0.000000), (0.210214, -0.277067, -1.454597, 1.000000))
-INFO: Bone: DEF-upper_arm.R Scale: vec3(1.204706, 1.150275, 1.055666) Translation: vec3(0.210214, -0.277067, -1.454597) Skew: vec3(-0.172828, 0.047287, 0.028899)
-INFO: Decomposed transform for DEF-upper_arm.R: Translation(0.210214, -0.277067, -1.4546), Scale(1.20471, 1.15028, 1.05567)
+INFO: mat4x4((0.212747, 0.992671, -0.653433, 0.000000), (-0.196939, 0.680805, 0.908212, 0.000000), (1.064868, -0.113104, 0.082577, 0.000000), (0.199664, -0.282515, -1.456289, 1.000000))
+INFO: Bone: DEF-upper_arm.R Scale: vec3(1.207324, 1.151524, 1.056749) Translation: vec3(0.199664, -0.282515, -1.456289) Skew: vec3(-0.175362, 0.047274, 0.029103)
+INFO: Decomposed transform for DEF-upper_arm.R: Translation(0.199664, -0.282515, -1.45629), Scale(1.20732, 1.15152, 1.05675)
 INFO: Bone [DEF-upper_arm.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.331493, 0.843394, -0.568372, 0.000000), (0.537982, 0.329678, 0.809249, 0.000000), (0.789856, -0.569153, -0.379109, 0.000000), (-0.884326, 0.214689, -1.321659, 1.000000))
-INFO: Bone: DEF-upper_arm.R.001 Scale: vec3(1.069695, 1.026150, 1.042562) Translation: vec3(-0.884326, 0.214689, -1.321659) Skew: vec3(-0.064974, -0.002434, -0.003251)
-INFO: Decomposed transform for DEF-upper_arm.R.001: Translation(-0.884326, 0.214689, -1.32166), Scale(1.06969, 1.02615, 1.04256)
+INFO: mat4x4((0.330446, 0.834911, -0.566586, 0.000000), (0.597608, 0.285235, 0.777102, 0.000000), (0.742272, -0.590346, -0.431214, 0.000000), (-0.977655, 0.276716, -1.276239, 1.000000))
+INFO: Bone: DEF-upper_arm.R.001 Scale: vec3(1.061740, 1.020962, 1.040177) Translation: vec3(-0.977655, 0.276716, -1.276239) Skew: vec3(-0.056414, -0.002976, -0.004311)
+INFO: Decomposed transform for DEF-upper_arm.R.001: Translation(-0.977655, 0.276716, -1.27624), Scale(1.06174, 1.02096, 1.04018)
 INFO: Bone [DEF-forearm.R] FINAL TRANSFORM:
-INFO: mat4x4((-0.246942, -0.965556, -0.067951, 0.000000), (-0.356568, 0.165804, -0.879423, 0.000000), (0.860264, -0.193694, -0.385171, 0.000000), (0.208354, -0.272506, 1.415609, 1.000000))
-INFO: Bone: DEF-forearm.R Scale: vec3(0.998947, 0.963257, 0.962251) Translation: vec3(0.208354, -0.272506, 1.415609) Skew: vec3(-0.000130, 0.000790, -0.012766)
-INFO: Decomposed transform for DEF-forearm.R: Translation(0.208354, -0.272506, 1.41561), Scale(0.998947, 0.963257, 0.962251)
+INFO: mat4x4((-0.293848, -0.951255, -0.079146, 0.000000), (-0.391298, 0.205661, -0.861499, 0.000000), (0.835617, -0.222988, -0.432587, 0.000000), (0.236451, -0.327399, 1.381230, 1.000000))
+INFO: Bone: DEF-forearm.R Scale: vec3(0.998748, 0.968213, 0.967011) Translation: vec3(0.236451, -0.327399, 1.381230) Skew: vec3(-0.000162, 0.000841, -0.012896)
+INFO: Decomposed transform for DEF-forearm.R: Translation(0.236451, -0.327399, 1.38123), Scale(0.998748, 0.968213, 0.967011)
 INFO: Bone [DEF-forearm.R.001] FINAL TRANSFORM:
-INFO: mat4x4((-0.322782, -0.945428, -0.062359, 0.000000), (-0.980470, 0.326857, -0.054736, 0.000000), (0.071395, 0.039318, -1.032440, 0.000000), (1.052136, -0.467321, 0.148711, 1.000000))
-INFO: Bone: DEF-forearm.R.001 Scale: vec3(1.000955, 1.034909, 1.035644) Translation: vec3(1.052136, -0.467321, 0.148711) Skew: vec3(-0.000638, 0.004018, 0.010495)
-INFO: Decomposed transform for DEF-forearm.R.001: Translation(1.05214, -0.467321, 0.148711), Scale(1.00096, 1.03491, 1.03564)
+INFO: mat4x4((-0.369805, -0.928356, -0.063555, 0.000000), (-0.967781, 0.371684, -0.004758, 0.000000), (0.027057, 0.054866, -1.035869, 0.000000), (1.009780, -0.525351, 0.074375, 1.000000))
+INFO: Bone: DEF-forearm.R.001 Scale: vec3(1.001319, 1.036629, 1.037662) Translation: vec3(1.009780, -0.525351, 0.074375) Skew: vec3(-0.000862, 0.004710, 0.012657)
+INFO: Decomposed transform for DEF-forearm.R.001: Translation(1.00978, -0.525351, 0.0743745), Scale(1.00132, 1.03663, 1.03766)
 INFO: Bone [DEF-hand.R] FINAL TRANSFORM:
-INFO: mat4x4((0.276056, -0.828822, 0.497456, 0.000000), (-0.735078, 0.212699, 0.768168, 0.000000), (-0.746666, -0.537282, -0.564773, 0.000000), (1.041735, -0.243270, -0.652696, 1.000000))
-INFO: Bone: DEF-hand.R Scale: vec3(1.005293, 1.084276, 1.078622) Translation: vec3(1.041735, -0.243270, -0.652696) Skew: vec3(0.000734, -0.038513, 0.002676)
-INFO: Decomposed transform for DEF-hand.R: Translation(1.04173, -0.24327, -0.652696), Scale(1.00529, 1.08428, 1.07862)
+INFO: mat4x4((0.262860, -0.850095, 0.466484, 0.000000), (-0.689770, 0.225803, 0.808037, 0.000000), (-0.795898, -0.495557, -0.539866, 0.000000), (0.975127, -0.278603, -0.730082, 1.000000))
+INFO: Bone: DEF-hand.R Scale: vec3(1.004671, 1.086130, 1.081165) Translation: vec3(0.975127, -0.278603, -0.730082) Skew: vec3(0.000852, -0.036621, 0.003362)
+INFO: Decomposed transform for DEF-hand.R: Translation(0.975127, -0.278603, -0.730082), Scale(1.00467, 1.08613, 1.08116)
 INFO: Bone [DEF-breast.L] FINAL TRANSFORM:
-INFO: mat4x4((0.736680, -0.023962, -0.640058, 0.000000), (-0.091830, 0.971554, -0.130460, 0.000000), (0.633889, 0.182653, 0.736666, 0.000000), (0.156664, -0.836680, 0.212840, 1.000000))
-INFO: Bone: DEF-breast.L Scale: vec3(0.976189, 0.984537, 0.988545) Translation: vec3(0.156664, -0.836680, 0.212840) Skew: vec3(0.023706, -0.009235, -0.007728)
-INFO: Decomposed transform for DEF-breast.L: Translation(0.156664, -0.83668, 0.21284), Scale(0.976189, 0.984537, 0.988545)
+INFO: mat4x4((0.736203, -0.021845, -0.640313, 0.000000), (-0.092900, 0.971614, -0.128259, 0.000000), (0.633914, 0.181919, 0.736657, 0.000000), (0.157903, -0.836808, 0.210378, 1.000000))
+INFO: Bone: DEF-breast.L Scale: vec3(0.975947, 0.984406, 0.988413) Translation: vec3(0.157903, -0.836808, 0.210378) Skew: vec3(0.023958, -0.009305, -0.007799)
+INFO: Decomposed transform for DEF-breast.L: Translation(0.157903, -0.836808, 0.210378), Scale(0.975947, 0.984406, 0.988413)
 INFO: Bone [DEF-breast.R] FINAL TRANSFORM:
-INFO: mat4x4((0.736679, -0.023962, -0.640058, 0.000000), (-0.091830, 0.971554, -0.130461, 0.000000), (0.633889, 0.182654, 0.736666, 0.000000), (0.125719, -0.836971, 0.215136, 1.000000))
-INFO: Bone: DEF-breast.R Scale: vec3(0.976189, 0.984537, 0.988545) Translation: vec3(0.125719, -0.836971, 0.215136) Skew: vec3(0.023706, -0.009236, -0.007728)
-INFO: Decomposed transform for DEF-breast.R: Translation(0.125719, -0.836971, 0.215136), Scale(0.976189, 0.984537, 0.988545)
+INFO: mat4x4((0.736203, -0.021845, -0.640313, 0.000000), (-0.092901, 0.971614, -0.128260, 0.000000), (0.633914, 0.181920, 0.736657, 0.000000), (0.126902, -0.837157, 0.212699, 1.000000))
+INFO: Bone: DEF-breast.R Scale: vec3(0.975947, 0.984406, 0.988413) Translation: vec3(0.126902, -0.837157, 0.212699) Skew: vec3(0.023958, -0.009305, -0.007799)
+INFO: Decomposed transform for DEF-breast.R: Translation(0.126902, -0.837157, 0.212699), Scale(0.975947, 0.984406, 0.988413)
 INFO: Bone [DEF-pelvis.L] FINAL TRANSFORM:
 INFO: mat4x4((0.999920, -0.005672, 0.011344, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010207, 0.171058, 0.985208, 0.000000), (-0.010782, -0.888171, 0.250188, 1.000000))
 INFO: Bone: DEF-pelvis.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250188) Skew: vec3(-0.000000, -0.000000, -0.000000)
@@ -68,661 +51,43 @@ INFO: mat4x4((0.848020, 0.449032, -0.282579, 0.000000), (-0.527172, 0.780760, -0
 INFO: Bone: DEF-thigh.L Scale: vec3(1.000309, 1.005025, 1.005324) Translation: vec3(0.581890, -0.682593, 0.459207) Skew: vec3(-0.000086, 0.000349, 0.002457)
 INFO: Decomposed transform for DEF-thigh.L: Translation(0.58189, -0.682593, 0.459207), Scale(1.00031, 1.00503, 1.00532)
 INFO: Bone [DEF-thigh.L.001] FINAL TRANSFORM:
-INFO: mat4x4((0.829720, 0.552662, -0.078264, 0.000000), (-0.542922, 0.766496, -0.343045, 0.000000), (-0.129604, 0.327121, 0.936030, 0.000000), (0.565414, -0.647813, 0.422386, 1.000000))
-INFO: Bone: DEF-thigh.L.001 Scale: vec3(0.999998, 0.999980, 0.999979) Translation: vec3(0.565414, -0.647813, 0.422386) Skew: vec3(0.000002, -0.000006, -0.000012)
-INFO: Decomposed transform for DEF-thigh.L.001: Translation(0.565414, -0.647813, 0.422386), Scale(0.999998, 0.99998, 0.999979)
-INFO: Bone [DEF-shin.L] FINAL TRANSFORM:
-INFO: mat4x4((0.992349, -0.045974, 0.126009, 0.000000), (0.047344, 1.033059, -0.001202, 0.000000), (-0.116371, 0.006657, 1.026222, -0.000000), (0.239332, -0.706779, 0.222891, 1.000000))
-INFO: Bone: DEF-shin.L Scale: vec3(1.001374, 1.034144, 1.032732) Translation: vec3(0.239332, -0.706779, 0.222891) Skew: vec3(0.000134, 0.013080, -0.000641)
-INFO: Decomposed transform for DEF-shin.L: Translation(0.239332, -0.706779, 0.222891), Scale(1.00137, 1.03414, 1.03273)
-INFO: Bone [DEF-shin.L.001] FINAL TRANSFORM:
-INFO: mat4x4((0.977656, -0.044190, -0.205713, 0.000000), (0.045059, 1.029109, -0.005697, 0.000000), (0.214095, -0.003787, 1.007570, -0.000000), (0.237475, -0.721845, 0.229184, 1.000000))
-INFO: Bone: DEF-shin.L.001 Scale: vec3(1.000041, 1.030110, 1.030070) Translation: vec3(0.237475, -0.721845, 0.229184) Skew: vec3(0.000009, 0.002144, -0.000245)
-INFO: Decomposed transform for DEF-shin.L.001: Translation(0.237475, -0.721845, 0.229184), Scale(1.00004, 1.03011, 1.03007)
-INFO: Bone [DEF-foot.L] FINAL TRANSFORM:
-INFO: mat4x4((0.817860, -0.148686, -0.573508, 0.000000), (-0.009364, 1.007176, -0.234721, 0.000000), (0.585366, 0.189063, 0.830077, 0.000000), (0.258251, -0.717796, 0.241708, 1.000000))
-INFO: Bone: DEF-foot.L Scale: vec3(1.009908, 1.033961, 1.032807) Translation: vec3(0.258251, -0.717796, 0.241708) Skew: vec3(-0.009801, -0.024371, -0.021832)
-INFO: Decomposed transform for DEF-foot.L: Translation(0.258251, -0.717796, 0.241708), Scale(1.00991, 1.03396, 1.03281)
-INFO: Bone [DEF-toe.L] FINAL TRANSFORM:
-INFO: mat4x4((0.879399, -0.073844, -0.429335, 0.000000), (-0.041871, 0.957202, -0.236772, 0.000000), (0.431008, 0.249601, 0.857859, 0.000000), (0.246914, -0.709489, 0.226910, 1.000000))
-INFO: Bone: DEF-toe.L Scale: vec3(0.981389, 0.986922, 0.991770) Translation: vec3(0.246914, -0.709489, 0.226910) Skew: vec3(0.018092, -0.007924, -0.006040)
-INFO: Decomposed transform for DEF-toe.L: Translation(0.246914, -0.709489, 0.22691), Scale(0.981389, 0.986922, 0.99177)
-INFO: Bone [DEF-pelvis.R] FINAL TRANSFORM:
-INFO: mat4x4((0.999920, -0.005672, 0.011343, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010206, 0.171058, 0.985209, 0.000000), (-0.010782, -0.888171, 0.250189, 1.000000))
-INFO: Bone: DEF-pelvis.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250189) Skew: vec3(-0.000000, -0.000000, 0.000000)
-INFO: Decomposed transform for DEF-pelvis.R: Translation(-0.0107823, -0.888171, 0.250189), Scale(1, 1, 1)
-INFO: Bone [DEF-thigh.R] FINAL TRANSFORM:
-INFO: mat4x4((0.993585, -0.078592, 0.099540, 0.000000), (0.116868, 0.931268, -0.429869, 0.000000), (-0.072922, 0.438457, 0.929972, 0.000000), (-0.134025, -0.814477, 0.531621, 1.000000))
-INFO: Bone: DEF-thigh.R Scale: vec3(1.001647, 1.032330, 1.030633) Translation: vec3(-0.134025, -0.814477, 0.531621) Skew: vec3(0.000032, -0.013895, 0.000135)
-INFO: Decomposed transform for DEF-thigh.R: Translation(-0.134025, -0.814477, 0.531621), Scale(1.00165, 1.03233, 1.03063)
-INFO: Bone [DEF-thigh.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.993239, -0.075078, 0.105307, 0.000000), (0.116249, 0.931770, -0.430051, 0.000000), (-0.079827, 0.439082, 0.929644, 0.000000), (-0.129532, -0.747386, 0.504010, 1.000000))
-INFO: Bone: DEF-thigh.R.001 Scale: vec3(1.001624, 1.032789, 1.031115) Translation: vec3(-0.129532, -0.747386, 0.504010) Skew: vec3(0.000050, -0.013898, 0.000213)
-INFO: Decomposed transform for DEF-thigh.R.001: Translation(-0.129532, -0.747386, 0.50401), Scale(1.00162, 1.03279, 1.03111)
-INFO: Bone [DEF-shin.R] FINAL TRANSFORM:
-INFO: mat4x4((1.001017, 0.054702, -0.019182, 0.000000), (-0.057725, 1.018184, -0.188572, 0.000000), (-0.010179, 0.188231, 1.017216, 0.000000), (-0.034785, -0.721151, 0.347100, 1.000000))
-INFO: Bone: DEF-shin.R Scale: vec3(1.002694, 1.037106, 1.034354) Translation: vec3(-0.034785, -0.721151, 0.347100) Skew: vec3(0.000422, -0.018710, 0.001472)
-INFO: Decomposed transform for DEF-shin.R: Translation(-0.0347848, -0.721151, 0.3471), Scale(1.00269, 1.03711, 1.03435)
-INFO: Bone [DEF-shin.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.874935, -0.047961, -0.500241, 0.000000), (-0.057527, 1.014749, -0.199029, 0.000000), (0.481004, 0.201118, 0.884751, 0.000000), (-0.011626, -0.742413, 0.276706, 1.000000))
-INFO: Bone: DEF-shin.R.001 Scale: vec3(1.008986, 1.035682, 1.026464) Translation: vec3(-0.011626, -0.742413, 0.276706) Skew: vec3(0.000320, -0.030305, 0.000537)
-INFO: Decomposed transform for DEF-shin.R.001: Translation(-0.011626, -0.742413, 0.276706), Scale(1.00899, 1.03568, 1.02646)
-INFO: Bone [DEF-foot.R] FINAL TRANSFORM:
-INFO: mat4x4((0.826555, -0.255788, -0.499300, 0.000000), (0.089459, 0.929829, -0.336041, 0.000000), (0.553824, 0.233355, 0.790048, 0.000000), (-0.010139, -0.758295, 0.259438, 1.000000))
-INFO: Bone: DEF-foot.R Scale: vec3(0.998960, 0.992720, 0.992642) Translation: vec3(-0.010139, -0.758295, 0.259438) Skew: vec3(0.001037, 0.003636, 0.003921)
-INFO: Decomposed transform for DEF-foot.R: Translation(-0.010139, -0.758295, 0.259438), Scale(0.99896, 0.99272, 0.992642)
-INFO: Bone [DEF-toe.R] FINAL TRANSFORM:
-INFO: mat4x4((0.400815, -0.024459, -1.048994, -0.000000), (-0.151449, 1.091164, -0.211275, 0.000000), (1.084960, 0.086845, 0.289500, 0.000000), (-0.023454, -0.752667, 0.244551, 1.000000))
-INFO: Bone: DEF-toe.R Scale: vec3(1.123227, 1.115316, 1.112885) Translation: vec3(-0.023454, -0.752667, 0.244551) Skew: vec3(-0.116377, 0.103247, 0.107151)
-INFO: Decomposed transform for DEF-toe.R: Translation(-0.023454, -0.752667, 0.244551), Scale(1.12323, 1.11532, 1.11288)
-INFO: DEBUG: Max Vertex Attributes: 32
-INFO: Drawing mesh with VAO: 1
-INFO: DEBUG: Depth testing and blending enabled.
-INFO: DEBUG: After Storing Bone DEF-breast.L
-INFO: DEBUG: After Storing Bone DEF-breast.R
-INFO: DEBUG: After Storing Bone DEF-brow.B.L
-INFO: DEBUG: After Storing Bone DEF-brow.B.L.001
-INFO: DEBUG: After Storing Bone DEF-brow.B.L.002
-INFO: DEBUG: After Storing Bone DEF-brow.B.L.003
-INFO: DEBUG: After Storing Bone DEF-brow.B.R
-INFO: DEBUG: After Storing Bone DEF-brow.B.R.001
-INFO: DEBUG: After Storing Bone DEF-brow.B.R.002
-INFO: DEBUG: After Storing Bone DEF-brow.B.R.003
-INFO: DEBUG: After Storing Bone DEF-brow.T.L
-INFO: DEBUG: After Storing Bone DEF-brow.T.L.001
-INFO: DEBUG: After Storing Bone DEF-brow.T.L.002
-INFO: DEBUG: After Storing Bone DEF-brow.T.L.003
-INFO: DEBUG: After Storing Bone DEF-brow.T.R
-INFO: DEBUG: After Storing Bone DEF-brow.T.R.001
-INFO: DEBUG: After Storing Bone DEF-brow.T.R.002
-INFO: DEBUG: After Storing Bone DEF-brow.T.R.003
-INFO: DEBUG: After Storing Bone DEF-cheek.B.L
-INFO: DEBUG: After Storing Bone DEF-cheek.B.L.001
-INFO: DEBUG: After Storing Bone DEF-cheek.B.R
-INFO: DEBUG: After Storing Bone DEF-cheek.B.R.001
-INFO: DEBUG: After Storing Bone DEF-cheek.T.L
-INFO: DEBUG: After Storing Bone DEF-cheek.T.L.001
-INFO: DEBUG: After Storing Bone DEF-cheek.T.R
-INFO: DEBUG: After Storing Bone DEF-cheek.T.R.001
-INFO: DEBUG: After Storing Bone DEF-chin
-INFO: DEBUG: After Storing Bone DEF-chin.001
-INFO: DEBUG: After Storing Bone DEF-chin.L
-INFO: DEBUG: After Storing Bone DEF-chin.R
-INFO: DEBUG: After Storing Bone DEF-ear.L
-INFO: DEBUG: After Storing Bone DEF-ear.L.001
-INFO: DEBUG: After Storing Bone DEF-ear.L.002
-INFO: DEBUG: After Storing Bone DEF-ear.L.003
-INFO: DEBUG: After Storing Bone DEF-ear.L.004
-INFO: DEBUG: After Storing Bone DEF-ear.R
-INFO: DEBUG: After Storing Bone DEF-ear.R.001
-INFO: DEBUG: After Storing Bone DEF-ear.R.002
-INFO: DEBUG: After Storing Bone DEF-ear.R.003
-INFO: DEBUG: After Storing Bone DEF-ear.R.004
-INFO: DEBUG: After Storing Bone DEF-f_index.01.L
-INFO: DEBUG: After Storing Bone DEF-f_index.01.R
-INFO: DEBUG: After Storing Bone DEF-f_index.02.L
-INFO: DEBUG: After Storing Bone DEF-f_index.02.R
-INFO: DEBUG: After Storing Bone DEF-f_index.03.L
-INFO: DEBUG: After Storing Bone DEF-f_index.03.R
-INFO: DEBUG: After Storing Bone DEF-f_middle.01.L
-INFO: DEBUG: After Storing Bone DEF-f_middle.01.R
-INFO: DEBUG: After Storing Bone DEF-f_middle.02.L
-INFO: DEBUG: After Storing Bone DEF-f_middle.02.R
-INFO: DEBUG: After Storing Bone DEF-f_middle.03.L
-INFO: DEBUG: After Storing Bone DEF-f_middle.03.R
-INFO: DEBUG: After Storing Bone DEF-f_pinky.01.L
-INFO: DEBUG: After Storing Bone DEF-f_pinky.01.R
-INFO: DEBUG: After Storing Bone DEF-f_pinky.02.L
-INFO: DEBUG: After Storing Bone DEF-f_pinky.02.R
-INFO: DEBUG: After Storing Bone DEF-f_pinky.03.L
-INFO: DEBUG: After Storing Bone DEF-f_pinky.03.R
-INFO: DEBUG: After Storing Bone DEF-f_ring.01.L
-INFO: DEBUG: After Storing Bone DEF-f_ring.01.R
-INFO: DEBUG: After Storing Bone DEF-f_ring.02.L
-INFO: DEBUG: After Storing Bone DEF-f_ring.02.R
-INFO: DEBUG: After Storing Bone DEF-f_ring.03.L
-INFO: DEBUG: After Storing Bone DEF-f_ring.03.R
-INFO: DEBUG: After Storing Bone DEF-foot.L
-INFO: DEBUG: After Storing Bone DEF-foot.R
-INFO: DEBUG: After Storing Bone DEF-forearm.L
-INFO: DEBUG: After Storing Bone DEF-forearm.L.001
-INFO: DEBUG: After Storing Bone DEF-forearm.R
-INFO: DEBUG: After Storing Bone DEF-forearm.R.001
-INFO: DEBUG: After Storing Bone DEF-forehead.L
-INFO: DEBUG: After Storing Bone DEF-forehead.L.001
-INFO: DEBUG: After Storing Bone DEF-forehead.L.002
-INFO: DEBUG: After Storing Bone DEF-forehead.R
-INFO: DEBUG: After Storing Bone DEF-forehead.R.001
-INFO: DEBUG: After Storing Bone DEF-forehead.R.002
-INFO: DEBUG: After Storing Bone DEF-hand.L
-INFO: DEBUG: After Storing Bone DEF-hand.R
-INFO: DEBUG: After Storing Bone DEF-jaw
-INFO: DEBUG: After Storing Bone DEF-jaw.L
-INFO: DEBUG: After Storing Bone DEF-jaw.L.001
-INFO: DEBUG: After Storing Bone DEF-jaw.R
-INFO: DEBUG: After Storing Bone DEF-jaw.R.001
-INFO: DEBUG: After Storing Bone DEF-lid.B.L
-INFO: DEBUG: After Storing Bone DEF-lid.B.L.001
-INFO: DEBUG: After Storing Bone DEF-lid.B.L.002
-INFO: DEBUG: After Storing Bone DEF-lid.B.L.003
-INFO: DEBUG: After Storing Bone DEF-lid.B.R
-INFO: DEBUG: After Storing Bone DEF-lid.B.R.001
-INFO: DEBUG: After Storing Bone DEF-lid.B.R.002
-INFO: DEBUG: After Storing Bone DEF-lid.B.R.003
-INFO: DEBUG: After Storing Bone DEF-lid.T.L
-INFO: DEBUG: After Storing Bone DEF-lid.T.L.001
-INFO: DEBUG: After Storing Bone DEF-lid.T.L.002
-INFO: DEBUG: After Storing Bone DEF-lid.T.L.003
-INFO: DEBUG: After Storing Bone DEF-lid.T.R
-INFO: DEBUG: After Storing Bone DEF-lid.T.R.001
-INFO: DEBUG: After Storing Bone DEF-lid.T.R.002
-INFO: DEBUG: After Storing Bone DEF-lid.T.R.003
-INFO: DEBUG: After Storing Bone DEF-lip.B.L
-INFO: DEBUG: After Storing Bone DEF-lip.B.L.001
-INFO: DEBUG: After Storing Bone DEF-lip.B.R
-INFO: DEBUG: After Storing Bone DEF-lip.B.R.001
-INFO: DEBUG: After Storing Bone DEF-lip.T.L
-INFO: DEBUG: After Storing Bone DEF-lip.T.L.001
-INFO: DEBUG: After Storing Bone DEF-lip.T.R
-INFO: DEBUG: After Storing Bone DEF-lip.T.R.001
-INFO: DEBUG: After Storing Bone DEF-nose
-INFO: DEBUG: After Storing Bone DEF-nose.001
-INFO: DEBUG: After Storing Bone DEF-nose.002
-INFO: DEBUG: After Storing Bone DEF-nose.003
-INFO: DEBUG: After Storing Bone DEF-nose.004
-INFO: DEBUG: After Storing Bone DEF-nose.L
-INFO: DEBUG: After Storing Bone DEF-nose.L.001
-INFO: DEBUG: After Storing Bone DEF-nose.R
-INFO: DEBUG: After Storing Bone DEF-nose.R.001
-INFO: DEBUG: After Storing Bone DEF-palm.01.L
-INFO: DEBUG: After Storing Bone DEF-palm.01.R
-INFO: DEBUG: After Storing Bone DEF-palm.02.L
-INFO: DEBUG: After Storing Bone DEF-palm.02.R
-INFO: DEBUG: After Storing Bone DEF-palm.03.L
-INFO: DEBUG: After Storing Bone DEF-palm.03.R
-INFO: DEBUG: After Storing Bone DEF-palm.04.L
-INFO: DEBUG: After Storing Bone DEF-palm.04.R
-INFO: DEBUG: After Storing Bone DEF-pelvis.L
-INFO: DEBUG: After Storing Bone DEF-pelvis.R
-INFO: DEBUG: After Storing Bone DEF-shin.L
-INFO: DEBUG: After Storing Bone DEF-shin.L.001
-INFO: DEBUG: After Storing Bone DEF-shin.R
-INFO: DEBUG: After Storing Bone DEF-shin.R.001
-INFO: DEBUG: After Storing Bone DEF-shoulder.L
-INFO: DEBUG: After Storing Bone DEF-shoulder.R
-INFO: DEBUG: After Storing Bone DEF-spine
-INFO: DEBUG: After Storing Bone DEF-spine.001
-INFO: DEBUG: After Storing Bone DEF-spine.002
-INFO: DEBUG: After Storing Bone DEF-spine.003
-INFO: DEBUG: After Storing Bone DEF-spine.004
-INFO: DEBUG: After Storing Bone DEF-spine.005
-INFO: DEBUG: After Storing Bone DEF-spine.006
-INFO: DEBUG: After Storing Bone DEF-temple.L
-INFO: DEBUG: After Storing Bone DEF-temple.R
-INFO: DEBUG: After Storing Bone DEF-thigh.L
-INFO: DEBUG: After Storing Bone DEF-thigh.L.001
-INFO: DEBUG: After Storing Bone DEF-thigh.R
-INFO: DEBUG: After Storing Bone DEF-thigh.R.001
-INFO: DEBUG: After Storing Bone DEF-thumb.01.L
-INFO: DEBUG: After Storing Bone DEF-thumb.01.R
-INFO: DEBUG: After Storing Bone DEF-thumb.02.L
-INFO: DEBUG: After Storing Bone DEF-thumb.02.R
-INFO: DEBUG: After Storing Bone DEF-thumb.03.L
-INFO: DEBUG: After Storing Bone DEF-thumb.03.R
-INFO: DEBUG: After Storing Bone DEF-toe.L
-INFO: DEBUG: After Storing Bone DEF-toe.R
-INFO: DEBUG: After Storing Bone DEF-tongue
-INFO: DEBUG: After Storing Bone DEF-tongue.001
-INFO: DEBUG: After Storing Bone DEF-tongue.002
-INFO: DEBUG: After Storing Bone DEF-upper_arm.L
-INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
-INFO: DEBUG: After Storing Bone DEF-upper_arm.R
-INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
-INFO: DEBUG: After Storing Bone ORG-palm.01.L
-INFO: DEBUG: After Storing Bone ORG-palm.01.R
-INFO: DEBUG: After Storing Bone ORG-palm.02.L
-INFO: DEBUG: After Storing Bone ORG-palm.02.R
-INFO: DEBUG: After Storing Bone ORG-palm.03.L
-INFO: DEBUG: After Storing Bone ORG-palm.03.R
-INFO: DEBUG: After Storing Bone ORG-palm.04.L
-INFO: DEBUG: After Storing Bone ORG-palm.04.R
-INFO: DEBUG: After Storing Bone root
-INFO: DEBUG: Max Vertex Attributes: 32
-INFO: Bone [DEF-spine.001] FINAL TRANSFORM:
-INFO: mat4x4((0.999090, 0.041881, 0.008131, 0.000000), (-0.039276, 0.977337, -0.208012, 0.000000), (-0.016658, 0.207503, 0.978093, 0.000000), (0.040861, -0.877242, 0.290923, 1.000000))
-INFO: Bone: DEF-spine.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.040861, -0.877242, 0.290923) Skew: vec3(0.000000, 0.000000, 0.000000)
-INFO: Decomposed transform for DEF-spine.001: Translation(0.0408613, -0.877242, 0.290923), Scale(1, 1, 1)
-INFO: Bone [DEF-spine.002] FINAL TRANSFORM:
-INFO: mat4x4((0.985501, 0.104127, -0.133963, 0.000000), (-0.121320, 0.984414, -0.127320, 0.000000), (0.118618, 0.141726, 0.982773, 0.000000), (0.148193, -0.889105, 0.191993, 1.000000))
-INFO: Bone: DEF-spine.002 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.148193, -0.889105, 0.191993) Skew: vec3(0.000000, 0.000000, -0.000000)
-INFO: Decomposed transform for DEF-spine.002: Translation(0.148193, -0.889105, 0.191993), Scale(1, 1, 1)
-INFO: Bone [DEF-spine.003] FINAL TRANSFORM:
-INFO: mat4x4((0.951590, 0.051415, -0.303041, 0.000000), (-0.040400, 0.998279, 0.042510, 0.000000), (0.304705, -0.028209, 0.952029, 0.000000), (0.045680, -0.916881, -0.044469, 1.000000))
-INFO: Bone: DEF-spine.003 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.045680, -0.916881, -0.044469) Skew: vec3(0.000000, 0.000000, -0.000000)
-INFO: Decomposed transform for DEF-spine.003: Translation(0.0456804, -0.916881, -0.0444691), Scale(1, 1, 1)
-INFO: Bone [DEF-spine.004] FINAL TRANSFORM:
-INFO: mat4x4((0.762984, -0.004985, -0.653827, 0.000000), (-0.067039, 0.995315, -0.081107, 0.000000), (0.650257, 0.103212, 0.759316, 0.000000), (0.106584, -0.904878, 0.137333, 1.000000))
-INFO: Bone: DEF-spine.004 Scale: vec3(1.004818, 1.000857, 1.005008) Translation: vec3(0.106584, -0.904878, 0.137333) Skew: vec3(-0.002439, -0.000832, -0.003064)
-INFO: Decomposed transform for DEF-spine.004: Translation(0.106584, -0.904878, 0.137333), Scale(1.00482, 1.00086, 1.00501)
-INFO: Bone [DEF-spine.005] FINAL TRANSFORM:
-INFO: mat4x4((0.529014, 0.064189, -0.862113, 0.000000), (-0.138805, 0.992352, -0.003644, 0.000000), (0.853315, 0.113690, 0.534403, 0.000000), (0.227731, -0.909501, 0.002731, 1.000000))
-INFO: Bone: DEF-spine.005 Scale: vec3(1.013516, 1.001999, 1.013211) Translation: vec3(0.227731, -0.909501, 0.002731) Skew: vec3(-0.007470, -0.001950, -0.006489)
-INFO: Decomposed transform for DEF-spine.005: Translation(0.227731, -0.909501, 0.00273121), Scale(1.01352, 1.002, 1.01321)
-INFO: Bone [DEF-spine.006] FINAL TRANSFORM:
-INFO: mat4x4((0.723958, -0.051904, -0.693284, 0.000000), (-0.150446, 0.961309, -0.233012, 0.000000), (0.678750, 0.272461, 0.688101, 0.000000), (0.245792, -0.871857, 0.388112, 1.000000))
-INFO: Bone: DEF-spine.006 Scale: vec3(1.003719, 1.000518, 1.004201) Translation: vec3(0.245792, -0.871857, 0.388112) Skew: vec3(-0.000530, 0.000195, 0.002720)
-INFO: Decomposed transform for DEF-spine.006: Translation(0.245792, -0.871857, 0.388112), Scale(1.00372, 1.00052, 1.0042)
-INFO: Bone [DEF-shoulder.L] FINAL TRANSFORM:
-INFO: mat4x4((0.721126, -0.103655, -0.736642, 0.000000), (-0.085974, 1.049278, -0.115022, 0.000000), (0.758708, 0.124201, 0.766564, 0.000000), (0.134783, -0.985607, 0.199725, 1.000000))
-INFO: Bone: DEF-shoulder.L Scale: vec3(1.036055, 1.055798, 1.085006) Translation: vec3(0.134783, -0.985607, 0.199725) Skew: vec3(-0.022277, -0.027073, -0.078649)
-INFO: Decomposed transform for DEF-shoulder.L: Translation(0.134783, -0.985607, 0.199725), Scale(1.03605, 1.0558, 1.08501)
-INFO: Bone [DEF-upper_arm.L] FINAL TRANSFORM:
-INFO: mat4x4((0.852695, -0.516844, 0.135681, 0.000000), (0.532371, 0.843591, -0.131476, 0.000000), (-0.045470, 0.184072, 0.982038, 0.000000), (-0.815592, -0.576349, 0.143331, 1.000000))
-INFO: Bone: DEF-upper_arm.L Scale: vec3(1.006293, 1.006156, 1.000172) Translation: vec3(-0.815592, -0.576349, 0.143331) Skew: vec3(0.001947, -0.000661, 0.000104)
-INFO: Decomposed transform for DEF-upper_arm.L: Translation(-0.815592, -0.576349, 0.143331), Scale(1.00629, 1.00616, 1.00017)
-INFO: Bone [DEF-upper_arm.L.001] FINAL TRANSFORM:
-INFO: mat4x4((0.834499, -0.554931, 0.155725, 0.000000), (0.412677, 0.765657, 0.521030, 0.000000), (-0.396786, -0.366262, 0.842496, 0.000000), (-0.657562, -0.475779, -0.840250, 1.000000))
-INFO: Bone: DEF-upper_arm.L.001 Scale: vec3(1.014193, 1.013906, 1.000674) Translation: vec3(-0.657562, -0.475779, -0.840250) Skew: vec3(-0.005137, 0.003282, 0.000611)
-INFO: Decomposed transform for DEF-upper_arm.L.001: Translation(-0.657562, -0.475779, -0.84025), Scale(1.01419, 1.01391, 1.00067)
-INFO: Bone [DEF-forearm.L] FINAL TRANSFORM:
-INFO: mat4x4((-0.284261, 0.959558, 0.003735, 0.000000), (-0.164377, -0.050009, -0.997989, 0.000000), (-0.958091, -0.280558, 0.171107, 0.000000), (0.636760, 0.114169, 1.435393, 1.000000))
-INFO: Bone: DEF-forearm.L Scale: vec3(1.000785, 1.012659, 1.012874) Translation: vec3(0.636760, 0.114169, 1.435393) Skew: vec3(0.000755, 0.003724, -0.004922)
-INFO: Decomposed transform for DEF-forearm.L: Translation(0.63676, 0.114169, 1.43539), Scale(1.00078, 1.01266, 1.01287)
-INFO: Bone [DEF-forearm.L.001] FINAL TRANSFORM:
-INFO: mat4x4((-0.333829, 0.943444, -0.059757, 0.000000), (0.333800, 0.034812, -0.998299, 0.000000), (-0.941883, -0.339540, -0.329205, 0.000000), (-0.069813, -0.015968, 1.425240, 1.000000))
-INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.002546, 1.053033, 1.053856) Translation: vec3(-0.069813, -0.015968, 1.425240) Skew: vec3(0.002419, 0.013026, -0.017935)
-INFO: Decomposed transform for DEF-forearm.L.001: Translation(-0.0698128, -0.0159678, 1.42524), Scale(1.00255, 1.05303, 1.05386)
-INFO: Bone [DEF-hand.L] FINAL TRANSFORM:
-INFO: mat4x4((0.163503, 0.967307, -0.194875, 0.000000), (0.694322, -0.256540, -0.711793, 0.000000), (-0.738210, -0.016782, -0.713813, 0.000000), (-0.907121, 0.417813, 1.063033, 1.000000))
-INFO: Bone: DEF-hand.L Scale: vec3(1.000196, 1.026902, 1.027015) Translation: vec3(-0.907121, 0.417813, 1.063033) Skew: vec3(-0.000163, 0.002114, 0.003974)
-INFO: Decomposed transform for DEF-hand.L: Translation(-0.907121, 0.417813, 1.06303), Scale(1.0002, 1.0269, 1.02702)
-INFO: Bone [DEF-shoulder.R] FINAL TRANSFORM:
-INFO: mat4x4((0.807744, 0.005758, -0.527425, 0.000000), (-0.130084, 0.961059, -0.092924, 0.000000), (0.529409, 0.122771, 0.775828, 0.000000), (0.201283, -0.852763, 0.167977, 1.000000))
-INFO: Bone: DEF-shoulder.R Scale: vec3(0.964708, 0.972855, 0.946760) Translation: vec3(0.201283, -0.852763, 0.167977) Skew: vec3(-0.023811, 0.020958, -0.053840)
-INFO: Decomposed transform for DEF-shoulder.R: Translation(0.201283, -0.852763, 0.167977), Scale(0.964708, 0.972855, 0.94676)
-INFO: Bone [DEF-upper_arm.R] FINAL TRANSFORM:
-INFO: mat4x4((0.207602, 0.991893, -0.648785, 0.000000), (-0.207396, 0.676487, 0.906547, 0.000000), (1.062874, -0.102046, 0.091682, 0.000000), (0.214549, -0.274819, -1.453425, 1.000000))
-INFO: Bone: DEF-upper_arm.R Scale: vec3(1.203276, 1.149514, 1.055128) Translation: vec3(0.214549, -0.274819, -1.453425) Skew: vec3(-0.171494, 0.047223, 0.028769)
-INFO: Decomposed transform for DEF-upper_arm.R: Translation(0.214549, -0.274819, -1.45343), Scale(1.20328, 1.14951, 1.05513)
-INFO: Bone [DEF-upper_arm.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.326954, 0.839670, -0.565329, 0.000000), (0.584886, 0.295287, 0.784486, 0.000000), (0.754660, -0.582211, -0.422830, 0.000000), (-0.957889, 0.263818, -1.287408, 1.000000))
-INFO: Bone: DEF-upper_arm.R.001 Scale: vec3(1.063740, 1.022100, 1.040937) Translation: vec3(-0.957889, 0.263818, -1.287408) Skew: vec3(-0.058504, -0.002788, -0.003972)
-INFO: Decomposed transform for DEF-upper_arm.R.001: Translation(-0.957889, 0.263818, -1.28741), Scale(1.06374, 1.0221, 1.04094)
-INFO: Bone [DEF-forearm.R] FINAL TRANSFORM:
-INFO: mat4x4((-0.280749, -0.955305, -0.078835, 0.000000), (-0.387296, 0.197960, -0.864323, 0.000000), (0.841170, -0.212772, -0.425509, 0.000000), (0.238266, -0.317530, 1.384847, 1.000000))
-INFO: Bone: DEF-forearm.R Scale: vec3(0.998821, 0.967518, 0.966383) Translation: vec3(0.238266, -0.317530, 1.384847) Skew: vec3(-0.000125, 0.000672, -0.012666)
-INFO: Decomposed transform for DEF-forearm.R: Translation(0.238266, -0.31753, 1.38485), Scale(0.998821, 0.967518, 0.966383)
-INFO: Bone [DEF-forearm.R.001] FINAL TRANSFORM:
-INFO: mat4x4((-0.356082, -0.933377, -0.066692, 0.000000), (-0.972429, 0.358392, -0.011203, 0.000000), (0.033415, 0.056006, -1.035243, 0.000000), (1.024194, -0.508165, 0.081344, 1.000000))
-INFO: Bone: DEF-forearm.R.001 Scale: vec3(1.001217, 1.036355, 1.037283) Translation: vec3(1.024194, -0.508165, 0.081344) Skew: vec3(-0.000823, 0.004689, 0.012044)
-INFO: Decomposed transform for DEF-forearm.R.001: Translation(1.02419, -0.508165, 0.0813443), Scale(1.00122, 1.03636, 1.03728)
-INFO: Bone [DEF-hand.R] FINAL TRANSFORM:
-INFO: mat4x4((0.265770, -0.845197, 0.473913, 0.000000), (-0.696862, 0.225432, 0.800402, 0.000000), (-0.787052, -0.504249, -0.542152, 0.000000), (0.985450, -0.274498, -0.714466, 1.000000))
-INFO: Bone: DEF-hand.R Scale: vec3(1.004781, 1.084927, 1.079846) Translation: vec3(0.985450, -0.274498, -0.714466) Skew: vec3(0.000849, -0.036790, 0.003286)
-INFO: Decomposed transform for DEF-hand.R: Translation(0.98545, -0.274498, -0.714466), Scale(1.00478, 1.08493, 1.07985)
-INFO: Bone [DEF-breast.L] FINAL TRANSFORM:
-INFO: mat4x4((0.736843, -0.024862, -0.639999, 0.000000), (-0.091384, 0.971529, -0.131392, 0.000000), (0.633929, 0.182964, 0.736629, 0.000000), (0.156155, -0.836628, 0.213878, 1.000000))
-INFO: Bone: DEF-breast.L Scale: vec3(0.976296, 0.984595, 0.988603) Translation: vec3(0.156155, -0.836628, 0.213878) Skew: vec3(0.023595, -0.009205, -0.007697)
-INFO: Decomposed transform for DEF-breast.L: Translation(0.156155, -0.836628, 0.213878), Scale(0.976296, 0.984595, 0.988603)
-INFO: Bone [DEF-breast.R] FINAL TRANSFORM:
-INFO: mat4x4((0.736843, -0.024862, -0.639999, 0.000000), (-0.091385, 0.971529, -0.131393, 0.000000), (0.633929, 0.182964, 0.736629, 0.000000), (0.125233, -0.836893, 0.216165, 1.000000))
-INFO: Bone: DEF-breast.R Scale: vec3(0.976296, 0.984595, 0.988603) Translation: vec3(0.125233, -0.836893, 0.216165) Skew: vec3(0.023595, -0.009205, -0.007697)
-INFO: Decomposed transform for DEF-breast.R: Translation(0.125233, -0.836893, 0.216165), Scale(0.976296, 0.984595, 0.988603)
-INFO: Bone [DEF-pelvis.L] FINAL TRANSFORM:
-INFO: mat4x4((0.999920, -0.005672, 0.011344, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010207, 0.171058, 0.985208, 0.000000), (-0.010782, -0.888171, 0.250188, 1.000000))
-INFO: Bone: DEF-pelvis.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250188) Skew: vec3(-0.000000, -0.000000, -0.000000)
-INFO: Decomposed transform for DEF-pelvis.L: Translation(-0.0107822, -0.888171, 0.250188), Scale(1, 1, 1)
-INFO: Bone [DEF-thigh.L] FINAL TRANSFORM:
-INFO: mat4x4((0.848020, 0.449032, -0.282579, 0.000000), (-0.527172, 0.780759, -0.350122, 0.000000), (0.063753, 0.445963, 0.898737, 0.000000), (0.581890, -0.682593, 0.459207, 1.000000))
-INFO: Bone: DEF-thigh.L Scale: vec3(1.000309, 1.005025, 1.005323) Translation: vec3(0.581890, -0.682593, 0.459207) Skew: vec3(-0.000086, 0.000349, 0.002457)
-INFO: Decomposed transform for DEF-thigh.L: Translation(0.58189, -0.682593, 0.459207), Scale(1.00031, 1.00502, 1.00532)
-INFO: Bone [DEF-thigh.L.001] FINAL TRANSFORM:
-INFO: mat4x4((0.829720, 0.552661, -0.078264, 0.000000), (-0.542922, 0.766496, -0.343045, 0.000000), (-0.129604, 0.327121, 0.936030, 0.000000), (0.565414, -0.647813, 0.422386, 1.000000))
-INFO: Bone: DEF-thigh.L.001 Scale: vec3(0.999998, 0.999980, 0.999978) Translation: vec3(0.565414, -0.647813, 0.422386) Skew: vec3(0.000002, -0.000006, -0.000012)
-INFO: Decomposed transform for DEF-thigh.L.001: Translation(0.565414, -0.647813, 0.422386), Scale(0.999998, 0.99998, 0.999978)
-INFO: Bone [DEF-shin.L] FINAL TRANSFORM:
-INFO: mat4x4((0.992349, -0.045974, 0.126009, 0.000000), (0.047344, 1.033058, -0.001202, 0.000000), (-0.116371, 0.006657, 1.026221, -0.000000), (0.239332, -0.706778, 0.222891, 1.000000))
-INFO: Bone: DEF-shin.L Scale: vec3(1.001374, 1.034143, 1.032731) Translation: vec3(0.239332, -0.706778, 0.222891) Skew: vec3(0.000134, 0.013080, -0.000641)
-INFO: Decomposed transform for DEF-shin.L: Translation(0.239332, -0.706778, 0.222891), Scale(1.00137, 1.03414, 1.03273)
-INFO: Bone [DEF-shin.L.001] FINAL TRANSFORM:
-INFO: mat4x4((0.977656, -0.044190, -0.205712, 0.000000), (0.045059, 1.029109, -0.005697, 0.000000), (0.214095, -0.003787, 1.007570, -0.000000), (0.237475, -0.721845, 0.229184, 1.000000))
-INFO: Bone: DEF-shin.L.001 Scale: vec3(1.000041, 1.030110, 1.030070) Translation: vec3(0.237475, -0.721845, 0.229184) Skew: vec3(0.000009, 0.002144, -0.000245)
-INFO: Decomposed transform for DEF-shin.L.001: Translation(0.237475, -0.721845, 0.229184), Scale(1.00004, 1.03011, 1.03007)
-INFO: Bone [DEF-foot.L] FINAL TRANSFORM:
-INFO: mat4x4((0.817860, -0.148686, -0.573508, 0.000000), (-0.009364, 1.007176, -0.234721, 0.000000), (0.585366, 0.189063, 0.830077, 0.000000), (0.258251, -0.717796, 0.241708, 1.000000))
-INFO: Bone: DEF-foot.L Scale: vec3(1.009908, 1.033961, 1.032806) Translation: vec3(0.258251, -0.717796, 0.241708) Skew: vec3(-0.009801, -0.024371, -0.021832)
-INFO: Decomposed transform for DEF-foot.L: Translation(0.258251, -0.717796, 0.241708), Scale(1.00991, 1.03396, 1.03281)
-INFO: Bone [DEF-toe.L] FINAL TRANSFORM:
-INFO: mat4x4((0.879399, -0.073844, -0.429335, 0.000000), (-0.041871, 0.957202, -0.236772, 0.000000), (0.431008, 0.249602, 0.857859, 0.000000), (0.246914, -0.709489, 0.226910, 1.000000))
-INFO: Bone: DEF-toe.L Scale: vec3(0.981389, 0.986922, 0.991770) Translation: vec3(0.246914, -0.709489, 0.226910) Skew: vec3(0.018092, -0.007925, -0.006041)
-INFO: Decomposed transform for DEF-toe.L: Translation(0.246914, -0.709489, 0.22691), Scale(0.981389, 0.986922, 0.99177)
-INFO: Bone [DEF-pelvis.R] FINAL TRANSFORM:
-INFO: mat4x4((0.999920, -0.005672, 0.011343, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010206, 0.171058, 0.985209, 0.000000), (-0.010782, -0.888171, 0.250189, 1.000000))
-INFO: Bone: DEF-pelvis.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250189) Skew: vec3(-0.000000, -0.000000, 0.000000)
-INFO: Decomposed transform for DEF-pelvis.R: Translation(-0.0107822, -0.888171, 0.250189), Scale(1, 1, 1)
-INFO: Bone [DEF-thigh.R] FINAL TRANSFORM:
-INFO: mat4x4((0.993585, -0.078592, 0.099540, 0.000000), (0.116868, 0.931268, -0.429869, 0.000000), (-0.072922, 0.438457, 0.929972, 0.000000), (-0.134025, -0.814477, 0.531621, 1.000000))
-INFO: Bone: DEF-thigh.R Scale: vec3(1.001647, 1.032330, 1.030633) Translation: vec3(-0.134025, -0.814477, 0.531621) Skew: vec3(0.000032, -0.013894, 0.000135)
-INFO: Decomposed transform for DEF-thigh.R: Translation(-0.134025, -0.814477, 0.531621), Scale(1.00165, 1.03233, 1.03063)
-INFO: Bone [DEF-thigh.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.993239, -0.075078, 0.105307, 0.000000), (0.116249, 0.931769, -0.430051, 0.000000), (-0.079827, 0.439082, 0.929644, 0.000000), (-0.129532, -0.747385, 0.504010, 1.000000))
-INFO: Bone: DEF-thigh.R.001 Scale: vec3(1.001624, 1.032788, 1.031115) Translation: vec3(-0.129532, -0.747385, 0.504010) Skew: vec3(0.000050, -0.013898, 0.000213)
-INFO: Decomposed transform for DEF-thigh.R.001: Translation(-0.129532, -0.747385, 0.50401), Scale(1.00162, 1.03279, 1.03111)
-INFO: Bone [DEF-shin.R] FINAL TRANSFORM:
-INFO: mat4x4((1.001017, 0.054702, -0.019181, 0.000000), (-0.057725, 1.018184, -0.188572, 0.000000), (-0.010179, 0.188231, 1.017216, 0.000000), (-0.034785, -0.721151, 0.347100, 1.000000))
-INFO: Bone: DEF-shin.R Scale: vec3(1.002694, 1.037106, 1.034354) Translation: vec3(-0.034785, -0.721151, 0.347100) Skew: vec3(0.000422, -0.018710, 0.001472)
-INFO: Decomposed transform for DEF-shin.R: Translation(-0.0347848, -0.721151, 0.3471), Scale(1.00269, 1.03711, 1.03435)
-INFO: Bone [DEF-shin.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.874935, -0.047961, -0.500241, 0.000000), (-0.057527, 1.014749, -0.199029, 0.000000), (0.481004, 0.201118, 0.884751, 0.000000), (-0.011626, -0.742413, 0.276706, 1.000000))
-INFO: Bone: DEF-shin.R.001 Scale: vec3(1.008985, 1.035682, 1.026464) Translation: vec3(-0.011626, -0.742413, 0.276706) Skew: vec3(0.000320, -0.030305, 0.000537)
-INFO: Decomposed transform for DEF-shin.R.001: Translation(-0.011626, -0.742413, 0.276706), Scale(1.00899, 1.03568, 1.02646)
-INFO: Bone [DEF-foot.R] FINAL TRANSFORM:
-INFO: mat4x4((0.826555, -0.255788, -0.499300, 0.000000), (0.089459, 0.929829, -0.336041, 0.000000), (0.553824, 0.233355, 0.790048, 0.000000), (-0.010139, -0.758294, 0.259438, 1.000000))
-INFO: Bone: DEF-foot.R Scale: vec3(0.998960, 0.992720, 0.992642) Translation: vec3(-0.010139, -0.758294, 0.259438) Skew: vec3(0.001037, 0.003636, 0.003921)
-INFO: Decomposed transform for DEF-foot.R: Translation(-0.010139, -0.758294, 0.259438), Scale(0.99896, 0.99272, 0.992642)
-INFO: Bone [DEF-toe.R] FINAL TRANSFORM:
-INFO: mat4x4((0.400815, -0.024459, -1.048993, -0.000000), (-0.151449, 1.091164, -0.211275, 0.000000), (1.084960, 0.086845, 0.289500, 0.000000), (-0.023454, -0.752667, 0.244551, 1.000000))
-INFO: Bone: DEF-toe.R Scale: vec3(1.123227, 1.115316, 1.112885) Translation: vec3(-0.023454, -0.752667, 0.244551) Skew: vec3(-0.116377, 0.103247, 0.107151)
-INFO: Decomposed transform for DEF-toe.R: Translation(-0.0234539, -0.752667, 0.244551), Scale(1.12323, 1.11532, 1.11288)
-INFO: DEBUG: Max Vertex Attributes: 32
-INFO: Drawing mesh with VAO: 1
-INFO: DEBUG: Depth testing and blending enabled.
-INFO: DEBUG: After Storing Bone DEF-breast.L
-INFO: DEBUG: After Storing Bone DEF-breast.R
-INFO: DEBUG: After Storing Bone DEF-brow.B.L
-INFO: DEBUG: After Storing Bone DEF-brow.B.L.001
-INFO: DEBUG: After Storing Bone DEF-brow.B.L.002
-INFO: DEBUG: After Storing Bone DEF-brow.B.L.003
-INFO: DEBUG: After Storing Bone DEF-brow.B.R
-INFO: DEBUG: After Storing Bone DEF-brow.B.R.001
-INFO: DEBUG: After Storing Bone DEF-brow.B.R.002
-INFO: DEBUG: After Storing Bone DEF-brow.B.R.003
-INFO: DEBUG: After Storing Bone DEF-brow.T.L
-INFO: DEBUG: After Storing Bone DEF-brow.T.L.001
-INFO: DEBUG: After Storing Bone DEF-brow.T.L.002
-INFO: DEBUG: After Storing Bone DEF-brow.T.L.003
-INFO: DEBUG: After Storing Bone DEF-brow.T.R
-INFO: DEBUG: After Storing Bone DEF-brow.T.R.001
-INFO: DEBUG: After Storing Bone DEF-brow.T.R.002
-INFO: DEBUG: After Storing Bone DEF-brow.T.R.003
-INFO: DEBUG: After Storing Bone DEF-cheek.B.L
-INFO: DEBUG: After Storing Bone DEF-cheek.B.L.001
-INFO: DEBUG: After Storing Bone DEF-cheek.B.R
-INFO: DEBUG: After Storing Bone DEF-cheek.B.R.001
-INFO: DEBUG: After Storing Bone DEF-cheek.T.L
-INFO: DEBUG: After Storing Bone DEF-cheek.T.L.001
-INFO: DEBUG: After Storing Bone DEF-cheek.T.R
-INFO: DEBUG: After Storing Bone DEF-cheek.T.R.001
-INFO: DEBUG: After Storing Bone DEF-chin
-INFO: DEBUG: After Storing Bone DEF-chin.001
-INFO: DEBUG: After Storing Bone DEF-chin.L
-INFO: DEBUG: After Storing Bone DEF-chin.R
-INFO: DEBUG: After Storing Bone DEF-ear.L
-INFO: DEBUG: After Storing Bone DEF-ear.L.001
-INFO: DEBUG: After Storing Bone DEF-ear.L.002
-INFO: DEBUG: After Storing Bone DEF-ear.L.003
-INFO: DEBUG: After Storing Bone DEF-ear.L.004
-INFO: DEBUG: After Storing Bone DEF-ear.R
-INFO: DEBUG: After Storing Bone DEF-ear.R.001
-INFO: DEBUG: After Storing Bone DEF-ear.R.002
-INFO: DEBUG: After Storing Bone DEF-ear.R.003
-INFO: DEBUG: After Storing Bone DEF-ear.R.004
-INFO: DEBUG: After Storing Bone DEF-f_index.01.L
-INFO: DEBUG: After Storing Bone DEF-f_index.01.R
-INFO: DEBUG: After Storing Bone DEF-f_index.02.L
-INFO: DEBUG: After Storing Bone DEF-f_index.02.R
-INFO: DEBUG: After Storing Bone DEF-f_index.03.L
-INFO: DEBUG: After Storing Bone DEF-f_index.03.R
-INFO: DEBUG: After Storing Bone DEF-f_middle.01.L
-INFO: DEBUG: After Storing Bone DEF-f_middle.01.R
-INFO: DEBUG: After Storing Bone DEF-f_middle.02.L
-INFO: DEBUG: After Storing Bone DEF-f_middle.02.R
-INFO: DEBUG: After Storing Bone DEF-f_middle.03.L
-INFO: DEBUG: After Storing Bone DEF-f_middle.03.R
-INFO: DEBUG: After Storing Bone DEF-f_pinky.01.L
-INFO: DEBUG: After Storing Bone DEF-f_pinky.01.R
-INFO: DEBUG: After Storing Bone DEF-f_pinky.02.L
-INFO: DEBUG: After Storing Bone DEF-f_pinky.02.R
-INFO: DEBUG: After Storing Bone DEF-f_pinky.03.L
-INFO: DEBUG: After Storing Bone DEF-f_pinky.03.R
-INFO: DEBUG: After Storing Bone DEF-f_ring.01.L
-INFO: DEBUG: After Storing Bone DEF-f_ring.01.R
-INFO: DEBUG: After Storing Bone DEF-f_ring.02.L
-INFO: DEBUG: After Storing Bone DEF-f_ring.02.R
-INFO: DEBUG: After Storing Bone DEF-f_ring.03.L
-INFO: DEBUG: After Storing Bone DEF-f_ring.03.R
-INFO: DEBUG: After Storing Bone DEF-foot.L
-INFO: DEBUG: After Storing Bone DEF-foot.R
-INFO: DEBUG: After Storing Bone DEF-forearm.L
-INFO: DEBUG: After Storing Bone DEF-forearm.L.001
-INFO: DEBUG: After Storing Bone DEF-forearm.R
-INFO: DEBUG: After Storing Bone DEF-forearm.R.001
-INFO: DEBUG: After Storing Bone DEF-forehead.L
-INFO: DEBUG: After Storing Bone DEF-forehead.L.001
-INFO: DEBUG: After Storing Bone DEF-forehead.L.002
-INFO: DEBUG: After Storing Bone DEF-forehead.R
-INFO: DEBUG: After Storing Bone DEF-forehead.R.001
-INFO: DEBUG: After Storing Bone DEF-forehead.R.002
-INFO: DEBUG: After Storing Bone DEF-hand.L
-INFO: DEBUG: After Storing Bone DEF-hand.R
-INFO: DEBUG: After Storing Bone DEF-jaw
-INFO: DEBUG: After Storing Bone DEF-jaw.L
-INFO: DEBUG: After Storing Bone DEF-jaw.L.001
-INFO: DEBUG: After Storing Bone DEF-jaw.R
-INFO: DEBUG: After Storing Bone DEF-jaw.R.001
-INFO: DEBUG: After Storing Bone DEF-lid.B.L
-INFO: DEBUG: After Storing Bone DEF-lid.B.L.001
-INFO: DEBUG: After Storing Bone DEF-lid.B.L.002
-INFO: DEBUG: After Storing Bone DEF-lid.B.L.003
-INFO: DEBUG: After Storing Bone DEF-lid.B.R
-INFO: DEBUG: After Storing Bone DEF-lid.B.R.001
-INFO: DEBUG: After Storing Bone DEF-lid.B.R.002
-INFO: DEBUG: After Storing Bone DEF-lid.B.R.003
-INFO: DEBUG: After Storing Bone DEF-lid.T.L
-INFO: DEBUG: After Storing Bone DEF-lid.T.L.001
-INFO: DEBUG: After Storing Bone DEF-lid.T.L.002
-INFO: DEBUG: After Storing Bone DEF-lid.T.L.003
-INFO: DEBUG: After Storing Bone DEF-lid.T.R
-INFO: DEBUG: After Storing Bone DEF-lid.T.R.001
-INFO: DEBUG: After Storing Bone DEF-lid.T.R.002
-INFO: DEBUG: After Storing Bone DEF-lid.T.R.003
-INFO: DEBUG: After Storing Bone DEF-lip.B.L
-INFO: DEBUG: After Storing Bone DEF-lip.B.L.001
-INFO: DEBUG: After Storing Bone DEF-lip.B.R
-INFO: DEBUG: After Storing Bone DEF-lip.B.R.001
-INFO: DEBUG: After Storing Bone DEF-lip.T.L
-INFO: DEBUG: After Storing Bone DEF-lip.T.L.001
-INFO: DEBUG: After Storing Bone DEF-lip.T.R
-INFO: DEBUG: After Storing Bone DEF-lip.T.R.001
-INFO: DEBUG: After Storing Bone DEF-nose
-INFO: DEBUG: After Storing Bone DEF-nose.001
-INFO: DEBUG: After Storing Bone DEF-nose.002
-INFO: DEBUG: After Storing Bone DEF-nose.003
-INFO: DEBUG: After Storing Bone DEF-nose.004
-INFO: DEBUG: After Storing Bone DEF-nose.L
-INFO: DEBUG: After Storing Bone DEF-nose.L.001
-INFO: DEBUG: After Storing Bone DEF-nose.R
-INFO: DEBUG: After Storing Bone DEF-nose.R.001
-INFO: DEBUG: After Storing Bone DEF-palm.01.L
-INFO: DEBUG: After Storing Bone DEF-palm.01.R
-INFO: DEBUG: After Storing Bone DEF-palm.02.L
-INFO: DEBUG: After Storing Bone DEF-palm.02.R
-INFO: DEBUG: After Storing Bone DEF-palm.03.L
-INFO: DEBUG: After Storing Bone DEF-palm.03.R
-INFO: DEBUG: After Storing Bone DEF-palm.04.L
-INFO: DEBUG: After Storing Bone DEF-palm.04.R
-INFO: DEBUG: After Storing Bone DEF-pelvis.L
-INFO: DEBUG: After Storing Bone DEF-pelvis.R
-INFO: DEBUG: After Storing Bone DEF-shin.L
-INFO: DEBUG: After Storing Bone DEF-shin.L.001
-INFO: DEBUG: After Storing Bone DEF-shin.R
-INFO: DEBUG: After Storing Bone DEF-shin.R.001
-INFO: DEBUG: After Storing Bone DEF-shoulder.L
-INFO: DEBUG: After Storing Bone DEF-shoulder.R
-INFO: DEBUG: After Storing Bone DEF-spine
-INFO: DEBUG: After Storing Bone DEF-spine.001
-INFO: DEBUG: After Storing Bone DEF-spine.002
-INFO: DEBUG: After Storing Bone DEF-spine.003
-INFO: DEBUG: After Storing Bone DEF-spine.004
-INFO: DEBUG: After Storing Bone DEF-spine.005
-INFO: DEBUG: After Storing Bone DEF-spine.006
-INFO: DEBUG: After Storing Bone DEF-temple.L
-INFO: DEBUG: After Storing Bone DEF-temple.R
-INFO: DEBUG: After Storing Bone DEF-thigh.L
-INFO: DEBUG: After Storing Bone DEF-thigh.L.001
-INFO: DEBUG: After Storing Bone DEF-thigh.R
-INFO: DEBUG: After Storing Bone DEF-thigh.R.001
-INFO: DEBUG: After Storing Bone DEF-thumb.01.L
-INFO: DEBUG: After Storing Bone DEF-thumb.01.R
-INFO: DEBUG: After Storing Bone DEF-thumb.02.L
-INFO: DEBUG: After Storing Bone DEF-thumb.02.R
-INFO: DEBUG: After Storing Bone DEF-thumb.03.L
-INFO: DEBUG: After Storing Bone DEF-thumb.03.R
-INFO: DEBUG: After Storing Bone DEF-toe.L
-INFO: DEBUG: After Storing Bone DEF-toe.R
-INFO: DEBUG: After Storing Bone DEF-tongue
-INFO: DEBUG: After Storing Bone DEF-tongue.001
-INFO: DEBUG: After Storing Bone DEF-tongue.002
-INFO: DEBUG: After Storing Bone DEF-upper_arm.L
-INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
-INFO: DEBUG: After Storing Bone DEF-upper_arm.R
-INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
-INFO: DEBUG: After Storing Bone ORG-palm.01.L
-INFO: DEBUG: After Storing Bone ORG-palm.01.R
-INFO: DEBUG: After Storing Bone ORG-palm.02.L
-INFO: DEBUG: After Storing Bone ORG-palm.02.R
-INFO: DEBUG: After Storing Bone ORG-palm.03.L
-INFO: DEBUG: After Storing Bone ORG-palm.03.R
-INFO: DEBUG: After Storing Bone ORG-palm.04.L
-INFO: DEBUG: After Storing Bone ORG-palm.04.R
-INFO: DEBUG: After Storing Bone root
-INFO: DEBUG: Max Vertex Attributes: 32
-INFO: Bone [DEF-spine.001] FINAL TRANSFORM:
-INFO: mat4x4((0.999090, 0.041881, 0.008131, 0.000000), (-0.039276, 0.977337, -0.208012, 0.000000), (-0.016658, 0.207503, 0.978093, 0.000000), (0.040861, -0.877242, 0.290923, 1.000000))
-INFO: Bone: DEF-spine.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.040861, -0.877242, 0.290923) Skew: vec3(0.000000, 0.000000, 0.000000)
-INFO: Decomposed transform for DEF-spine.001: Translation(0.0408613, -0.877242, 0.290923), Scale(1, 1, 1)
-INFO: Bone [DEF-spine.002] FINAL TRANSFORM:
-INFO: mat4x4((0.985476, 0.104296, -0.134009, 0.000000), (-0.121458, 0.984436, -0.127021, 0.000000), (0.118676, 0.141453, 0.982806, 0.000000), (0.148366, -0.889145, 0.191626, 1.000000))
-INFO: Bone: DEF-spine.002 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.148366, -0.889145, 0.191626) Skew: vec3(0.000000, 0.000000, 0.000000)
-INFO: Decomposed transform for DEF-spine.002: Translation(0.148366, -0.889145, 0.191626), Scale(1, 1, 1)
-INFO: Bone [DEF-spine.003] FINAL TRANSFORM:
-INFO: mat4x4((0.951535, 0.051853, -0.303139, 0.000000), (-0.040667, 0.998243, 0.043100, 0.000000), (0.304841, -0.028684, 0.951971, 0.000000), (0.046035, -0.916851, -0.045244, 1.000000))
-INFO: Bone: DEF-spine.003 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.046035, -0.916851, -0.045244) Skew: vec3(0.000000, 0.000000, 0.000000)
-INFO: Decomposed transform for DEF-spine.003: Translation(0.0460354, -0.916851, -0.0452438), Scale(1, 1, 1)
-INFO: Bone [DEF-spine.004] FINAL TRANSFORM:
-INFO: mat4x4((0.762924, -0.004634, -0.653905, 0.000000), (-0.067285, 0.995322, -0.080838, 0.000000), (0.650307, 0.103162, 0.759283, 0.000000), (0.106901, -0.904892, 0.137060, 1.000000))
-INFO: Bone: DEF-spine.004 Scale: vec3(1.004821, 1.000859, 1.005010) Translation: vec3(0.106901, -0.904892, 0.137060) Skew: vec3(-0.002443, -0.000834, -0.003067)
-INFO: Decomposed transform for DEF-spine.004: Translation(0.106901, -0.904892, 0.13706), Scale(1.00482, 1.00086, 1.00501)
-INFO: Bone [DEF-spine.005] FINAL TRANSFORM:
-INFO: mat4x4((0.528908, 0.064548, -0.862161, 0.000000), (-0.139052, 0.992323, -0.003361, 0.000000), (0.853350, 0.113746, 0.534347, 0.000000), (0.228052, -0.909453, 0.002432, 1.000000))
-INFO: Bone: DEF-spine.005 Scale: vec3(1.013525, 1.002003, 1.013217) Translation: vec3(0.228052, -0.909453, 0.002432) Skew: vec3(-0.007482, -0.001954, -0.006495)
-INFO: Decomposed transform for DEF-spine.005: Translation(0.228052, -0.909453, 0.0024317), Scale(1.01352, 1.002, 1.01322)
-INFO: Bone [DEF-spine.006] FINAL TRANSFORM:
-INFO: mat4x4((0.723955, -0.051956, -0.693309, 0.000000), (-0.150587, 0.961236, -0.233239, 0.000000), (0.678749, 0.272722, 0.688029, 0.000000), (0.245937, -0.871734, 0.388674, 1.000000))
-INFO: Bone: DEF-spine.006 Scale: vec3(1.003736, 1.000522, 1.004221) Translation: vec3(0.245937, -0.871734, 0.388674) Skew: vec3(-0.000533, 0.000196, 0.002735)
-INFO: Decomposed transform for DEF-spine.006: Translation(0.245937, -0.871734, 0.388674), Scale(1.00374, 1.00052, 1.00422)
-INFO: Bone [DEF-shoulder.L] FINAL TRANSFORM:
-INFO: mat4x4((0.721055, -0.103321, -0.736766, 0.000000), (-0.086270, 1.049334, -0.114755, 0.000000), (0.758807, 0.124214, 0.766538, 0.000000), (0.135176, -0.985698, 0.199455, 1.000000))
-INFO: Bone: DEF-shoulder.L Scale: vec3(1.036059, 1.055846, 1.085058) Translation: vec3(0.135176, -0.985698, 0.199455) Skew: vec3(-0.022280, -0.027087, -0.078686)
-INFO: Decomposed transform for DEF-shoulder.L: Translation(0.135176, -0.985698, 0.199455), Scale(1.03606, 1.05585, 1.08506)
-INFO: Bone [DEF-upper_arm.L] FINAL TRANSFORM:
-INFO: mat4x4((0.852831, -0.517205, 0.134540, 0.000000), (0.532571, 0.843446, -0.132680, 0.000000), (-0.043805, 0.184532, 0.982033, 0.000000), (-0.815857, -0.575935, 0.145390, 1.000000))
-INFO: Bone: DEF-upper_arm.L Scale: vec3(1.006441, 1.006299, 1.000177) Translation: vec3(-0.815857, -0.575935, 0.145390) Skew: vec3(0.002004, -0.000673, 0.000107)
-INFO: Decomposed transform for DEF-upper_arm.L: Translation(-0.815857, -0.575935, 0.14539), Scale(1.00644, 1.0063, 1.00018)
-INFO: Bone [DEF-upper_arm.L.001] FINAL TRANSFORM:
-INFO: mat4x4((0.834531, -0.555268, 0.154709, 0.000000), (0.413674, 0.765596, 0.520444, 0.000000), (-0.395818, -0.366032, 0.843050, 0.000000), (-0.659002, -0.475497, -0.839073, 1.000000))
-INFO: Bone: DEF-upper_arm.L.001 Scale: vec3(1.014248, 1.013965, 1.000674) Translation: vec3(-0.659002, -0.475497, -0.839073) Skew: vec3(-0.005139, 0.003301, 0.000613)
-INFO: Decomposed transform for DEF-upper_arm.L.001: Translation(-0.659002, -0.475497, -0.839073), Scale(1.01425, 1.01396, 1.00067)
-INFO: Bone [DEF-forearm.L] FINAL TRANSFORM:
-INFO: mat4x4((-0.284081, 0.959614, 0.004081, 0.000000), (-0.165228, -0.049895, -0.997910, 0.000000), (-0.958057, -0.280403, 0.171889, 0.000000), (0.637976, 0.114032, 1.435038, 1.000000))
-INFO: Bone: DEF-forearm.L Scale: vec3(1.000789, 1.012714, 1.012932) Translation: vec3(0.637976, 0.114032, 1.435038) Skew: vec3(0.000758, 0.003737, -0.004947)
-INFO: Decomposed transform for DEF-forearm.L: Translation(0.637976, 0.114032, 1.43504), Scale(1.00079, 1.01271, 1.01293)
-INFO: Bone [DEF-forearm.L.001] FINAL TRANSFORM:
-INFO: mat4x4((-0.329678, 0.944927, -0.054011, 0.000000), (0.392725, 0.062326, -0.972807, 0.000000), (-0.917702, -0.330264, -0.393749, 0.000000), (-0.157829, -0.056935, 1.379233, 1.000000))
-INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.002243, 1.050784, 1.051735) Translation: vec3(-0.157829, -0.056935, 1.379233) Skew: vec3(0.002048, 0.011135, -0.017127)
-INFO: Decomposed transform for DEF-forearm.L.001: Translation(-0.157829, -0.0569354, 1.37923), Scale(1.00224, 1.05078, 1.05174)
-INFO: Bone [DEF-hand.L] FINAL TRANSFORM:
-INFO: mat4x4((0.173318, 0.972031, -0.159392, 0.000000), (0.737164, -0.237763, -0.671572, 0.000000), (-0.690546, -0.000063, -0.757855, 0.000000), (-0.973758, 0.388059, 0.976529, 1.000000))
-INFO: Bone: DEF-hand.L Scale: vec3(1.000145, 1.025152, 1.025279) Translation: vec3(-0.973758, 0.388059, 0.976529) Skew: vec3(-0.000076, 0.001025, 0.003603)
-INFO: Decomposed transform for DEF-hand.L: Translation(-0.973758, 0.388059, 0.976529), Scale(1.00014, 1.02515, 1.02528)
-INFO: Bone [DEF-shoulder.R] FINAL TRANSFORM:
-INFO: mat4x4((0.807707, 0.006086, -0.527502, 0.000000), (-0.130283, 0.961079, -0.092676, 0.000000), (0.529456, 0.122693, 0.775850, 0.000000), (0.201530, -0.852801, 0.167734, 1.000000))
-INFO: Bone: DEF-shoulder.R Scale: vec3(0.964720, 0.972880, 0.946794) Translation: vec3(0.201530, -0.852801, 0.167734) Skew: vec3(-0.023803, 0.020944, -0.053800)
-INFO: Decomposed transform for DEF-shoulder.R: Translation(0.20153, -0.852801, 0.167734), Scale(0.96472, 0.97288, 0.946794)
-INFO: Bone [DEF-upper_arm.R] FINAL TRANSFORM:
-INFO: mat4x4((0.207925, 0.991686, -0.649532, 0.000000), (-0.206198, 0.677162, 0.906464, 0.000000), (1.063083, -0.102995, 0.090660, 0.000000), (0.212810, -0.276007, -1.453381, 1.000000))
-INFO: Bone: DEF-upper_arm.R Scale: vec3(1.203564, 1.149628, 1.055282) Translation: vec3(0.212810, -0.276007, -1.453381) Skew: vec3(-0.171798, 0.047254, 0.028823)
-INFO: Decomposed transform for DEF-upper_arm.R: Translation(0.21281, -0.276007, -1.45338), Scale(1.20356, 1.14963, 1.05528)
-INFO: Bone [DEF-upper_arm.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.330897, 0.844231, -0.568711, 0.000000), (0.531280, 0.334893, 0.812189, 0.000000), (0.795026, -0.566100, -0.373229, 0.000000), (-0.873901, 0.207456, -1.325902, 1.000000))
-INFO: Bone: DEF-upper_arm.R.001 Scale: vec3(1.070351, 1.026671, 1.042658) Translation: vec3(-0.873901, 0.207456, -1.325902) Skew: vec3(-0.065711, -0.002319, -0.003071)
-INFO: Decomposed transform for DEF-upper_arm.R.001: Translation(-0.873901, 0.207456, -1.3259), Scale(1.07035, 1.02667, 1.04266)
-INFO: Bone [DEF-forearm.R] FINAL TRANSFORM:
-INFO: mat4x4((-0.241053, -0.967204, -0.066049, 0.000000), (-0.353027, 0.160792, -0.881001, 0.000000), (0.862596, -0.189806, -0.380150, 0.000000), (0.206248, -0.265471, 1.418991, 1.000000))
-INFO: Bone: DEF-forearm.R Scale: vec3(0.998976, 0.962546, 0.961568) Translation: vec3(0.206248, -0.265471, 1.418991) Skew: vec3(-0.000127, 0.000789, -0.012720)
-INFO: Decomposed transform for DEF-forearm.R: Translation(0.206248, -0.265471, 1.41899), Scale(0.998976, 0.962546, 0.961568)
-INFO: Bone [DEF-forearm.R.001] FINAL TRANSFORM:
-INFO: mat4x4((-0.316512, -0.947524, -0.061849, 0.000000), (-0.981312, 0.320859, -0.063039, 0.000000), (0.078879, 0.036735, -1.031344, 0.000000), (1.056894, -0.459498, 0.161177, 1.000000))
-INFO: Bone: DEF-forearm.R.001 Scale: vec3(1.000903, 1.034306, 1.035000) Translation: vec3(1.056894, -0.459498, 0.161177) Skew: vec3(-0.000603, 0.003875, 0.010118)
-INFO: Decomposed transform for DEF-forearm.R.001: Translation(1.05689, -0.459498, 0.161177), Scale(1.0009, 1.03431, 1.035)
-INFO: Bone [DEF-hand.R] FINAL TRANSFORM:
-INFO: mat4x4((0.276197, -0.825443, 0.503119, 0.000000), (-0.741653, 0.212155, 0.761101, 0.000000), (-0.739190, -0.542814, -0.567998, 0.000000), (1.050642, -0.240047, -0.638921, 1.000000))
-INFO: Bone: DEF-hand.R Scale: vec3(1.005370, 1.083663, 1.077931) Translation: vec3(1.050642, -0.240047, -0.638921) Skew: vec3(0.000754, -0.038636, 0.002717)
-INFO: Decomposed transform for DEF-hand.R: Translation(1.05064, -0.240047, -0.638921), Scale(1.00537, 1.08366, 1.07793)
-INFO: Bone [DEF-breast.L] FINAL TRANSFORM:
-INFO: mat4x4((0.736768, -0.024532, -0.640054, 0.000000), (-0.091616, 0.971528, -0.131126, 0.000000), (0.633938, 0.182940, 0.736608, 0.000000), (0.156447, -0.836624, 0.213614, 1.000000))
-INFO: Bone: DEF-breast.L Scale: vec3(0.976268, 0.984580, 0.988589) Translation: vec3(0.156447, -0.836624, 0.213614) Skew: vec3(0.023624, -0.009212, -0.007704)
-INFO: Decomposed transform for DEF-breast.L: Translation(0.156447, -0.836624, 0.213614), Scale(0.976268, 0.98458, 0.988589)
-INFO: Bone [DEF-breast.R] FINAL TRANSFORM:
-INFO: mat4x4((0.736768, -0.024532, -0.640055, 0.000000), (-0.091617, 0.971528, -0.131127, 0.000000), (0.633938, 0.182941, 0.736607, 0.000000), (0.125519, -0.836901, 0.215904, 1.000000))
-INFO: Bone: DEF-breast.R Scale: vec3(0.976268, 0.984580, 0.988589) Translation: vec3(0.125519, -0.836901, 0.215904) Skew: vec3(0.023624, -0.009212, -0.007704)
-INFO: Decomposed transform for DEF-breast.R: Translation(0.125519, -0.836901, 0.215904), Scale(0.976268, 0.98458, 0.988589)
-INFO: Bone [DEF-pelvis.L] FINAL TRANSFORM:
-INFO: mat4x4((0.999920, -0.005672, 0.011344, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010207, 0.171058, 0.985208, 0.000000), (-0.010782, -0.888171, 0.250188, 1.000000))
-INFO: Bone: DEF-pelvis.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250188) Skew: vec3(-0.000000, -0.000000, -0.000000)
-INFO: Decomposed transform for DEF-pelvis.L: Translation(-0.0107822, -0.888171, 0.250188), Scale(1, 1, 1)
-INFO: Bone [DEF-thigh.L] FINAL TRANSFORM:
-INFO: mat4x4((0.848020, 0.449032, -0.282579, 0.000000), (-0.527172, 0.780760, -0.350122, 0.000000), (0.063753, 0.445963, 0.898737, 0.000000), (0.581890, -0.682593, 0.459208, 1.000000))
-INFO: Bone: DEF-thigh.L Scale: vec3(1.000309, 1.005025, 1.005324) Translation: vec3(0.581890, -0.682593, 0.459208) Skew: vec3(-0.000086, 0.000349, 0.002457)
-INFO: Decomposed transform for DEF-thigh.L: Translation(0.58189, -0.682593, 0.459208), Scale(1.00031, 1.00503, 1.00532)
-INFO: Bone [DEF-thigh.L.001] FINAL TRANSFORM:
 INFO: mat4x4((0.829720, 0.552662, -0.078264, 0.000000), (-0.542922, 0.766496, -0.343045, 0.000000), (-0.129604, 0.327121, 0.936030, 0.000000), (0.565414, -0.647813, 0.422387, 1.000000))
 INFO: Bone: DEF-thigh.L.001 Scale: vec3(0.999998, 0.999980, 0.999979) Translation: vec3(0.565414, -0.647813, 0.422387) Skew: vec3(0.000002, -0.000006, -0.000012)
 INFO: Decomposed transform for DEF-thigh.L.001: Translation(0.565414, -0.647813, 0.422387), Scale(0.999998, 0.99998, 0.999979)
 INFO: Bone [DEF-shin.L] FINAL TRANSFORM:
-INFO: mat4x4((0.992349, -0.045974, 0.126009, 0.000000), (0.047344, 1.033059, -0.001202, 0.000000), (-0.116371, 0.006658, 1.026222, -0.000000), (0.239332, -0.706779, 0.222891, 1.000000))
-INFO: Bone: DEF-shin.L Scale: vec3(1.001374, 1.034144, 1.032732) Translation: vec3(0.239332, -0.706779, 0.222891) Skew: vec3(0.000134, 0.013080, -0.000641)
+INFO: mat4x4((0.992349, -0.045974, 0.126010, 0.000000), (0.047344, 1.033059, -0.001202, 0.000000), (-0.116371, 0.006657, 1.026222, -0.000000), (0.239332, -0.706779, 0.222891, 1.000000))
+INFO: Bone: DEF-shin.L Scale: vec3(1.001374, 1.034143, 1.032732) Translation: vec3(0.239332, -0.706779, 0.222891) Skew: vec3(0.000134, 0.013080, -0.000641)
 INFO: Decomposed transform for DEF-shin.L: Translation(0.239332, -0.706779, 0.222891), Scale(1.00137, 1.03414, 1.03273)
 INFO: Bone [DEF-shin.L.001] FINAL TRANSFORM:
 INFO: mat4x4((0.977656, -0.044190, -0.205712, 0.000000), (0.045059, 1.029109, -0.005697, 0.000000), (0.214095, -0.003787, 1.007570, -0.000000), (0.237475, -0.721845, 0.229185, 1.000000))
 INFO: Bone: DEF-shin.L.001 Scale: vec3(1.000041, 1.030110, 1.030070) Translation: vec3(0.237475, -0.721845, 0.229185) Skew: vec3(0.000009, 0.002144, -0.000245)
 INFO: Decomposed transform for DEF-shin.L.001: Translation(0.237475, -0.721845, 0.229185), Scale(1.00004, 1.03011, 1.03007)
 INFO: Bone [DEF-foot.L] FINAL TRANSFORM:
-INFO: mat4x4((0.817860, -0.148686, -0.573508, 0.000000), (-0.009364, 1.007176, -0.234721, 0.000000), (0.585366, 0.189063, 0.830077, 0.000000), (0.258251, -0.717797, 0.241709, 1.000000))
-INFO: Bone: DEF-foot.L Scale: vec3(1.009908, 1.033961, 1.032807) Translation: vec3(0.258251, -0.717797, 0.241709) Skew: vec3(-0.009801, -0.024371, -0.021832)
-INFO: Decomposed transform for DEF-foot.L: Translation(0.258251, -0.717797, 0.241709), Scale(1.00991, 1.03396, 1.03281)
+INFO: mat4x4((0.817860, -0.148686, -0.573508, 0.000000), (-0.009364, 1.007176, -0.234720, 0.000000), (0.585366, 0.189062, 0.830077, 0.000000), (0.258251, -0.717796, 0.241708, 1.000000))
+INFO: Bone: DEF-foot.L Scale: vec3(1.009908, 1.033961, 1.032807) Translation: vec3(0.258251, -0.717796, 0.241708) Skew: vec3(-0.009801, -0.024371, -0.021833)
+INFO: Decomposed transform for DEF-foot.L: Translation(0.258251, -0.717796, 0.241708), Scale(1.00991, 1.03396, 1.03281)
 INFO: Bone [DEF-toe.L] FINAL TRANSFORM:
-INFO: mat4x4((0.879404, -0.073814, -0.429306, 0.000000), (-0.041965, 0.957157, -0.236903, 0.000000), (0.430963, 0.249773, 0.857829, 0.000000), (0.246919, -0.709497, 0.226914, 1.000000))
-INFO: Bone: DEF-toe.L Scale: vec3(0.981378, 0.986914, 0.991767) Translation: vec3(0.246919, -0.709497, 0.226914) Skew: vec3(0.018102, -0.007928, -0.006042)
-INFO: Decomposed transform for DEF-toe.L: Translation(0.246919, -0.709497, 0.226914), Scale(0.981378, 0.986914, 0.991767)
+INFO: mat4x4((0.879404, -0.073814, -0.429306, 0.000000), (-0.041965, 0.957157, -0.236902, 0.000000), (0.430963, 0.249773, 0.857829, 0.000000), (0.246919, -0.709496, 0.226914, 1.000000))
+INFO: Bone: DEF-toe.L Scale: vec3(0.981378, 0.986914, 0.991767) Translation: vec3(0.246919, -0.709496, 0.226914) Skew: vec3(0.018102, -0.007928, -0.006042)
+INFO: Decomposed transform for DEF-toe.L: Translation(0.246919, -0.709496, 0.226914), Scale(0.981378, 0.986914, 0.991767)
 INFO: Bone [DEF-pelvis.R] FINAL TRANSFORM:
 INFO: mat4x4((0.999920, -0.005672, 0.011343, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010206, 0.171058, 0.985209, 0.000000), (-0.010782, -0.888171, 0.250189, 1.000000))
-INFO: Bone: DEF-pelvis.R Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250189) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Bone: DEF-pelvis.R Scale: vec3(1.000001, 1.000000, 1.000001) Translation: vec3(-0.010782, -0.888171, 0.250189) Skew: vec3(-0.000000, -0.000000, 0.000000)
 INFO: Decomposed transform for DEF-pelvis.R: Translation(-0.0107823, -0.888171, 0.250189), Scale(1, 1, 1)
 INFO: Bone [DEF-thigh.R] FINAL TRANSFORM:
 INFO: mat4x4((0.993585, -0.078592, 0.099540, 0.000000), (0.116868, 0.931268, -0.429869, 0.000000), (-0.072922, 0.438457, 0.929972, 0.000000), (-0.134025, -0.814477, 0.531621, 1.000000))
 INFO: Bone: DEF-thigh.R Scale: vec3(1.001647, 1.032330, 1.030633) Translation: vec3(-0.134025, -0.814477, 0.531621) Skew: vec3(0.000032, -0.013894, 0.000135)
 INFO: Decomposed transform for DEF-thigh.R: Translation(-0.134025, -0.814477, 0.531621), Scale(1.00165, 1.03233, 1.03063)
 INFO: Bone [DEF-thigh.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.993239, -0.075078, 0.105308, 0.000000), (0.116250, 0.931770, -0.430052, 0.000000), (-0.079827, 0.439083, 0.929644, 0.000000), (-0.129532, -0.747386, 0.504011, 1.000000))
+INFO: mat4x4((0.993239, -0.075078, 0.105307, 0.000000), (0.116250, 0.931770, -0.430052, 0.000000), (-0.079827, 0.439083, 0.929644, 0.000000), (-0.129532, -0.747386, 0.504011, 1.000000))
 INFO: Bone: DEF-thigh.R.001 Scale: vec3(1.001624, 1.032789, 1.031116) Translation: vec3(-0.129532, -0.747386, 0.504011) Skew: vec3(0.000050, -0.013899, 0.000213)
 INFO: Decomposed transform for DEF-thigh.R.001: Translation(-0.129532, -0.747386, 0.504011), Scale(1.00162, 1.03279, 1.03112)
 INFO: Bone [DEF-shin.R] FINAL TRANSFORM:
-INFO: mat4x4((1.001017, 0.054701, -0.019182, 0.000000), (-0.057724, 1.018185, -0.188573, 0.000000), (-0.010180, 0.188232, 1.017217, 0.000000), (-0.034785, -0.721151, 0.347100, 1.000000))
-INFO: Bone: DEF-shin.R Scale: vec3(1.002694, 1.037107, 1.034355) Translation: vec3(-0.034785, -0.721151, 0.347100) Skew: vec3(0.000422, -0.018710, 0.001472)
-INFO: Decomposed transform for DEF-shin.R: Translation(-0.0347851, -0.721151, 0.3471), Scale(1.00269, 1.03711, 1.03435)
+INFO: mat4x4((1.001017, 0.054701, -0.019182, 0.000000), (-0.057724, 1.018185, -0.188573, 0.000000), (-0.010180, 0.188232, 1.017217, 0.000000), (-0.034785, -0.721151, 0.347101, 1.000000))
+INFO: Bone: DEF-shin.R Scale: vec3(1.002694, 1.037107, 1.034355) Translation: vec3(-0.034785, -0.721151, 0.347101) Skew: vec3(0.000422, -0.018711, 0.001472)
+INFO: Decomposed transform for DEF-shin.R: Translation(-0.0347851, -0.721151, 0.347101), Scale(1.00269, 1.03711, 1.03436)
 INFO: Bone [DEF-shin.R.001] FINAL TRANSFORM:
-INFO: mat4x4((0.874935, -0.047962, -0.500241, 0.000000), (-0.057526, 1.014750, -0.199029, 0.000000), (0.481004, 0.201118, 0.884751, 0.000000), (-0.011626, -0.742414, 0.276706, 1.000000))
+INFO: mat4x4((0.874934, -0.047962, -0.500241, 0.000000), (-0.057526, 1.014750, -0.199029, 0.000000), (0.481004, 0.201118, 0.884751, 0.000000), (-0.011626, -0.742414, 0.276706, 1.000000))
 INFO: Bone: DEF-shin.R.001 Scale: vec3(1.008986, 1.035683, 1.026465) Translation: vec3(-0.011626, -0.742414, 0.276706) Skew: vec3(0.000320, -0.030306, 0.000537)
 INFO: Decomposed transform for DEF-shin.R.001: Translation(-0.0116262, -0.742414, 0.276706), Scale(1.00899, 1.03568, 1.02647)
 INFO: Bone [DEF-foot.R] FINAL TRANSFORM:
@@ -730,14 +95,1251 @@ INFO: mat4x4((0.826555, -0.255789, -0.499300, 0.000000), (0.089459, 0.929830, -0
 INFO: Bone: DEF-foot.R Scale: vec3(0.998960, 0.992721, 0.992643) Translation: vec3(-0.010139, -0.758295, 0.259438) Skew: vec3(0.001037, 0.003636, 0.003921)
 INFO: Decomposed transform for DEF-foot.R: Translation(-0.0101392, -0.758295, 0.259438), Scale(0.99896, 0.992721, 0.992643)
 INFO: Bone [DEF-toe.R] FINAL TRANSFORM:
-INFO: mat4x4((0.400816, -0.024459, -1.048994, -0.000000), (-0.151449, 1.091164, -0.211276, 0.000000), (1.084961, 0.086845, 0.289499, 0.000000), (-0.023454, -0.752667, 0.244551, 1.000000))
-INFO: Bone: DEF-toe.R Scale: vec3(1.123228, 1.115317, 1.112886) Translation: vec3(-0.023454, -0.752667, 0.244551) Skew: vec3(-0.116378, 0.103248, 0.107152)
+INFO: mat4x4((0.400816, -0.024459, -1.048994, -0.000000), (-0.151449, 1.091165, -0.211276, 0.000000), (1.084961, 0.086844, 0.289499, 0.000000), (-0.023454, -0.752667, 0.244551, 1.000000))
+INFO: Bone: DEF-toe.R Scale: vec3(1.123228, 1.115317, 1.112886) Translation: vec3(-0.023454, -0.752667, 0.244551) Skew: vec3(-0.116378, 0.103247, 0.107152)
 INFO: Decomposed transform for DEF-toe.R: Translation(-0.0234542, -0.752667, 0.244551), Scale(1.12323, 1.11532, 1.11289)
 INFO: DEBUG: Max Vertex Attributes: 32
 INFO: Drawing mesh with VAO: 1
+INFO: DEBUG: Depth testing and blending enabled.
+INFO: DEBUG: After Storing Bone DEF-breast.L
+INFO: DEBUG: After Storing Bone DEF-breast.R
+INFO: DEBUG: After Storing Bone DEF-brow.B.L
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.001
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.002
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.003
+INFO: DEBUG: After Storing Bone DEF-brow.B.R
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.001
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.002
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.003
+INFO: DEBUG: After Storing Bone DEF-brow.T.L
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.001
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.002
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.003
+INFO: DEBUG: After Storing Bone DEF-brow.T.R
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.001
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.002
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.003
+INFO: DEBUG: After Storing Bone DEF-cheek.B.L
+INFO: DEBUG: After Storing Bone DEF-cheek.B.L.001
+INFO: DEBUG: After Storing Bone DEF-cheek.B.R
+INFO: DEBUG: After Storing Bone DEF-cheek.B.R.001
+INFO: DEBUG: After Storing Bone DEF-cheek.T.L
+INFO: DEBUG: After Storing Bone DEF-cheek.T.L.001
+INFO: DEBUG: After Storing Bone DEF-cheek.T.R
+INFO: DEBUG: After Storing Bone DEF-cheek.T.R.001
+INFO: DEBUG: After Storing Bone DEF-chin
+INFO: DEBUG: After Storing Bone DEF-chin.001
+INFO: DEBUG: After Storing Bone DEF-chin.L
+INFO: DEBUG: After Storing Bone DEF-chin.R
+INFO: DEBUG: After Storing Bone DEF-ear.L
+INFO: DEBUG: After Storing Bone DEF-ear.L.001
+INFO: DEBUG: After Storing Bone DEF-ear.L.002
+INFO: DEBUG: After Storing Bone DEF-ear.L.003
+INFO: DEBUG: After Storing Bone DEF-ear.L.004
+INFO: DEBUG: After Storing Bone DEF-ear.R
+INFO: DEBUG: After Storing Bone DEF-ear.R.001
+INFO: DEBUG: After Storing Bone DEF-ear.R.002
+INFO: DEBUG: After Storing Bone DEF-ear.R.003
+INFO: DEBUG: After Storing Bone DEF-ear.R.004
+INFO: DEBUG: After Storing Bone DEF-f_index.01.L
+INFO: DEBUG: After Storing Bone DEF-f_index.01.R
+INFO: DEBUG: After Storing Bone DEF-f_index.02.L
+INFO: DEBUG: After Storing Bone DEF-f_index.02.R
+INFO: DEBUG: After Storing Bone DEF-f_index.03.L
+INFO: DEBUG: After Storing Bone DEF-f_index.03.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.01.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.01.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.02.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.02.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.03.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.03.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.01.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.01.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.02.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.02.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.03.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.03.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.01.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.01.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.02.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.02.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.03.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.03.R
+INFO: DEBUG: After Storing Bone DEF-foot.L
+INFO: DEBUG: After Storing Bone DEF-foot.R
+INFO: DEBUG: After Storing Bone DEF-forearm.L
+INFO: DEBUG: After Storing Bone DEF-forearm.L.001
+INFO: DEBUG: After Storing Bone DEF-forearm.R
+INFO: DEBUG: After Storing Bone DEF-forearm.R.001
+INFO: DEBUG: After Storing Bone DEF-forehead.L
+INFO: DEBUG: After Storing Bone DEF-forehead.L.001
+INFO: DEBUG: After Storing Bone DEF-forehead.L.002
+INFO: DEBUG: After Storing Bone DEF-forehead.R
+INFO: DEBUG: After Storing Bone DEF-forehead.R.001
+INFO: DEBUG: After Storing Bone DEF-forehead.R.002
+INFO: DEBUG: After Storing Bone DEF-hand.L
+INFO: DEBUG: After Storing Bone DEF-hand.R
+INFO: DEBUG: After Storing Bone DEF-jaw
+INFO: DEBUG: After Storing Bone DEF-jaw.L
+INFO: DEBUG: After Storing Bone DEF-jaw.L.001
+INFO: DEBUG: After Storing Bone DEF-jaw.R
+INFO: DEBUG: After Storing Bone DEF-jaw.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.L
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.002
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.003
+INFO: DEBUG: After Storing Bone DEF-lid.B.R
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.002
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.003
+INFO: DEBUG: After Storing Bone DEF-lid.T.L
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.001
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.002
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.003
+INFO: DEBUG: After Storing Bone DEF-lid.T.R
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.002
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.003
+INFO: DEBUG: After Storing Bone DEF-lip.B.L
+INFO: DEBUG: After Storing Bone DEF-lip.B.L.001
+INFO: DEBUG: After Storing Bone DEF-lip.B.R
+INFO: DEBUG: After Storing Bone DEF-lip.B.R.001
+INFO: DEBUG: After Storing Bone DEF-lip.T.L
+INFO: DEBUG: After Storing Bone DEF-lip.T.L.001
+INFO: DEBUG: After Storing Bone DEF-lip.T.R
+INFO: DEBUG: After Storing Bone DEF-lip.T.R.001
+INFO: DEBUG: After Storing Bone DEF-nose
+INFO: DEBUG: After Storing Bone DEF-nose.001
+INFO: DEBUG: After Storing Bone DEF-nose.002
+INFO: DEBUG: After Storing Bone DEF-nose.003
+INFO: DEBUG: After Storing Bone DEF-nose.004
+INFO: DEBUG: After Storing Bone DEF-nose.L
+INFO: DEBUG: After Storing Bone DEF-nose.L.001
+INFO: DEBUG: After Storing Bone DEF-nose.R
+INFO: DEBUG: After Storing Bone DEF-nose.R.001
+INFO: DEBUG: After Storing Bone DEF-palm.01.L
+INFO: DEBUG: After Storing Bone DEF-palm.01.R
+INFO: DEBUG: After Storing Bone DEF-palm.02.L
+INFO: DEBUG: After Storing Bone DEF-palm.02.R
+INFO: DEBUG: After Storing Bone DEF-palm.03.L
+INFO: DEBUG: After Storing Bone DEF-palm.03.R
+INFO: DEBUG: After Storing Bone DEF-palm.04.L
+INFO: DEBUG: After Storing Bone DEF-palm.04.R
+INFO: DEBUG: After Storing Bone DEF-pelvis.L
+INFO: DEBUG: After Storing Bone DEF-pelvis.R
+INFO: DEBUG: After Storing Bone DEF-shin.L
+INFO: DEBUG: After Storing Bone DEF-shin.L.001
+INFO: DEBUG: After Storing Bone DEF-shin.R
+INFO: DEBUG: After Storing Bone DEF-shin.R.001
+INFO: DEBUG: After Storing Bone DEF-shoulder.L
+INFO: DEBUG: After Storing Bone DEF-shoulder.R
+INFO: DEBUG: After Storing Bone DEF-spine
+INFO: DEBUG: After Storing Bone DEF-spine.001
+INFO: DEBUG: After Storing Bone DEF-spine.002
+INFO: DEBUG: After Storing Bone DEF-spine.003
+INFO: DEBUG: After Storing Bone DEF-spine.004
+INFO: DEBUG: After Storing Bone DEF-spine.005
+INFO: DEBUG: After Storing Bone DEF-spine.006
+INFO: DEBUG: After Storing Bone DEF-temple.L
+INFO: DEBUG: After Storing Bone DEF-temple.R
+INFO: DEBUG: After Storing Bone DEF-thigh.L
+INFO: DEBUG: After Storing Bone DEF-thigh.L.001
+INFO: DEBUG: After Storing Bone DEF-thigh.R
+INFO: DEBUG: After Storing Bone DEF-thigh.R.001
+INFO: DEBUG: After Storing Bone DEF-thumb.01.L
+INFO: DEBUG: After Storing Bone DEF-thumb.01.R
+INFO: DEBUG: After Storing Bone DEF-thumb.02.L
+INFO: DEBUG: After Storing Bone DEF-thumb.02.R
+INFO: DEBUG: After Storing Bone DEF-thumb.03.L
+INFO: DEBUG: After Storing Bone DEF-thumb.03.R
+INFO: DEBUG: After Storing Bone DEF-toe.L
+INFO: DEBUG: After Storing Bone DEF-toe.R
+INFO: DEBUG: After Storing Bone DEF-tongue
+INFO: DEBUG: After Storing Bone DEF-tongue.001
+INFO: DEBUG: After Storing Bone DEF-tongue.002
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
+INFO: DEBUG: After Storing Bone ORG-palm.01.L
+INFO: DEBUG: After Storing Bone ORG-palm.01.R
+INFO: DEBUG: After Storing Bone ORG-palm.02.L
+INFO: DEBUG: After Storing Bone ORG-palm.02.R
+INFO: DEBUG: After Storing Bone ORG-palm.03.L
+INFO: DEBUG: After Storing Bone ORG-palm.03.R
+INFO: DEBUG: After Storing Bone ORG-palm.04.L
+INFO: DEBUG: After Storing Bone ORG-palm.04.R
+INFO: DEBUG: After Storing Bone root
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Bone [DEF-spine.001] FINAL TRANSFORM:
+INFO: mat4x4((0.999090, 0.041881, 0.008131, 0.000000), (-0.039276, 0.977337, -0.208012, 0.000000), (-0.016658, 0.207503, 0.978093, 0.000000), (0.040861, -0.877242, 0.290923, 1.000000))
+INFO: Bone: DEF-spine.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.040861, -0.877242, 0.290923) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.001: Translation(0.0408613, -0.877242, 0.290923), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.002] FINAL TRANSFORM:
+INFO: mat4x4((0.985301, 0.105648, -0.134239, 0.000000), (-0.122555, 0.984603, -0.124647, 0.000000), (0.119003, 0.139266, 0.983078, 0.000000), (0.149733, -0.889454, 0.188715, 1.000000))
+INFO: Bone: DEF-spine.002 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.149733, -0.889454, 0.188715) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.002: Translation(0.149733, -0.889454, 0.188715), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.003] FINAL TRANSFORM:
+INFO: mat4x4((0.951134, 0.055347, -0.303778, 0.000000), (-0.042803, 0.997939, 0.047804, 0.000000), (0.305797, -0.032465, 0.951543, 0.000000), (0.048874, -0.916594, -0.051417, 1.000000))
+INFO: Bone: DEF-spine.003 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.048874, -0.916594, -0.051417) Skew: vec3(-0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine.003: Translation(0.0488736, -0.916594, -0.0514167), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.004] FINAL TRANSFORM:
+INFO: mat4x4((0.762608, -0.001799, -0.654306, 0.000000), (-0.068629, 0.995478, -0.077964, 0.000000), (0.650556, 0.101818, 0.759271, 0.000000), (0.108469, -0.905212, 0.133756, 1.000000))
+INFO: Bone: DEF-spine.004 Scale: vec3(1.004834, 1.000877, 1.005025) Translation: vec3(0.108469, -0.905212, 0.133756) Skew: vec3(-0.002474, -0.000852, -0.003099)
+INFO: Decomposed transform for DEF-spine.004: Translation(0.108469, -0.905212, 0.133756), Scale(1.00483, 1.00088, 1.00503)
+INFO: Bone [DEF-spine.005] FINAL TRANSFORM:
+INFO: mat4x4((0.528391, 0.067689, -0.862273, 0.000000), (-0.140394, 0.992177, -0.000431, 0.000000), (0.853487, 0.113282, 0.534268, 0.000000), (0.229624, -0.909253, -0.000986, 1.000000))
+INFO: Bone: DEF-spine.005 Scale: vec3(1.013555, 1.002039, 1.013239) Translation: vec3(0.229624, -0.909253, -0.000986) Skew: vec3(-0.007556, -0.001989, -0.006549)
+INFO: Decomposed transform for DEF-spine.005: Translation(0.229624, -0.909253, -0.000986341), Scale(1.01356, 1.00204, 1.01324)
+INFO: Bone [DEF-spine.006] FINAL TRANSFORM:
+INFO: mat4x4((0.723830, -0.052061, -0.693477, 0.000000), (-0.150663, 0.961187, -0.233412, 0.000000), (0.678912, 0.272892, 0.687853, 0.000000), (0.245384, -0.871692, 0.390477, 1.000000))
+INFO: Bone: DEF-spine.006 Scale: vec3(1.003768, 1.000527, 1.004258) Translation: vec3(0.245384, -0.871692, 0.390477) Skew: vec3(-0.000538, 0.000198, 0.002759)
+INFO: Decomposed transform for DEF-spine.006: Translation(0.245384, -0.871692, 0.390477), Scale(1.00377, 1.00053, 1.00426)
+INFO: Bone [DEF-shoulder.L] FINAL TRANSFORM:
+INFO: mat4x4((0.720662, -0.100532, -0.737658, 0.000000), (-0.088135, 1.049958, -0.111843, 0.000000), (0.759554, 0.123414, 0.766686, 0.000000), (0.137518, -0.986766, 0.196099, 1.000000))
+INFO: Bone: DEF-shoulder.L Scale: vec3(1.036147, 1.056271, 1.085589) Translation: vec3(0.137518, -0.986766, 0.196099) Skew: vec3(-0.022307, -0.027184, -0.079097)
+INFO: Decomposed transform for DEF-shoulder.L: Translation(0.137518, -0.986766, 0.196099), Scale(1.03615, 1.05627, 1.08559)
+INFO: Bone [DEF-upper_arm.L] FINAL TRANSFORM:
+INFO: mat4x4((0.853637, -0.519466, 0.125233, 0.000000), (0.533420, 0.842170, -0.141721, 0.000000), (-0.030796, 0.187509, 0.981996, 0.000000), (-0.816836, -0.572820, 0.161190, 1.000000))
+INFO: Bone: DEF-upper_arm.L Scale: vec3(1.007087, 1.006912, 1.000209) Translation: vec3(-0.816836, -0.572820, 0.161190) Skew: vec3(0.002301, -0.000710, 0.000118)
+INFO: Decomposed transform for DEF-upper_arm.L: Translation(-0.816836, -0.57282, 0.16119), Scale(1.00709, 1.00691, 1.00021)
+INFO: Bone [DEF-upper_arm.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.834630, -0.557333, 0.145869, 0.000000), (0.420964, 0.764408, 0.516210, 0.000000), (-0.387796, -0.365107, 0.847141, 0.000000), (-0.669674, -0.472597, -0.830008, 1.000000))
+INFO: Bone: DEF-upper_arm.L.001 Scale: vec3(1.014152, 1.013905, 1.000650) Translation: vec3(-0.669674, -0.472597, -0.830008) Skew: vec3(-0.004966, 0.003342, 0.000602)
+INFO: Decomposed transform for DEF-upper_arm.L.001: Translation(-0.669674, -0.472597, -0.830008), Scale(1.01415, 1.0139, 1.00065)
+INFO: Bone [DEF-forearm.L] FINAL TRANSFORM:
+INFO: mat4x4((-0.281406, 0.960373, 0.007894, 0.000000), (-0.173147, -0.047792, -0.996653, 0.000000), (-0.957428, -0.278141, 0.178919, 0.000000), (0.648404, 0.111017, 1.430970, 1.000000))
+INFO: Bone: DEF-forearm.L Scale: vec3(1.000784, 1.012697, 1.012931) Translation: vec3(0.648404, 0.111017, 1.430970) Skew: vec3(0.000748, 0.003669, -0.004973)
+INFO: Decomposed transform for DEF-forearm.L: Translation(0.648404, 0.111017, 1.43097), Scale(1.00078, 1.0127, 1.01293)
+INFO: Bone [DEF-forearm.L.001] FINAL TRANSFORM:
+INFO: mat4x4((-0.334945, 0.943450, -0.054840, 0.000000), (0.330093, 0.038026, -1.001157, 0.000000), (-0.944652, -0.339536, -0.326852, 0.000000), (-0.063963, -0.020435, 1.425948, 1.000000))
+INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.002643, 1.054672, 1.055596) Translation: vec3(-0.063963, -0.020435, 1.425948) Skew: vec3(0.002489, 0.013224, -0.018709)
+INFO: Decomposed transform for DEF-forearm.L.001: Translation(-0.0639634, -0.0204349, 1.42595), Scale(1.00264, 1.05467, 1.0556)
+INFO: Bone [DEF-hand.L] FINAL TRANSFORM:
+INFO: mat4x4((0.158849, 0.967788, -0.196335, 0.000000), (0.694952, -0.254537, -0.713287, 0.000000), (-0.739961, -0.020836, -0.713268, 0.000000), (-0.904975, 0.414545, 1.065451, 1.000000))
+INFO: Bone: DEF-hand.L Scale: vec3(1.000197, 1.027866, 1.027969) Translation: vec3(-0.904975, 0.414545, 1.065451) Skew: vec3(-0.000169, 0.002269, 0.003986)
+INFO: Decomposed transform for DEF-hand.L: Translation(-0.904975, 0.414545, 1.06545), Scale(1.0002, 1.02787, 1.02797)
+INFO: Bone [DEF-shoulder.R] FINAL TRANSFORM:
+INFO: mat4x4((0.807595, 0.008597, -0.527792, 0.000000), (-0.131287, 0.961348, -0.090021, 0.000000), (0.529632, 0.121164, 0.776265, 0.000000), (0.202583, -0.853335, 0.164759, 1.000000))
+INFO: Bone: DEF-shoulder.R Scale: vec3(0.964804, 0.973046, 0.947038) Translation: vec3(0.202583, -0.853335, 0.164759) Skew: vec3(-0.023771, 0.020864, -0.053525)
+INFO: Decomposed transform for DEF-shoulder.R: Translation(0.202583, -0.853335, 0.164759), Scale(0.964804, 0.973046, 0.947038)
+INFO: Bone [DEF-upper_arm.R] FINAL TRANSFORM:
+INFO: mat4x4((0.212747, 0.992671, -0.653433, 0.000000), (-0.196939, 0.680805, 0.908212, 0.000000), (1.064868, -0.113104, 0.082577, 0.000000), (0.199664, -0.282515, -1.456289, 1.000000))
+INFO: Bone: DEF-upper_arm.R Scale: vec3(1.207324, 1.151524, 1.056749) Translation: vec3(0.199664, -0.282515, -1.456289) Skew: vec3(-0.175362, 0.047274, 0.029103)
+INFO: Decomposed transform for DEF-upper_arm.R: Translation(0.199664, -0.282515, -1.45629), Scale(1.20732, 1.15152, 1.05675)
+INFO: Bone [DEF-upper_arm.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.330446, 0.834911, -0.566586, 0.000000), (0.597608, 0.285235, 0.777102, 0.000000), (0.742272, -0.590346, -0.431214, 0.000000), (-0.977655, 0.276716, -1.276239, 1.000000))
+INFO: Bone: DEF-upper_arm.R.001 Scale: vec3(1.061740, 1.020962, 1.040177) Translation: vec3(-0.977655, 0.276716, -1.276239) Skew: vec3(-0.056414, -0.002976, -0.004311)
+INFO: Decomposed transform for DEF-upper_arm.R.001: Translation(-0.977655, 0.276716, -1.27624), Scale(1.06174, 1.02096, 1.04018)
+INFO: Bone [DEF-forearm.R] FINAL TRANSFORM:
+INFO: mat4x4((-0.293848, -0.951255, -0.079146, 0.000000), (-0.391298, 0.205661, -0.861499, 0.000000), (0.835617, -0.222988, -0.432587, 0.000000), (0.236451, -0.327399, 1.381230, 1.000000))
+INFO: Bone: DEF-forearm.R Scale: vec3(0.998748, 0.968213, 0.967011) Translation: vec3(0.236451, -0.327399, 1.381230) Skew: vec3(-0.000162, 0.000841, -0.012896)
+INFO: Decomposed transform for DEF-forearm.R: Translation(0.236451, -0.327399, 1.38123), Scale(0.998748, 0.968213, 0.967011)
+INFO: Bone [DEF-forearm.R.001] FINAL TRANSFORM:
+INFO: mat4x4((-0.369805, -0.928356, -0.063555, 0.000000), (-0.967781, 0.371684, -0.004758, 0.000000), (0.027057, 0.054866, -1.035869, 0.000000), (1.009780, -0.525351, 0.074375, 1.000000))
+INFO: Bone: DEF-forearm.R.001 Scale: vec3(1.001319, 1.036629, 1.037662) Translation: vec3(1.009780, -0.525351, 0.074375) Skew: vec3(-0.000862, 0.004710, 0.012657)
+INFO: Decomposed transform for DEF-forearm.R.001: Translation(1.00978, -0.525351, 0.0743745), Scale(1.00132, 1.03663, 1.03766)
+INFO: Bone [DEF-hand.R] FINAL TRANSFORM:
+INFO: mat4x4((0.262860, -0.850095, 0.466484, 0.000000), (-0.689770, 0.225803, 0.808037, 0.000000), (-0.795898, -0.495557, -0.539866, 0.000000), (0.975127, -0.278603, -0.730082, 1.000000))
+INFO: Bone: DEF-hand.R Scale: vec3(1.004671, 1.086130, 1.081165) Translation: vec3(0.975127, -0.278603, -0.730082) Skew: vec3(0.000852, -0.036621, 0.003362)
+INFO: Decomposed transform for DEF-hand.R: Translation(0.975127, -0.278603, -0.730082), Scale(1.00467, 1.08613, 1.08116)
+INFO: Bone [DEF-breast.L] FINAL TRANSFORM:
+INFO: mat4x4((0.736203, -0.021845, -0.640313, 0.000000), (-0.092900, 0.971614, -0.128259, 0.000000), (0.633914, 0.181919, 0.736657, 0.000000), (0.157903, -0.836808, 0.210378, 1.000000))
+INFO: Bone: DEF-breast.L Scale: vec3(0.975947, 0.984406, 0.988413) Translation: vec3(0.157903, -0.836808, 0.210378) Skew: vec3(0.023958, -0.009305, -0.007799)
+INFO: Decomposed transform for DEF-breast.L: Translation(0.157903, -0.836808, 0.210378), Scale(0.975947, 0.984406, 0.988413)
+INFO: Bone [DEF-breast.R] FINAL TRANSFORM:
+INFO: mat4x4((0.736203, -0.021845, -0.640313, 0.000000), (-0.092901, 0.971614, -0.128260, 0.000000), (0.633914, 0.181920, 0.736657, 0.000000), (0.126902, -0.837157, 0.212699, 1.000000))
+INFO: Bone: DEF-breast.R Scale: vec3(0.975947, 0.984406, 0.988413) Translation: vec3(0.126902, -0.837157, 0.212699) Skew: vec3(0.023958, -0.009305, -0.007799)
+INFO: Decomposed transform for DEF-breast.R: Translation(0.126902, -0.837157, 0.212699), Scale(0.975947, 0.984406, 0.988413)
+INFO: Bone [DEF-pelvis.L] FINAL TRANSFORM:
+INFO: mat4x4((0.999920, -0.005672, 0.011344, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010207, 0.171058, 0.985208, 0.000000), (-0.010782, -0.888171, 0.250188, 1.000000))
+INFO: Bone: DEF-pelvis.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250188) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-pelvis.L: Translation(-0.0107822, -0.888171, 0.250188), Scale(1, 1, 1)
+INFO: Bone [DEF-thigh.L] FINAL TRANSFORM:
+INFO: mat4x4((0.848020, 0.449032, -0.282579, 0.000000), (-0.527172, 0.780760, -0.350122, 0.000000), (0.063753, 0.445963, 0.898737, 0.000000), (0.581890, -0.682593, 0.459207, 1.000000))
+INFO: Bone: DEF-thigh.L Scale: vec3(1.000309, 1.005025, 1.005324) Translation: vec3(0.581890, -0.682593, 0.459207) Skew: vec3(-0.000086, 0.000349, 0.002457)
+INFO: Decomposed transform for DEF-thigh.L: Translation(0.58189, -0.682593, 0.459207), Scale(1.00031, 1.00503, 1.00532)
+INFO: Bone [DEF-thigh.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.829720, 0.552662, -0.078264, 0.000000), (-0.542922, 0.766496, -0.343045, 0.000000), (-0.129604, 0.327121, 0.936030, 0.000000), (0.565414, -0.647813, 0.422387, 1.000000))
+INFO: Bone: DEF-thigh.L.001 Scale: vec3(0.999998, 0.999980, 0.999979) Translation: vec3(0.565414, -0.647813, 0.422387) Skew: vec3(0.000002, -0.000006, -0.000012)
+INFO: Decomposed transform for DEF-thigh.L.001: Translation(0.565414, -0.647813, 0.422387), Scale(0.999998, 0.99998, 0.999979)
+INFO: Bone [DEF-shin.L] FINAL TRANSFORM:
+INFO: mat4x4((0.992349, -0.045974, 0.126010, 0.000000), (0.047344, 1.033059, -0.001202, 0.000000), (-0.116371, 0.006657, 1.026222, -0.000000), (0.239332, -0.706779, 0.222891, 1.000000))
+INFO: Bone: DEF-shin.L Scale: vec3(1.001374, 1.034143, 1.032732) Translation: vec3(0.239332, -0.706779, 0.222891) Skew: vec3(0.000134, 0.013080, -0.000641)
+INFO: Decomposed transform for DEF-shin.L: Translation(0.239332, -0.706779, 0.222891), Scale(1.00137, 1.03414, 1.03273)
+INFO: Bone [DEF-shin.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.977656, -0.044190, -0.205712, 0.000000), (0.045059, 1.029109, -0.005697, 0.000000), (0.214095, -0.003787, 1.007570, -0.000000), (0.237475, -0.721845, 0.229185, 1.000000))
+INFO: Bone: DEF-shin.L.001 Scale: vec3(1.000041, 1.030110, 1.030070) Translation: vec3(0.237475, -0.721845, 0.229185) Skew: vec3(0.000009, 0.002144, -0.000245)
+INFO: Decomposed transform for DEF-shin.L.001: Translation(0.237475, -0.721845, 0.229185), Scale(1.00004, 1.03011, 1.03007)
+INFO: Bone [DEF-foot.L] FINAL TRANSFORM:
+INFO: mat4x4((0.817860, -0.148686, -0.573508, 0.000000), (-0.009364, 1.007176, -0.234720, 0.000000), (0.585366, 0.189062, 0.830077, 0.000000), (0.258251, -0.717796, 0.241708, 1.000000))
+INFO: Bone: DEF-foot.L Scale: vec3(1.009908, 1.033961, 1.032807) Translation: vec3(0.258251, -0.717796, 0.241708) Skew: vec3(-0.009801, -0.024371, -0.021833)
+INFO: Decomposed transform for DEF-foot.L: Translation(0.258251, -0.717796, 0.241708), Scale(1.00991, 1.03396, 1.03281)
+INFO: Bone [DEF-toe.L] FINAL TRANSFORM:
+INFO: mat4x4((0.879404, -0.073814, -0.429306, 0.000000), (-0.041965, 0.957157, -0.236902, 0.000000), (0.430963, 0.249773, 0.857829, 0.000000), (0.246919, -0.709496, 0.226914, 1.000000))
+INFO: Bone: DEF-toe.L Scale: vec3(0.981378, 0.986914, 0.991767) Translation: vec3(0.246919, -0.709496, 0.226914) Skew: vec3(0.018102, -0.007928, -0.006042)
+INFO: Decomposed transform for DEF-toe.L: Translation(0.246919, -0.709496, 0.226914), Scale(0.981378, 0.986914, 0.991767)
+INFO: Bone [DEF-pelvis.R] FINAL TRANSFORM:
+INFO: mat4x4((0.999920, -0.005672, 0.011343, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010206, 0.171058, 0.985209, 0.000000), (-0.010782, -0.888171, 0.250189, 1.000000))
+INFO: Bone: DEF-pelvis.R Scale: vec3(1.000001, 1.000000, 1.000001) Translation: vec3(-0.010782, -0.888171, 0.250189) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-pelvis.R: Translation(-0.0107823, -0.888171, 0.250189), Scale(1, 1, 1)
+INFO: Bone [DEF-thigh.R] FINAL TRANSFORM:
+INFO: mat4x4((0.993585, -0.078592, 0.099540, 0.000000), (0.116868, 0.931268, -0.429869, 0.000000), (-0.072922, 0.438457, 0.929972, 0.000000), (-0.134025, -0.814477, 0.531621, 1.000000))
+INFO: Bone: DEF-thigh.R Scale: vec3(1.001647, 1.032330, 1.030633) Translation: vec3(-0.134025, -0.814477, 0.531621) Skew: vec3(0.000032, -0.013894, 0.000135)
+INFO: Decomposed transform for DEF-thigh.R: Translation(-0.134025, -0.814477, 0.531621), Scale(1.00165, 1.03233, 1.03063)
+INFO: Bone [DEF-thigh.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.993239, -0.075078, 0.105307, 0.000000), (0.116250, 0.931770, -0.430052, 0.000000), (-0.079827, 0.439083, 0.929644, 0.000000), (-0.129532, -0.747386, 0.504011, 1.000000))
+INFO: Bone: DEF-thigh.R.001 Scale: vec3(1.001624, 1.032789, 1.031116) Translation: vec3(-0.129532, -0.747386, 0.504011) Skew: vec3(0.000050, -0.013899, 0.000213)
+INFO: Decomposed transform for DEF-thigh.R.001: Translation(-0.129532, -0.747386, 0.504011), Scale(1.00162, 1.03279, 1.03112)
+INFO: Bone [DEF-shin.R] FINAL TRANSFORM:
+INFO: mat4x4((1.001017, 0.054701, -0.019182, 0.000000), (-0.057724, 1.018185, -0.188573, 0.000000), (-0.010180, 0.188232, 1.017217, 0.000000), (-0.034785, -0.721151, 0.347101, 1.000000))
+INFO: Bone: DEF-shin.R Scale: vec3(1.002694, 1.037107, 1.034355) Translation: vec3(-0.034785, -0.721151, 0.347101) Skew: vec3(0.000422, -0.018711, 0.001472)
+INFO: Decomposed transform for DEF-shin.R: Translation(-0.0347851, -0.721151, 0.347101), Scale(1.00269, 1.03711, 1.03436)
+INFO: Bone [DEF-shin.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.874934, -0.047962, -0.500241, 0.000000), (-0.057526, 1.014750, -0.199029, 0.000000), (0.481004, 0.201118, 0.884751, 0.000000), (-0.011626, -0.742414, 0.276706, 1.000000))
+INFO: Bone: DEF-shin.R.001 Scale: vec3(1.008986, 1.035683, 1.026465) Translation: vec3(-0.011626, -0.742414, 0.276706) Skew: vec3(0.000320, -0.030306, 0.000537)
+INFO: Decomposed transform for DEF-shin.R.001: Translation(-0.0116262, -0.742414, 0.276706), Scale(1.00899, 1.03568, 1.02647)
+INFO: Bone [DEF-foot.R] FINAL TRANSFORM:
+INFO: mat4x4((0.826555, -0.255789, -0.499300, 0.000000), (0.089459, 0.929830, -0.336042, 0.000000), (0.553825, 0.233355, 0.790049, 0.000000), (-0.010139, -0.758295, 0.259438, 1.000000))
+INFO: Bone: DEF-foot.R Scale: vec3(0.998960, 0.992721, 0.992643) Translation: vec3(-0.010139, -0.758295, 0.259438) Skew: vec3(0.001037, 0.003636, 0.003921)
+INFO: Decomposed transform for DEF-foot.R: Translation(-0.0101392, -0.758295, 0.259438), Scale(0.99896, 0.992721, 0.992643)
+INFO: Bone [DEF-toe.R] FINAL TRANSFORM:
+INFO: mat4x4((0.400816, -0.024459, -1.048994, -0.000000), (-0.151449, 1.091165, -0.211276, 0.000000), (1.084961, 0.086844, 0.289499, 0.000000), (-0.023454, -0.752667, 0.244551, 1.000000))
+INFO: Bone: DEF-toe.R Scale: vec3(1.123228, 1.115317, 1.112886) Translation: vec3(-0.023454, -0.752667, 0.244551) Skew: vec3(-0.116378, 0.103247, 0.107152)
+INFO: Decomposed transform for DEF-toe.R: Translation(-0.0234542, -0.752667, 0.244551), Scale(1.12323, 1.11532, 1.11289)
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Drawing mesh with VAO: 1
+INFO: DEBUG: Depth testing and blending enabled.
+INFO: DEBUG: After Storing Bone DEF-breast.L
+INFO: DEBUG: After Storing Bone DEF-breast.R
+INFO: DEBUG: After Storing Bone DEF-brow.B.L
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.001
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.002
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.003
+INFO: DEBUG: After Storing Bone DEF-brow.B.R
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.001
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.002
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.003
+INFO: DEBUG: After Storing Bone DEF-brow.T.L
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.001
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.002
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.003
+INFO: DEBUG: After Storing Bone DEF-brow.T.R
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.001
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.002
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.003
+INFO: DEBUG: After Storing Bone DEF-cheek.B.L
+INFO: DEBUG: After Storing Bone DEF-cheek.B.L.001
+INFO: DEBUG: After Storing Bone DEF-cheek.B.R
+INFO: DEBUG: After Storing Bone DEF-cheek.B.R.001
+INFO: DEBUG: After Storing Bone DEF-cheek.T.L
+INFO: DEBUG: After Storing Bone DEF-cheek.T.L.001
+INFO: DEBUG: After Storing Bone DEF-cheek.T.R
+INFO: DEBUG: After Storing Bone DEF-cheek.T.R.001
+INFO: DEBUG: After Storing Bone DEF-chin
+INFO: DEBUG: After Storing Bone DEF-chin.001
+INFO: DEBUG: After Storing Bone DEF-chin.L
+INFO: DEBUG: After Storing Bone DEF-chin.R
+INFO: DEBUG: After Storing Bone DEF-ear.L
+INFO: DEBUG: After Storing Bone DEF-ear.L.001
+INFO: DEBUG: After Storing Bone DEF-ear.L.002
+INFO: DEBUG: After Storing Bone DEF-ear.L.003
+INFO: DEBUG: After Storing Bone DEF-ear.L.004
+INFO: DEBUG: After Storing Bone DEF-ear.R
+INFO: DEBUG: After Storing Bone DEF-ear.R.001
+INFO: DEBUG: After Storing Bone DEF-ear.R.002
+INFO: DEBUG: After Storing Bone DEF-ear.R.003
+INFO: DEBUG: After Storing Bone DEF-ear.R.004
+INFO: DEBUG: After Storing Bone DEF-f_index.01.L
+INFO: DEBUG: After Storing Bone DEF-f_index.01.R
+INFO: DEBUG: After Storing Bone DEF-f_index.02.L
+INFO: DEBUG: After Storing Bone DEF-f_index.02.R
+INFO: DEBUG: After Storing Bone DEF-f_index.03.L
+INFO: DEBUG: After Storing Bone DEF-f_index.03.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.01.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.01.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.02.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.02.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.03.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.03.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.01.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.01.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.02.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.02.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.03.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.03.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.01.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.01.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.02.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.02.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.03.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.03.R
+INFO: DEBUG: After Storing Bone DEF-foot.L
+INFO: DEBUG: After Storing Bone DEF-foot.R
+INFO: DEBUG: After Storing Bone DEF-forearm.L
+INFO: DEBUG: After Storing Bone DEF-forearm.L.001
+INFO: DEBUG: After Storing Bone DEF-forearm.R
+INFO: DEBUG: After Storing Bone DEF-forearm.R.001
+INFO: DEBUG: After Storing Bone DEF-forehead.L
+INFO: DEBUG: After Storing Bone DEF-forehead.L.001
+INFO: DEBUG: After Storing Bone DEF-forehead.L.002
+INFO: DEBUG: After Storing Bone DEF-forehead.R
+INFO: DEBUG: After Storing Bone DEF-forehead.R.001
+INFO: DEBUG: After Storing Bone DEF-forehead.R.002
+INFO: DEBUG: After Storing Bone DEF-hand.L
+INFO: DEBUG: After Storing Bone DEF-hand.R
+INFO: DEBUG: After Storing Bone DEF-jaw
+INFO: DEBUG: After Storing Bone DEF-jaw.L
+INFO: DEBUG: After Storing Bone DEF-jaw.L.001
+INFO: DEBUG: After Storing Bone DEF-jaw.R
+INFO: DEBUG: After Storing Bone DEF-jaw.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.L
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.002
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.003
+INFO: DEBUG: After Storing Bone DEF-lid.B.R
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.002
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.003
+INFO: DEBUG: After Storing Bone DEF-lid.T.L
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.001
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.002
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.003
+INFO: DEBUG: After Storing Bone DEF-lid.T.R
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.002
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.003
+INFO: DEBUG: After Storing Bone DEF-lip.B.L
+INFO: DEBUG: After Storing Bone DEF-lip.B.L.001
+INFO: DEBUG: After Storing Bone DEF-lip.B.R
+INFO: DEBUG: After Storing Bone DEF-lip.B.R.001
+INFO: DEBUG: After Storing Bone DEF-lip.T.L
+INFO: DEBUG: After Storing Bone DEF-lip.T.L.001
+INFO: DEBUG: After Storing Bone DEF-lip.T.R
+INFO: DEBUG: After Storing Bone DEF-lip.T.R.001
+INFO: DEBUG: After Storing Bone DEF-nose
+INFO: DEBUG: After Storing Bone DEF-nose.001
+INFO: DEBUG: After Storing Bone DEF-nose.002
+INFO: DEBUG: After Storing Bone DEF-nose.003
+INFO: DEBUG: After Storing Bone DEF-nose.004
+INFO: DEBUG: After Storing Bone DEF-nose.L
+INFO: DEBUG: After Storing Bone DEF-nose.L.001
+INFO: DEBUG: After Storing Bone DEF-nose.R
+INFO: DEBUG: After Storing Bone DEF-nose.R.001
+INFO: DEBUG: After Storing Bone DEF-palm.01.L
+INFO: DEBUG: After Storing Bone DEF-palm.01.R
+INFO: DEBUG: After Storing Bone DEF-palm.02.L
+INFO: DEBUG: After Storing Bone DEF-palm.02.R
+INFO: DEBUG: After Storing Bone DEF-palm.03.L
+INFO: DEBUG: After Storing Bone DEF-palm.03.R
+INFO: DEBUG: After Storing Bone DEF-palm.04.L
+INFO: DEBUG: After Storing Bone DEF-palm.04.R
+INFO: DEBUG: After Storing Bone DEF-pelvis.L
+INFO: DEBUG: After Storing Bone DEF-pelvis.R
+INFO: DEBUG: After Storing Bone DEF-shin.L
+INFO: DEBUG: After Storing Bone DEF-shin.L.001
+INFO: DEBUG: After Storing Bone DEF-shin.R
+INFO: DEBUG: After Storing Bone DEF-shin.R.001
+INFO: DEBUG: After Storing Bone DEF-shoulder.L
+INFO: DEBUG: After Storing Bone DEF-shoulder.R
+INFO: DEBUG: After Storing Bone DEF-spine
+INFO: DEBUG: After Storing Bone DEF-spine.001
+INFO: DEBUG: After Storing Bone DEF-spine.002
+INFO: DEBUG: After Storing Bone DEF-spine.003
+INFO: DEBUG: After Storing Bone DEF-spine.004
+INFO: DEBUG: After Storing Bone DEF-spine.005
+INFO: DEBUG: After Storing Bone DEF-spine.006
+INFO: DEBUG: After Storing Bone DEF-temple.L
+INFO: DEBUG: After Storing Bone DEF-temple.R
+INFO: DEBUG: After Storing Bone DEF-thigh.L
+INFO: DEBUG: After Storing Bone DEF-thigh.L.001
+INFO: DEBUG: After Storing Bone DEF-thigh.R
+INFO: DEBUG: After Storing Bone DEF-thigh.R.001
+INFO: DEBUG: After Storing Bone DEF-thumb.01.L
+INFO: DEBUG: After Storing Bone DEF-thumb.01.R
+INFO: DEBUG: After Storing Bone DEF-thumb.02.L
+INFO: DEBUG: After Storing Bone DEF-thumb.02.R
+INFO: DEBUG: After Storing Bone DEF-thumb.03.L
+INFO: DEBUG: After Storing Bone DEF-thumb.03.R
+INFO: DEBUG: After Storing Bone DEF-toe.L
+INFO: DEBUG: After Storing Bone DEF-toe.R
+INFO: DEBUG: After Storing Bone DEF-tongue
+INFO: DEBUG: After Storing Bone DEF-tongue.001
+INFO: DEBUG: After Storing Bone DEF-tongue.002
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
+INFO: DEBUG: After Storing Bone ORG-palm.01.L
+INFO: DEBUG: After Storing Bone ORG-palm.01.R
+INFO: DEBUG: After Storing Bone ORG-palm.02.L
+INFO: DEBUG: After Storing Bone ORG-palm.02.R
+INFO: DEBUG: After Storing Bone ORG-palm.03.L
+INFO: DEBUG: After Storing Bone ORG-palm.03.R
+INFO: DEBUG: After Storing Bone ORG-palm.04.L
+INFO: DEBUG: After Storing Bone ORG-palm.04.R
+INFO: DEBUG: After Storing Bone root
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Bone [DEF-spine.001] FINAL TRANSFORM:
+INFO: mat4x4((0.999090, 0.041881, 0.008131, 0.000000), (-0.039276, 0.977337, -0.208012, 0.000000), (-0.016658, 0.207503, 0.978093, 0.000000), (0.040861, -0.877242, 0.290923, 1.000000))
+INFO: Bone: DEF-spine.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.040861, -0.877242, 0.290923) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.001: Translation(0.0408613, -0.877242, 0.290923), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.002] FINAL TRANSFORM:
+INFO: mat4x4((0.985301, 0.105648, -0.134239, 0.000000), (-0.122555, 0.984603, -0.124647, 0.000000), (0.119003, 0.139266, 0.983078, 0.000000), (0.149733, -0.889454, 0.188715, 1.000000))
+INFO: Bone: DEF-spine.002 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.149733, -0.889454, 0.188715) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.002: Translation(0.149733, -0.889454, 0.188715), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.003] FINAL TRANSFORM:
+INFO: mat4x4((0.951134, 0.055347, -0.303778, 0.000000), (-0.042803, 0.997939, 0.047804, 0.000000), (0.305797, -0.032465, 0.951543, 0.000000), (0.048874, -0.916594, -0.051417, 1.000000))
+INFO: Bone: DEF-spine.003 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.048874, -0.916594, -0.051417) Skew: vec3(-0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine.003: Translation(0.0488736, -0.916594, -0.0514167), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.004] FINAL TRANSFORM:
+INFO: mat4x4((0.762608, -0.001799, -0.654306, 0.000000), (-0.068629, 0.995478, -0.077964, 0.000000), (0.650556, 0.101818, 0.759271, 0.000000), (0.108469, -0.905212, 0.133756, 1.000000))
+INFO: Bone: DEF-spine.004 Scale: vec3(1.004834, 1.000877, 1.005025) Translation: vec3(0.108469, -0.905212, 0.133756) Skew: vec3(-0.002474, -0.000852, -0.003099)
+INFO: Decomposed transform for DEF-spine.004: Translation(0.108469, -0.905212, 0.133756), Scale(1.00483, 1.00088, 1.00503)
+INFO: Bone [DEF-spine.005] FINAL TRANSFORM:
+INFO: mat4x4((0.528391, 0.067689, -0.862273, 0.000000), (-0.140394, 0.992177, -0.000431, 0.000000), (0.853487, 0.113282, 0.534268, 0.000000), (0.229624, -0.909253, -0.000986, 1.000000))
+INFO: Bone: DEF-spine.005 Scale: vec3(1.013555, 1.002039, 1.013239) Translation: vec3(0.229624, -0.909253, -0.000986) Skew: vec3(-0.007556, -0.001989, -0.006549)
+INFO: Decomposed transform for DEF-spine.005: Translation(0.229624, -0.909253, -0.000986341), Scale(1.01356, 1.00204, 1.01324)
+INFO: Bone [DEF-spine.006] FINAL TRANSFORM:
+INFO: mat4x4((0.723830, -0.052061, -0.693477, 0.000000), (-0.150663, 0.961187, -0.233412, 0.000000), (0.678912, 0.272892, 0.687853, 0.000000), (0.245384, -0.871692, 0.390477, 1.000000))
+INFO: Bone: DEF-spine.006 Scale: vec3(1.003768, 1.000527, 1.004258) Translation: vec3(0.245384, -0.871692, 0.390477) Skew: vec3(-0.000538, 0.000198, 0.002759)
+INFO: Decomposed transform for DEF-spine.006: Translation(0.245384, -0.871692, 0.390477), Scale(1.00377, 1.00053, 1.00426)
+INFO: Bone [DEF-shoulder.L] FINAL TRANSFORM:
+INFO: mat4x4((0.720662, -0.100532, -0.737658, 0.000000), (-0.088135, 1.049958, -0.111843, 0.000000), (0.759554, 0.123414, 0.766686, 0.000000), (0.137518, -0.986766, 0.196099, 1.000000))
+INFO: Bone: DEF-shoulder.L Scale: vec3(1.036147, 1.056271, 1.085589) Translation: vec3(0.137518, -0.986766, 0.196099) Skew: vec3(-0.022307, -0.027184, -0.079097)
+INFO: Decomposed transform for DEF-shoulder.L: Translation(0.137518, -0.986766, 0.196099), Scale(1.03615, 1.05627, 1.08559)
+INFO: Bone [DEF-upper_arm.L] FINAL TRANSFORM:
+INFO: mat4x4((0.853637, -0.519466, 0.125233, 0.000000), (0.533420, 0.842170, -0.141721, 0.000000), (-0.030796, 0.187509, 0.981996, 0.000000), (-0.816836, -0.572820, 0.161190, 1.000000))
+INFO: Bone: DEF-upper_arm.L Scale: vec3(1.007087, 1.006912, 1.000209) Translation: vec3(-0.816836, -0.572820, 0.161190) Skew: vec3(0.002301, -0.000710, 0.000118)
+INFO: Decomposed transform for DEF-upper_arm.L: Translation(-0.816836, -0.57282, 0.16119), Scale(1.00709, 1.00691, 1.00021)
+INFO: Bone [DEF-upper_arm.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.834630, -0.557333, 0.145869, 0.000000), (0.420964, 0.764408, 0.516210, 0.000000), (-0.387796, -0.365107, 0.847141, 0.000000), (-0.669674, -0.472597, -0.830008, 1.000000))
+INFO: Bone: DEF-upper_arm.L.001 Scale: vec3(1.014152, 1.013905, 1.000650) Translation: vec3(-0.669674, -0.472597, -0.830008) Skew: vec3(-0.004966, 0.003342, 0.000602)
+INFO: Decomposed transform for DEF-upper_arm.L.001: Translation(-0.669674, -0.472597, -0.830008), Scale(1.01415, 1.0139, 1.00065)
+INFO: Bone [DEF-forearm.L] FINAL TRANSFORM:
+INFO: mat4x4((-0.281406, 0.960373, 0.007894, 0.000000), (-0.173147, -0.047792, -0.996653, 0.000000), (-0.957428, -0.278141, 0.178919, 0.000000), (0.648404, 0.111017, 1.430970, 1.000000))
+INFO: Bone: DEF-forearm.L Scale: vec3(1.000784, 1.012697, 1.012931) Translation: vec3(0.648404, 0.111017, 1.430970) Skew: vec3(0.000748, 0.003669, -0.004973)
+INFO: Decomposed transform for DEF-forearm.L: Translation(0.648404, 0.111017, 1.43097), Scale(1.00078, 1.0127, 1.01293)
+INFO: Bone [DEF-forearm.L.001] FINAL TRANSFORM:
+INFO: mat4x4((-0.334945, 0.943450, -0.054840, 0.000000), (0.330093, 0.038026, -1.001157, 0.000000), (-0.944652, -0.339536, -0.326852, 0.000000), (-0.063963, -0.020435, 1.425948, 1.000000))
+INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.002643, 1.054672, 1.055596) Translation: vec3(-0.063963, -0.020435, 1.425948) Skew: vec3(0.002489, 0.013224, -0.018709)
+INFO: Decomposed transform for DEF-forearm.L.001: Translation(-0.0639634, -0.0204349, 1.42595), Scale(1.00264, 1.05467, 1.0556)
+INFO: Bone [DEF-hand.L] FINAL TRANSFORM:
+INFO: mat4x4((0.158849, 0.967788, -0.196335, 0.000000), (0.694952, -0.254537, -0.713287, 0.000000), (-0.739961, -0.020836, -0.713268, 0.000000), (-0.904975, 0.414545, 1.065451, 1.000000))
+INFO: Bone: DEF-hand.L Scale: vec3(1.000197, 1.027866, 1.027969) Translation: vec3(-0.904975, 0.414545, 1.065451) Skew: vec3(-0.000169, 0.002269, 0.003986)
+INFO: Decomposed transform for DEF-hand.L: Translation(-0.904975, 0.414545, 1.06545), Scale(1.0002, 1.02787, 1.02797)
+INFO: Bone [DEF-shoulder.R] FINAL TRANSFORM:
+INFO: mat4x4((0.807595, 0.008597, -0.527792, 0.000000), (-0.131287, 0.961348, -0.090021, 0.000000), (0.529632, 0.121164, 0.776265, 0.000000), (0.202583, -0.853335, 0.164759, 1.000000))
+INFO: Bone: DEF-shoulder.R Scale: vec3(0.964804, 0.973046, 0.947038) Translation: vec3(0.202583, -0.853335, 0.164759) Skew: vec3(-0.023771, 0.020864, -0.053525)
+INFO: Decomposed transform for DEF-shoulder.R: Translation(0.202583, -0.853335, 0.164759), Scale(0.964804, 0.973046, 0.947038)
+INFO: Bone [DEF-upper_arm.R] FINAL TRANSFORM:
+INFO: mat4x4((0.212747, 0.992671, -0.653433, 0.000000), (-0.196939, 0.680805, 0.908212, 0.000000), (1.064868, -0.113104, 0.082577, 0.000000), (0.199664, -0.282515, -1.456289, 1.000000))
+INFO: Bone: DEF-upper_arm.R Scale: vec3(1.207324, 1.151524, 1.056749) Translation: vec3(0.199664, -0.282515, -1.456289) Skew: vec3(-0.175362, 0.047274, 0.029103)
+INFO: Decomposed transform for DEF-upper_arm.R: Translation(0.199664, -0.282515, -1.45629), Scale(1.20732, 1.15152, 1.05675)
+INFO: Bone [DEF-upper_arm.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.330446, 0.834911, -0.566586, 0.000000), (0.597608, 0.285235, 0.777102, 0.000000), (0.742272, -0.590346, -0.431214, 0.000000), (-0.977655, 0.276716, -1.276239, 1.000000))
+INFO: Bone: DEF-upper_arm.R.001 Scale: vec3(1.061740, 1.020962, 1.040177) Translation: vec3(-0.977655, 0.276716, -1.276239) Skew: vec3(-0.056414, -0.002976, -0.004311)
+INFO: Decomposed transform for DEF-upper_arm.R.001: Translation(-0.977655, 0.276716, -1.27624), Scale(1.06174, 1.02096, 1.04018)
+INFO: Bone [DEF-forearm.R] FINAL TRANSFORM:
+INFO: mat4x4((-0.293848, -0.951255, -0.079146, 0.000000), (-0.391298, 0.205661, -0.861499, 0.000000), (0.835617, -0.222988, -0.432587, 0.000000), (0.236451, -0.327399, 1.381230, 1.000000))
+INFO: Bone: DEF-forearm.R Scale: vec3(0.998748, 0.968213, 0.967011) Translation: vec3(0.236451, -0.327399, 1.381230) Skew: vec3(-0.000162, 0.000841, -0.012896)
+INFO: Decomposed transform for DEF-forearm.R: Translation(0.236451, -0.327399, 1.38123), Scale(0.998748, 0.968213, 0.967011)
+INFO: Bone [DEF-forearm.R.001] FINAL TRANSFORM:
+INFO: mat4x4((-0.369805, -0.928356, -0.063555, 0.000000), (-0.967781, 0.371684, -0.004758, 0.000000), (0.027057, 0.054866, -1.035869, 0.000000), (1.009780, -0.525351, 0.074375, 1.000000))
+INFO: Bone: DEF-forearm.R.001 Scale: vec3(1.001319, 1.036629, 1.037662) Translation: vec3(1.009780, -0.525351, 0.074375) Skew: vec3(-0.000862, 0.004710, 0.012657)
+INFO: Decomposed transform for DEF-forearm.R.001: Translation(1.00978, -0.525351, 0.0743745), Scale(1.00132, 1.03663, 1.03766)
+INFO: Bone [DEF-hand.R] FINAL TRANSFORM:
+INFO: mat4x4((0.262860, -0.850095, 0.466484, 0.000000), (-0.689770, 0.225803, 0.808037, 0.000000), (-0.795898, -0.495557, -0.539866, 0.000000), (0.975127, -0.278603, -0.730082, 1.000000))
+INFO: Bone: DEF-hand.R Scale: vec3(1.004671, 1.086130, 1.081165) Translation: vec3(0.975127, -0.278603, -0.730082) Skew: vec3(0.000852, -0.036621, 0.003362)
+INFO: Decomposed transform for DEF-hand.R: Translation(0.975127, -0.278603, -0.730082), Scale(1.00467, 1.08613, 1.08116)
+INFO: Bone [DEF-breast.L] FINAL TRANSFORM:
+INFO: mat4x4((0.736203, -0.021845, -0.640313, 0.000000), (-0.092900, 0.971614, -0.128259, 0.000000), (0.633914, 0.181919, 0.736657, 0.000000), (0.157903, -0.836808, 0.210378, 1.000000))
+INFO: Bone: DEF-breast.L Scale: vec3(0.975947, 0.984406, 0.988413) Translation: vec3(0.157903, -0.836808, 0.210378) Skew: vec3(0.023958, -0.009305, -0.007799)
+INFO: Decomposed transform for DEF-breast.L: Translation(0.157903, -0.836808, 0.210378), Scale(0.975947, 0.984406, 0.988413)
+INFO: Bone [DEF-breast.R] FINAL TRANSFORM:
+INFO: mat4x4((0.736203, -0.021845, -0.640313, 0.000000), (-0.092901, 0.971614, -0.128260, 0.000000), (0.633914, 0.181920, 0.736657, 0.000000), (0.126902, -0.837157, 0.212699, 1.000000))
+INFO: Bone: DEF-breast.R Scale: vec3(0.975947, 0.984406, 0.988413) Translation: vec3(0.126902, -0.837157, 0.212699) Skew: vec3(0.023958, -0.009305, -0.007799)
+INFO: Decomposed transform for DEF-breast.R: Translation(0.126902, -0.837157, 0.212699), Scale(0.975947, 0.984406, 0.988413)
+INFO: Bone [DEF-pelvis.L] FINAL TRANSFORM:
+INFO: mat4x4((0.999920, -0.005672, 0.011344, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010207, 0.171058, 0.985208, 0.000000), (-0.010782, -0.888171, 0.250188, 1.000000))
+INFO: Bone: DEF-pelvis.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250188) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-pelvis.L: Translation(-0.0107822, -0.888171, 0.250188), Scale(1, 1, 1)
+INFO: Bone [DEF-thigh.L] FINAL TRANSFORM:
+INFO: mat4x4((0.848020, 0.449032, -0.282579, 0.000000), (-0.527172, 0.780760, -0.350122, 0.000000), (0.063753, 0.445963, 0.898737, 0.000000), (0.581890, -0.682593, 0.459207, 1.000000))
+INFO: Bone: DEF-thigh.L Scale: vec3(1.000309, 1.005025, 1.005324) Translation: vec3(0.581890, -0.682593, 0.459207) Skew: vec3(-0.000086, 0.000349, 0.002457)
+INFO: Decomposed transform for DEF-thigh.L: Translation(0.58189, -0.682593, 0.459207), Scale(1.00031, 1.00503, 1.00532)
+INFO: Bone [DEF-thigh.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.829720, 0.552662, -0.078264, 0.000000), (-0.542922, 0.766496, -0.343045, 0.000000), (-0.129604, 0.327121, 0.936030, 0.000000), (0.565414, -0.647813, 0.422387, 1.000000))
+INFO: Bone: DEF-thigh.L.001 Scale: vec3(0.999998, 0.999980, 0.999979) Translation: vec3(0.565414, -0.647813, 0.422387) Skew: vec3(0.000002, -0.000006, -0.000012)
+INFO: Decomposed transform for DEF-thigh.L.001: Translation(0.565414, -0.647813, 0.422387), Scale(0.999998, 0.99998, 0.999979)
+INFO: Bone [DEF-shin.L] FINAL TRANSFORM:
+INFO: mat4x4((0.992349, -0.045974, 0.126010, 0.000000), (0.047344, 1.033059, -0.001202, 0.000000), (-0.116371, 0.006657, 1.026222, -0.000000), (0.239332, -0.706779, 0.222891, 1.000000))
+INFO: Bone: DEF-shin.L Scale: vec3(1.001374, 1.034143, 1.032732) Translation: vec3(0.239332, -0.706779, 0.222891) Skew: vec3(0.000134, 0.013080, -0.000641)
+INFO: Decomposed transform for DEF-shin.L: Translation(0.239332, -0.706779, 0.222891), Scale(1.00137, 1.03414, 1.03273)
+INFO: Bone [DEF-shin.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.977656, -0.044190, -0.205712, 0.000000), (0.045059, 1.029109, -0.005697, 0.000000), (0.214095, -0.003787, 1.007570, -0.000000), (0.237475, -0.721845, 0.229185, 1.000000))
+INFO: Bone: DEF-shin.L.001 Scale: vec3(1.000041, 1.030110, 1.030070) Translation: vec3(0.237475, -0.721845, 0.229185) Skew: vec3(0.000009, 0.002144, -0.000245)
+INFO: Decomposed transform for DEF-shin.L.001: Translation(0.237475, -0.721845, 0.229185), Scale(1.00004, 1.03011, 1.03007)
+INFO: Bone [DEF-foot.L] FINAL TRANSFORM:
+INFO: mat4x4((0.817860, -0.148686, -0.573508, 0.000000), (-0.009364, 1.007176, -0.234720, 0.000000), (0.585366, 0.189062, 0.830077, 0.000000), (0.258251, -0.717796, 0.241708, 1.000000))
+INFO: Bone: DEF-foot.L Scale: vec3(1.009908, 1.033961, 1.032807) Translation: vec3(0.258251, -0.717796, 0.241708) Skew: vec3(-0.009801, -0.024371, -0.021833)
+INFO: Decomposed transform for DEF-foot.L: Translation(0.258251, -0.717796, 0.241708), Scale(1.00991, 1.03396, 1.03281)
+INFO: Bone [DEF-toe.L] FINAL TRANSFORM:
+INFO: mat4x4((0.879404, -0.073814, -0.429306, 0.000000), (-0.041965, 0.957157, -0.236902, 0.000000), (0.430963, 0.249773, 0.857829, 0.000000), (0.246919, -0.709496, 0.226914, 1.000000))
+INFO: Bone: DEF-toe.L Scale: vec3(0.981378, 0.986914, 0.991767) Translation: vec3(0.246919, -0.709496, 0.226914) Skew: vec3(0.018102, -0.007928, -0.006042)
+INFO: Decomposed transform for DEF-toe.L: Translation(0.246919, -0.709496, 0.226914), Scale(0.981378, 0.986914, 0.991767)
+INFO: Bone [DEF-pelvis.R] FINAL TRANSFORM:
+INFO: mat4x4((0.999920, -0.005672, 0.011343, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010206, 0.171058, 0.985209, 0.000000), (-0.010782, -0.888171, 0.250189, 1.000000))
+INFO: Bone: DEF-pelvis.R Scale: vec3(1.000001, 1.000000, 1.000001) Translation: vec3(-0.010782, -0.888171, 0.250189) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-pelvis.R: Translation(-0.0107823, -0.888171, 0.250189), Scale(1, 1, 1)
+INFO: Bone [DEF-thigh.R] FINAL TRANSFORM:
+INFO: mat4x4((0.993585, -0.078592, 0.099540, 0.000000), (0.116868, 0.931268, -0.429869, 0.000000), (-0.072922, 0.438457, 0.929972, 0.000000), (-0.134025, -0.814477, 0.531621, 1.000000))
+INFO: Bone: DEF-thigh.R Scale: vec3(1.001647, 1.032330, 1.030633) Translation: vec3(-0.134025, -0.814477, 0.531621) Skew: vec3(0.000032, -0.013894, 0.000135)
+INFO: Decomposed transform for DEF-thigh.R: Translation(-0.134025, -0.814477, 0.531621), Scale(1.00165, 1.03233, 1.03063)
+INFO: Bone [DEF-thigh.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.993239, -0.075078, 0.105307, 0.000000), (0.116250, 0.931770, -0.430052, 0.000000), (-0.079827, 0.439083, 0.929644, 0.000000), (-0.129532, -0.747386, 0.504011, 1.000000))
+INFO: Bone: DEF-thigh.R.001 Scale: vec3(1.001624, 1.032789, 1.031116) Translation: vec3(-0.129532, -0.747386, 0.504011) Skew: vec3(0.000050, -0.013899, 0.000213)
+INFO: Decomposed transform for DEF-thigh.R.001: Translation(-0.129532, -0.747386, 0.504011), Scale(1.00162, 1.03279, 1.03112)
+INFO: Bone [DEF-shin.R] FINAL TRANSFORM:
+INFO: mat4x4((1.001017, 0.054701, -0.019182, 0.000000), (-0.057724, 1.018185, -0.188573, 0.000000), (-0.010180, 0.188232, 1.017217, 0.000000), (-0.034785, -0.721151, 0.347101, 1.000000))
+INFO: Bone: DEF-shin.R Scale: vec3(1.002694, 1.037107, 1.034355) Translation: vec3(-0.034785, -0.721151, 0.347101) Skew: vec3(0.000422, -0.018711, 0.001472)
+INFO: Decomposed transform for DEF-shin.R: Translation(-0.0347851, -0.721151, 0.347101), Scale(1.00269, 1.03711, 1.03436)
+INFO: Bone [DEF-shin.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.874934, -0.047962, -0.500241, 0.000000), (-0.057526, 1.014750, -0.199029, 0.000000), (0.481004, 0.201118, 0.884751, 0.000000), (-0.011626, -0.742414, 0.276706, 1.000000))
+INFO: Bone: DEF-shin.R.001 Scale: vec3(1.008986, 1.035683, 1.026465) Translation: vec3(-0.011626, -0.742414, 0.276706) Skew: vec3(0.000320, -0.030306, 0.000537)
+INFO: Decomposed transform for DEF-shin.R.001: Translation(-0.0116262, -0.742414, 0.276706), Scale(1.00899, 1.03568, 1.02647)
+INFO: Bone [DEF-foot.R] FINAL TRANSFORM:
+INFO: mat4x4((0.826555, -0.255789, -0.499300, 0.000000), (0.089459, 0.929830, -0.336042, 0.000000), (0.553825, 0.233355, 0.790049, 0.000000), (-0.010139, -0.758295, 0.259438, 1.000000))
+INFO: Bone: DEF-foot.R Scale: vec3(0.998960, 0.992721, 0.992643) Translation: vec3(-0.010139, -0.758295, 0.259438) Skew: vec3(0.001037, 0.003636, 0.003921)
+INFO: Decomposed transform for DEF-foot.R: Translation(-0.0101392, -0.758295, 0.259438), Scale(0.99896, 0.992721, 0.992643)
+INFO: Bone [DEF-toe.R] FINAL TRANSFORM:
+INFO: mat4x4((0.400816, -0.024459, -1.048994, -0.000000), (-0.151449, 1.091165, -0.211276, 0.000000), (1.084961, 0.086844, 0.289499, 0.000000), (-0.023454, -0.752667, 0.244551, 1.000000))
+INFO: Bone: DEF-toe.R Scale: vec3(1.123228, 1.115317, 1.112886) Translation: vec3(-0.023454, -0.752667, 0.244551) Skew: vec3(-0.116378, 0.103247, 0.107152)
+INFO: Decomposed transform for DEF-toe.R: Translation(-0.0234542, -0.752667, 0.244551), Scale(1.12323, 1.11532, 1.11289)
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Drawing mesh with VAO: 1
+INFO: DEBUG: Depth testing and blending enabled.
+INFO: DEBUG: After Storing Bone DEF-breast.L
+INFO: DEBUG: After Storing Bone DEF-breast.R
+INFO: DEBUG: After Storing Bone DEF-brow.B.L
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.001
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.002
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.003
+INFO: DEBUG: After Storing Bone DEF-brow.B.R
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.001
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.002
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.003
+INFO: DEBUG: After Storing Bone DEF-brow.T.L
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.001
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.002
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.003
+INFO: DEBUG: After Storing Bone DEF-brow.T.R
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.001
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.002
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.003
+INFO: DEBUG: After Storing Bone DEF-cheek.B.L
+INFO: DEBUG: After Storing Bone DEF-cheek.B.L.001
+INFO: DEBUG: After Storing Bone DEF-cheek.B.R
+INFO: DEBUG: After Storing Bone DEF-cheek.B.R.001
+INFO: DEBUG: After Storing Bone DEF-cheek.T.L
+INFO: DEBUG: After Storing Bone DEF-cheek.T.L.001
+INFO: DEBUG: After Storing Bone DEF-cheek.T.R
+INFO: DEBUG: After Storing Bone DEF-cheek.T.R.001
+INFO: DEBUG: After Storing Bone DEF-chin
+INFO: DEBUG: After Storing Bone DEF-chin.001
+INFO: DEBUG: After Storing Bone DEF-chin.L
+INFO: DEBUG: After Storing Bone DEF-chin.R
+INFO: DEBUG: After Storing Bone DEF-ear.L
+INFO: DEBUG: After Storing Bone DEF-ear.L.001
+INFO: DEBUG: After Storing Bone DEF-ear.L.002
+INFO: DEBUG: After Storing Bone DEF-ear.L.003
+INFO: DEBUG: After Storing Bone DEF-ear.L.004
+INFO: DEBUG: After Storing Bone DEF-ear.R
+INFO: DEBUG: After Storing Bone DEF-ear.R.001
+INFO: DEBUG: After Storing Bone DEF-ear.R.002
+INFO: DEBUG: After Storing Bone DEF-ear.R.003
+INFO: DEBUG: After Storing Bone DEF-ear.R.004
+INFO: DEBUG: After Storing Bone DEF-f_index.01.L
+INFO: DEBUG: After Storing Bone DEF-f_index.01.R
+INFO: DEBUG: After Storing Bone DEF-f_index.02.L
+INFO: DEBUG: After Storing Bone DEF-f_index.02.R
+INFO: DEBUG: After Storing Bone DEF-f_index.03.L
+INFO: DEBUG: After Storing Bone DEF-f_index.03.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.01.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.01.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.02.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.02.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.03.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.03.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.01.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.01.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.02.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.02.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.03.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.03.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.01.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.01.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.02.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.02.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.03.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.03.R
+INFO: DEBUG: After Storing Bone DEF-foot.L
+INFO: DEBUG: After Storing Bone DEF-foot.R
+INFO: DEBUG: After Storing Bone DEF-forearm.L
+INFO: DEBUG: After Storing Bone DEF-forearm.L.001
+INFO: DEBUG: After Storing Bone DEF-forearm.R
+INFO: DEBUG: After Storing Bone DEF-forearm.R.001
+INFO: DEBUG: After Storing Bone DEF-forehead.L
+INFO: DEBUG: After Storing Bone DEF-forehead.L.001
+INFO: DEBUG: After Storing Bone DEF-forehead.L.002
+INFO: DEBUG: After Storing Bone DEF-forehead.R
+INFO: DEBUG: After Storing Bone DEF-forehead.R.001
+INFO: DEBUG: After Storing Bone DEF-forehead.R.002
+INFO: DEBUG: After Storing Bone DEF-hand.L
+INFO: DEBUG: After Storing Bone DEF-hand.R
+INFO: DEBUG: After Storing Bone DEF-jaw
+INFO: DEBUG: After Storing Bone DEF-jaw.L
+INFO: DEBUG: After Storing Bone DEF-jaw.L.001
+INFO: DEBUG: After Storing Bone DEF-jaw.R
+INFO: DEBUG: After Storing Bone DEF-jaw.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.L
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.002
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.003
+INFO: DEBUG: After Storing Bone DEF-lid.B.R
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.002
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.003
+INFO: DEBUG: After Storing Bone DEF-lid.T.L
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.001
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.002
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.003
+INFO: DEBUG: After Storing Bone DEF-lid.T.R
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.002
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.003
+INFO: DEBUG: After Storing Bone DEF-lip.B.L
+INFO: DEBUG: After Storing Bone DEF-lip.B.L.001
+INFO: DEBUG: After Storing Bone DEF-lip.B.R
+INFO: DEBUG: After Storing Bone DEF-lip.B.R.001
+INFO: DEBUG: After Storing Bone DEF-lip.T.L
+INFO: DEBUG: After Storing Bone DEF-lip.T.L.001
+INFO: DEBUG: After Storing Bone DEF-lip.T.R
+INFO: DEBUG: After Storing Bone DEF-lip.T.R.001
+INFO: DEBUG: After Storing Bone DEF-nose
+INFO: DEBUG: After Storing Bone DEF-nose.001
+INFO: DEBUG: After Storing Bone DEF-nose.002
+INFO: DEBUG: After Storing Bone DEF-nose.003
+INFO: DEBUG: After Storing Bone DEF-nose.004
+INFO: DEBUG: After Storing Bone DEF-nose.L
+INFO: DEBUG: After Storing Bone DEF-nose.L.001
+INFO: DEBUG: After Storing Bone DEF-nose.R
+INFO: DEBUG: After Storing Bone DEF-nose.R.001
+INFO: DEBUG: After Storing Bone DEF-palm.01.L
+INFO: DEBUG: After Storing Bone DEF-palm.01.R
+INFO: DEBUG: After Storing Bone DEF-palm.02.L
+INFO: DEBUG: After Storing Bone DEF-palm.02.R
+INFO: DEBUG: After Storing Bone DEF-palm.03.L
+INFO: DEBUG: After Storing Bone DEF-palm.03.R
+INFO: DEBUG: After Storing Bone DEF-palm.04.L
+INFO: DEBUG: After Storing Bone DEF-palm.04.R
+INFO: DEBUG: After Storing Bone DEF-pelvis.L
+INFO: DEBUG: After Storing Bone DEF-pelvis.R
+INFO: DEBUG: After Storing Bone DEF-shin.L
+INFO: DEBUG: After Storing Bone DEF-shin.L.001
+INFO: DEBUG: After Storing Bone DEF-shin.R
+INFO: DEBUG: After Storing Bone DEF-shin.R.001
+INFO: DEBUG: After Storing Bone DEF-shoulder.L
+INFO: DEBUG: After Storing Bone DEF-shoulder.R
+INFO: DEBUG: After Storing Bone DEF-spine
+INFO: DEBUG: After Storing Bone DEF-spine.001
+INFO: DEBUG: After Storing Bone DEF-spine.002
+INFO: DEBUG: After Storing Bone DEF-spine.003
+INFO: DEBUG: After Storing Bone DEF-spine.004
+INFO: DEBUG: After Storing Bone DEF-spine.005
+INFO: DEBUG: After Storing Bone DEF-spine.006
+INFO: DEBUG: After Storing Bone DEF-temple.L
+INFO: DEBUG: After Storing Bone DEF-temple.R
+INFO: DEBUG: After Storing Bone DEF-thigh.L
+INFO: DEBUG: After Storing Bone DEF-thigh.L.001
+INFO: DEBUG: After Storing Bone DEF-thigh.R
+INFO: DEBUG: After Storing Bone DEF-thigh.R.001
+INFO: DEBUG: After Storing Bone DEF-thumb.01.L
+INFO: DEBUG: After Storing Bone DEF-thumb.01.R
+INFO: DEBUG: After Storing Bone DEF-thumb.02.L
+INFO: DEBUG: After Storing Bone DEF-thumb.02.R
+INFO: DEBUG: After Storing Bone DEF-thumb.03.L
+INFO: DEBUG: After Storing Bone DEF-thumb.03.R
+INFO: DEBUG: After Storing Bone DEF-toe.L
+INFO: DEBUG: After Storing Bone DEF-toe.R
+INFO: DEBUG: After Storing Bone DEF-tongue
+INFO: DEBUG: After Storing Bone DEF-tongue.001
+INFO: DEBUG: After Storing Bone DEF-tongue.002
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
+INFO: DEBUG: After Storing Bone ORG-palm.01.L
+INFO: DEBUG: After Storing Bone ORG-palm.01.R
+INFO: DEBUG: After Storing Bone ORG-palm.02.L
+INFO: DEBUG: After Storing Bone ORG-palm.02.R
+INFO: DEBUG: After Storing Bone ORG-palm.03.L
+INFO: DEBUG: After Storing Bone ORG-palm.03.R
+INFO: DEBUG: After Storing Bone ORG-palm.04.L
+INFO: DEBUG: After Storing Bone ORG-palm.04.R
+INFO: DEBUG: After Storing Bone root
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Bone [DEF-spine.001] FINAL TRANSFORM:
+INFO: mat4x4((0.999090, 0.041881, 0.008131, 0.000000), (-0.039276, 0.977337, -0.208012, 0.000000), (-0.016658, 0.207503, 0.978093, 0.000000), (0.040861, -0.877242, 0.290923, 1.000000))
+INFO: Bone: DEF-spine.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.040861, -0.877242, 0.290923) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.001: Translation(0.0408613, -0.877242, 0.290923), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.002] FINAL TRANSFORM:
+INFO: mat4x4((0.985301, 0.105648, -0.134239, 0.000000), (-0.122555, 0.984603, -0.124647, 0.000000), (0.119003, 0.139266, 0.983078, 0.000000), (0.149733, -0.889454, 0.188715, 1.000000))
+INFO: Bone: DEF-spine.002 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.149733, -0.889454, 0.188715) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.002: Translation(0.149733, -0.889454, 0.188715), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.003] FINAL TRANSFORM:
+INFO: mat4x4((0.951134, 0.055347, -0.303778, 0.000000), (-0.042803, 0.997939, 0.047804, 0.000000), (0.305797, -0.032465, 0.951543, 0.000000), (0.048874, -0.916594, -0.051417, 1.000000))
+INFO: Bone: DEF-spine.003 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.048874, -0.916594, -0.051417) Skew: vec3(-0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine.003: Translation(0.0488736, -0.916594, -0.0514167), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.004] FINAL TRANSFORM:
+INFO: mat4x4((0.762608, -0.001799, -0.654306, 0.000000), (-0.068629, 0.995478, -0.077964, 0.000000), (0.650556, 0.101818, 0.759271, 0.000000), (0.108469, -0.905212, 0.133756, 1.000000))
+INFO: Bone: DEF-spine.004 Scale: vec3(1.004834, 1.000877, 1.005025) Translation: vec3(0.108469, -0.905212, 0.133756) Skew: vec3(-0.002474, -0.000852, -0.003099)
+INFO: Decomposed transform for DEF-spine.004: Translation(0.108469, -0.905212, 0.133756), Scale(1.00483, 1.00088, 1.00503)
+INFO: Bone [DEF-spine.005] FINAL TRANSFORM:
+INFO: mat4x4((0.528391, 0.067689, -0.862273, 0.000000), (-0.140394, 0.992177, -0.000431, 0.000000), (0.853487, 0.113282, 0.534268, 0.000000), (0.229624, -0.909253, -0.000986, 1.000000))
+INFO: Bone: DEF-spine.005 Scale: vec3(1.013555, 1.002039, 1.013239) Translation: vec3(0.229624, -0.909253, -0.000986) Skew: vec3(-0.007556, -0.001989, -0.006549)
+INFO: Decomposed transform for DEF-spine.005: Translation(0.229624, -0.909253, -0.000986341), Scale(1.01356, 1.00204, 1.01324)
+INFO: Bone [DEF-spine.006] FINAL TRANSFORM:
+INFO: mat4x4((0.723830, -0.052061, -0.693477, 0.000000), (-0.150663, 0.961187, -0.233412, 0.000000), (0.678912, 0.272892, 0.687853, 0.000000), (0.245384, -0.871692, 0.390477, 1.000000))
+INFO: Bone: DEF-spine.006 Scale: vec3(1.003768, 1.000527, 1.004258) Translation: vec3(0.245384, -0.871692, 0.390477) Skew: vec3(-0.000538, 0.000198, 0.002759)
+INFO: Decomposed transform for DEF-spine.006: Translation(0.245384, -0.871692, 0.390477), Scale(1.00377, 1.00053, 1.00426)
+INFO: Bone [DEF-shoulder.L] FINAL TRANSFORM:
+INFO: mat4x4((0.720662, -0.100532, -0.737658, 0.000000), (-0.088135, 1.049958, -0.111843, 0.000000), (0.759554, 0.123414, 0.766686, 0.000000), (0.137518, -0.986766, 0.196099, 1.000000))
+INFO: Bone: DEF-shoulder.L Scale: vec3(1.036147, 1.056271, 1.085589) Translation: vec3(0.137518, -0.986766, 0.196099) Skew: vec3(-0.022307, -0.027184, -0.079097)
+INFO: Decomposed transform for DEF-shoulder.L: Translation(0.137518, -0.986766, 0.196099), Scale(1.03615, 1.05627, 1.08559)
+INFO: Bone [DEF-upper_arm.L] FINAL TRANSFORM:
+INFO: mat4x4((0.853637, -0.519466, 0.125233, 0.000000), (0.533420, 0.842170, -0.141721, 0.000000), (-0.030796, 0.187509, 0.981996, 0.000000), (-0.816836, -0.572820, 0.161190, 1.000000))
+INFO: Bone: DEF-upper_arm.L Scale: vec3(1.007087, 1.006912, 1.000209) Translation: vec3(-0.816836, -0.572820, 0.161190) Skew: vec3(0.002301, -0.000710, 0.000118)
+INFO: Decomposed transform for DEF-upper_arm.L: Translation(-0.816836, -0.57282, 0.16119), Scale(1.00709, 1.00691, 1.00021)
+INFO: Bone [DEF-upper_arm.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.834630, -0.557333, 0.145869, 0.000000), (0.420964, 0.764408, 0.516210, 0.000000), (-0.387796, -0.365107, 0.847141, 0.000000), (-0.669674, -0.472597, -0.830008, 1.000000))
+INFO: Bone: DEF-upper_arm.L.001 Scale: vec3(1.014152, 1.013905, 1.000650) Translation: vec3(-0.669674, -0.472597, -0.830008) Skew: vec3(-0.004966, 0.003342, 0.000602)
+INFO: Decomposed transform for DEF-upper_arm.L.001: Translation(-0.669674, -0.472597, -0.830008), Scale(1.01415, 1.0139, 1.00065)
+INFO: Bone [DEF-forearm.L] FINAL TRANSFORM:
+INFO: mat4x4((-0.281406, 0.960373, 0.007894, 0.000000), (-0.173147, -0.047792, -0.996653, 0.000000), (-0.957428, -0.278141, 0.178919, 0.000000), (0.648404, 0.111017, 1.430970, 1.000000))
+INFO: Bone: DEF-forearm.L Scale: vec3(1.000784, 1.012697, 1.012931) Translation: vec3(0.648404, 0.111017, 1.430970) Skew: vec3(0.000748, 0.003669, -0.004973)
+INFO: Decomposed transform for DEF-forearm.L: Translation(0.648404, 0.111017, 1.43097), Scale(1.00078, 1.0127, 1.01293)
+INFO: Bone [DEF-forearm.L.001] FINAL TRANSFORM:
+INFO: mat4x4((-0.334945, 0.943450, -0.054840, 0.000000), (0.330093, 0.038026, -1.001157, 0.000000), (-0.944652, -0.339536, -0.326852, 0.000000), (-0.063963, -0.020435, 1.425948, 1.000000))
+INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.002643, 1.054672, 1.055596) Translation: vec3(-0.063963, -0.020435, 1.425948) Skew: vec3(0.002489, 0.013224, -0.018709)
+INFO: Decomposed transform for DEF-forearm.L.001: Translation(-0.0639634, -0.0204349, 1.42595), Scale(1.00264, 1.05467, 1.0556)
+INFO: Bone [DEF-hand.L] FINAL TRANSFORM:
+INFO: mat4x4((0.158849, 0.967788, -0.196335, 0.000000), (0.694952, -0.254537, -0.713287, 0.000000), (-0.739961, -0.020836, -0.713268, 0.000000), (-0.904975, 0.414545, 1.065451, 1.000000))
+INFO: Bone: DEF-hand.L Scale: vec3(1.000197, 1.027866, 1.027969) Translation: vec3(-0.904975, 0.414545, 1.065451) Skew: vec3(-0.000169, 0.002269, 0.003986)
+INFO: Decomposed transform for DEF-hand.L: Translation(-0.904975, 0.414545, 1.06545), Scale(1.0002, 1.02787, 1.02797)
+INFO: Bone [DEF-shoulder.R] FINAL TRANSFORM:
+INFO: mat4x4((0.807595, 0.008597, -0.527792, 0.000000), (-0.131287, 0.961348, -0.090021, 0.000000), (0.529632, 0.121164, 0.776265, 0.000000), (0.202583, -0.853335, 0.164759, 1.000000))
+INFO: Bone: DEF-shoulder.R Scale: vec3(0.964804, 0.973046, 0.947038) Translation: vec3(0.202583, -0.853335, 0.164759) Skew: vec3(-0.023771, 0.020864, -0.053525)
+INFO: Decomposed transform for DEF-shoulder.R: Translation(0.202583, -0.853335, 0.164759), Scale(0.964804, 0.973046, 0.947038)
+INFO: Bone [DEF-upper_arm.R] FINAL TRANSFORM:
+INFO: mat4x4((0.212747, 0.992671, -0.653433, 0.000000), (-0.196939, 0.680805, 0.908212, 0.000000), (1.064868, -0.113104, 0.082577, 0.000000), (0.199664, -0.282515, -1.456289, 1.000000))
+INFO: Bone: DEF-upper_arm.R Scale: vec3(1.207324, 1.151524, 1.056749) Translation: vec3(0.199664, -0.282515, -1.456289) Skew: vec3(-0.175362, 0.047274, 0.029103)
+INFO: Decomposed transform for DEF-upper_arm.R: Translation(0.199664, -0.282515, -1.45629), Scale(1.20732, 1.15152, 1.05675)
+INFO: Bone [DEF-upper_arm.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.330446, 0.834911, -0.566586, 0.000000), (0.597608, 0.285235, 0.777102, 0.000000), (0.742272, -0.590346, -0.431214, 0.000000), (-0.977655, 0.276716, -1.276239, 1.000000))
+INFO: Bone: DEF-upper_arm.R.001 Scale: vec3(1.061740, 1.020962, 1.040177) Translation: vec3(-0.977655, 0.276716, -1.276239) Skew: vec3(-0.056414, -0.002976, -0.004311)
+INFO: Decomposed transform for DEF-upper_arm.R.001: Translation(-0.977655, 0.276716, -1.27624), Scale(1.06174, 1.02096, 1.04018)
+INFO: Bone [DEF-forearm.R] FINAL TRANSFORM:
+INFO: mat4x4((-0.293848, -0.951255, -0.079146, 0.000000), (-0.391298, 0.205661, -0.861499, 0.000000), (0.835617, -0.222988, -0.432587, 0.000000), (0.236451, -0.327399, 1.381230, 1.000000))
+INFO: Bone: DEF-forearm.R Scale: vec3(0.998748, 0.968213, 0.967011) Translation: vec3(0.236451, -0.327399, 1.381230) Skew: vec3(-0.000162, 0.000841, -0.012896)
+INFO: Decomposed transform for DEF-forearm.R: Translation(0.236451, -0.327399, 1.38123), Scale(0.998748, 0.968213, 0.967011)
+INFO: Bone [DEF-forearm.R.001] FINAL TRANSFORM:
+INFO: mat4x4((-0.369805, -0.928356, -0.063555, 0.000000), (-0.967781, 0.371684, -0.004758, 0.000000), (0.027057, 0.054866, -1.035869, 0.000000), (1.009780, -0.525351, 0.074375, 1.000000))
+INFO: Bone: DEF-forearm.R.001 Scale: vec3(1.001319, 1.036629, 1.037662) Translation: vec3(1.009780, -0.525351, 0.074375) Skew: vec3(-0.000862, 0.004710, 0.012657)
+INFO: Decomposed transform for DEF-forearm.R.001: Translation(1.00978, -0.525351, 0.0743745), Scale(1.00132, 1.03663, 1.03766)
+INFO: Bone [DEF-hand.R] FINAL TRANSFORM:
+INFO: mat4x4((0.262860, -0.850095, 0.466484, 0.000000), (-0.689770, 0.225803, 0.808037, 0.000000), (-0.795898, -0.495557, -0.539866, 0.000000), (0.975127, -0.278603, -0.730082, 1.000000))
+INFO: Bone: DEF-hand.R Scale: vec3(1.004671, 1.086130, 1.081165) Translation: vec3(0.975127, -0.278603, -0.730082) Skew: vec3(0.000852, -0.036621, 0.003362)
+INFO: Decomposed transform for DEF-hand.R: Translation(0.975127, -0.278603, -0.730082), Scale(1.00467, 1.08613, 1.08116)
+INFO: Bone [DEF-breast.L] FINAL TRANSFORM:
+INFO: mat4x4((0.736203, -0.021845, -0.640313, 0.000000), (-0.092900, 0.971614, -0.128259, 0.000000), (0.633914, 0.181919, 0.736657, 0.000000), (0.157903, -0.836808, 0.210378, 1.000000))
+INFO: Bone: DEF-breast.L Scale: vec3(0.975947, 0.984406, 0.988413) Translation: vec3(0.157903, -0.836808, 0.210378) Skew: vec3(0.023958, -0.009305, -0.007799)
+INFO: Decomposed transform for DEF-breast.L: Translation(0.157903, -0.836808, 0.210378), Scale(0.975947, 0.984406, 0.988413)
+INFO: Bone [DEF-breast.R] FINAL TRANSFORM:
+INFO: mat4x4((0.736203, -0.021845, -0.640313, 0.000000), (-0.092901, 0.971614, -0.128260, 0.000000), (0.633914, 0.181920, 0.736657, 0.000000), (0.126902, -0.837157, 0.212699, 1.000000))
+INFO: Bone: DEF-breast.R Scale: vec3(0.975947, 0.984406, 0.988413) Translation: vec3(0.126902, -0.837157, 0.212699) Skew: vec3(0.023958, -0.009305, -0.007799)
+INFO: Decomposed transform for DEF-breast.R: Translation(0.126902, -0.837157, 0.212699), Scale(0.975947, 0.984406, 0.988413)
+INFO: Bone [DEF-pelvis.L] FINAL TRANSFORM:
+INFO: mat4x4((0.999920, -0.005672, 0.011344, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010207, 0.171058, 0.985208, 0.000000), (-0.010782, -0.888171, 0.250188, 1.000000))
+INFO: Bone: DEF-pelvis.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250188) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-pelvis.L: Translation(-0.0107822, -0.888171, 0.250188), Scale(1, 1, 1)
+INFO: Bone [DEF-thigh.L] FINAL TRANSFORM:
+INFO: mat4x4((0.848020, 0.449032, -0.282579, 0.000000), (-0.527172, 0.780760, -0.350122, 0.000000), (0.063753, 0.445963, 0.898737, 0.000000), (0.581890, -0.682593, 0.459207, 1.000000))
+INFO: Bone: DEF-thigh.L Scale: vec3(1.000309, 1.005025, 1.005324) Translation: vec3(0.581890, -0.682593, 0.459207) Skew: vec3(-0.000086, 0.000349, 0.002457)
+INFO: Decomposed transform for DEF-thigh.L: Translation(0.58189, -0.682593, 0.459207), Scale(1.00031, 1.00503, 1.00532)
+INFO: Bone [DEF-thigh.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.829720, 0.552662, -0.078264, 0.000000), (-0.542922, 0.766496, -0.343045, 0.000000), (-0.129604, 0.327121, 0.936030, 0.000000), (0.565414, -0.647813, 0.422387, 1.000000))
+INFO: Bone: DEF-thigh.L.001 Scale: vec3(0.999998, 0.999980, 0.999979) Translation: vec3(0.565414, -0.647813, 0.422387) Skew: vec3(0.000002, -0.000006, -0.000012)
+INFO: Decomposed transform for DEF-thigh.L.001: Translation(0.565414, -0.647813, 0.422387), Scale(0.999998, 0.99998, 0.999979)
+INFO: Bone [DEF-shin.L] FINAL TRANSFORM:
+INFO: mat4x4((0.992349, -0.045974, 0.126010, 0.000000), (0.047344, 1.033059, -0.001202, 0.000000), (-0.116371, 0.006657, 1.026222, -0.000000), (0.239332, -0.706779, 0.222891, 1.000000))
+INFO: Bone: DEF-shin.L Scale: vec3(1.001374, 1.034143, 1.032732) Translation: vec3(0.239332, -0.706779, 0.222891) Skew: vec3(0.000134, 0.013080, -0.000641)
+INFO: Decomposed transform for DEF-shin.L: Translation(0.239332, -0.706779, 0.222891), Scale(1.00137, 1.03414, 1.03273)
+INFO: Bone [DEF-shin.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.977656, -0.044190, -0.205712, 0.000000), (0.045059, 1.029109, -0.005697, 0.000000), (0.214095, -0.003787, 1.007570, -0.000000), (0.237475, -0.721845, 0.229185, 1.000000))
+INFO: Bone: DEF-shin.L.001 Scale: vec3(1.000041, 1.030110, 1.030070) Translation: vec3(0.237475, -0.721845, 0.229185) Skew: vec3(0.000009, 0.002144, -0.000245)
+INFO: Decomposed transform for DEF-shin.L.001: Translation(0.237475, -0.721845, 0.229185), Scale(1.00004, 1.03011, 1.03007)
+INFO: Bone [DEF-foot.L] FINAL TRANSFORM:
+INFO: mat4x4((0.817860, -0.148686, -0.573508, 0.000000), (-0.009364, 1.007176, -0.234720, 0.000000), (0.585366, 0.189062, 0.830077, 0.000000), (0.258251, -0.717796, 0.241708, 1.000000))
+INFO: Bone: DEF-foot.L Scale: vec3(1.009908, 1.033961, 1.032807) Translation: vec3(0.258251, -0.717796, 0.241708) Skew: vec3(-0.009801, -0.024371, -0.021833)
+INFO: Decomposed transform for DEF-foot.L: Translation(0.258251, -0.717796, 0.241708), Scale(1.00991, 1.03396, 1.03281)
+INFO: Bone [DEF-toe.L] FINAL TRANSFORM:
+INFO: mat4x4((0.879404, -0.073814, -0.429306, 0.000000), (-0.041965, 0.957157, -0.236902, 0.000000), (0.430963, 0.249773, 0.857829, 0.000000), (0.246919, -0.709496, 0.226914, 1.000000))
+INFO: Bone: DEF-toe.L Scale: vec3(0.981378, 0.986914, 0.991767) Translation: vec3(0.246919, -0.709496, 0.226914) Skew: vec3(0.018102, -0.007928, -0.006042)
+INFO: Decomposed transform for DEF-toe.L: Translation(0.246919, -0.709496, 0.226914), Scale(0.981378, 0.986914, 0.991767)
+INFO: Bone [DEF-pelvis.R] FINAL TRANSFORM:
+INFO: mat4x4((0.999920, -0.005672, 0.011343, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010206, 0.171058, 0.985209, 0.000000), (-0.010782, -0.888171, 0.250189, 1.000000))
+INFO: Bone: DEF-pelvis.R Scale: vec3(1.000001, 1.000000, 1.000001) Translation: vec3(-0.010782, -0.888171, 0.250189) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-pelvis.R: Translation(-0.0107823, -0.888171, 0.250189), Scale(1, 1, 1)
+INFO: Bone [DEF-thigh.R] FINAL TRANSFORM:
+INFO: mat4x4((0.993585, -0.078592, 0.099540, 0.000000), (0.116868, 0.931268, -0.429869, 0.000000), (-0.072922, 0.438457, 0.929972, 0.000000), (-0.134025, -0.814477, 0.531621, 1.000000))
+INFO: Bone: DEF-thigh.R Scale: vec3(1.001647, 1.032330, 1.030633) Translation: vec3(-0.134025, -0.814477, 0.531621) Skew: vec3(0.000032, -0.013894, 0.000135)
+INFO: Decomposed transform for DEF-thigh.R: Translation(-0.134025, -0.814477, 0.531621), Scale(1.00165, 1.03233, 1.03063)
+INFO: Bone [DEF-thigh.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.993239, -0.075078, 0.105307, 0.000000), (0.116250, 0.931770, -0.430052, 0.000000), (-0.079827, 0.439083, 0.929644, 0.000000), (-0.129532, -0.747386, 0.504011, 1.000000))
+INFO: Bone: DEF-thigh.R.001 Scale: vec3(1.001624, 1.032789, 1.031116) Translation: vec3(-0.129532, -0.747386, 0.504011) Skew: vec3(0.000050, -0.013899, 0.000213)
+INFO: Decomposed transform for DEF-thigh.R.001: Translation(-0.129532, -0.747386, 0.504011), Scale(1.00162, 1.03279, 1.03112)
+INFO: Bone [DEF-shin.R] FINAL TRANSFORM:
+INFO: mat4x4((1.001017, 0.054701, -0.019182, 0.000000), (-0.057724, 1.018185, -0.188573, 0.000000), (-0.010180, 0.188232, 1.017217, 0.000000), (-0.034785, -0.721151, 0.347101, 1.000000))
+INFO: Bone: DEF-shin.R Scale: vec3(1.002694, 1.037107, 1.034355) Translation: vec3(-0.034785, -0.721151, 0.347101) Skew: vec3(0.000422, -0.018711, 0.001472)
+INFO: Decomposed transform for DEF-shin.R: Translation(-0.0347851, -0.721151, 0.347101), Scale(1.00269, 1.03711, 1.03436)
+INFO: Bone [DEF-shin.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.874934, -0.047962, -0.500241, 0.000000), (-0.057526, 1.014750, -0.199029, 0.000000), (0.481004, 0.201118, 0.884751, 0.000000), (-0.011626, -0.742414, 0.276706, 1.000000))
+INFO: Bone: DEF-shin.R.001 Scale: vec3(1.008986, 1.035683, 1.026465) Translation: vec3(-0.011626, -0.742414, 0.276706) Skew: vec3(0.000320, -0.030306, 0.000537)
+INFO: Decomposed transform for DEF-shin.R.001: Translation(-0.0116262, -0.742414, 0.276706), Scale(1.00899, 1.03568, 1.02647)
+INFO: Bone [DEF-foot.R] FINAL TRANSFORM:
+INFO: mat4x4((0.826555, -0.255789, -0.499300, 0.000000), (0.089459, 0.929830, -0.336042, 0.000000), (0.553825, 0.233355, 0.790049, 0.000000), (-0.010139, -0.758295, 0.259438, 1.000000))
+INFO: Bone: DEF-foot.R Scale: vec3(0.998960, 0.992721, 0.992643) Translation: vec3(-0.010139, -0.758295, 0.259438) Skew: vec3(0.001037, 0.003636, 0.003921)
+INFO: Decomposed transform for DEF-foot.R: Translation(-0.0101392, -0.758295, 0.259438), Scale(0.99896, 0.992721, 0.992643)
+INFO: Bone [DEF-toe.R] FINAL TRANSFORM:
+INFO: mat4x4((0.400816, -0.024459, -1.048994, -0.000000), (-0.151449, 1.091165, -0.211276, 0.000000), (1.084961, 0.086844, 0.289499, 0.000000), (-0.023454, -0.752667, 0.244551, 1.000000))
+INFO: Bone: DEF-toe.R Scale: vec3(1.123228, 1.115317, 1.112886) Translation: vec3(-0.023454, -0.752667, 0.244551) Skew: vec3(-0.116378, 0.103247, 0.107152)
+INFO: Decomposed transform for DEF-toe.R: Translation(-0.0234542, -0.752667, 0.244551), Scale(1.12323, 1.11532, 1.11289)
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Drawing mesh with VAO: 1
+INFO: DEBUG: Depth testing and blending enabled.
+INFO: DEBUG: After Storing Bone DEF-breast.L
+INFO: DEBUG: After Storing Bone DEF-breast.R
+INFO: DEBUG: After Storing Bone DEF-brow.B.L
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.001
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.002
+INFO: DEBUG: After Storing Bone DEF-brow.B.L.003
+INFO: DEBUG: After Storing Bone DEF-brow.B.R
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.001
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.002
+INFO: DEBUG: After Storing Bone DEF-brow.B.R.003
+INFO: DEBUG: After Storing Bone DEF-brow.T.L
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.001
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.002
+INFO: DEBUG: After Storing Bone DEF-brow.T.L.003
+INFO: DEBUG: After Storing Bone DEF-brow.T.R
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.001
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.002
+INFO: DEBUG: After Storing Bone DEF-brow.T.R.003
+INFO: DEBUG: After Storing Bone DEF-cheek.B.L
+INFO: DEBUG: After Storing Bone DEF-cheek.B.L.001
+INFO: DEBUG: After Storing Bone DEF-cheek.B.R
+INFO: DEBUG: After Storing Bone DEF-cheek.B.R.001
+INFO: DEBUG: After Storing Bone DEF-cheek.T.L
+INFO: DEBUG: After Storing Bone DEF-cheek.T.L.001
+INFO: DEBUG: After Storing Bone DEF-cheek.T.R
+INFO: DEBUG: After Storing Bone DEF-cheek.T.R.001
+INFO: DEBUG: After Storing Bone DEF-chin
+INFO: DEBUG: After Storing Bone DEF-chin.001
+INFO: DEBUG: After Storing Bone DEF-chin.L
+INFO: DEBUG: After Storing Bone DEF-chin.R
+INFO: DEBUG: After Storing Bone DEF-ear.L
+INFO: DEBUG: After Storing Bone DEF-ear.L.001
+INFO: DEBUG: After Storing Bone DEF-ear.L.002
+INFO: DEBUG: After Storing Bone DEF-ear.L.003
+INFO: DEBUG: After Storing Bone DEF-ear.L.004
+INFO: DEBUG: After Storing Bone DEF-ear.R
+INFO: DEBUG: After Storing Bone DEF-ear.R.001
+INFO: DEBUG: After Storing Bone DEF-ear.R.002
+INFO: DEBUG: After Storing Bone DEF-ear.R.003
+INFO: DEBUG: After Storing Bone DEF-ear.R.004
+INFO: DEBUG: After Storing Bone DEF-f_index.01.L
+INFO: DEBUG: After Storing Bone DEF-f_index.01.R
+INFO: DEBUG: After Storing Bone DEF-f_index.02.L
+INFO: DEBUG: After Storing Bone DEF-f_index.02.R
+INFO: DEBUG: After Storing Bone DEF-f_index.03.L
+INFO: DEBUG: After Storing Bone DEF-f_index.03.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.01.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.01.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.02.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.02.R
+INFO: DEBUG: After Storing Bone DEF-f_middle.03.L
+INFO: DEBUG: After Storing Bone DEF-f_middle.03.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.01.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.01.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.02.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.02.R
+INFO: DEBUG: After Storing Bone DEF-f_pinky.03.L
+INFO: DEBUG: After Storing Bone DEF-f_pinky.03.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.01.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.01.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.02.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.02.R
+INFO: DEBUG: After Storing Bone DEF-f_ring.03.L
+INFO: DEBUG: After Storing Bone DEF-f_ring.03.R
+INFO: DEBUG: After Storing Bone DEF-foot.L
+INFO: DEBUG: After Storing Bone DEF-foot.R
+INFO: DEBUG: After Storing Bone DEF-forearm.L
+INFO: DEBUG: After Storing Bone DEF-forearm.L.001
+INFO: DEBUG: After Storing Bone DEF-forearm.R
+INFO: DEBUG: After Storing Bone DEF-forearm.R.001
+INFO: DEBUG: After Storing Bone DEF-forehead.L
+INFO: DEBUG: After Storing Bone DEF-forehead.L.001
+INFO: DEBUG: After Storing Bone DEF-forehead.L.002
+INFO: DEBUG: After Storing Bone DEF-forehead.R
+INFO: DEBUG: After Storing Bone DEF-forehead.R.001
+INFO: DEBUG: After Storing Bone DEF-forehead.R.002
+INFO: DEBUG: After Storing Bone DEF-hand.L
+INFO: DEBUG: After Storing Bone DEF-hand.R
+INFO: DEBUG: After Storing Bone DEF-jaw
+INFO: DEBUG: After Storing Bone DEF-jaw.L
+INFO: DEBUG: After Storing Bone DEF-jaw.L.001
+INFO: DEBUG: After Storing Bone DEF-jaw.R
+INFO: DEBUG: After Storing Bone DEF-jaw.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.L
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.002
+INFO: DEBUG: After Storing Bone DEF-lid.B.L.003
+INFO: DEBUG: After Storing Bone DEF-lid.B.R
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.002
+INFO: DEBUG: After Storing Bone DEF-lid.B.R.003
+INFO: DEBUG: After Storing Bone DEF-lid.T.L
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.001
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.002
+INFO: DEBUG: After Storing Bone DEF-lid.T.L.003
+INFO: DEBUG: After Storing Bone DEF-lid.T.R
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.001
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.002
+INFO: DEBUG: After Storing Bone DEF-lid.T.R.003
+INFO: DEBUG: After Storing Bone DEF-lip.B.L
+INFO: DEBUG: After Storing Bone DEF-lip.B.L.001
+INFO: DEBUG: After Storing Bone DEF-lip.B.R
+INFO: DEBUG: After Storing Bone DEF-lip.B.R.001
+INFO: DEBUG: After Storing Bone DEF-lip.T.L
+INFO: DEBUG: After Storing Bone DEF-lip.T.L.001
+INFO: DEBUG: After Storing Bone DEF-lip.T.R
+INFO: DEBUG: After Storing Bone DEF-lip.T.R.001
+INFO: DEBUG: After Storing Bone DEF-nose
+INFO: DEBUG: After Storing Bone DEF-nose.001
+INFO: DEBUG: After Storing Bone DEF-nose.002
+INFO: DEBUG: After Storing Bone DEF-nose.003
+INFO: DEBUG: After Storing Bone DEF-nose.004
+INFO: DEBUG: After Storing Bone DEF-nose.L
+INFO: DEBUG: After Storing Bone DEF-nose.L.001
+INFO: DEBUG: After Storing Bone DEF-nose.R
+INFO: DEBUG: After Storing Bone DEF-nose.R.001
+INFO: DEBUG: After Storing Bone DEF-palm.01.L
+INFO: DEBUG: After Storing Bone DEF-palm.01.R
+INFO: DEBUG: After Storing Bone DEF-palm.02.L
+INFO: DEBUG: After Storing Bone DEF-palm.02.R
+INFO: DEBUG: After Storing Bone DEF-palm.03.L
+INFO: DEBUG: After Storing Bone DEF-palm.03.R
+INFO: DEBUG: After Storing Bone DEF-palm.04.L
+INFO: DEBUG: After Storing Bone DEF-palm.04.R
+INFO: DEBUG: After Storing Bone DEF-pelvis.L
+INFO: DEBUG: After Storing Bone DEF-pelvis.R
+INFO: DEBUG: After Storing Bone DEF-shin.L
+INFO: DEBUG: After Storing Bone DEF-shin.L.001
+INFO: DEBUG: After Storing Bone DEF-shin.R
+INFO: DEBUG: After Storing Bone DEF-shin.R.001
+INFO: DEBUG: After Storing Bone DEF-shoulder.L
+INFO: DEBUG: After Storing Bone DEF-shoulder.R
+INFO: DEBUG: After Storing Bone DEF-spine
+INFO: DEBUG: After Storing Bone DEF-spine.001
+INFO: DEBUG: After Storing Bone DEF-spine.002
+INFO: DEBUG: After Storing Bone DEF-spine.003
+INFO: DEBUG: After Storing Bone DEF-spine.004
+INFO: DEBUG: After Storing Bone DEF-spine.005
+INFO: DEBUG: After Storing Bone DEF-spine.006
+INFO: DEBUG: After Storing Bone DEF-temple.L
+INFO: DEBUG: After Storing Bone DEF-temple.R
+INFO: DEBUG: After Storing Bone DEF-thigh.L
+INFO: DEBUG: After Storing Bone DEF-thigh.L.001
+INFO: DEBUG: After Storing Bone DEF-thigh.R
+INFO: DEBUG: After Storing Bone DEF-thigh.R.001
+INFO: DEBUG: After Storing Bone DEF-thumb.01.L
+INFO: DEBUG: After Storing Bone DEF-thumb.01.R
+INFO: DEBUG: After Storing Bone DEF-thumb.02.L
+INFO: DEBUG: After Storing Bone DEF-thumb.02.R
+INFO: DEBUG: After Storing Bone DEF-thumb.03.L
+INFO: DEBUG: After Storing Bone DEF-thumb.03.R
+INFO: DEBUG: After Storing Bone DEF-toe.L
+INFO: DEBUG: After Storing Bone DEF-toe.R
+INFO: DEBUG: After Storing Bone DEF-tongue
+INFO: DEBUG: After Storing Bone DEF-tongue.001
+INFO: DEBUG: After Storing Bone DEF-tongue.002
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L.001
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R
+INFO: DEBUG: After Storing Bone DEF-upper_arm.R.001
+INFO: DEBUG: After Storing Bone ORG-palm.01.L
+INFO: DEBUG: After Storing Bone ORG-palm.01.R
+INFO: DEBUG: After Storing Bone ORG-palm.02.L
+INFO: DEBUG: After Storing Bone ORG-palm.02.R
+INFO: DEBUG: After Storing Bone ORG-palm.03.L
+INFO: DEBUG: After Storing Bone ORG-palm.03.R
+INFO: DEBUG: After Storing Bone ORG-palm.04.L
+INFO: DEBUG: After Storing Bone ORG-palm.04.R
+INFO: DEBUG: After Storing Bone root
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Bone [DEF-spine.001] FINAL TRANSFORM:
+INFO: mat4x4((0.999090, 0.041881, 0.008131, 0.000000), (-0.039276, 0.977337, -0.208012, 0.000000), (-0.016658, 0.207503, 0.978093, 0.000000), (0.040861, -0.877242, 0.290923, 1.000000))
+INFO: Bone: DEF-spine.001 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.040861, -0.877242, 0.290923) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.001: Translation(0.0408613, -0.877242, 0.290923), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.002] FINAL TRANSFORM:
+INFO: mat4x4((0.985301, 0.105648, -0.134239, 0.000000), (-0.122555, 0.984603, -0.124647, 0.000000), (0.119003, 0.139266, 0.983078, 0.000000), (0.149733, -0.889454, 0.188715, 1.000000))
+INFO: Bone: DEF-spine.002 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.149733, -0.889454, 0.188715) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-spine.002: Translation(0.149733, -0.889454, 0.188715), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.003] FINAL TRANSFORM:
+INFO: mat4x4((0.951134, 0.055347, -0.303778, 0.000000), (-0.042803, 0.997939, 0.047804, 0.000000), (0.305797, -0.032465, 0.951543, 0.000000), (0.048874, -0.916594, -0.051417, 1.000000))
+INFO: Bone: DEF-spine.003 Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(0.048874, -0.916594, -0.051417) Skew: vec3(-0.000000, 0.000000, 0.000000)
+INFO: Decomposed transform for DEF-spine.003: Translation(0.0488736, -0.916594, -0.0514167), Scale(1, 1, 1)
+INFO: Bone [DEF-spine.004] FINAL TRANSFORM:
+INFO: mat4x4((0.762608, -0.001799, -0.654306, 0.000000), (-0.068629, 0.995478, -0.077964, 0.000000), (0.650556, 0.101818, 0.759271, 0.000000), (0.108469, -0.905212, 0.133756, 1.000000))
+INFO: Bone: DEF-spine.004 Scale: vec3(1.004834, 1.000877, 1.005025) Translation: vec3(0.108469, -0.905212, 0.133756) Skew: vec3(-0.002474, -0.000852, -0.003099)
+INFO: Decomposed transform for DEF-spine.004: Translation(0.108469, -0.905212, 0.133756), Scale(1.00483, 1.00088, 1.00503)
+INFO: Bone [DEF-spine.005] FINAL TRANSFORM:
+INFO: mat4x4((0.528391, 0.067689, -0.862273, 0.000000), (-0.140394, 0.992177, -0.000431, 0.000000), (0.853487, 0.113282, 0.534268, 0.000000), (0.229624, -0.909253, -0.000986, 1.000000))
+INFO: Bone: DEF-spine.005 Scale: vec3(1.013555, 1.002039, 1.013239) Translation: vec3(0.229624, -0.909253, -0.000986) Skew: vec3(-0.007556, -0.001989, -0.006549)
+INFO: Decomposed transform for DEF-spine.005: Translation(0.229624, -0.909253, -0.000986341), Scale(1.01356, 1.00204, 1.01324)
+INFO: Bone [DEF-spine.006] FINAL TRANSFORM:
+INFO: mat4x4((0.723830, -0.052061, -0.693477, 0.000000), (-0.150663, 0.961187, -0.233412, 0.000000), (0.678912, 0.272892, 0.687853, 0.000000), (0.245384, -0.871692, 0.390477, 1.000000))
+INFO: Bone: DEF-spine.006 Scale: vec3(1.003768, 1.000527, 1.004258) Translation: vec3(0.245384, -0.871692, 0.390477) Skew: vec3(-0.000538, 0.000198, 0.002759)
+INFO: Decomposed transform for DEF-spine.006: Translation(0.245384, -0.871692, 0.390477), Scale(1.00377, 1.00053, 1.00426)
+INFO: Bone [DEF-shoulder.L] FINAL TRANSFORM:
+INFO: mat4x4((0.720662, -0.100532, -0.737658, 0.000000), (-0.088135, 1.049958, -0.111843, 0.000000), (0.759554, 0.123414, 0.766686, 0.000000), (0.137518, -0.986766, 0.196099, 1.000000))
+INFO: Bone: DEF-shoulder.L Scale: vec3(1.036147, 1.056271, 1.085589) Translation: vec3(0.137518, -0.986766, 0.196099) Skew: vec3(-0.022307, -0.027184, -0.079097)
+INFO: Decomposed transform for DEF-shoulder.L: Translation(0.137518, -0.986766, 0.196099), Scale(1.03615, 1.05627, 1.08559)
+INFO: Bone [DEF-upper_arm.L] FINAL TRANSFORM:
+INFO: mat4x4((0.853637, -0.519466, 0.125233, 0.000000), (0.533420, 0.842170, -0.141721, 0.000000), (-0.030796, 0.187509, 0.981996, 0.000000), (-0.816836, -0.572820, 0.161190, 1.000000))
+INFO: Bone: DEF-upper_arm.L Scale: vec3(1.007087, 1.006912, 1.000209) Translation: vec3(-0.816836, -0.572820, 0.161190) Skew: vec3(0.002301, -0.000710, 0.000118)
+INFO: Decomposed transform for DEF-upper_arm.L: Translation(-0.816836, -0.57282, 0.16119), Scale(1.00709, 1.00691, 1.00021)
+INFO: Bone [DEF-upper_arm.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.834630, -0.557333, 0.145869, 0.000000), (0.420964, 0.764408, 0.516210, 0.000000), (-0.387796, -0.365107, 0.847141, 0.000000), (-0.669674, -0.472597, -0.830008, 1.000000))
+INFO: Bone: DEF-upper_arm.L.001 Scale: vec3(1.014152, 1.013905, 1.000650) Translation: vec3(-0.669674, -0.472597, -0.830008) Skew: vec3(-0.004966, 0.003342, 0.000602)
+INFO: Decomposed transform for DEF-upper_arm.L.001: Translation(-0.669674, -0.472597, -0.830008), Scale(1.01415, 1.0139, 1.00065)
+INFO: Bone [DEF-forearm.L] FINAL TRANSFORM:
+INFO: mat4x4((-0.281406, 0.960373, 0.007894, 0.000000), (-0.173147, -0.047792, -0.996653, 0.000000), (-0.957428, -0.278141, 0.178919, 0.000000), (0.648404, 0.111017, 1.430970, 1.000000))
+INFO: Bone: DEF-forearm.L Scale: vec3(1.000784, 1.012697, 1.012931) Translation: vec3(0.648404, 0.111017, 1.430970) Skew: vec3(0.000748, 0.003669, -0.004973)
+INFO: Decomposed transform for DEF-forearm.L: Translation(0.648404, 0.111017, 1.43097), Scale(1.00078, 1.0127, 1.01293)
+INFO: Bone [DEF-forearm.L.001] FINAL TRANSFORM:
+INFO: mat4x4((-0.334945, 0.943450, -0.054840, 0.000000), (0.330093, 0.038026, -1.001157, 0.000000), (-0.944652, -0.339536, -0.326852, 0.000000), (-0.063963, -0.020435, 1.425948, 1.000000))
+INFO: Bone: DEF-forearm.L.001 Scale: vec3(1.002643, 1.054672, 1.055596) Translation: vec3(-0.063963, -0.020435, 1.425948) Skew: vec3(0.002489, 0.013224, -0.018709)
+INFO: Decomposed transform for DEF-forearm.L.001: Translation(-0.0639634, -0.0204349, 1.42595), Scale(1.00264, 1.05467, 1.0556)
+INFO: Bone [DEF-hand.L] FINAL TRANSFORM:
+INFO: mat4x4((0.158849, 0.967788, -0.196335, 0.000000), (0.694952, -0.254537, -0.713287, 0.000000), (-0.739961, -0.020836, -0.713268, 0.000000), (-0.904975, 0.414545, 1.065451, 1.000000))
+INFO: Bone: DEF-hand.L Scale: vec3(1.000197, 1.027866, 1.027969) Translation: vec3(-0.904975, 0.414545, 1.065451) Skew: vec3(-0.000169, 0.002269, 0.003986)
+INFO: Decomposed transform for DEF-hand.L: Translation(-0.904975, 0.414545, 1.06545), Scale(1.0002, 1.02787, 1.02797)
+INFO: Bone [DEF-shoulder.R] FINAL TRANSFORM:
+INFO: mat4x4((0.807595, 0.008597, -0.527792, 0.000000), (-0.131287, 0.961348, -0.090021, 0.000000), (0.529632, 0.121164, 0.776265, 0.000000), (0.202583, -0.853335, 0.164759, 1.000000))
+INFO: Bone: DEF-shoulder.R Scale: vec3(0.964804, 0.973046, 0.947038) Translation: vec3(0.202583, -0.853335, 0.164759) Skew: vec3(-0.023771, 0.020864, -0.053525)
+INFO: Decomposed transform for DEF-shoulder.R: Translation(0.202583, -0.853335, 0.164759), Scale(0.964804, 0.973046, 0.947038)
+INFO: Bone [DEF-upper_arm.R] FINAL TRANSFORM:
+INFO: mat4x4((0.212747, 0.992671, -0.653433, 0.000000), (-0.196939, 0.680805, 0.908212, 0.000000), (1.064868, -0.113104, 0.082577, 0.000000), (0.199664, -0.282515, -1.456289, 1.000000))
+INFO: Bone: DEF-upper_arm.R Scale: vec3(1.207324, 1.151524, 1.056749) Translation: vec3(0.199664, -0.282515, -1.456289) Skew: vec3(-0.175362, 0.047274, 0.029103)
+INFO: Decomposed transform for DEF-upper_arm.R: Translation(0.199664, -0.282515, -1.45629), Scale(1.20732, 1.15152, 1.05675)
+INFO: Bone [DEF-upper_arm.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.330446, 0.834911, -0.566586, 0.000000), (0.597608, 0.285235, 0.777102, 0.000000), (0.742272, -0.590346, -0.431214, 0.000000), (-0.977655, 0.276716, -1.276239, 1.000000))
+INFO: Bone: DEF-upper_arm.R.001 Scale: vec3(1.061740, 1.020962, 1.040177) Translation: vec3(-0.977655, 0.276716, -1.276239) Skew: vec3(-0.056414, -0.002976, -0.004311)
+INFO: Decomposed transform for DEF-upper_arm.R.001: Translation(-0.977655, 0.276716, -1.27624), Scale(1.06174, 1.02096, 1.04018)
+INFO: Bone [DEF-forearm.R] FINAL TRANSFORM:
+INFO: mat4x4((-0.293848, -0.951255, -0.079146, 0.000000), (-0.391298, 0.205661, -0.861499, 0.000000), (0.835617, -0.222988, -0.432587, 0.000000), (0.236451, -0.327399, 1.381230, 1.000000))
+INFO: Bone: DEF-forearm.R Scale: vec3(0.998748, 0.968213, 0.967011) Translation: vec3(0.236451, -0.327399, 1.381230) Skew: vec3(-0.000162, 0.000841, -0.012896)
+INFO: Decomposed transform for DEF-forearm.R: Translation(0.236451, -0.327399, 1.38123), Scale(0.998748, 0.968213, 0.967011)
+INFO: Bone [DEF-forearm.R.001] FINAL TRANSFORM:
+INFO: mat4x4((-0.369805, -0.928356, -0.063555, 0.000000), (-0.967781, 0.371684, -0.004758, 0.000000), (0.027057, 0.054866, -1.035869, 0.000000), (1.009780, -0.525351, 0.074375, 1.000000))
+INFO: Bone: DEF-forearm.R.001 Scale: vec3(1.001319, 1.036629, 1.037662) Translation: vec3(1.009780, -0.525351, 0.074375) Skew: vec3(-0.000862, 0.004710, 0.012657)
+INFO: Decomposed transform for DEF-forearm.R.001: Translation(1.00978, -0.525351, 0.0743745), Scale(1.00132, 1.03663, 1.03766)
+INFO: Bone [DEF-hand.R] FINAL TRANSFORM:
+INFO: mat4x4((0.262860, -0.850095, 0.466484, 0.000000), (-0.689770, 0.225803, 0.808037, 0.000000), (-0.795898, -0.495557, -0.539866, 0.000000), (0.975127, -0.278603, -0.730082, 1.000000))
+INFO: Bone: DEF-hand.R Scale: vec3(1.004671, 1.086130, 1.081165) Translation: vec3(0.975127, -0.278603, -0.730082) Skew: vec3(0.000852, -0.036621, 0.003362)
+INFO: Decomposed transform for DEF-hand.R: Translation(0.975127, -0.278603, -0.730082), Scale(1.00467, 1.08613, 1.08116)
+INFO: Bone [DEF-breast.L] FINAL TRANSFORM:
+INFO: mat4x4((0.736203, -0.021845, -0.640313, 0.000000), (-0.092900, 0.971614, -0.128259, 0.000000), (0.633914, 0.181919, 0.736657, 0.000000), (0.157903, -0.836808, 0.210378, 1.000000))
+INFO: Bone: DEF-breast.L Scale: vec3(0.975947, 0.984406, 0.988413) Translation: vec3(0.157903, -0.836808, 0.210378) Skew: vec3(0.023958, -0.009305, -0.007799)
+INFO: Decomposed transform for DEF-breast.L: Translation(0.157903, -0.836808, 0.210378), Scale(0.975947, 0.984406, 0.988413)
+INFO: Bone [DEF-breast.R] FINAL TRANSFORM:
+INFO: mat4x4((0.736203, -0.021845, -0.640313, 0.000000), (-0.092901, 0.971614, -0.128260, 0.000000), (0.633914, 0.181920, 0.736657, 0.000000), (0.126902, -0.837157, 0.212699, 1.000000))
+INFO: Bone: DEF-breast.R Scale: vec3(0.975947, 0.984406, 0.988413) Translation: vec3(0.126902, -0.837157, 0.212699) Skew: vec3(0.023958, -0.009305, -0.007799)
+INFO: Decomposed transform for DEF-breast.R: Translation(0.126902, -0.837157, 0.212699), Scale(0.975947, 0.984406, 0.988413)
+INFO: Bone [DEF-pelvis.L] FINAL TRANSFORM:
+INFO: mat4x4((0.999920, -0.005672, 0.011344, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010207, 0.171058, 0.985208, 0.000000), (-0.010782, -0.888171, 0.250188, 1.000000))
+INFO: Bone: DEF-pelvis.L Scale: vec3(1.000000, 1.000000, 1.000000) Translation: vec3(-0.010782, -0.888171, 0.250188) Skew: vec3(-0.000000, -0.000000, -0.000000)
+INFO: Decomposed transform for DEF-pelvis.L: Translation(-0.0107822, -0.888171, 0.250188), Scale(1, 1, 1)
+INFO: Bone [DEF-thigh.L] FINAL TRANSFORM:
+INFO: mat4x4((0.848020, 0.449032, -0.282579, 0.000000), (-0.527172, 0.780760, -0.350122, 0.000000), (0.063753, 0.445963, 0.898737, 0.000000), (0.581890, -0.682593, 0.459207, 1.000000))
+INFO: Bone: DEF-thigh.L Scale: vec3(1.000309, 1.005025, 1.005324) Translation: vec3(0.581890, -0.682593, 0.459207) Skew: vec3(-0.000086, 0.000349, 0.002457)
+INFO: Decomposed transform for DEF-thigh.L: Translation(0.58189, -0.682593, 0.459207), Scale(1.00031, 1.00503, 1.00532)
+INFO: Bone [DEF-thigh.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.829720, 0.552662, -0.078264, 0.000000), (-0.542922, 0.766496, -0.343045, 0.000000), (-0.129604, 0.327121, 0.936030, 0.000000), (0.565414, -0.647813, 0.422387, 1.000000))
+INFO: Bone: DEF-thigh.L.001 Scale: vec3(0.999998, 0.999980, 0.999979) Translation: vec3(0.565414, -0.647813, 0.422387) Skew: vec3(0.000002, -0.000006, -0.000012)
+INFO: Decomposed transform for DEF-thigh.L.001: Translation(0.565414, -0.647813, 0.422387), Scale(0.999998, 0.99998, 0.999979)
+INFO: Bone [DEF-shin.L] FINAL TRANSFORM:
+INFO: mat4x4((0.992349, -0.045974, 0.126010, 0.000000), (0.047344, 1.033059, -0.001202, 0.000000), (-0.116371, 0.006657, 1.026222, -0.000000), (0.239332, -0.706779, 0.222891, 1.000000))
+INFO: Bone: DEF-shin.L Scale: vec3(1.001374, 1.034143, 1.032732) Translation: vec3(0.239332, -0.706779, 0.222891) Skew: vec3(0.000134, 0.013080, -0.000641)
+INFO: Decomposed transform for DEF-shin.L: Translation(0.239332, -0.706779, 0.222891), Scale(1.00137, 1.03414, 1.03273)
+INFO: Bone [DEF-shin.L.001] FINAL TRANSFORM:
+INFO: mat4x4((0.977656, -0.044190, -0.205712, 0.000000), (0.045059, 1.029109, -0.005697, 0.000000), (0.214095, -0.003787, 1.007570, -0.000000), (0.237475, -0.721845, 0.229185, 1.000000))
+INFO: Bone: DEF-shin.L.001 Scale: vec3(1.000041, 1.030110, 1.030070) Translation: vec3(0.237475, -0.721845, 0.229185) Skew: vec3(0.000009, 0.002144, -0.000245)
+INFO: Decomposed transform for DEF-shin.L.001: Translation(0.237475, -0.721845, 0.229185), Scale(1.00004, 1.03011, 1.03007)
+INFO: Bone [DEF-foot.L] FINAL TRANSFORM:
+INFO: mat4x4((0.817860, -0.148686, -0.573508, 0.000000), (-0.009364, 1.007176, -0.234720, 0.000000), (0.585366, 0.189062, 0.830077, 0.000000), (0.258251, -0.717796, 0.241708, 1.000000))
+INFO: Bone: DEF-foot.L Scale: vec3(1.009908, 1.033961, 1.032807) Translation: vec3(0.258251, -0.717796, 0.241708) Skew: vec3(-0.009801, -0.024371, -0.021833)
+INFO: Decomposed transform for DEF-foot.L: Translation(0.258251, -0.717796, 0.241708), Scale(1.00991, 1.03396, 1.03281)
+INFO: Bone [DEF-toe.L] FINAL TRANSFORM:
+INFO: mat4x4((0.879404, -0.073814, -0.429306, 0.000000), (-0.041965, 0.957157, -0.236902, 0.000000), (0.430963, 0.249773, 0.857829, 0.000000), (0.246919, -0.709496, 0.226914, 1.000000))
+INFO: Bone: DEF-toe.L Scale: vec3(0.981378, 0.986914, 0.991767) Translation: vec3(0.246919, -0.709496, 0.226914) Skew: vec3(0.018102, -0.007928, -0.006042)
+INFO: Decomposed transform for DEF-toe.L: Translation(0.246919, -0.709496, 0.226914), Scale(0.981378, 0.986914, 0.991767)
+INFO: Bone [DEF-pelvis.R] FINAL TRANSFORM:
+INFO: mat4x4((0.999920, -0.005672, 0.011343, 0.000000), (0.007529, 0.985245, -0.170987, 0.000000), (-0.010206, 0.171058, 0.985209, 0.000000), (-0.010782, -0.888171, 0.250189, 1.000000))
+INFO: Bone: DEF-pelvis.R Scale: vec3(1.000001, 1.000000, 1.000001) Translation: vec3(-0.010782, -0.888171, 0.250189) Skew: vec3(-0.000000, -0.000000, 0.000000)
+INFO: Decomposed transform for DEF-pelvis.R: Translation(-0.0107823, -0.888171, 0.250189), Scale(1, 1, 1)
+INFO: Bone [DEF-thigh.R] FINAL TRANSFORM:
+INFO: mat4x4((0.993585, -0.078592, 0.099540, 0.000000), (0.116868, 0.931268, -0.429869, 0.000000), (-0.072922, 0.438457, 0.929972, 0.000000), (-0.134025, -0.814477, 0.531621, 1.000000))
+INFO: Bone: DEF-thigh.R Scale: vec3(1.001647, 1.032330, 1.030633) Translation: vec3(-0.134025, -0.814477, 0.531621) Skew: vec3(0.000032, -0.013894, 0.000135)
+INFO: Decomposed transform for DEF-thigh.R: Translation(-0.134025, -0.814477, 0.531621), Scale(1.00165, 1.03233, 1.03063)
+INFO: Bone [DEF-thigh.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.993239, -0.075078, 0.105307, 0.000000), (0.116250, 0.931770, -0.430052, 0.000000), (-0.079827, 0.439083, 0.929644, 0.000000), (-0.129532, -0.747386, 0.504011, 1.000000))
+INFO: Bone: DEF-thigh.R.001 Scale: vec3(1.001624, 1.032789, 1.031116) Translation: vec3(-0.129532, -0.747386, 0.504011) Skew: vec3(0.000050, -0.013899, 0.000213)
+INFO: Decomposed transform for DEF-thigh.R.001: Translation(-0.129532, -0.747386, 0.504011), Scale(1.00162, 1.03279, 1.03112)
+INFO: Bone [DEF-shin.R] FINAL TRANSFORM:
+INFO: mat4x4((1.001017, 0.054701, -0.019182, 0.000000), (-0.057724, 1.018185, -0.188573, 0.000000), (-0.010180, 0.188232, 1.017217, 0.000000), (-0.034785, -0.721151, 0.347101, 1.000000))
+INFO: Bone: DEF-shin.R Scale: vec3(1.002694, 1.037107, 1.034355) Translation: vec3(-0.034785, -0.721151, 0.347101) Skew: vec3(0.000422, -0.018711, 0.001472)
+INFO: Decomposed transform for DEF-shin.R: Translation(-0.0347851, -0.721151, 0.347101), Scale(1.00269, 1.03711, 1.03436)
+INFO: Bone [DEF-shin.R.001] FINAL TRANSFORM:
+INFO: mat4x4((0.874934, -0.047962, -0.500241, 0.000000), (-0.057526, 1.014750, -0.199029, 0.000000), (0.481004, 0.201118, 0.884751, 0.000000), (-0.011626, -0.742414, 0.276706, 1.000000))
+INFO: Bone: DEF-shin.R.001 Scale: vec3(1.008986, 1.035683, 1.026465) Translation: vec3(-0.011626, -0.742414, 0.276706) Skew: vec3(0.000320, -0.030306, 0.000537)
+INFO: Decomposed transform for DEF-shin.R.001: Translation(-0.0116262, -0.742414, 0.276706), Scale(1.00899, 1.03568, 1.02647)
+INFO: Bone [DEF-foot.R] FINAL TRANSFORM:
+INFO: mat4x4((0.826555, -0.255789, -0.499300, 0.000000), (0.089459, 0.929830, -0.336042, 0.000000), (0.553825, 0.233355, 0.790049, 0.000000), (-0.010139, -0.758295, 0.259438, 1.000000))
+INFO: Bone: DEF-foot.R Scale: vec3(0.998960, 0.992721, 0.992643) Translation: vec3(-0.010139, -0.758295, 0.259438) Skew: vec3(0.001037, 0.003636, 0.003921)
+INFO: Decomposed transform for DEF-foot.R: Translation(-0.0101392, -0.758295, 0.259438), Scale(0.99896, 0.992721, 0.992643)
+INFO: Bone [DEF-toe.R] FINAL TRANSFORM:
+INFO: mat4x4((0.400816, -0.024459, -1.048994, -0.000000), (-0.151449, 1.091165, -0.211276, 0.000000), (1.084961, 0.086844, 0.289499, 0.000000), (-0.023454, -0.752667, 0.244551, 1.000000))
+INFO: Bone: DEF-toe.R Scale: vec3(1.123228, 1.115317, 1.112886) Translation: vec3(-0.023454, -0.752667, 0.244551) Skew: vec3(-0.116378, 0.103247, 0.107152)
+INFO: Decomposed transform for DEF-toe.R: Translation(-0.0234542, -0.752667, 0.244551), Scale(1.12323, 1.11532, 1.11289)
+INFO: DEBUG: Max Vertex Attributes: 32
+INFO: Drawing mesh with VAO: 1
+INFO: Window close event triggered.
 INFO: Exiting SceneTest3.
 INFO: ImGui shutdown completed.
 
-C:\Users\mjgou\source\repos\OpenEngine\x64\Debug\OpenEngine.exe (process 45220) exited with code 0.
+C:\Users\mjgou\source\repos\OpenEngine\x64\Debug\OpenEngine.exe (process 13984) exited with code 0.
 To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
 Press any key to close this window . . .
