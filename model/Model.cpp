@@ -7,6 +7,7 @@
 #include "../common_utils/Logger.h"
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp> 
+#include "../animation/SkeletonPose.h"
 
 
 // Just place this near the top of Model.cpp
@@ -93,6 +94,13 @@ void Model::loadModel(const std::string& path) {
 
     updateBoneHierarchy(scene->mRootNode, "");
     Logger::log("Bone hierarchy successfully built from scene graph.", Logger::INFO);
+    // ------------------------------------------------------------
+// 4.  Build a bind-pose snapshot for fast access during skinning
+// ------------------------------------------------------------
+    bindPose = std::make_unique<SkeletonPose>(boneLocalBindTransforms,
+        boneGlobalBindPose,
+        boneMapping);
+
 }
 
 
@@ -214,6 +222,11 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 void Model::Draw(Shader& shader)
 {
     std::vector<glm::mat4> finalMatrices(bones.size(), glm::mat4(1.0f));
+
+#ifdef VERBOSE_SKINNING_DUMP     // <-- add a compile-time guard
+    Logger::log("Bone [" + bones[i].name + "] FINAL TRANSFORM:", Logger::INFO);
+    Logger::log(glm::to_string(bones[i].finalTransform), Logger::INFO);
+#endif
 
     for (size_t i = 0; i < bones.size(); i++) {
         glm::mat4 globalTransform = getBoneTransform(bones[i].name);

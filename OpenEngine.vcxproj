@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -106,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -124,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -142,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -221,6 +221,7 @@
     <ClCompile Include="animation\Animation.cpp" />
     <ClCompile Include="animation\AnimationController.cpp" />
     <ClCompile Include="animation\DebugTools.cpp" />
+    <ClCompile Include="animation\SkeletonPose.cpp" />
     <ClCompile Include="cleanup\Cleanup.cpp" />
     <ClCompile Include="scene\SceneTest2.cpp" />
     <ClCompile Include="scene\SceneTest3.cpp" />
@@ -246,6 +247,7 @@
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationController.h" />
     <ClInclude Include="animation\DebugTools.h" />
+    <ClInclude Include="animation\SkeletonPose.h" />
     <ClInclude Include="cleanup\Cleanup.h" />
     <ClInclude Include="scene\SceneTest2.h" />
     <ClInclude Include="scene\SceneTest3.h" />

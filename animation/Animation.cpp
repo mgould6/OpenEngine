@@ -102,8 +102,7 @@ glm::mat4 Animation::interpolateMatrices(const glm::mat4& a,
 void Animation::interpolateKeyframes(float animationTimeSeconds,
     std::map<std::string, glm::mat4>& outPose) const
 {
-    if (keyframes.empty())
-        return;
+    if (keyframes.empty()) return;
 
     auto idx = findKeyframeIndices(animationTimeSeconds);
     const Keyframe& kfA = keyframes[idx.first];
@@ -111,28 +110,34 @@ void Animation::interpolateKeyframes(float animationTimeSeconds,
 
     float span = kfB.time - kfA.time;
     if (span < 0.0f) span += clipDurationSecs;
-
     float factor = (span > 0.0f)
         ? std::fmod(animationTimeSeconds - kfA.time + clipDurationSecs,
             clipDurationSecs) / span
         : 0.0f;
 
-    outPose.clear();
-
-    /* default to kfA pose -------------------------------------- */
+    /* -- start with A pose ------------------------------------ */
     for (const auto& p : kfA.boneTransforms)
         outPose[p.first] = p.second;
 
-    /* blend where kfB has data --------------------------------- */
+    /* -- blend / apply bind-offsets --------------------------- */
     for (const auto& pB : kfB.boneTransforms)
     {
         const std::string& bone = pB.first;
 
         const glm::mat4& matA = outPose.count(bone) ? outPose[bone]
             : pB.second;
-        outPose[bone] = interpolateMatrices(matA, pB.second, factor);
+
+        glm::mat4 blended = interpolateMatrices(matA, pB.second, factor);
+
+        if (bindOffsetsReady) {
+            auto it = bindOffsets.find(bone);
+            if (it != bindOffsets.end())
+                blended *= it->second;            // correct any exporter offset
+        }
+        outPose[bone] = blended;
     }
 }
+
 /* -------------------------------------------------------------- */
 
 
@@ -334,3 +339,42 @@ void Animation::loadAnimation(const std::string& filePath,
         std::to_string(ticksPerSecond), Logger::INFO);
 }
 
+// Animation.cpp
+void Animation::checkBindMismatch(const Model* model)
+{
+    const float EPS = 0.001f;
+    bool anyDiff = false;
+
+    for (const auto& bone : model->getBones())
+    {
+        glm::mat4 bindLocal = model->getLocalBindPose(bone.name);
+        glm::mat4 firstLocal = getLocalMatrixAtTime(bone.name, 1e-5f);
+        if (!matNearlyEqual(bindLocal, firstLocal, EPS))
+        {
+            Logger::log("[WARN] " + bone.name +
+                " differs from bind pose in first frame.", Logger::WARNING);
+            anyDiff = true;
+        }
+    }
+    mismatchChecked = true;          // <- tiny flag in Animation class
+}
+
+glm::mat4 Animation::getLocalMatrixAtTime(const std::string& bone,
+    float t) const
+{
+    if (keyframes.empty())
+        return glm::mat4(1.0f);
+
+    auto idx = findKeyframeIndices(t);
+    const glm::mat4& A = keyframes[idx.first].boneTransforms.at(bone);
+    const glm::mat4& B = keyframes[idx.second].boneTransforms.at(bone);
+
+    float span = keyframes[idx.second].time - keyframes[idx.first].time;
+    if (span < 0.0f) span += clipDurationSecs;
+
+    float factor = (span > 0.0f) ?
+        std::fmod(t - keyframes[idx.first].time + clipDurationSecs,
+            clipDurationSecs) / span : 0.0f;
+
+    return interpolateMatrices(A, B, factor);
+}

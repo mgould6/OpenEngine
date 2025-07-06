@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 #include "../model/Model.h"
 #include "Animation.h"
+#include "SkeletonPose.h"
 
 class AnimationController {
 public:
@@ -51,6 +52,7 @@ private:
         const std::map<std::string, glm::mat4>& localBoneMatrices,
         Model* model,
         std::map<std::string, glm::mat4>& globalBoneMatrices);
+    const glm::mat4& bindGlobalNoScale(const std::string& bone) const;
 
 
 };

@@ -86,6 +86,17 @@ void SceneTest3(GLFWwindow* window) {
 
         glDisable(GL_CULL_FACE);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+        /* Hard guard: model bone count must fit shader array length */
+        if (myModel->getBones().size() > 100)
+        {
+            Logger::log("[ERROR] Model has " +
+                std::to_string(myModel->getBones().size()) +
+                " bones, but shader array boneTransforms[100] is too small.",
+                Logger::ERROR);
+        }
+
+
         myModel->Draw(*activeShader);
 
         Renderer::RenderImGui(); // All GUI logic is handled here

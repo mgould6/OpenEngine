@@ -26,7 +26,9 @@ public:
 
     /* status ---------------------------------------------------- */
     bool  isLoaded() const { return loaded; }
-
+    bool  bindMismatchChecked() const { return mismatchChecked; }
+    glm::mat4 getLocalMatrixAtTime(const std::string& bone,
+        float seconds) const;
     /* timeline meta --------------------------------------------- */
     float getTicksPerSecond()   const { return ticksPerSecond; }
     float getDurationTicks()    const { return durationTicks; }
@@ -40,6 +42,10 @@ public:
     /* debug helpers --------------------------------------------- */
     size_t          getKeyframeCount() const { return keyframes.size(); }
     const std::string& getName() const { return name; }
+    std::unordered_map<std::string, glm::mat4> bindOffsets;
+    bool bindOffsetsReady = false;
+    bool  mismatchChecked = false;
+    void checkBindMismatch(const Model* model);
 
 private:
     /* helpers --------------------------------------------------- */

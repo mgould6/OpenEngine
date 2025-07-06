@@ -2,13 +2,19 @@
 #include "AnimationController.h"
 #include "../common_utils/Logger.h"
 #include <fstream>
+#include <glm/gtx/component_wise.hpp> // for glm::all(glm::equal …) style helpers
+#include <glm/gtc/epsilon.hpp>  // epsilonEqual + all/any/not_ helpers
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>
+#include <glm/glm.hpp>          // core
+// optional but handy
+
 #include "DebugTools.h"
 #include <GLFW/glfw3.h>
 #include <iomanip>   // for std::setw
 #include <cmath>        // fmodf, fabsf
 #include "Animation.h"
+#include <cmath>          // std::fabs
 
 
 // Forward declaration ­
@@ -20,6 +26,19 @@ AnimationController::AnimationController(Model* model)
     , currentAnimation(nullptr)
     , animationTime(0.0f)
 {
+}
+
+
+/* return true if every element differs by less than eps */
+static bool matNearlyEqual(const glm::mat4& A,
+    const glm::mat4& B,
+    float            eps = 0.001f)
+{
+    for (int c = 0; c < 4; ++c)
+        for (int r = 0; r < 4; ++r)
+            if (std::fabs(A[c][r] - B[c][r]) > eps)
+                return false;
+    return true;
 }
 
 /*--------------------------------------------------------------
@@ -79,6 +98,39 @@ bool AnimationController::loadAnimation(const std::string& name,
             Logger::INFO);
     }
 
+    /* ----------------------------------------------------------
+   OPTIONAL: verify frame 0 pose matches the model bind pose
+---------------------------------------------------------- */
+    if (clip->isLoaded())
+    {
+        std::map<std::string, glm::mat4> firstPose;
+        clip->interpolateKeyframes(1e-6f, firstPose);   // ~frame 0
+
+        bool poseMatchesBind = true;
+
+        for (const auto& bone : model->getBones())
+        {
+            const std::string& name = bone.name;
+            glm::mat4 bindLocal = model->getLocalBindPose(name);
+            glm::mat4 poseLocal =
+                firstPose.count(name) ? firstPose[name] : bindLocal;
+
+            if (!matNearlyEqual(bindLocal, poseLocal, 0.001f))
+            {
+                Logger::log("[WARN] Bone '" + name +
+                    "' differs between bind pose and first frame.",
+                    Logger::WARNING);
+                poseMatchesBind = false;
+            }
+        }
+
+        if (poseMatchesBind)
+            Logger::log("[OK] First frame of '" + name +
+                "' matches bind pose.", Logger::INFO);
+    }
+
+
+
     return true;
 }
 
@@ -92,10 +144,30 @@ void AnimationController::setCurrentAnimation(const std::string& name)
         return;
     }
 
+
+    // AnimationController.cpp
+    if (!currentAnimation->bindOffsetsReady)
+    {
+        for (const auto& bone : model->getBones())
+        {
+            glm::mat4 bindLocal = model->getLocalBindPose(bone.name);
+            glm::mat4 kf0Local = currentAnimation->getLocalMatrixAtTime(bone.name, 1e-5f);
+            currentAnimation->bindOffsets[bone.name] =
+                bindLocal * glm::inverse(kf0Local);
+        }
+        currentAnimation->bindOffsetsReady = true;
+    }
+
+
+
     /* avoid resetting if already playing this clip */
     if (currentAnimation == it->second)
         return;
 
+    if (!currentAnimation->bindMismatchChecked())
+    {
+        currentAnimation->checkBindMismatch(model);  // logs once
+    }
     currentAnimation = it->second;
     animationTime = 0.00001f;     /* skip exact 0 */
 
@@ -103,6 +175,17 @@ void AnimationController::setCurrentAnimation(const std::string& name)
         "  keyframes=" +
         std::to_string(currentAnimation->getKeyframeCount()),
         Logger::INFO);
+}
+
+
+
+const glm::mat4& AnimationController::bindGlobalNoScale
+(const std::string& bone) const
+{
+    static const glm::mat4 I(1.0f);
+    if (!model || !model->getBindPose())
+        return I;
+    return model->getBindPose()->getGlobalNoScale(bone);
 }
 
 
@@ -144,50 +227,43 @@ void AnimationController::update(float deltaTime)
 
 void AnimationController::applyToModel(Model* model)
 {
-    if (!model || !currentAnimation)
-        return;
+    if (!model || !currentAnimation) return;
 
-    /* -------- 1. interpolate local (animated) transforms -------- */
+    /* 1. local-pose interpolation (unchanged) */
     std::map<std::string, glm::mat4> localBoneMatrices;
     currentAnimation->interpolateKeyframes(animationTime, localBoneMatrices);
-
-    /* inject bind pose for any bones that lack keys */
     for (const auto& bone : model->getBones())
-    {
-        const std::string& boneName = bone.name;
-        if (localBoneMatrices.find(boneName) == localBoneMatrices.end())
-            localBoneMatrices[boneName] = model->getLocalBindPose(boneName);
-    }
+        if (!localBoneMatrices.count(bone.name))
+            localBoneMatrices[bone.name] = model->getLocalBindPose(bone.name);
 
-    /* -------- 2. recursively build global transforms ------------ */
+    /* 2. build global transforms (unchanged) */
     std::map<std::string, glm::mat4> globalBoneMatrices;
     for (const auto& [boneName, _] : localBoneMatrices)
         globalBoneMatrices[boneName] =
-        buildGlobalTransform(boneName,
-            localBoneMatrices,
-            model,
-            globalBoneMatrices);
+        buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
 
-    const glm::mat4 globalInverse = model->getGlobalInverseTransform();
-
-    /* ------------------------------------------------------------------
-       3. build and store the final skin matrices
-          – global pose  : scale removed
-          – bind pose    : scale removed
-    ------------------------------------------------------------------ */
-    for (const auto& pair : globalBoneMatrices)
+    /* 3. final skin matrices */
+    static bool dumpOnce = true;          // <-- persists across frames
+    for (const auto& [boneName, globalScaled] : globalBoneMatrices)
     {
-        const std::string& name = pair.first;
-        const glm::mat4& globalScaled = pair.second;
-
         glm::mat4 final =
             model->getGlobalInverseTransform()
-            * removeScale(globalScaled)                         // pose  (T * R)
-            * model->getBoneOffsetMatrixNoScale(name);          // bind (no S)
+            * removeScale(globalScaled)           // animated pose  (TR)
+            * bindGlobalNoScale(boneName);            // inverse bind   (TR-only)
 
-        model->setBoneTransform(name, final);
+
+        if (dumpOnce)
+        {
+            Logger::log("Bone [" + boneName + "]", Logger::INFO);
+            Logger::log("Bind (no scale):\n" +
+                glm::to_string(model->getBoneOffsetMatrixNoScale(boneName)), Logger::INFO);
+            Logger::log("Pose (no scale):\n" +
+                glm::to_string(removeScale(globalScaled)), Logger::INFO);
+            Logger::log("Final:\n" + glm::to_string(final), Logger::INFO);
+        }
+        model->setBoneTransform(boneName, final);
     }
-
+    dumpOnce = false;
 }
 
 

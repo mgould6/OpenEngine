@@ -11,6 +11,12 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "Mesh.h"
+#include <memory>
+#include "../animation/SkeletonPose.h"   // required include
+
+
+class SkeletonPose;                   // correct forward declaration
+
 
 struct Bone {
     std::string name;
@@ -42,7 +48,7 @@ public:
 
 
     glm::mat4 calculateBoneTransform(const std::string& boneName,
-        const std::unordered_map<std::string, glm::mat4>& localTransforms,
+    const std::unordered_map<std::string, glm::mat4>& localTransforms,
         std::unordered_map<std::string, glm::mat4>& globalTransforms);
     std::vector<glm::mat4> getFinalBoneMatrices() const;
     std::unordered_map<std::string, glm::mat4> boneLocalBindTransforms;
@@ -55,6 +61,7 @@ public:
 
     // Bind-pose offset with SCALE stripped out   (inverse( bindNoScale ))
     glm::mat4 getBoneOffsetMatrixNoScale(const std::string& boneName) const;
+    const SkeletonPose* getBindPose() const { return bindPose.get(); }
 
 
 private:
@@ -79,6 +86,7 @@ private:
 	
     void updateBoneTransforms(const aiNode* node, const glm::mat4& parentTransform);
     std::string getBoneName(int index) const;
+    std::unique_ptr<SkeletonPose> bindPose;
 
 
 };
