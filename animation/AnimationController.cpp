@@ -137,6 +137,8 @@ bool AnimationController::loadAnimation(const std::string& name,
 
 void AnimationController::setCurrentAnimation(const std::string& name)
 {
+    if (currentAnimation && !currentAnimation->bindMismatchChecked())
+        currentAnimation->checkBindMismatch(model);
     auto it = animations.find(name);
     if (it == animations.end())
     {
