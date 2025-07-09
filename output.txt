@@ -219,162 +219,324 @@ INFO: DEBUG: Bounding Box Center: (-0.000000, 0.878198, -0.082552)
 INFO: DEBUG: Bounding Box Radius: 0.987355
 INFO: DEBUG: Adjusted Camera Position: (-0.000000, 0.878198, 5.876665)
 INFO: Loaded clip 'animations/Idle.fbx' fps=60.000000
-INFO: NOW PLAYING: Idle | keyframes = 60 | length = 0.983333 s
-WARNING: [WARN] Bone 'DEF-spine' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-spine.005' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-spine.006' differs between bind pose and first frame.
+INFO: NOW PLAYING: Idle | keyframes = 61 | length = 1.000000 s
+WARNING: POSE AT t=0 FOR DEF-spine:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, -0.249640, 0.968339, 0.000000), (0.000000, -0.968339, -0.249640, 0.000000), (-0.000000, 0.164915, 0.883387, 1.000000))
+WARNING: BIND POSE LOCAL FOR DEF-spine:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.249639, 0.968339, 0.000000), (0.000000, -0.968339, -0.249639, 0.000000), (0.000000, 0.164914, 0.883387, 1.000000))
+WARNING: POSE AT t=0 FOR DEF-thigh.L:
+mat4x4((-0.326711, 0.641914, -0.693691, 0.000000), (0.286866, -0.631992, -0.719927, 0.000000), (-0.900538, -0.434204, 0.022335, 0.000000), (-0.018545, 0.099911, -0.031250, 1.000000))
+WARNING: BIND POSE LOCAL FOR DEF-thigh.L:
+mat4x4((0.989208, 0.101287, 0.105869, 0.000000), (0.066376, -0.953965, 0.292480, 0.000000), (0.130620, -0.282296, -0.950393, 0.000000), (0.084253, 0.060884, 0.022303, 1.000000))
+WARNING: POSE AT t=0 FOR DEF-upper_arm.L:
+mat4x4((-0.840223, -0.390785, -0.375917, 0.000000), (0.159011, 0.485214, -0.859816, 0.000000), (0.518403, -0.782211, -0.345549, 0.000000), (0.004115, 0.189038, -0.016364, 1.000000))
+WARNING: BIND POSE LOCAL FOR DEF-upper_arm.L:
+mat4x4((-0.840223, -0.390785, -0.375916, 0.000000), (0.159011, 0.485214, -0.859816, 0.000000), (0.518403, -0.782212, -0.345548, 0.000000), (0.004115, 0.189038, -0.016364, 1.000000))
 WARNING: [WARN] Bone 'DEF-pelvis.L' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-pelvis.R' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-thigh.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-thigh.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-foot.L' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-thigh.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-thigh.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-foot.R' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-shoulder.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-hand.L' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-shoulder.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-hand.R' differs between bind pose and first frame.
 INFO: Loaded clip 'animations/Stance1.fbx' fps=60.000000
-WARNING: [WARN] Bone 'DEF-spine' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-spine.005' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-spine.006' differs between bind pose and first frame.
+WARNING: POSE AT t=0 FOR DEF-spine:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, -0.249640, 0.968339, 0.000000), (0.000000, -0.968339, -0.249640, 0.000000), (-0.000000, 0.164915, 0.883387, 1.000000))
+WARNING: BIND POSE LOCAL FOR DEF-spine:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.249639, 0.968339, 0.000000), (0.000000, -0.968339, -0.249639, 0.000000), (0.000000, 0.164914, 0.883387, 1.000000))
+WARNING: POSE AT t=0 FOR DEF-thigh.L:
+mat4x4((-0.326711, 0.641914, -0.693691, 0.000000), (0.286866, -0.631992, -0.719927, 0.000000), (-0.900538, -0.434204, 0.022335, 0.000000), (-0.018545, 0.099911, -0.031250, 1.000000))
+WARNING: BIND POSE LOCAL FOR DEF-thigh.L:
+mat4x4((0.989208, 0.101287, 0.105869, 0.000000), (0.066376, -0.953965, 0.292480, 0.000000), (0.130620, -0.282296, -0.950393, 0.000000), (0.084253, 0.060884, 0.022303, 1.000000))
+WARNING: POSE AT t=0 FOR DEF-upper_arm.L:
+mat4x4((-0.840223, -0.390785, -0.375917, 0.000000), (0.159011, 0.485214, -0.859816, 0.000000), (0.518403, -0.782211, -0.345549, 0.000000), (0.004115, 0.189038, -0.016364, 1.000000))
+WARNING: BIND POSE LOCAL FOR DEF-upper_arm.L:
+mat4x4((-0.840223, -0.390785, -0.375916, 0.000000), (0.159011, 0.485214, -0.859816, 0.000000), (0.518403, -0.782212, -0.345548, 0.000000), (0.004115, 0.189038, -0.016364, 1.000000))
 WARNING: [WARN] Bone 'DEF-pelvis.L' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-pelvis.R' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-thigh.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-thigh.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-foot.L' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-thigh.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-thigh.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-foot.R' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-shoulder.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-hand.L' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-shoulder.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-hand.R' differs between bind pose and first frame.
 INFO: Loaded clip 'animations/Jab_Head.fbx' fps=60.000000
-WARNING: [WARN] Bone 'DEF-spine' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-spine.005' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-spine.006' differs between bind pose and first frame.
+WARNING: POSE AT t=0 FOR DEF-spine:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, -0.249640, 0.968339, 0.000000), (0.000000, -0.968339, -0.249640, 0.000000), (-0.000000, 0.164915, 0.883387, 1.000000))
+WARNING: BIND POSE LOCAL FOR DEF-spine:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.249639, 0.968339, 0.000000), (0.000000, -0.968339, -0.249639, 0.000000), (0.000000, 0.164914, 0.883387, 1.000000))
+WARNING: POSE AT t=0 FOR DEF-thigh.L:
+mat4x4((-0.326711, 0.641914, -0.693691, 0.000000), (0.286866, -0.631992, -0.719927, 0.000000), (-0.900538, -0.434204, 0.022335, 0.000000), (-0.018545, 0.099911, -0.031250, 1.000000))
+WARNING: BIND POSE LOCAL FOR DEF-thigh.L:
+mat4x4((0.989208, 0.101287, 0.105869, 0.000000), (0.066376, -0.953965, 0.292480, 0.000000), (0.130620, -0.282296, -0.950393, 0.000000), (0.084253, 0.060884, 0.022303, 1.000000))
+WARNING: POSE AT t=0 FOR DEF-upper_arm.L:
+mat4x4((-0.840223, -0.390785, -0.375917, 0.000000), (0.159011, 0.485214, -0.859816, 0.000000), (0.518403, -0.782211, -0.345549, 0.000000), (0.004115, 0.189038, -0.016364, 1.000000))
+WARNING: BIND POSE LOCAL FOR DEF-upper_arm.L:
+mat4x4((-0.840223, -0.390785, -0.375916, 0.000000), (0.159011, 0.485214, -0.859816, 0.000000), (0.518403, -0.782212, -0.345548, 0.000000), (0.004115, 0.189038, -0.016364, 1.000000))
 WARNING: [WARN] Bone 'DEF-pelvis.L' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-pelvis.R' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-thigh.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-thigh.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-foot.L' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-thigh.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-thigh.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-shin.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-foot.R' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-shoulder.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.L' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.L.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-hand.L' differs between bind pose and first frame.
 WARNING: [WARN] Bone 'DEF-shoulder.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-upper_arm.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.R' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-forearm.R.001' differs between bind pose and first frame.
-WARNING: [WARN] Bone 'DEF-hand.R' differs between bind pose and first frame.
-WARNING: [WARN] DEF-spine differs from bind pose in first frame.
-WARNING: [WARN] DEF-spine.005 differs from bind pose in first frame.
-WARNING: [WARN] DEF-spine.006 differs from bind pose in first frame.
 WARNING: [WARN] DEF-pelvis.L differs from bind pose in first frame.
 WARNING: [WARN] DEF-pelvis.R differs from bind pose in first frame.
 WARNING: [WARN] DEF-thigh.L differs from bind pose in first frame.
-WARNING: [WARN] DEF-thigh.L.001 differs from bind pose in first frame.
-WARNING: [WARN] DEF-shin.L differs from bind pose in first frame.
-WARNING: [WARN] DEF-shin.L.001 differs from bind pose in first frame.
-WARNING: [WARN] DEF-foot.L differs from bind pose in first frame.
 WARNING: [WARN] DEF-thigh.R differs from bind pose in first frame.
-WARNING: [WARN] DEF-thigh.R.001 differs from bind pose in first frame.
-WARNING: [WARN] DEF-shin.R differs from bind pose in first frame.
-WARNING: [WARN] DEF-shin.R.001 differs from bind pose in first frame.
-WARNING: [WARN] DEF-foot.R differs from bind pose in first frame.
 WARNING: [WARN] DEF-shoulder.L differs from bind pose in first frame.
-WARNING: [WARN] DEF-upper_arm.L differs from bind pose in first frame.
-WARNING: [WARN] DEF-upper_arm.L.001 differs from bind pose in first frame.
-WARNING: [WARN] DEF-forearm.L differs from bind pose in first frame.
-WARNING: [WARN] DEF-forearm.L.001 differs from bind pose in first frame.
-WARNING: [WARN] DEF-hand.L differs from bind pose in first frame.
 WARNING: [WARN] DEF-shoulder.R differs from bind pose in first frame.
-WARNING: [WARN] DEF-upper_arm.R differs from bind pose in first frame.
-WARNING: [WARN] DEF-upper_arm.R.001 differs from bind pose in first frame.
-WARNING: [WARN] DEF-forearm.R differs from bind pose in first frame.
-WARNING: [WARN] DEF-forearm.R.001 differs from bind pose in first frame.
-WARNING: [WARN] DEF-hand.R differs from bind pose in first frame.
 INFO: INFO: Set current animation to Idle.
 INFO: Bone [DEF-breast.L]
 INFO: Bind (no scale):
 mat4x4((-1.000000, -0.000000, -0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (-0.000000, 1.000000, 0.000000, -0.000000), (0.101791, 0.159154, -1.270002, 1.000000))
 INFO: Pose (no scale):
-mat4x4((1.000000, -0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (-0.000000, 0.000000, 0.000000, 1.000000))
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Final:
-mat4x4((-1.000000, 0.000000, -0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.101791, 0.159154, -1.270002, 1.000000))
+mat4x4((-1.000000, -0.000000, -0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (0.101791, 0.159154, -1.270002, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-breast.L
 INFO: Bone [DEF-breast.R]
 INFO: Bind (no scale):
 mat4x4((-1.000000, -0.000000, -0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (-0.000000, 1.000000, 0.000000, -0.000000), (-0.101791, 0.159154, -1.270002, 1.000000))
 INFO: Pose (no scale):
-mat4x4((1.000000, -0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (0.000000, -0.000000, 0.000000, 1.000000))
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
 INFO: Final:
-mat4x4((-1.000000, 0.000000, -0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (0.000000, 1.000000, 0.000000, 0.000000), (-0.101791, 0.159154, -1.270002, 1.000000))
+mat4x4((-1.000000, -0.000000, -0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (-0.101791, 0.159154, -1.270002, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-breast.R
 INFO: Bone [DEF-foot.L]
 INFO: Bind (no scale):
 mat4x4((1.000000, -0.000000, 0.000243, -0.000000), (0.000206, -0.529999, -0.847999, 0.000000), (0.000129, 0.847999, -0.529999, -0.000000), (-0.146219, 0.157585, 0.004202, 1.000000))
 INFO: Pose (no scale):
-mat4x4((-0.565609, -0.775481, 0.240805, 0.000000), (-0.799502, 0.493186, -0.332946, 0.000000), (0.141966, -0.385598, -0.897793, 0.000000), (-0.122522, -0.058611, -0.714491, 1.000000))
+mat4x4((-0.609246, -0.736924, 0.292865, 0.000000), (-0.735897, 0.387815, -0.555030, 0.000000), (0.295437, -0.553666, -0.778575, 0.000000), (-0.172159, -0.171944, -0.823875, 1.000000))
 INFO: Final:
-mat4x4((-0.565574, -0.775575, 0.240587, 0.000000), (0.303232, 0.065439, 0.937839, 0.000000), (-0.753292, 0.622488, 0.193522, 0.000000), (-0.165212, 0.130877, -0.805941, 1.000000))
+mat4x4((-0.609174, -0.737058, 0.292676, 0.000000), (0.139369, 0.263815, 0.954456, 0.000000), (-0.780699, 0.622213, -0.057984, 0.000000), (-0.197800, -0.005405, -0.957434, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-foot.L
 INFO: Bone [DEF-foot.R]
 INFO: Bind (no scale):
 mat4x4((1.000000, 0.000000, -0.000243, -0.000000), (-0.000206, -0.529998, -0.847998, 0.000000), (-0.000129, 0.847999, -0.529998, -0.000000), (0.146219, 0.157584, 0.004202, 1.000000))
 INFO: Pose (no scale):
-mat4x4((-0.649761, 0.731030, -0.189039, 0.000000), (0.751428, 0.606071, -0.257297, 0.000000), (-0.074133, -0.310551, -0.942883, 0.000000), (0.135700, 0.011369, -0.633138, 1.000000))
+mat4x4((-0.609246, 0.736924, -0.292863, 0.000000), (0.735895, 0.387816, -0.555031, 0.000000), (-0.295438, -0.553665, -0.778575, 0.000000), (0.172157, -0.171944, -0.823876, 1.000000))
 INFO: Final:
-mat4x4((-0.649742, 0.731105, -0.188810, 0.000000), (-0.335257, -0.058020, 0.935969, 0.000000), (0.676584, 0.678445, 0.281563, 0.000000), (0.158794, 0.212462, -0.705287, 1.000000))
+mat4x4((-0.609174, 0.737058, -0.292674, 0.000000), (-0.139367, 0.263813, 0.954456, 0.000000), (0.780698, 0.622214, -0.057984, 0.000000), (0.197798, -0.005404, -0.957434, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-foot.R
 INFO: Bone [DEF-forearm.L]
 INFO: Bind (no scale):
 mat4x4((-0.725730, 0.373039, -0.578064, -0.000000), (-0.378511, -0.918135, -0.117294, 0.000000), (-0.574496, 0.133680, 0.807517, -0.000000), (0.576958, 0.967126, 0.449913, 1.000000))
 INFO: Pose (no scale):
-mat4x4((-0.484762, -0.881935, 0.056436, 0.000000), (-0.045027, -0.045130, -1.003589, 0.000000), (0.882591, -0.481049, -0.025931, 0.000000), (0.014330, 0.227303, -0.219964, 1.000000))
+mat4x4((-0.840180, -0.390861, -0.375934, 0.000000), (0.288044, 0.265711, -0.920015, 0.000000), (0.459488, -0.881263, -0.110660, 0.000000), (0.045141, 0.314272, -0.238259, 1.000000))
 INFO: Final:
-mat4x4((-0.175185, 0.901289, -0.400344, 0.000000), (0.121306, 0.431681, 0.903110, 0.000000), (0.985182, 0.112180, -0.187522, 0.000000), (0.088185, -0.541613, -1.169667, 1.000000))
+mat4x4((0.451581, 0.892207, -0.006406, 0.000000), (-0.000341, 0.007353, 0.999973, 0.000000), (0.892230, -0.451567, 0.003625, 0.000000), (0.045696, -0.050755, -1.394715, 1.000000))
 INFO: DEBUG: After Storing Bone DEF-forearm.L
 INFO: Bone [DEF-forearm.L.001]
 INFO: Bind (no scale):
 mat4x4((-0.725729, 0.373039, -0.578065, -0.000000), (-0.378511, -0.918135, -0.117294, 0.000000), (-0.574497, 0.133680, 0.807517, -0.000000), (0.576959, 0.853574, 0.449914, 1.000000))
 INFO: Pose (no scale):
-mat4x4((-0.484480, -0.882102, 0.056421, 0.000000), (-0.045022, -0.045132, -1.003597, 0.000000), (0.882757, -0.480759, -0.025956, 0.000000), (0.010775, 0.223176, -0.328081, 1.000000))
+mat4x4((-0.840199, -0.390824, -0.375929, 0.000000), (0.288044, 0.265711, -0.920016, 0.000000), (0.459453, -0.881280, -0.110676, 0.000000), (0.077849, 0.344444, -0.342728, 1.000000))
 INFO: Final:
-mat4x4((-0.175484, 0.901242, -0.400323, 0.000000), (0.121175, 0.431713, 0.903126, 0.000000), (0.9851
+mat4x4((0.451615, 0.892190, -0.006401, 0.000000), (-0.000329, 0.007341, 0.999973, 0.000000), (0.892213, -0.451601, 0.003609, 0.000000), (0.045669, -0.050742, -1.394720, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-forearm.L.001
+INFO: Bone [DEF-forearm.R]
+INFO: Bind (no scale):
+mat4x4((-0.725730, -0.373039, 0.578064, -0.000000), (0.378511, -0.918135, -0.117294, 0.000000), (0.574496, 0.133680, 0.807517, -0.000000), (-0.576958, 0.967126, 0.449913, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.840069, 0.391053, 0.375983, 0.000000), (-0.288083, 0.265689, -0.920010, 0.000000), (-0.459667, -0.881185, -0.110542, 0.000000), (-0.045128, 0.314275, -0.238260, 1.000000))
+INFO: Final:
+mat4x4((0.451412, -0.892293, 0.006437, 0.000000), (0.000440, 0.007437, 0.999973, 0.000000), (-0.892316, -0.451397, 0.003750, 0.000000), (-0.045867, -0.050848, -1.394686, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-forearm.R
+INFO: Bone [DEF-forearm.R.001]
+INFO: Bind (no scale):
+mat4x4((-0.725729, -0.373039, 0.578065, -0.000000), (0.378511, -0.918135, -0.117294, 0.000000), (0.574497, 0.133680, 0.807517, -0.000000), (-0.576959, 0.853574, 0.449914, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.840138, 0.390920, 0.375967, 0.000000), (-0.288083, 0.265689, -0.920010, 0.000000), (-0.459540, -0.881244, -0.110599, 0.000000), (-0.077841, 0.344445, -0.342728, 1.000000))
+INFO: Final:
+mat4x4((0.451535, -0.892231, 0.006416, 0.000000), (0.000399, 0.007394, 0.999973, 0.000000), (-0.892254, -0.451520, 0.003694, 0.000000), (-0.045769, -0.050799, -1.394702, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-forearm.R.001
+INFO: Bone [DEF-hand.L]
+INFO: Bind (no scale):
+mat4x4((-0.750333, 0.292145, -0.593002, -0.000000), (-0.306702, -0.948504, -0.079209, 0.000000), (-0.585605, 0.122442, 0.801296, -0.000000), (0.517153, 0.800001, 0.418913, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.861266, -0.407201, -0.303988, 0.000000), (0.241446, 0.198453, -0.949906, 0.000000), (0.447130, -0.891518, -0.072603, 0.000000), (0.110556, 0.374616, -0.447197, 1.000000))
+INFO: Final:
+mat4x4((0.451625, 0.892185, -0.006364, 0.000000), (-0.000277, 0.007273, 0.999973, 0.000000), (0.892208, -0.451611, 0.003532, 0.000000), (0.045615, -0.050675, -1.394745, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-hand.L
+INFO: Bone [DEF-hand.R]
+INFO: Bind (no scale):
+mat4x4((-0.750333, -0.292145, 0.593002, -0.000000), (0.306702, -0.948504, -0.079210, 0.000000), (0.585605, 0.122442, 0.801296, -0.000000), (-0.517154, 0.800001, 0.418913, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.861266, 0.407208, 0.303980, 0.000000), (-0.241438, 0.198451, -0.949908, 0.000000), (-0.447135, -0.891515, -0.072605, 0.000000), (-0.110552, 0.374615, -0.447197, 1.000000))
+INFO: Final:
+mat4x4((0.451620, -0.892189, 0.006370, 0.000000), (0.000270, 0.007277, 0.999974, 0.000000), (-0.892212, -0.451605, 0.003527, 0.000000), (-0.045606, -0.050680, -1.394743, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-hand.R
+INFO: Bone [DEF-pelvis.L]
+INFO: Bind (no scale):
+mat4x4((-0.421772, 0.536322, -0.731072, 0.000000), (-0.276838, 0.691624, 0.667096, 0.000000), (0.863405, 0.483751, -0.143234, -0.000000), (0.386943, -0.531194, -0.612925, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
+INFO: Final:
+mat4x4((-0.421772, 0.536322, -0.731072, 0.000000), (-0.276838, 0.691624, 0.667096, 0.000000), (0.863405, 0.483751, -0.143234, 0.000000), (0.386943, -0.531194, -0.612925, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-pelvis.L
+INFO: Bone [DEF-pelvis.R]
+INFO: Bind (no scale):
+mat4x4((-0.421772, -0.536322, 0.731072, -0.000000), (0.276838, 0.691624, 0.667096, -0.000000), (-0.863405, 0.483751, -0.143234, -0.000000), (-0.386943, -0.531194, -0.612925, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (0.000000, 0.000000, 0.000000, 1.000000))
+INFO: Final:
+mat4x4((-0.421772, -0.536322, 0.731072, 0.000000), (0.276837, 0.691624, 0.667096, 0.000000), (-0.863405, 0.483751, -0.143234, 0.000000), (-0.386943, -0.531194, -0.612925, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-pelvis.R
+INFO: Bone [DEF-shin.L]
+INFO: Bind (no scale):
+mat4x4((0.989208, 0.079812, 0.122871, -0.000000), (0.071651, -0.995008, 0.069469, 0.000000), (0.127802, -0.059915, -0.989989, -0.000000), (-0.134090, 0.464504, -0.154088, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.692388, -0.630681, 0.350497, 0.000000), (-0.140380, -0.358741, -0.922824, 0.000000), (0.707743, -0.688151, 0.159848, 0.000000), (-0.116375, -0.029394, -0.457179, 1.000000))
+INFO: Final:
+mat4x4((-0.609159, -0.737060, 0.292703, 0.000000), (0.139235, 0.263956, 0.954435, 0.000000), (-0.780735, 0.622154, -0.058162, 0.000000), (-0.197794, -0.005427, -0.957463, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shin.L
+INFO: Bone [DEF-shin.L.001]
+INFO: Bind (no scale):
+mat4x4((0.989208, 0.079812, 0.122871, -0.000000), (0.071651, -0.995008, 0.069469, 0.000000), (0.127802, -0.059915, -0.989989, -0.000000), (-0.134090, 0.265820, -0.154088, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.692386, -0.630682, 0.350498, 0.000000), (-0.140380, -0.358741, -0.922824, 0.000000), (0.707744, -0.688150, 0.159847, 0.000000), (-0.144266, -0.100671, -0.640529, 1.000000))
+INFO: Final:
+mat4x4((-0.609157, -0.737062, 0.292703, 0.000000), (0.139235, 0.263956, 0.954435, 0.000000), (-0.780736, 0.622152, -0.058161, 0.000000), (-0.197795, -0.005427, -0.957463, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shin.L.001
+INFO: Bone [DEF-shin.R]
+INFO: Bind (no scale):
+mat4x4((0.989208, -0.079812, -0.122871, -0.000000), (-0.071651, -0.995008, 0.069469, 0.000000), (-0.127802, -0.059915, -0.989989, -0.000000), (0.134090, 0.464504, -0.154088, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.692379, 0.630690, -0.350497, 0.000000), (0.140378, -0.358740, -0.922825, 0.000000), (-0.707751, -0.688143, 0.159844, 0.000000), (0.116374, -0.029394, -0.457179, 1.000000))
+INFO: Final:
+mat4x4((-0.609149, 0.737068, -0.292702, 0.000000), (-0.139234, 0.263955, 0.954436, 0.000000), (0.780742, 0.622145, -0.058158, -0.000000), (0.197795, -0.005426, -0.957463, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shin.R
+INFO: Bone [DEF-shin.R.001]
+INFO: Bind (no scale):
+mat4x4((0.989208, -0.079812, -0.122871, -0.000000), (-0.071651, -0.995008, 0.069469, 0.000000), (-0.127802, -0.059915, -0.989988, -0.000000), (0.134090, 0.265820, -0.154088, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.692382, 0.630688, -0.350496, 0.000000), (0.140378, -0.358740, -0.922825, 0.000000), (-0.707749, -0.688146, 0.159846, 0.000000), (0.144265, -0.100670, -0.640529, 1.000000))
+INFO: Final:
+mat4x4((-0.609152, 0.737066, -0.292701, 0.000000), (-0.139234, 0.263955, 0.954436, 0.000000), (0.780740, 0.622148, -0.058160, -0.000000), (0.197794, -0.005427, -0.957463, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shin.R.001
+INFO: Bone [DEF-shoulder.L]
+INFO: Bind (no scale):
+mat4x4((0.451632, 0.892182, -0.006365, -0.000000), (-0.000286, 0.007279, 0.999974, 0.000000), (0.892205, -0.451618, 0.003542, -0.000000), (0.045624, -0.050680, -1.394747, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, -0.000000, -0.000000, 0.000000), (0.000000, 1.000000, -0.000000, 0.000000), (0.000000, 0.000000, 1.000000, 0.000000), (-0.000000, 0.000000, -0.000000, 1.000000))
+INFO: Final:
+mat4x4((0.451632, 0.892182, -0.006365, 0.000000), (-0.000286, 0.007279, 0.999974, 0.000000), (0.892205, -0.451618, 0.003542, 0.000000), (0.045624, -0.050680, -1.394747, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shoulder.L
+INFO: Bone [DEF-shoulder.R]
+INFO: Bind (no scale):
+mat4x4((0.451632, -0.892182, 0.006365, -0.000000), (0.000286, 0.007279, 0.999974, -0.000000), (-0.892205, -0.451618, 0.003542, -0.000000), (-0.045624, -0.050680, -1.394747, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, 1.000000, -0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (0.000000, 0.000000, -0.000000, 1.000000))
+INFO: Final:
+mat4x4((0.451632, -0.892182, 0.006365, 0.000000), (0.000286, 0.007279, 0.999974, 0.000000), (-0.892205, -0.451618, 0.003542, 0.000000), (-0.045624, -0.050680, -1.394747, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-shoulder.R
+INFO: Bone [DEF-spine]
+INFO: Bind (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, -0.000000), (0.000000, 0.968339, -0.249639, 0.000000), (-0.000000, 0.249639, 0.968339, -0.000000), (-0.000000, -0.814249, 0.380221, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, -0.249639, 0.968339, 0.000000), (0.000000, -0.968339, -0.249639, 0.000000), (0.000000, 0.164914, 0.883386, 1.000000))
+INFO: Final:
+mat4x4((1.000000, 0.000000, -0.000000, 0.000000), (0.000000, -0.000000, 1.000000, 0.000000), (0.000000, -1.000000, -0.000000, 0.000000), (-0.000000, -0.000000, -0.000001, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine
+INFO: Bone [DEF-spine.001]
+INFO: Bind (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, -0.000000), (0.000000, 0.992412, -0.122954, 0.000000), (-0.000000, 0.122954, 0.992412, -0.000000), (-0.000000, -0.986185, 0.255439, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.122954, 0.992412, 0.000000), (0.000000, -0.992412, -0.122954, 0.000000), (0.000000, 0.132245, 1.010109, 1.000000))
+INFO: Final:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, 0.000000, 1.000000, 0.000000), (0.000000, -1.000000, 0.000000, 0.000000), (0.000000, -0.000000, -0.000001, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.001
+INFO: Bone [DEF-spine.002]
+INFO: Bind (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, -0.000000), (-0.000000, 0.999494, 0.031812, 0.000000), (-0.000000, -0.031812, 0.999494, -0.000000), (-0.000000, -1.129865, 0.081900, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, 0.000000, -0.000000, 0.000000), (-0.000000, 0.031814, 0.999494, 0.000000), (0.000000, -0.999494, 0.031814, 0.000000), (-0.000000, 0.117802, 1.126686, 1.000000))
+INFO: Final:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, 0.000001, 1.000000, 0.000000), (0.000000, -1.000000, 0.000001, 0.000000), (0.000000, -0.000001, -0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.002
+INFO: Bone [DEF-spine.003]
+INFO: Bind (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, -0.000000), (-0.000000, 0.999592, 0.028560, 0.000000), (-0.000000, -0.028560, 0.999592, -0.000000), (0.000000, -1.278226, 0.086060, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, 0.028561, 0.999592, 0.000000), (0.000000, -0.999592, 0.028561, 0.000000), (-0.000000, 0.122530, 1.275246, 1.000000))
+INFO: Final:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, 0.000001, 1.000000, 0.000000), (0.000000, -1.000000, 0.000001, 0.000000), (0.000000, -0.000002, -0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.003
+INFO: Bone [DEF-spine.004]
+INFO: Bind (no scale):
+mat4x4((1.000000, 0.000000, -0.000000, -0.000000), (-0.000000, 0.929515, -0.368784, 0.000000), (0.000000, 0.368784, 0.929515, -0.000000), (0.000000, -1.292261, 0.649611, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, -0.368784, 0.929515, 0.000000), (0.000000, -0.929515, -0.368784, 0.000000), (-0.000000, 0.127259, 1.440742, 1.000000))
+INFO: Final:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.000001, 1.000000, 0.000000), (0.000000, -1.000000, -0.000001, 0.000000), (0.000000, 0.000001, -0.000001, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.004
+INFO: Bone [DEF-spine.005]
+INFO: Bind (no scale):
+mat4x4((1.000000, 0.000000, -0.000000, -0.000000), (-0.000000, 0.982436, -0.186599, 0.000000), (0.000000, 0.186599, 0.982436, -0.000000), (0.000000, -1.447550, 0.383122, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.186600, 0.982436, 0.000000), (0.000000, -0.982436, -0.186600, 0.000000), (-0.000000, 0.106282, 1.493615, 1.000000))
+INFO: Final:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.000001, 1.000000, 0.000000), (0.000000, -1.000000, -0.000001, 0.000000), (0.000000, 0.000001, -0.000000, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.005
+INFO: Bone [DEF-spine.006]
+INFO: Bind (no scale):
+mat4x4((1.000000, 0.000000, -0.000000, -0.000000), (-0.000000, 1.000000, 0.000000, 0.000000), (0.000000, -0.000000, 1.000000, -0.000000), (0.000000, -1.546574, 0.096223, 1.000000))
+INFO: Pose (no scale):
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (0.000000, -1.000000, -0.000000, 0.000000), (-0.000000, 0.096223, 1.546573, 1.000000))
+INFO: Final:
+mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (-0.000000, -0.000000, 1.000000, 0.000000), (0.000000, -1.000000, -0.000000, 0.000000), (0.000000, 0.000001, -0.000001, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-spine.006
+INFO: Bone [DEF-thigh.L]
+INFO: Bind (no scale):
+mat4x4((0.989208, 0.066376, 0.130620, -0.000000), (0.071651, -0.996776, -0.036103, 0.000000), (0.127802, 0.045072, -0.990775, -0.000000), (-0.134090, 0.933938, -0.104122, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.692388, -0.630681, 0.350497, 0.000000), (-0.214674, -0.283709, -0.934575, 0.000000), (0.688855, -0.722327, 0.061041, 0.000000), (-0.018544, 0.099912, -0.031250, 1.000000))
+INFO: Final:
+mat4x4((-0.609187, -0.737056, 0.292655, 0.000000), (0.139502, 0.263683, 0.954472, 0.000000), (-0.780665, 0.622274, -0.057807, 0.000000), (-0.197919, -0.005277, -0.957439, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-thigh.L
+INFO: Bone [DEF-thigh.L.001]
+INFO: Bind (no scale):
+mat4x4((0.989208, 0.066376, 0.130620, -0.000000), (0.071651, -0.996777, -0.036103, 0.000000), (0.127802, 0.045072, -0.990775, -0.000000), (-0.134090, 0.706064, -0.104122, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.692388, -0.630681, 0.350497, 0.000000), (-0.214674, -0.283709, -0.934575, 0.000000), (0.688855, -0.722327, 0.061041, 0.000000), (-0.067463, 0.035262, -0.244215, 1.000000))
+INFO: Final:
+mat4x4((-0.609187, -0.737056, 0.292655, 0.000000), (0.139502, 0.263684, 0.954472, 0.000000), (-0.780666, 0.622274, -0.057807, 0.000000), (-0.197919, -0.005277, -0.957439, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-thigh.L.001
+INFO: Bone [DEF-thigh.R]
+INFO: Bind (no scale):
+mat4x4((0.989208, -0.066376, -0.130620, -0.000000), (-0.071651, -0.996776, -0.036103, 0.000000), (-0.127803, 0.045072, -0.990775, -0.000000), (0.134090, 0.933937, -0.104122, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.692388, 0.630681, -0.350496, 0.000000), (0.214674, -0.283708, -0.934575, 0.000000), (-0.688855, -0.722328, 0.061041, 0.000000), (0.018544, 0.099912, -0.031250, 1.000000))
+INFO: Final:
+mat4x4((-0.609187, 0.737056, -0.292653, 0.000000), (-0.139502, 0.263682, 0.954472, 0.000000), (0.780665, 0.622274, -0.057807, 0.000000), (0.197919, -0.005275, -0.957439, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-thigh.R
+INFO: Bone [DEF-thigh.R.001]
+INFO: Bind (no scale):
+mat4x4((0.989208, -0.066376, -0.130620, -0.000000), (-0.071651, -0.996776, -0.036102, 0.000000), (-0.127803, 0.045072, -0.990775, -0.000000), (0.134090, 0.706064, -0.104122, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.692384, 0.630685, -0.350496, 0.000000), (0.214674, -0.283707, -0.934575, 0.000000), (-0.688859, -0.722324, 0.061039, 0.000000), (0.067463, 0.035262, -0.244215, 1.000000))
+INFO: Final:
+mat4x4((-0.609182, 0.737060, -0.292653, 0.000000), (-0.139502, 0.263681, 0.954472, 0.000000), (0.780668, 0.622270, -0.057804, 0.000000), (0.197920, -0.005275, -0.957438, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-thigh.R.001
+INFO: Bone [DEF-toe.L]
+INFO: Bind (no scale):
+mat4x4((-1.000001, -0.000000, 0.000002, -0.000000), (0.000002, -0.000000, 1.000000, -0.000000), (-0.000000, 1.000000, -0.000001, -0.000000), (0.146218, 0.037160, -0.028223, 1.000000))
+INFO: Pose (no scale):
+mat4x4((0.609170, 0.737059, -0.292674, 0.000000), (-0.780698, 0.622214, -0.057978, 0.000000), (0.139373, 0.263809, 0.954453, 0.000000), (-0.253928, -0.128852, -0.885547, 1.000000))
+INFO: Final:
+mat4x4((-0.609170, -0.737059, 0.292676, 0.000000), (0.139374, 0.263810, 0.954453, 0.000000), (-0.780699, 0.622214, -0.057979, 0.000000), (-0.197801, -0.005405, -0.957433, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-toe.L
+INFO: Bone [DEF-toe.R]
+INFO: Bind (no scale):
+mat4x4((-1.000000, 0.000000, -0.000002, 0.000000), (-0.000002, -0.000000, 1.000000, 0.000000), (0.000000, 1.000000, -0.000000, -0.000000), (-0.146218, 0.037160, -0.028222, 1.000000))
+INFO: Pose (no scale):
+mat4x4((0.609171, -0.737058, 0.292672, 0.000000), (0.780697, 0.622216, -0.057979, 0.000000), (-0.139371, 0.263807, 0.954454, 0.000000), (0.253926, -0.128851, -0.885548, 1.000000))
+INFO: Final:
+mat4x4((-0.609171, 0.737058, -0.292673, 0.000000), (-0.139372, 0.263808, 0.954453, 0.000000), (0.780697, 0.622215, -0.057979, 0.000000), (0.197799, -0.005404, -0.957433, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-toe.R
+INFO: Bone [DEF-upper_arm.L]
+INFO: Bind (no scale):
+mat4x4((-0.725729, 0.510186, -0.461548, -0.000000), (-0.378511, -0.856306, -0.351381, 0.000000), (-0.574496, -0.080306, 0.814558, -0.000000), (0.576958, 1.075441, 0.685326, 1.000000))
+INFO: Pose (no scale):
+mat4x4((-0.840225, -0.390794, -0.375902, 0.000000), (0.158959, 0.485265, -0.859797, 0.000000), (0.518415, -0.782175, -0.345612, 0.000000), (0.004116, 0.189037, -0.016364, 1.000000))
+INFO: Final:
+mat4x4((0.451601, 0.892198, -0.006336, 0.000000), (-0.000244, 0.007225, 0.999974, 0.000000), (0.892220, -0.451587, 0.003481, 0.000000), (0.045576, -0.050606, -1.394761, 1.000000))
+INFO: DEBUG: After Storing Bone DEF-upper_arm.L
+INFO: Bone [DEF-upper_arm.L.001]

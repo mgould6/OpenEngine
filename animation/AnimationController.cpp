@@ -106,6 +106,18 @@ bool AnimationController::loadAnimation(const std::string& name,
         std::map<std::string, glm::mat4> firstPose;
         clip->interpolateKeyframes(1e-6f, firstPose);   // ~frame 0
 
+        for (const auto& name : { "DEF-spine", "DEF-thigh.L", "DEF-upper_arm.L" }) {
+            if (firstPose.count(name)) {
+                Logger::log("POSE AT t=0 FOR " + std::string(name) + ":\n" + glm::to_string(firstPose[name]), Logger::WARNING);
+            }
+            else {
+                Logger::log("Pose missing for bone: " + std::string(name), Logger::WARNING);
+            }
+
+            glm::mat4 bindLocal = model->getLocalBindPose(name);
+            Logger::log("BIND POSE LOCAL FOR " + std::string(name) + ":\n" + glm::to_string(bindLocal), Logger::WARNING);
+        }
+
         bool poseMatchesBind = true;
 
         for (const auto& bone : model->getBones())
