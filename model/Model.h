@@ -62,6 +62,7 @@ public:
     // Bind-pose offset with SCALE stripped out   (inverse( bindNoScale ))
     glm::mat4 getBoneOffsetMatrixNoScale(const std::string& boneName) const;
     const SkeletonPose* getBindPose() const { return bindPose.get(); }
+    const glm::mat4& getRootTransform() const { return rootTransform; }
 
 
 private:
@@ -87,6 +88,8 @@ private:
     void updateBoneTransforms(const aiNode* node, const glm::mat4& parentTransform);
     std::string getBoneName(int index) const;
     std::unique_ptr<SkeletonPose> bindPose;
+
+    glm::mat4 rootTransform = glm::mat4(1.0f);
 
 
 };

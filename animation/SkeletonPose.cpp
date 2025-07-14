@@ -39,6 +39,12 @@ SkeletonPose SkeletonPose::fromAnimationSample(
                 parentGlobal = model->getBindPoseGlobalTransform(parent);
             }
         }
+        else
+        {
+            // Apply FBX rootTransform to root bones
+            parentGlobal = model->getRootTransform();
+        }
+
 
         glm::mat4 globalTransform = parentGlobal * localTransform;
         pose.boneTransforms[boneName] = globalTransform;

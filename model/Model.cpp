@@ -67,6 +67,7 @@ void Model::loadModel(const std::string& path) {
     // --- Root Transform Diagnostic Logging ---
     const aiMatrix4x4& rootTransform = scene->mRootNode->mTransformation;
     glm::mat4 glmRootTransform = glm::transpose(glm::make_mat4(&rootTransform.a1));
+    this->rootTransform = glmRootTransform;
 
     Logger::log("ASSIMP ROOT NODE TRANSFORM (scene->mRootNode->mTransformation):", Logger::INFO);
     Logger::log(glm::to_string(glmRootTransform), Logger::INFO);
