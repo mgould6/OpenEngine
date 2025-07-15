@@ -127,13 +127,20 @@ bool AnimationController::loadAnimation(const std::string& name,
             glm::mat4 poseLocal =
                 firstPose.count(name) ? firstPose[name] : bindLocal;
 
-            if (!matNearlyEqual(bindLocal, poseLocal, 0.001f))
+            if (!matNearlyEqual(bindLocal, poseLocal, 1e-5f))
             {
-                Logger::log("[WARN] Bone '" + name +
-                    "' differs between bind pose and first frame.",
-                    Logger::WARNING);
+                glm::vec3 tBind(bindLocal[3]);
+                glm::vec3 tPose(poseLocal[3]);
+                glm::vec3 delta = tPose - tBind;
+
+                Logger::log("[MISMATCH] Bone '" + name + "' differs in frame 0", Logger::WARNING);
+                Logger::log("  Bind  T: " + glm::to_string(tBind), Logger::WARNING);
+                Logger::log("  Frame0 T: " + glm::to_string(tPose), Logger::WARNING);
+                Logger::log("  Delta Translation: " + glm::to_string(delta), Logger::WARNING);
+
                 poseMatchesBind = false;
             }
+
         }
 
         if (poseMatchesBind)
@@ -146,50 +153,37 @@ bool AnimationController::loadAnimation(const std::string& name,
     return true;
 }
 
-
 void AnimationController::setCurrentAnimation(const std::string& name)
 {
-    if (currentAnimation && !currentAnimation->bindMismatchChecked())
-        currentAnimation->checkBindMismatch(model);
     auto it = animations.find(name);
     if (it == animations.end())
     {
-        Logger::log("Animation not found: " + name, Logger::ERROR);
+        Logger::log("ERROR: Animation not found: " + name, Logger::ERROR);
         return;
     }
 
+    Animation* newClip = it->second;
 
-    // AnimationController.cpp
-    if (!currentAnimation->bindOffsetsReady)
+    // Avoid resetting if this is already the active animation
+    if (currentAnimation == newClip)
     {
-        for (const auto& bone : model->getBones())
-        {
-            glm::mat4 bindLocal = model->getLocalBindPose(bone.name);
-            glm::mat4 kf0Local = currentAnimation->getLocalMatrixAtTime(bone.name, 1e-5f);
-            currentAnimation->bindOffsets[bone.name] =
-                bindLocal * glm::inverse(kf0Local);
-        }
-        currentAnimation->bindOffsetsReady = true;
-    }
-
-
-
-    /* avoid resetting if already playing this clip */
-    if (currentAnimation == it->second)
+        Logger::log("INFO: Animation [" + name + "] is already playing.", Logger::INFO);
         return;
-
-    if (!currentAnimation->bindMismatchChecked())
-    {
-        currentAnimation->checkBindMismatch(model);  // logs once
     }
-    currentAnimation = it->second;
-    animationTime = 0.00001f;     /* skip exact 0 */
 
-    Logger::log("NOW PLAYING: " + name +
-        "  keyframes=" +
-        std::to_string(currentAnimation->getKeyframeCount()),
+    // Run bind mismatch check only once per clip
+    if (!newClip->bindMismatchChecked())
+        newClip->checkBindMismatch(model);
+
+    currentAnimation = newClip;
+    animationTime = 0.00001f;  // Ensure we skip t=0 precision issues
+
+    Logger::log("NOW PLAYING: [" + name + "]"
+        "  keyframes=" + std::to_string(currentAnimation->getKeyframeCount()) +
+        "  duration=" + std::to_string(currentAnimation->getClipDurationSeconds()) + "s",
         Logger::INFO);
 }
+
 
 
 
@@ -246,6 +240,8 @@ void AnimationController::applyToModel(Model* model)
     /* 1. local-pose interpolation (unchanged) */
     std::map<std::string, glm::mat4> localBoneMatrices;
     currentAnimation->interpolateKeyframes(animationTime, localBoneMatrices);
+    Logger::log("Applied animation frame at t=" + std::to_string(animationTime), Logger::INFO);
+
     for (const auto& bone : model->getBones())
         if (!localBoneMatrices.count(bone.name))
             localBoneMatrices[bone.name] = model->getLocalBindPose(bone.name);
@@ -260,10 +256,11 @@ void AnimationController::applyToModel(Model* model)
     static bool dumpOnce = true;          // <-- persists across frames
     for (const auto& [boneName, globalScaled] : globalBoneMatrices)
     {
+        glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
         glm::mat4 final =
             model->getGlobalInverseTransform()
-            * removeScale(globalScaled)           // animated pose  (TR)
-            * bindGlobalNoScale(boneName);            // inverse bind   (TR-only)
+            * globalScaled
+            * offsetMatrix;
 
 
         if (dumpOnce)

@@ -13,6 +13,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <glm/gtx/string_cast.hpp>
 
 Animation::Animation(const std::string& filePath,
     const Model* model)
@@ -129,11 +130,7 @@ void Animation::interpolateKeyframes(float animationTimeSeconds,
 
         glm::mat4 blended = interpolateMatrices(matA, pB.second, factor);
 
-        if (bindOffsetsReady) {
-            auto it = bindOffsets.find(bone);
-            if (it != bindOffsets.end())
-                blended *= it->second;            // correct any exporter offset
-        }
+
 
         blended = SkeletonPose::removeScale(blended);
 
@@ -251,7 +248,13 @@ void Animation::loadAnimation(const std::string& filePath,
             glm::mat4 m(1.0f);
             m = glm::translate(m, { pos.x, pos.y, pos.z });
             m *= glm::mat4_cast(glm::normalize(glm::quat(rot.w, rot.x, rot.y, rot.z)));
-            m = glm::scale(m, { scl.x, scl.y, scl.z });
+
+            glm::vec3 scale(scl.x, scl.y, scl.z);
+            if (glm::length(scale - glm::vec3(1.0f)) > 0.01f)
+                m = glm::scale(m, scale);
+
+            // Optional: discard scaling altogether for rigging safety
+            // m = SkeletonPose::removeScale(m);
 
             sparse[tSec][bone] = m;
         }
@@ -345,7 +348,7 @@ void Animation::loadAnimation(const std::string& filePath,
 // Animation.cpp
 void Animation::checkBindMismatch(const Model* model)
 {
-    const float EPS = 0.001f;
+    const float EPS = 1e-4f;;
     bool anyDiff = false;
 
     for (const auto& bone : model->getBones())
@@ -354,9 +357,11 @@ void Animation::checkBindMismatch(const Model* model)
         glm::mat4 firstLocal = getLocalMatrixAtTime(bone.name, 1e-5f);
         if (!matNearlyEqual(bindLocal, firstLocal, EPS))
         {
-            Logger::log("[WARN] " + bone.name +
-                " differs from bind pose in first frame.", Logger::WARNING);
-            anyDiff = true;
+            glm::vec3 bindT(bindLocal[3]);     // extract translation
+            glm::vec3 poseT(firstLocal[3]);
+            glm::vec3 delta = poseT - bindT;
+            Logger::log("Delta Translation for " + name + ": " + glm::to_string(delta), Logger::WARNING);
+
         }
     }
     mismatchChecked = true;          // <- tiny flag in Animation class

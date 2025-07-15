@@ -42,8 +42,6 @@ public:
     /* debug helpers --------------------------------------------- */
     size_t          getKeyframeCount() const { return keyframes.size(); }
     const std::string& getName() const { return name; }
-    std::unordered_map<std::string, glm::mat4> bindOffsets;
-    bool bindOffsetsReady = false;
     bool  mismatchChecked = false;
     void checkBindMismatch(const Model* model);
 

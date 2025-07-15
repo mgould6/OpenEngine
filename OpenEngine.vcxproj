@@ -161,6 +161,8 @@
     <None Include="animations\Stance1.fbx" />
     <None Include="assimp-vc143-mt.dll" />
     <None Include="CharacterModel.fbx" />
+    <None Include="CharacterModelTPose w shorts.fbx" />
+    <None Include="CharacterModelTPose wo shorts.fbx" />
     <None Include="CharacterModelTPose.fbx" />
     <None Include="Character_TPose_Anim wo NLA.fbx" />
     <None Include="shaders\bone\bone_fragment_shader.fs" />

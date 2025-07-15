@@ -23,7 +23,7 @@ void SceneTest3(GLFWwindow* window) {
     Logger::log("Entering SceneTest3 for animation system expansion testing.", Logger::INFO);
 
     // Load the model
-    myModel = new Model("CharacterModelTPose.fbx");
+    myModel = new Model("CharacterModelTPose w shorts.fbx");
     if (!myModel) {
         Logger::log("ERROR: Failed to load model.", Logger::ERROR);
         return;
@@ -31,7 +31,8 @@ void SceneTest3(GLFWwindow* window) {
     Logger::log("INFO: Model loaded successfully.", Logger::INFO);
     camera.setCameraToFitModel(*myModel);
 
-    // Initialize the animation controller
+
+    // Initialize the animation controller SCENE TEST 3 VERSION
     animationController = new AnimationController(myModel);
     animationController->loadAnimation("Idle", "animations/Idle.fbx");
     animationController->loadAnimation("Stance1", "animations/Stance1.fbx");
@@ -65,8 +66,13 @@ void SceneTest3(GLFWwindow* window) {
                     Logger::log("Bone [" + bone.name + "] T0 Transform: \n" + glm::to_string(m), Logger::INFO);
                 }
             }
+
+
+
             animationController->update(deltaTime);
             animationController->applyToModel(myModel);
+            Logger::log("DEBUG: Animation time = " + std::to_string(deltaTime), Logger::INFO);
+
         }
 
         // Shader setup
@@ -80,7 +86,10 @@ void SceneTest3(GLFWwindow* window) {
         activeShader->setMat4("view", camera.GetViewMatrix());
         activeShader->setMat4("projection", camera.ProjectionMatrix);
 
-        glm::mat4 modelMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
+        glm::mat4 modelMatrix =
+            glm::rotate(glm::mat4(1.0f),
+                glm::radians(-90.0f),  // rotate X to stand upright
+                glm::vec3(1.0f, 0.0f, 0.0f));
         activeShader->setMat4("model", modelMatrix);
         activeShader->setMat4Array("boneTransforms", myModel->getFinalBoneMatrices());
 
