@@ -292,8 +292,8 @@ void Animation::loadAnimation(const std::string& filePath,
     }
 
     /* strip bind-pose frame at t == 0 if present                 */
-  /*  if (keyframes.size() > 1 && keyframes[0].time < 1e-6f)
-        keyframes.erase(keyframes.begin());*/
+    if (keyframes.size() > 1 && keyframes[0].time < 1e-6f)
+        keyframes.erase(keyframes.begin());
 
     /* re-base timeline to start at 0                             */
     if (!keyframes.empty())
