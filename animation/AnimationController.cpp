@@ -254,7 +254,10 @@ void AnimationController::applyToModel(Model* model)
         buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
 
     /* 3. final skin matrices */
-    static bool dumpOnce = true;          // <-- persists across frames
+    static bool dumpOnce = true;  // <-- persists across frames
+    static bool dumpedStart = false;
+    static bool dumpedEnd = false;
+
     for (const auto& [boneName, globalScaled] : globalBoneMatrices)
     {
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
@@ -262,7 +265,6 @@ void AnimationController::applyToModel(Model* model)
             model->getGlobalInverseTransform()
             * globalScaled
             * offsetMatrix;
-
 
         if (dumpOnce)
         {
@@ -273,8 +275,30 @@ void AnimationController::applyToModel(Model* model)
                 glm::to_string(removeScale(globalScaled)), Logger::INFO);
             Logger::log("Final:\n" + glm::to_string(final), Logger::INFO);
         }
+
         model->setBoneTransform(boneName, final);
     }
+
+    /* 4. DUMP POSE AT LOOP START AND END */
+    float clipDuration = currentAnimation->getClipDurationSeconds();
+    const float EPSILON = 1e-4f;
+
+    if (std::abs(animationTime - 0.0f) < EPSILON && !dumpedStart) {
+        Logger::log("==== POSE DUMP @ START (t=0.0) ====", Logger::WARNING);
+        for (const auto& [boneName, m] : globalBoneMatrices) {
+            Logger::log(boneName + ": " + glm::to_string(m), Logger::WARNING);
+        }
+        dumpedStart = true;
+    }
+
+    if (std::abs(animationTime - clipDuration) < EPSILON && !dumpedEnd) {
+        Logger::log("==== POSE DUMP @ END (t=clipDuration) ====", Logger::WARNING);
+        for (const auto& [boneName, m] : globalBoneMatrices) {
+            Logger::log(boneName + ": " + glm::to_string(m), Logger::WARNING);
+        }
+        dumpedEnd = true;
+    }
+
     dumpOnce = false;
 }
 
