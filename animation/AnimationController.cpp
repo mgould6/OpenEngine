@@ -225,12 +225,13 @@ void AnimationController::update(float deltaTime)
         return;
 
     /*  wrap, but never sample exactly at 0 or clipSeconds  */
-    const float EPS = 1e-4f;             /* 0.0001 s */
+    const float EPS = 1e-4f;
     if (animationTime >= clipSeconds - EPS)
-        animationTime = EPS;             /* restart *after* 0 */
+        animationTime = 0.0f;  // clean snap to loop start
 
-    if (animationTime < EPS)
-        animationTime = EPS;
+    if (animationTime < 0.0f)
+        animationTime = 0.0f;
+
 }
 
 void AnimationController::applyToModel(Model* model)
