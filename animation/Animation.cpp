@@ -72,26 +72,31 @@ glm::mat4 Animation::interpolateMatrices(const glm::mat4& a,
     const glm::mat4& b,
     float            factor) const
 {
-    glm::vec3   scaleA, translationA, skewA;
-    glm::quat   rotA;
-    glm::vec4   perspectiveA;
-    glm::decompose(a, scaleA, rotA, translationA, skewA, perspectiveA);
+    // 1. Decompose both matrices into TRS components
+    glm::vec3 posA, posB, scaleA, scaleB;
+    glm::quat rotA, rotB;
 
-    glm::vec3   scaleB, translationB, skewB;
-    glm::quat   rotB;
-    glm::vec4   perspectiveB;
-    glm::decompose(b, scaleB, rotB, translationB, skewB, perspectiveB);
+    glm::vec3 skew;
+    glm::vec4 perspective;
 
-    glm::vec3   scale = glm::mix(scaleA, scaleB, factor);
-    glm::quat   rotation = glm::slerp(rotA, rotB, factor);
-    glm::vec3   position = glm::mix(translationA, translationB, factor);
+    glm::decompose(a, scaleA, rotA, posA, skew, perspective);
+    glm::decompose(b, scaleB, rotB, posB, skew, perspective);  // reuse vars
 
-    glm::mat4 m(1.0f);
-    m = glm::translate(m, position);
-    m *= glm::mat4_cast(glm::normalize(rotation));
-    m = glm::scale(m, scale);
+    // Ensure shortest rotation path
+    if (glm::dot(rotA, rotB) < 0.0f)
+        rotB = -rotB;
 
-    return m;
+    // 2. Interpolate components
+    glm::vec3 posFinal = glm::mix(posA, posB, factor);
+    glm::quat rotFinal = glm::slerp(rotA, rotB, factor);
+    glm::vec3 scaleFinal = glm::mix(scaleA, scaleB, factor);
+
+    // 3. Recompose final matrix
+    glm::mat4 T = glm::translate(glm::mat4(1.0f), posFinal);
+    glm::mat4 R = glm::mat4_cast(rotFinal);
+    glm::mat4 S = glm::scale(glm::mat4(1.0f), scaleFinal);
+
+    return T * R * S;
 }
 
 
@@ -103,40 +108,30 @@ glm::mat4 Animation::interpolateMatrices(const glm::mat4& a,
 void Animation::interpolateKeyframes(float animationTimeSeconds,
     std::map<std::string, glm::mat4>& outPose) const
 {
-    if (keyframes.empty()) return;
+    if (keyframes.empty())
+        return;
 
-    auto idx = findKeyframeIndices(animationTimeSeconds);
-    const Keyframe& kfA = keyframes[idx.first];
-    const Keyframe& kfB = keyframes[idx.second];
+    // Find nearest keyframe by absolute time difference
+    float minDelta = std::numeric_limits<float>::max();
+    size_t nearestIndex = 0;
 
-    float span = kfB.time - kfA.time;
-    if (span < 0.0f) span += clipDurationSecs;
-    float factor = (span > 0.0f)
-        ? std::fmod(animationTimeSeconds - kfA.time + clipDurationSecs,
-            clipDurationSecs) / span
-        : 0.0f;
-
-    /* -- start with A pose ------------------------------------ */
-    for (const auto& p : kfA.boneTransforms)
-        outPose[p.first] = p.second;
-
-    /* -- blend / apply bind-offsets --------------------------- */
-    for (const auto& pB : kfB.boneTransforms)
+    for (size_t i = 0; i < keyframes.size(); ++i)
     {
-        const std::string& bone = pB.first;
-
-        const glm::mat4& matA = outPose.count(bone) ? outPose[bone]
-            : pB.second;
-
-        glm::mat4 blended = interpolateMatrices(matA, pB.second, factor);
-
-
-
-        blended = SkeletonPose::removeScale(blended);
-
-        outPose[bone] = blended;
+        float delta = std::abs(keyframes[i].time - animationTimeSeconds);
+        if (delta < minDelta)
+        {
+            minDelta = delta;
+            nearestIndex = i;
+        }
     }
+
+    const Keyframe& nearestFrame = keyframes[nearestIndex];
+    outPose = nearestFrame.boneTransforms;
+
+    Logger::log("DEBUG: Snapped to keyframe #" + std::to_string(nearestIndex) +
+        " at t=" + std::to_string(nearestFrame.time), Logger::INFO);
 }
+
 
 /* -------------------------------------------------------------- */
 
