@@ -259,6 +259,7 @@ void AnimationController::update(float deltaTime)
     }
 
     // Lock to exact frame
+    frameCounter = std::clamp(frameCounter, 0, static_cast<int>(keyframes.size() - 1));
     const Keyframe& frame = keyframes[frameCounter];
     animationTime = frame.time;
 

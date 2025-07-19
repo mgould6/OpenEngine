@@ -536,6 +536,6 @@ INFO: INFO: Animation [Idle] is already playing.
 INFO: INFO: Set current animation to Idle.
 Assertion failed: g.WithinFrameScope, file C:\Users\mjgou\source\repos\OpenEngine\vcpkg\buildtrees\imgui\src\v1.90.7-cda29176bb.clean\imgui.cpp, line 6498
 
-C:\Users\mjgou\source\repos\OpenEngine\x64\Debug\OpenEngine.exe (process 20260) exited with code 3 (0x3).
+C:\Users\mjgou\source\repos\OpenEngine\x64\Debug\OpenEngine.exe (process 23156) exited with code 3 (0x3).
 To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
 Press any key to close this window . . .
