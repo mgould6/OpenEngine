@@ -44,6 +44,7 @@ public:
     const std::string& getName() const { return name; }
     bool  mismatchChecked = false;
     void checkBindMismatch(const Model* model);
+    const std::vector<Keyframe>& getKeyframes() const { return keyframes; }
 
 private:
     /* helpers --------------------------------------------------- */

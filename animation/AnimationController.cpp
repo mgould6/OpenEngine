@@ -15,7 +15,7 @@
 #include <cmath>        // fmodf, fabsf
 #include "Animation.h"
 #include <cmath>          // std::fabs
-
+#include <imgui.h>
 
 // Forward declaration ­
 static glm::mat4 removeScale(const glm::mat4& m);
@@ -208,31 +208,64 @@ const glm::mat4& AnimationController::bindGlobalNoScale
 /*------------------------------------------------------------------
   Advance the animation clock – seconds domain
 ------------------------------------------------------------------*/
+
 void AnimationController::update(float deltaTime)
 {
     if (!currentAnimation)
         return;
 
-    /* clamp huge pauses (alt-tab, breakpoint) */
-    const float MAX_DT = 0.05f;          /* 20 fps floor */
-    if (deltaTime > MAX_DT)
-        deltaTime = MAX_DT;
-
-    animationTime += deltaTime;          /* seconds */
-
-    float clipSeconds = currentAnimation->getClipDurationSeconds();
-    if (clipSeconds <= 0.0f)
+    const auto& keyframes = currentAnimation->getKeyframes();
+    if (keyframes.empty())
         return;
 
-    /*  wrap, but never sample exactly at 0 or clipSeconds  */
-    const float EPS = 1e-4f;
-    if (animationTime >= clipSeconds - EPS)
-        animationTime = 0.0f;  // clean snap to loop start
+    static int frameCounter = 0;
+    static bool play = true;
+    static bool step = false;
+    static bool rewind = false;
 
-    if (animationTime < 0.0f)
-        animationTime = 0.0f;
+    // Show debug controls in ImGui
+    ImGui::Begin("Animation Debug");
+    ImGui::Text("Animation: %s", currentAnimation->getName().c_str());
+    ImGui::Checkbox("Play", &play);
+    if (ImGui::Button("Step")) step = true;
+    if (ImGui::Button("Rewind")) rewind = true;
+    ImGui::SliderInt("Frame", &frameCounter, 0, static_cast<int>(keyframes.size()) - 1, "%d");
+    ImGui::End();
 
+    // Handle rewind button
+    if (rewind) {
+        frameCounter = 0;
+        rewind = false;
+    }
+
+    // Auto-play mode
+    static float timeAccumulator = 0.0f;
+    const float FRAME_TIME = 1.0f / 24.0f; // Assuming animation authored at 24 FPS
+
+    if (play)
+    {
+        timeAccumulator += deltaTime;
+        while (timeAccumulator >= FRAME_TIME)
+        {
+            frameCounter = (frameCounter + 1) % static_cast<int>(keyframes.size());
+            timeAccumulator -= FRAME_TIME;
+        }
+    }
+
+    // Manual step mode
+    if (step) {
+        frameCounter = (frameCounter + 1) % static_cast<int>(keyframes.size());
+        step = false;
+    }
+
+    // Lock to exact frame
+    const Keyframe& frame = keyframes[frameCounter];
+    animationTime = frame.time;
+
+    Logger::log("DEBUG: Frame #" + std::to_string(frameCounter) +
+        " at t=" + std::to_string(animationTime), Logger::INFO);
 }
+
 
 void AnimationController::applyToModel(Model* model)
 {
