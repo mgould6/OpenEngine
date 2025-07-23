@@ -255,10 +255,14 @@ void AnimationController::applyToModel(Model* model)
 {
     if (!model || !currentAnimation) return;
 
+    // Reset per-frame application count
+    static std::unordered_map<std::string, int> boneApplyCount;
+    boneApplyCount.clear();
+
     // 1. local-pose interpolation
     std::map<std::string, glm::mat4> localBoneMatrices;
     currentAnimation->interpolateKeyframes(animationTime, localBoneMatrices);
-    
+
     if (debugFrame == 27) {
         glm::mat4 local = localBoneMatrices["thigh.R"];
         Logger::log("Frame 27 - LOCAL transform of thigh.R:\n" + glm::to_string(local), Logger::WARNING);
@@ -292,6 +296,12 @@ void AnimationController::applyToModel(Model* model)
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
         glm::mat4 final =
             model->getGlobalInverseTransform() * globalScaled * offsetMatrix;
+
+        // Track set count
+        boneApplyCount[boneName]++;
+        if (shouldDump) {
+            Logger::log("Bone '" + boneName + "' set count: " + std::to_string(boneApplyCount[boneName]), Logger::WARNING);
+        }
 
         if (shouldDump)
         {

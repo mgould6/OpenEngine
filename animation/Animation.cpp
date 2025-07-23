@@ -139,7 +139,7 @@ void Animation::interpolateKeyframes(float animationTimeSeconds,
             Logger::log("WARNING: Bone '" + boneName + "' has invalid matrix at t=" +
                 std::to_string(animationTimeSeconds) + ". Using bind pose instead.", Logger::WARNING);
 
-            outPose[boneName] = model->getLocalBindPose(boneName);  // fallback
+            outPose[boneName] = modelRef->getLocalBindPose(boneName);  // fallback
         }
         else
         {
