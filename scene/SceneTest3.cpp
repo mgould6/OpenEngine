@@ -11,6 +11,7 @@
 #include "../input/InputManager.h"
 #include "../animation/AnimationController.h"
 #include <glm/gtx/string_cast.hpp>
+#include <imgui.h>
 
 void SceneTest3(GLFWwindow* window) {
     // Global variables
@@ -31,16 +32,15 @@ void SceneTest3(GLFWwindow* window) {
     Logger::log("INFO: Model loaded successfully.", Logger::INFO);
     camera.setCameraToFitModel(*myModel);
 
-
-    // Initialize the animation controller SCENE TEST 3 VERSION
+    // Initialize the animation controller
     animationController = new AnimationController(myModel);
     animationController->loadAnimation("Idle", "animations/Idle.fbx");
     animationController->loadAnimation("Stance1", "animations/Stance1.fbx");
     animationController->loadAnimation("Jab_Head", "animations/Jab_Head.fbx");
     animationController->setCurrentAnimation("Idle");
     Logger::log("INFO: Set current animation to Idle.", Logger::INFO);
-    animationController->update(0.0f);           // Apply T=0
-    animationController->applyToModel(myModel);  // Force first-frame visuals
+    animationController->update(0.0f);
+    animationController->applyToModel(myModel);
 
     // Sync globals for ImGui to access
     ::myModel = myModel;
@@ -54,25 +54,29 @@ void SceneTest3(GLFWwindow* window) {
         InputManager::processInput(window, deltaTime);
         Renderer::BeginFrame();
 
-        // Update and apply animation
+        // Update animation and apply
         if (animationController) {
-            // Debug injection here:
-            static bool dumpedOnce = false;
-            if (!dumpedOnce && lastFrame == 0.0f) {
-                dumpedOnce = true;
-                Logger::log("DEBUG: Dumping all bone transforms at T=0", Logger::INFO);
-                for (const auto& bone : myModel->getBones()) {
-                    glm::mat4 m = myModel->getBoneTransform(bone.name);
-                    Logger::log("Bone [" + bone.name + "] T0 Transform: \n" + glm::to_string(m), Logger::INFO);
-                }
-            }
-
-
-
             animationController->update(deltaTime);
             animationController->applyToModel(myModel);
-            Logger::log("DEBUG: Animation time = " + std::to_string(deltaTime), Logger::INFO);
+        }
 
+        // ImGui playback controls
+        if (animationController) {
+            ImGui::Begin("Animation Debug");
+            ImGui::Text("Animation: %s", animationController->isAnimationPlaying()
+                ? animationController->getCurrentAnimationName().c_str()
+                : "None");
+
+            ImGui::Checkbox("Play", &animationController->debugPlay);
+            if (ImGui::Button("Step")) animationController->debugStep = true;
+            if (ImGui::Button("Rewind")) animationController->debugRewind = true;
+
+            const auto& keyframes = animationController->getKeyframes();
+            if (!keyframes.empty()) {
+                ImGui::SliderInt("Frame", &animationController->debugFrame, 0,
+                    static_cast<int>(keyframes.size()) - 1, "%d");
+            }
+            ImGui::End();
         }
 
         // Shader setup
@@ -86,29 +90,25 @@ void SceneTest3(GLFWwindow* window) {
         activeShader->setMat4("view", camera.GetViewMatrix());
         activeShader->setMat4("projection", camera.ProjectionMatrix);
 
-        glm::mat4 modelMatrix =
-            glm::rotate(glm::mat4(1.0f),
-                glm::radians(-90.0f),  // rotate X to stand upright
-                glm::vec3(1.0f, 0.0f, 0.0f));
+        glm::mat4 modelMatrix = glm::rotate(glm::mat4(1.0f),
+            glm::radians(-90.0f),
+            glm::vec3(1.0f, 0.0f, 0.0f));
         activeShader->setMat4("model", modelMatrix);
         activeShader->setMat4Array("boneTransforms", myModel->getFinalBoneMatrices());
 
         glDisable(GL_CULL_FACE);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-        /* Hard guard: model bone count must fit shader array length */
-        if (myModel->getBones().size() > 100)
-        {
+        if (myModel->getBones().size() > 100) {
             Logger::log("[ERROR] Model has " +
                 std::to_string(myModel->getBones().size()) +
                 " bones, but shader array boneTransforms[100] is too small.",
                 Logger::ERROR);
         }
 
-
         myModel->Draw(*activeShader);
 
-        Renderer::RenderImGui(); // All GUI logic is handled here
+        Renderer::RenderImGui();
         Renderer::EndFrame(window);
     }
 

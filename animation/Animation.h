@@ -66,6 +66,9 @@ private:
 
     /* optional bookkeeping ------------------------------------- */
     std::vector<std::string> animatedBones;
+
+    const Model* modelRef = nullptr;
+
 };
 
 #endif /* ANIMATION_H */

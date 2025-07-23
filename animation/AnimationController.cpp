@@ -15,7 +15,6 @@
 #include <cmath>        // fmodf, fabsf
 #include "Animation.h"
 #include <cmath>          // std::fabs
-#include <imgui.h>
 
 // Forward declaration ­
 static glm::mat4 removeScale(const glm::mat4& m);
@@ -218,52 +217,36 @@ void AnimationController::update(float deltaTime)
     if (keyframes.empty())
         return;
 
-    static int frameCounter = 0;
-    static bool play = true;
-    static bool step = false;
-    static bool rewind = false;
-
-    // Show debug controls in ImGui
-    ImGui::Begin("Animation Debug");
-    ImGui::Text("Animation: %s", currentAnimation->getName().c_str());
-    ImGui::Checkbox("Play", &play);
-    if (ImGui::Button("Step")) step = true;
-    if (ImGui::Button("Rewind")) rewind = true;
-    ImGui::SliderInt("Frame", &frameCounter, 0, static_cast<int>(keyframes.size()) - 1, "%d");
-    ImGui::End();
-
-    // Handle rewind button
-    if (rewind) {
-        frameCounter = 0;
-        rewind = false;
+    // Handle rewind button logic
+    if (debugRewind) {
+        debugFrame = 0;
+        debugRewind = false;
     }
 
     // Auto-play mode
     static float timeAccumulator = 0.0f;
-    const float FRAME_TIME = 1.0f / 24.0f; // Assuming animation authored at 24 FPS
+    const float FRAME_TIME = 1.0f / 24.0f; // Match animation authoring FPS
 
-    if (play)
+    if (debugPlay)
     {
         timeAccumulator += deltaTime;
         while (timeAccumulator >= FRAME_TIME)
         {
-            frameCounter = (frameCounter + 1) % static_cast<int>(keyframes.size());
+            debugFrame = (debugFrame + 1) % static_cast<int>(keyframes.size());
             timeAccumulator -= FRAME_TIME;
         }
     }
 
-    // Manual step mode
-    if (step) {
-        frameCounter = (frameCounter + 1) % static_cast<int>(keyframes.size());
-        step = false;
+    // Manual step (triggered via UI)
+    if (debugStep) {
+        debugFrame = (debugFrame + 1) % static_cast<int>(keyframes.size());
+        debugStep = false;
     }
 
-    // Lock to exact frame
-    frameCounter = std::clamp(frameCounter, 0, static_cast<int>(keyframes.size() - 1));
-    const Keyframe& frame = keyframes[frameCounter];
-    animationTime = frame.time;
+    debugFrame = std::clamp(debugFrame, 0, static_cast<int>(keyframes.size()) - 1);
+    animationTime = keyframes[debugFrame].time;
 
-    Logger::log("DEBUG: Frame #" + std::to_string(frameCounter) +
+    Logger::log("DEBUG: Frame #" + std::to_string(debugFrame) +
         " at t=" + std::to_string(animationTime), Logger::INFO);
 }
 
@@ -272,69 +255,63 @@ void AnimationController::applyToModel(Model* model)
 {
     if (!model || !currentAnimation) return;
 
-    /* 1. local-pose interpolation (unchanged) */
+    // 1. local-pose interpolation
     std::map<std::string, glm::mat4> localBoneMatrices;
     currentAnimation->interpolateKeyframes(animationTime, localBoneMatrices);
-    Logger::log("Applied animation frame at t=" + std::to_string(animationTime), Logger::INFO);
+    
+    if (debugFrame == 27) {
+        glm::mat4 local = localBoneMatrices["thigh.R"];
+        Logger::log("Frame 27 - LOCAL transform of thigh.R:\n" + glm::to_string(local), Logger::WARNING);
+    }
 
     for (const auto& bone : model->getBones())
         if (!localBoneMatrices.count(bone.name))
             localBoneMatrices[bone.name] = model->getLocalBindPose(bone.name);
 
-    /* 2. build global transforms (unchanged) */
+    // 2. build global transforms
     std::map<std::string, glm::mat4> globalBoneMatrices;
     for (const auto& [boneName, _] : localBoneMatrices)
         globalBoneMatrices[boneName] =
         buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
 
-    /* 3. final skin matrices */
-    static bool dumpOnce = true;  // <-- persists across frames
-    static bool dumpedStart = false;
-    static bool dumpedEnd = false;
+    // 3. final skin matrices + conditional debug dump
+    static std::unordered_set<int> dumpedFrames;
+    bool shouldDump = false;
+    int targetFrames[] = { 26, 27, 28 };
+    for (int tf : targetFrames) {
+        if (debugFrame == tf && !dumpedFrames.count(tf)) {
+            dumpedFrames.insert(tf);
+            shouldDump = true;
+            Logger::log("==== DEBUG DUMP FOR FRAME " + std::to_string(debugFrame) + " ====", Logger::WARNING);
+            break;
+        }
+    }
 
     for (const auto& [boneName, globalScaled] : globalBoneMatrices)
     {
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
         glm::mat4 final =
-            model->getGlobalInverseTransform()
-            * globalScaled
-            * offsetMatrix;
+            model->getGlobalInverseTransform() * globalScaled * offsetMatrix;
 
-        if (dumpOnce)
+        if (shouldDump)
         {
-            Logger::log("Bone [" + boneName + "]", Logger::INFO);
-            Logger::log("Bind (no scale):\n" +
-                glm::to_string(model->getBoneOffsetMatrixNoScale(boneName)), Logger::INFO);
-            Logger::log("Pose (no scale):\n" +
-                glm::to_string(removeScale(globalScaled)), Logger::INFO);
-            Logger::log("Final:\n" + glm::to_string(final), Logger::INFO);
+            glm::mat4 noScale = removeScale(globalScaled);
+            Logger::log("Bone: " + boneName, Logger::WARNING);
+            Logger::log("  Global With Scale:\n" + glm::to_string(globalScaled), Logger::WARNING);
+            Logger::log("  Global No Scale:\n" + glm::to_string(noScale), Logger::WARNING);
+            Logger::log("  Final Skin Matrix:\n" + glm::to_string(final), Logger::WARNING);
         }
 
         model->setBoneTransform(boneName, final);
     }
 
-    /* 4. DUMP POSE AT LOOP START AND END */
-    float clipDuration = currentAnimation->getClipDurationSeconds();
-    const float EPSILON = 1e-4f;
-
-    if (std::abs(animationTime - 0.0f) < EPSILON && !dumpedStart) {
-        Logger::log("==== POSE DUMP @ START (t=0.0) ====", Logger::WARNING);
-        for (const auto& [boneName, m] : globalBoneMatrices) {
-            Logger::log(boneName + ": " + glm::to_string(m), Logger::WARNING);
-        }
-        dumpedStart = true;
+    // 4. terminate program after final frame dump
+    if (debugFrame == 28 && dumpedFrames.count(28)) {
+        Logger::log("=== Frame 28 logged. Exiting for clean log capture. ===", Logger::INFO);
+        std::exit(0);
     }
-
-    if (std::abs(animationTime - clipDuration) < EPSILON && !dumpedEnd) {
-        Logger::log("==== POSE DUMP @ END (t=clipDuration) ====", Logger::WARNING);
-        for (const auto& [boneName, m] : globalBoneMatrices) {
-            Logger::log(boneName + ": " + glm::to_string(m), Logger::WARNING);
-        }
-        dumpedEnd = true;
-    }
-
-    dumpOnce = false;
 }
+
 
 
 

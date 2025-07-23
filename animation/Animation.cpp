@@ -17,10 +17,11 @@
 
 Animation::Animation(const std::string& filePath,
     const Model* model)
-    : name(filePath)
+    : name(filePath), modelRef(model)
 {
     loadAnimation(filePath, model);
 }
+
 
 /* -------------------------------------------------------------- */
 /*  Public: apply final pose to model (simple hold-last approach) */
@@ -111,7 +112,7 @@ void Animation::interpolateKeyframes(float animationTimeSeconds,
     if (keyframes.empty())
         return;
 
-    // Find nearest keyframe by absolute time difference
+    // Find nearest keyframe
     float minDelta = std::numeric_limits<float>::max();
     size_t nearestIndex = 0;
 
@@ -126,7 +127,25 @@ void Animation::interpolateKeyframes(float animationTimeSeconds,
     }
 
     const Keyframe& nearestFrame = keyframes[nearestIndex];
-    outPose = nearestFrame.boneTransforms;
+    outPose.clear();
+    for (const auto& [boneName, mat] : nearestFrame.boneTransforms)
+    {
+        // Validate: zero matrix check
+        if (glm::length(glm::vec4(mat[0])) < 1e-5f &&
+            glm::length(glm::vec4(mat[1])) < 1e-5f &&
+            glm::length(glm::vec4(mat[2])) < 1e-5f &&
+            glm::length(glm::vec4(mat[3])) < 1e-5f)
+        {
+            Logger::log("WARNING: Bone '" + boneName + "' has invalid matrix at t=" +
+                std::to_string(animationTimeSeconds) + ". Using bind pose instead.", Logger::WARNING);
+
+            outPose[boneName] = model->getLocalBindPose(boneName);  // fallback
+        }
+        else
+        {
+            outPose[boneName] = mat;
+        }
+    }
 
     Logger::log("DEBUG: Snapped to keyframe #" + std::to_string(nearestIndex) +
         " at t=" + std::to_string(nearestFrame.time), Logger::INFO);
@@ -332,6 +351,36 @@ void Animation::loadAnimation(const std::string& filePath,
             /* shorten the clip so we never sample the duplicate */
             clipDurationSecs = lastKF.time;
             keyframes.pop_back();
+        }
+
+        // Sanitize all keyframes: replace invalid bone matrices with bind pose
+        for (Keyframe& kf : keyframes)
+        {
+            for (auto& [boneName, mat] : kf.boneTransforms)
+            {
+                bool isZero =
+                    glm::length(glm::vec4(mat[0])) < 1e-5f &&
+                    glm::length(glm::vec4(mat[1])) < 1e-5f &&
+                    glm::length(glm::vec4(mat[2])) < 1e-5f &&
+                    glm::length(glm::vec4(mat[3])) < 1e-5f;
+
+                if (isZero)
+                {
+                    Logger::log("Sanitizing invalid matrix for bone '" + boneName +
+                        "' in keyframe at t=" + std::to_string(kf.time) +
+                        ". Using bind pose.", Logger::WARNING);
+                    if (modelRef)
+                    {
+                        mat = modelRef->getLocalBindPose(boneName);
+                    }
+                    else
+                    {
+                        Logger::log("ERROR: modelRef is null — cannot sanitize bone '" +
+                            boneName + "' with bind pose fallback.", Logger::ERROR);
+                    }
+
+                }
+            }
         }
     }
 
