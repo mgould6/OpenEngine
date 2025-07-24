@@ -1,8 +1,8 @@
 #version 330 core
 out vec4 FragColor;
 
-in vec3 BoneColor;  // NEW: from vertex shader
+in vec3 PosColor;
 
 void main() {
-    FragColor = vec4(BoneColor, 1.0);  // Use bone ID color
+    FragColor = vec4(PosColor, 1.0);
 }

@@ -315,11 +315,11 @@ void AnimationController::applyToModel(Model* model)
         model->setBoneTransform(boneName, final);
     }
 
-    // 4. terminate program after final frame dump
-    if (debugFrame == 28 && dumpedFrames.count(28)) {
-        Logger::log("=== Frame 28 logged. Exiting for clean log capture. ===", Logger::INFO);
-        std::exit(0);
-    }
+    //// 4. terminate program after final frame dump
+    //if (debugFrame == 28 && dumpedFrames.count(28)) {
+    //    Logger::log("=== Frame 28 logged. Exiting for clean log capture. ===", Logger::INFO);
+    //    std::exit(0);
+    //}
 }
 
 
