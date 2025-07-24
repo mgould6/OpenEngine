@@ -225,7 +225,7 @@ void AnimationController::update(float deltaTime)
 
     // Step-by-frame playback (fixed FPS)
     static float timeAccumulator = 0.0f;
-    const float FRAME_TIME = 1.0f / 24.0f;
+    const float FRAME_TIME = 1.0f / 60.0f;
 
     if (debugPlay)
     {
