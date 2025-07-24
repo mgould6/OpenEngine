@@ -66,6 +66,8 @@ private:
     const glm::mat4& bindGlobalNoScale(const std::string& bone) const;
 
     inline static const std::vector<Keyframe> emptyKeyframeList = {};
+    bool lockToExactFrame = false; // Debug mode to bypass interpolation
+
 };
 
 #endif // ANIMATIONCONTROLLER_H

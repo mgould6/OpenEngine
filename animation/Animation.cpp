@@ -106,50 +106,72 @@ glm::mat4 Animation::interpolateMatrices(const glm::mat4& a,
 /* -------------------------------------------------------------- */
 /*  Blend pose - uses union of bones in kfA and kfB               */
 /* -------------------------------------------------------------- */
-void Animation::interpolateKeyframes(float animationTimeSeconds,
-    std::map<std::string, glm::mat4>& outPose) const
+void Animation::interpolateKeyframes(float animationTime, std::map<std::string, glm::mat4>& outPose) const
 {
     if (keyframes.empty())
         return;
 
-    // Find nearest keyframe
-    float minDelta = std::numeric_limits<float>::max();
-    size_t nearestIndex = 0;
-
-    for (size_t i = 0; i < keyframes.size(); ++i)
+    // Handle case with only one frame (no interpolation)
+    if (keyframes.size() == 1)
     {
-        float delta = std::abs(keyframes[i].time - animationTimeSeconds);
-        if (delta < minDelta)
+        outPose = keyframes[0].boneTransforms;
+        return;
+    }
+
+    // Find keyframes to interpolate between
+    size_t startFrame = 0;
+    size_t endFrame = 0;
+
+    for (size_t i = 0; i < keyframes.size() - 1; ++i)
+    {
+        if (animationTime < keyframes[i + 1].time)
         {
-            minDelta = delta;
-            nearestIndex = i;
+            startFrame = i;
+            endFrame = i + 1;
+            break;
         }
     }
 
-    const Keyframe& nearestFrame = keyframes[nearestIndex];
-    outPose.clear();
-    for (const auto& [boneName, mat] : nearestFrame.boneTransforms)
+    // Edge case: animationTime beyond last frame
+    if (endFrame == 0)
     {
-        // Validate: zero matrix check
-        if (glm::length(glm::vec4(mat[0])) < 1e-5f &&
-            glm::length(glm::vec4(mat[1])) < 1e-5f &&
-            glm::length(glm::vec4(mat[2])) < 1e-5f &&
-            glm::length(glm::vec4(mat[3])) < 1e-5f)
-        {
-            Logger::log("WARNING: Bone '" + boneName + "' has invalid matrix at t=" +
-                std::to_string(animationTimeSeconds) + ". Using bind pose instead.", Logger::WARNING);
-
-            outPose[boneName] = modelRef->getLocalBindPose(boneName);  // fallback
-        }
-        else
-        {
-            outPose[boneName] = mat;
-        }
+        startFrame = keyframes.size() - 2;
+        endFrame = keyframes.size() - 1;
     }
 
-    Logger::log("DEBUG: Snapped to keyframe #" + std::to_string(nearestIndex) +
-        " at t=" + std::to_string(nearestFrame.time), Logger::INFO);
+    const Keyframe& kf0 = keyframes[startFrame];
+    const Keyframe& kf1 = keyframes[endFrame];
+
+    float t0 = kf0.time;
+    float t1 = kf1.time;
+    float lerpFactor = (animationTime - t0) / (t1 - t0);
+
+    // Debug output when near frame 28
+    if (animationTime >= 0.0f)
+    {
+        Logger::log("DEBUG: animationTime = " + std::to_string(animationTime), Logger::WARNING);
+        Logger::log("DEBUG: Interpolating between keyframes " + std::to_string(startFrame) +
+            " (time = " + std::to_string(t0) + ") and " +
+            std::to_string(endFrame) + " (time = " + std::to_string(t1) + ")",
+            Logger::WARNING);
+        Logger::log("DEBUG: Lerp factor = " + std::to_string(lerpFactor), Logger::WARNING);
+    }
+
+    for (const auto& [boneName, mat0] : kf0.boneTransforms)
+    {
+        glm::mat4 mat1 = kf1.boneTransforms.count(boneName) ?
+            kf1.boneTransforms.at(boneName) :
+            mat0;
+
+        glm::mat4 interp = glm::mat4(0.0f);
+
+        for (int col = 0; col < 4; ++col)
+        {
+            interp[col] = glm::mix(mat0[col], mat1[col], lerpFactor);
+        }        outPose[boneName] = interp;
+    }
 }
+
 
 
 /* -------------------------------------------------------------- */

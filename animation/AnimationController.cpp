@@ -217,15 +217,15 @@ void AnimationController::update(float deltaTime)
     if (keyframes.empty())
         return;
 
-    // Handle rewind button logic
+    // Handle rewind logic first
     if (debugRewind) {
         debugFrame = 0;
         debugRewind = false;
     }
 
-    // Auto-play mode
+    // Step-by-frame playback (fixed FPS)
     static float timeAccumulator = 0.0f;
-    const float FRAME_TIME = 1.0f / 24.0f; // Match animation authoring FPS
+    const float FRAME_TIME = 1.0f / 24.0f;
 
     if (debugPlay)
     {
@@ -237,12 +237,13 @@ void AnimationController::update(float deltaTime)
         }
     }
 
-    // Manual step (triggered via UI)
+    // Manual step overrides frame index
     if (debugStep) {
         debugFrame = (debugFrame + 1) % static_cast<int>(keyframes.size());
         debugStep = false;
     }
 
+    // Clamp and resolve
     debugFrame = std::clamp(debugFrame, 0, static_cast<int>(keyframes.size()) - 1);
     animationTime = keyframes[debugFrame].time;
 
@@ -255,17 +256,21 @@ void AnimationController::applyToModel(Model* model)
 {
     if (!model || !currentAnimation) return;
 
-    // Reset per-frame application count
-    static std::unordered_map<std::string, int> boneApplyCount;
-    boneApplyCount.clear();
+    if (debugFrame == 28)
+    {
+        Logger::log("DEBUG: Frame 28 | animationTime = " + std::to_string(animationTime), Logger::WARNING);
+    }
 
     // 1. local-pose interpolation
     std::map<std::string, glm::mat4> localBoneMatrices;
-    currentAnimation->interpolateKeyframes(animationTime, localBoneMatrices);
-
-    if (debugFrame == 27) {
-        glm::mat4 local = localBoneMatrices["thigh.R"];
-        Logger::log("Frame 27 - LOCAL transform of thigh.R:\n" + glm::to_string(local), Logger::WARNING);
+    if (lockToExactFrame && currentAnimation && debugFrame >= 0 && debugFrame < static_cast<int>(currentAnimation->getKeyframes().size())) {
+        const Keyframe& kf = currentAnimation->getKeyframes()[debugFrame];
+        for (const auto& [boneName, mat] : kf.boneTransforms) {
+            localBoneMatrices[boneName] = mat;
+        }
+    }
+    else {
+        currentAnimation->interpolateKeyframes(animationTime, localBoneMatrices);
     }
 
     for (const auto& bone : model->getBones())
@@ -278,10 +283,13 @@ void AnimationController::applyToModel(Model* model)
         globalBoneMatrices[boneName] =
         buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
 
-    // 3. final skin matrices + conditional debug dump
+    // 3. final skin matrices + debug logic
     static std::unordered_set<int> dumpedFrames;
+    static bool dumpedFrame28 = false;
+
     bool shouldDump = false;
     int targetFrames[] = { 26, 27, 28 };
+
     for (int tf : targetFrames) {
         if (debugFrame == tf && !dumpedFrames.count(tf)) {
             dumpedFrames.insert(tf);
@@ -294,13 +302,14 @@ void AnimationController::applyToModel(Model* model)
     for (const auto& [boneName, globalScaled] : globalBoneMatrices)
     {
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
-        glm::mat4 final =
-            model->getGlobalInverseTransform() * globalScaled * offsetMatrix;
+        glm::mat4 final = model->getGlobalInverseTransform() * globalScaled * offsetMatrix;
 
-        // Track set count
-        boneApplyCount[boneName]++;
-        if (shouldDump) {
-            Logger::log("Bone '" + boneName + "' set count: " + std::to_string(boneApplyCount[boneName]), Logger::WARNING);
+        if (boneName == "thigh.R" && debugFrame >= 0)
+        {
+            glm::vec3 pos = glm::vec3(final[3]);
+            Logger::log("DEBUG: Frame " + std::to_string(debugFrame) +
+                " | thigh.R Final Skin Pos: " + glm::to_string(pos),
+                Logger::WARNING);
         }
 
         if (shouldDump)
@@ -315,9 +324,15 @@ void AnimationController::applyToModel(Model* model)
         model->setBoneTransform(boneName, final);
     }
 
-    //// 4. terminate program after final frame dump
-    //if (debugFrame == 28 && dumpedFrames.count(28)) {
+    // Exit after frame 28 is dumped once
+    //avoids relying purely on debugFrame and guarantees that it exits only once per frame dump based on actual animation time, even if debugFrame lingers
+
+    static float lastDumpedTime = -1.0f;
+    float currentTime = animationTime;
+
+    //if (debugFrame == 28 && shouldDump && std::abs(currentTime - lastDumpedTime) > 1e-4f) {
     //    Logger::log("=== Frame 28 logged. Exiting for clean log capture. ===", Logger::INFO);
+    //    lastDumpedTime = currentTime;
     //    std::exit(0);
     //}
 }
