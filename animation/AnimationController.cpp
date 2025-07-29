@@ -332,7 +332,7 @@ void AnimationController::applyToModel(Model* model)
 
     if (debugFrame == 28)
     {
-        Logger::log("DEBUG: Frame 31 | animationTime = " + std::to_string(animationTime), Logger::WARNING);
+        Logger::log("DEBUG: Frame 59 | animationTime = " + std::to_string(animationTime), Logger::WARNING);
     }
 
     // 1. local-pose interpolation
@@ -362,7 +362,7 @@ void AnimationController::applyToModel(Model* model)
     static bool dumpedFrame28 = false;
 
     bool shouldDump = false;
-    int targetFrames[] = { 29, 30, 31 };
+    int targetFrames[] = { 57, 58, 59 };
 
     for (int tf : targetFrames) {
         if (debugFrame == tf && !dumpedFrames.count(tf)) {
@@ -370,6 +370,7 @@ void AnimationController::applyToModel(Model* model)
             shouldDump = true;
             Logger::log("==== DEBUG DUMP FOR FRAME " + std::to_string(debugFrame) + " ====", Logger::WARNING);
             dumpBoneDebugTrace("DEF-thigh.R", debugFrame, currentAnimation, model);
+            dumpBoneDebugTrace("DEF-thigh.L", debugFrame, currentAnimation, model);
             dumpBoneDebugTrace("DEF-pelvis", debugFrame, currentAnimation, model);
 
             break;
@@ -389,6 +390,14 @@ void AnimationController::applyToModel(Model* model)
                 Logger::WARNING);
         }
 
+        if (boneName == "thigh.L" && debugFrame >= 0)
+        {
+            glm::vec3 pos = glm::vec3(final[3]);
+            Logger::log("DEBUG: Frame " + std::to_string(debugFrame) +
+                " | thigh.L Final Skin Pos: " + glm::to_string(pos),
+                Logger::WARNING);
+        }
+
         if (shouldDump)
         {
             glm::mat4 noScale = removeScale(globalScaled);
@@ -401,17 +410,17 @@ void AnimationController::applyToModel(Model* model)
         model->setBoneTransform(boneName, final);
     }
 
-    // Exit after frame 31 is dumped once
+    // Exit after frame 59 is dumped once
     //avoids relying purely on debugFrame and guarantees that it exits only once per frame dump based on actual animation time, even if debugFrame lingers
 
     static float lastDumpedTime = -1.0f;
     float currentTime = animationTime;
 
-    //if (debugFrame == 31 && shouldDump && std::abs(currentTime - lastDumpedTime) > 1e-4f) {
-    //    Logger::log("=== Frame 31 logged. Exiting for clean log capture. ===", Logger::INFO);
-    //    lastDumpedTime = currentTime;
-    //    std::exit(0);
-    //}
+    if (debugFrame == 59 && shouldDump && std::abs(currentTime - lastDumpedTime) > 1e-4f) {
+        Logger::log("=== Frame 59 logged. Exiting for clean log capture. ===", Logger::INFO);
+        lastDumpedTime = currentTime;
+        std::exit(0);
+    }
 
 
 }

@@ -348,7 +348,7 @@ void Animation::loadAnimation(const std::string& filePath,
 
 
     // Generalized translation clamp: suppress jitter across all frames
-    const float TRANSLATION_JUMP_THRESHOLD = 0.04f;
+    const float TRANSLATION_JUMP_THRESHOLD = 0.025f;
     const size_t N = keyframes.size();
 
     for (size_t i = 1; i + 1 < N; ++i)
@@ -371,22 +371,46 @@ void Animation::loadAnimation(const std::string& filePath,
 
             float deltaPrev = glm::length(currT - prevT);
             float deltaNext = glm::length(currT - nextT);
+            float deltaNeighbors = glm::length(nextT - prevT);
 
-            // If either direction is bad, clamp to the closer one
-            if (deltaPrev > TRANSLATION_JUMP_THRESHOLD || deltaNext > TRANSLATION_JUMP_THRESHOLD)
+            // New logic: detect "middle outlier" cases
+            bool isMiddleSpike = deltaPrev > TRANSLATION_JUMP_THRESHOLD &&
+                deltaNext > TRANSLATION_JUMP_THRESHOLD &&
+                deltaNeighbors < TRANSLATION_JUMP_THRESHOLD;
+
+            bool isOneSided = deltaPrev > TRANSLATION_JUMP_THRESHOLD ||
+                deltaNext > TRANSLATION_JUMP_THRESHOLD;
+
+            if (i == 58 && boneName.find("thigh") != std::string::npos)
             {
-                glm::mat4 replacement = (deltaPrev < deltaNext) ? prevMat : nextMat;
+                Logger::log("[DEBUG] Checking frame 58 for " + boneName +
+                    " | deltaPrev=" + std::to_string(deltaPrev) +
+                    " | deltaNext=" + std::to_string(deltaNext) +
+                    " | deltaNeighbors=" + std::to_string(deltaNeighbors),
+                    Logger::WARNING);
+            }
 
-                Logger::log("[FIXED] One-sided spike on bone '" + boneName +
+            if (isMiddleSpike || isOneSided)
+            {
+                glm::mat4 replacement;
+
+                if (isMiddleSpike)
+                    replacement = (prevMat + nextMat) * 0.5f; // average
+                else
+                    replacement = (deltaPrev < deltaNext) ? prevMat : nextMat;
+
+                Logger::log("[FIXED] Bone '" + boneName +
                     "' at frame " + std::to_string(i) +
                     " | deltaPrev=" + std::to_string(deltaPrev) +
-                    ", deltaNext=" + std::to_string(deltaNext),
+                    ", deltaNext=" + std::to_string(deltaNext) +
+                    ", deltaNeighbors=" + std::to_string(deltaNeighbors),
                     Logger::WARNING);
 
                 curr.boneTransforms[boneName] = replacement;
             }
         }
     }
+
 
 
 
