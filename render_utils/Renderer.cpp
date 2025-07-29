@@ -553,7 +553,17 @@ void Renderer::RenderImGui()
         Logger::log("NOW PLAYING: " + std::string(clipName), Logger::INFO);
     }
 
-    /* 5. store selection for next frame AFTER comparison */
+    /* 5. Playback Controls */
+    ImGui::Separator();
+    ImGui::Text("Playback Options:");
+    ImGui::Checkbox("Play", &animationController->debugPlay);
+    ImGui::Checkbox("Step Frame", &animationController->debugStep);
+    ImGui::Checkbox("Rewind", &animationController->debugRewind);
+    ImGui::Checkbox("Loop Playback", &animationController->loopPlayback); // <-- NEW!
+
+    ImGui::Text("Current Frame: %d", animationController->debugFrame);
+
+    /* 6. store selection for next frame AFTER comparison */
     oldIndex = currentIndex;
 
     ImGui::End();

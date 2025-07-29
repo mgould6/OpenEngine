@@ -346,6 +346,50 @@ void Animation::loadAnimation(const std::string& filePath,
             { return a.time < b.time; });
     }
 
+
+    // Generalized translation clamp: suppress jitter across all frames
+    const float TRANSLATION_JUMP_THRESHOLD = 0.04f;
+    const size_t N = keyframes.size();
+
+    for (size_t i = 1; i + 1 < N; ++i)
+    {
+        Keyframe& prev = keyframes[i - 1];
+        Keyframe& curr = keyframes[i];
+        Keyframe& next = keyframes[i + 1];
+
+        for (const auto& [boneName, prevMat] : prev.boneTransforms)
+        {
+            if (!curr.boneTransforms.count(boneName) || !next.boneTransforms.count(boneName))
+                continue;
+
+            const glm::mat4& currMat = curr.boneTransforms[boneName];
+            const glm::mat4& nextMat = next.boneTransforms[boneName];
+
+            glm::vec3 prevT(prevMat[3]);
+            glm::vec3 currT(currMat[3]);
+            glm::vec3 nextT(nextMat[3]);
+
+            float deltaPrev = glm::length(currT - prevT);
+            float deltaNext = glm::length(currT - nextT);
+
+            // If either direction is bad, clamp to the closer one
+            if (deltaPrev > TRANSLATION_JUMP_THRESHOLD || deltaNext > TRANSLATION_JUMP_THRESHOLD)
+            {
+                glm::mat4 replacement = (deltaPrev < deltaNext) ? prevMat : nextMat;
+
+                Logger::log("[FIXED] One-sided spike on bone '" + boneName +
+                    "' at frame " + std::to_string(i) +
+                    " | deltaPrev=" + std::to_string(deltaPrev) +
+                    ", deltaNext=" + std::to_string(deltaNext),
+                    Logger::WARNING);
+
+                curr.boneTransforms[boneName] = replacement;
+            }
+        }
+    }
+
+
+
     /* --------------------------------------------------------------
    REMOVE last key-frame if it holds the same pose as the first
    (common when exporters append the bind pose at the end)

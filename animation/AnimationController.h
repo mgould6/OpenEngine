@@ -49,6 +49,13 @@ public:
     bool debugStep = false;
     bool debugRewind = false;
     int debugFrame = 0;
+    bool loopPlayback = false; 
+
+    static glm::mat4 buildGlobalTransform(
+        const std::string& boneName,
+        const std::map<std::string, glm::mat4>& localBoneMatrices,
+        Model* model,
+        std::map<std::string, glm::mat4>& globalBoneMatrices);
 
 private:
     Model* model;
@@ -58,11 +65,8 @@ private:
 
     void resetAnimation();
 
-    glm::mat4 buildGlobalTransform(
-        const std::string& boneName,
-        const std::map<std::string, glm::mat4>& localBoneMatrices,
-        Model* model,
-        std::map<std::string, glm::mat4>& globalBoneMatrices);
+
+
     const glm::mat4& bindGlobalNoScale(const std::string& bone) const;
 
     inline static const std::vector<Keyframe> emptyKeyframeList = {};
@@ -71,3 +75,5 @@ private:
 };
 
 #endif // ANIMATIONCONTROLLER_H
+
+void scanForTranslationJumps(const Animation* anim, float threshold = 0.01f);
