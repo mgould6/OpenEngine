@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <cmath>
 #include <glm/gtx/string_cast.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 
 Animation::Animation(const std::string& filePath,
     const Model* model)
@@ -383,6 +384,28 @@ void Animation::loadAnimation(const std::string& filePath,
                 (deltaNext > TRANSLATION_JUMP_THRESHOLD && deltaPrev < (0.2f * TRANSLATION_JUMP_THRESHOLD));
 
             bool shouldClamp = isMiddleSpike || isIsolatedJump;
+
+
+            glm::vec3 scalePrev, scaleCurr, scaleNext;
+            glm::quat rotPrev, rotCurr, rotNext;
+            glm::vec3 transPrev, transCurr, transNext;
+            glm::vec3 skewPrev, skewCurr, skewNext;
+            glm::vec4 perspPrev, perspCurr, perspNext;
+
+            glm::decompose(prevMat, scalePrev, rotPrev, transPrev, skewPrev, perspPrev);
+            glm::decompose(currMat, scaleCurr, rotCurr, transCurr, skewCurr, perspCurr);
+            glm::decompose(nextMat, scaleNext, rotNext, transNext, skewNext, perspNext);
+
+            float angleDeltaPrev = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(rotPrev)));
+            float angleDeltaNext = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(rotNext)));
+
+            if (i == 58 && boneName.find("thigh") != std::string::npos)
+            {
+                Logger::log("[DEBUG ROT] Bone " + boneName +
+                    " @58 | angleDeltaPrev=" + std::to_string(angleDeltaPrev) +
+                    ", angleDeltaNext=" + std::to_string(angleDeltaNext),
+                    Logger::WARNING);
+            }
 
             if (shouldClamp)
             {
