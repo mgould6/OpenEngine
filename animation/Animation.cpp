@@ -386,11 +386,14 @@ void Animation::loadAnimation(const std::string& filePath,
 
             if (shouldClamp)
             {
-                glm::mat4 replacement =
-                    isMiddleSpike ? (prevMat + nextMat) * 0.5f :
-                    (deltaPrev < deltaNext ? prevMat : nextMat);
+                glm::vec3 prevT(prevMat[3]);
+                glm::vec3 nextT(nextMat[3]);
+                glm::vec3 smoothedT = 0.5f * (prevT + nextT);
 
-                Logger::log("[FIXED] Bone '" + boneName +
+                glm::mat4 replacement = currMat;
+                replacement[3] = glm::vec4(smoothedT, 1.0f);
+
+                Logger::log("[FIXED - SRT] Bone '" + boneName +
                     "' at frame " + std::to_string(i) +
                     " | deltaPrev=" + std::to_string(deltaPrev) +
                     ", deltaNext=" + std::to_string(deltaNext) +
