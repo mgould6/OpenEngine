@@ -362,18 +362,8 @@ void Animation::loadAnimation(const std::string& filePath,
             if (!curr.boneTransforms.count(boneName) || !next.boneTransforms.count(boneName))
                 continue;
 
-            const glm::mat4& nextMat = next.boneTransforms[boneName];
-
-            if (i == 58 && (boneName == "DEF-thigh.R" || boneName == "DEF-thigh.L"))
-            {
-                Logger::log("[FORCE FIX] Overwriting " + boneName + " on frame 58 manually", Logger::WARNING);
-                curr.boneTransforms[boneName] = (prevMat + nextMat) * 0.5f;
-            }
-
-            if (!curr.boneTransforms.count(boneName) || !next.boneTransforms.count(boneName))
-                continue;
-
             const glm::mat4& currMat = curr.boneTransforms[boneName];
+            const glm::mat4& nextMat = next.boneTransforms[boneName];
 
             glm::vec3 prevT(prevMat[3]);
             glm::vec3 currT(currMat[3]);
@@ -383,31 +373,22 @@ void Animation::loadAnimation(const std::string& filePath,
             float deltaNext = glm::length(currT - nextT);
             float deltaNeighbors = glm::length(nextT - prevT);
 
-            // New logic: detect "middle outlier" cases
-            bool isMiddleSpike = deltaPrev > TRANSLATION_JUMP_THRESHOLD &&
+            bool isMiddleSpike =
+                deltaPrev > TRANSLATION_JUMP_THRESHOLD &&
                 deltaNext > TRANSLATION_JUMP_THRESHOLD &&
-                deltaNeighbors < TRANSLATION_JUMP_THRESHOLD;
+                deltaNeighbors < (0.5f * TRANSLATION_JUMP_THRESHOLD);
 
-            bool isOneSided = deltaPrev > TRANSLATION_JUMP_THRESHOLD ||
-                deltaNext > TRANSLATION_JUMP_THRESHOLD;
+            bool isIsolatedJump =
+                (deltaPrev > TRANSLATION_JUMP_THRESHOLD && deltaNext < (0.2f * TRANSLATION_JUMP_THRESHOLD)) ||
+                (deltaNext > TRANSLATION_JUMP_THRESHOLD && deltaPrev < (0.2f * TRANSLATION_JUMP_THRESHOLD));
 
-            if (i == 58 && boneName.find("thigh") != std::string::npos)
+            bool shouldClamp = isMiddleSpike || isIsolatedJump;
+
+            if (shouldClamp)
             {
-                Logger::log("[DEBUG] Checking frame 58 for " + boneName +
-                    " | deltaPrev=" + std::to_string(deltaPrev) +
-                    " | deltaNext=" + std::to_string(deltaNext) +
-                    " | deltaNeighbors=" + std::to_string(deltaNeighbors),
-                    Logger::WARNING);
-            }
-
-            if (isMiddleSpike || isOneSided)
-            {
-                glm::mat4 replacement;
-
-                if (isMiddleSpike)
-                    replacement = (prevMat + nextMat) * 0.5f; // average
-                else
-                    replacement = (deltaPrev < deltaNext) ? prevMat : nextMat;
+                glm::mat4 replacement =
+                    isMiddleSpike ? (prevMat + nextMat) * 0.5f :
+                    (deltaPrev < deltaNext ? prevMat : nextMat);
 
                 Logger::log("[FIXED] Bone '" + boneName +
                     "' at frame " + std::to_string(i) +
@@ -420,6 +401,8 @@ void Animation::loadAnimation(const std::string& filePath,
             }
         }
     }
+
+    Logger::log("[INFO] Translation jitter clamp pass complete", Logger::INFO);
 
 
 
