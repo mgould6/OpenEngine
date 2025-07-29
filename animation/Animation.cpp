@@ -362,8 +362,18 @@ void Animation::loadAnimation(const std::string& filePath,
             if (!curr.boneTransforms.count(boneName) || !next.boneTransforms.count(boneName))
                 continue;
 
-            const glm::mat4& currMat = curr.boneTransforms[boneName];
             const glm::mat4& nextMat = next.boneTransforms[boneName];
+
+            if (i == 58 && (boneName == "DEF-thigh.R" || boneName == "DEF-thigh.L"))
+            {
+                Logger::log("[FORCE FIX] Overwriting " + boneName + " on frame 58 manually", Logger::WARNING);
+                curr.boneTransforms[boneName] = (prevMat + nextMat) * 0.5f;
+            }
+
+            if (!curr.boneTransforms.count(boneName) || !next.boneTransforms.count(boneName))
+                continue;
+
+            const glm::mat4& currMat = curr.boneTransforms[boneName];
 
             glm::vec3 prevT(prevMat[3]);
             glm::vec3 currT(currMat[3]);
