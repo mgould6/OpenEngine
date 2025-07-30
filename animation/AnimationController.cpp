@@ -330,7 +330,7 @@ void AnimationController::applyToModel(Model* model)
 {
     if (!model || !currentAnimation) return;
 
-    if (debugFrame == 28)
+    if (debugFrame == 59)
     {
         Logger::log("DEBUG: Frame 59 | animationTime = " + std::to_string(animationTime), Logger::WARNING);
     }
@@ -362,7 +362,7 @@ void AnimationController::applyToModel(Model* model)
     static bool dumpedFrame28 = false;
 
     bool shouldDump = false;
-    int targetFrames[] = { 57, 58, 59 };
+    int targetFrames[] = { 51, 52, 53, 54, 55, 56, 57, 58, 59};
 
     for (int tf : targetFrames) {
         if (debugFrame == tf && !dumpedFrames.count(tf)) {
@@ -381,7 +381,6 @@ void AnimationController::applyToModel(Model* model)
     {
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
         glm::mat4 final = model->getGlobalInverseTransform() * globalScaled * offsetMatrix;
-
         if (boneName == "thigh.R" && debugFrame >= 0)
         {
             glm::vec3 pos = glm::vec3(final[3]);
@@ -397,6 +396,7 @@ void AnimationController::applyToModel(Model* model)
                 " | thigh.L Final Skin Pos: " + glm::to_string(pos),
                 Logger::WARNING);
         }
+
 
         if (shouldDump)
         {
@@ -416,11 +416,11 @@ void AnimationController::applyToModel(Model* model)
     static float lastDumpedTime = -1.0f;
     float currentTime = animationTime;
 
-    if (debugFrame == 59 && shouldDump && std::abs(currentTime - lastDumpedTime) > 1e-4f) {
-        Logger::log("=== Frame 59 logged. Exiting for clean log capture. ===", Logger::INFO);
-        lastDumpedTime = currentTime;
-        std::exit(0);
-    }
+    //if (debugFrame == 59 && shouldDump && std::abs(currentTime - lastDumpedTime) > 1e-4f) {
+    //    Logger::log("=== Frame 59 logged. Exiting for clean log capture. ===", Logger::INFO);
+    //    lastDumpedTime = currentTime;
+    //    std::exit(0);
+    //}
 
 
 }

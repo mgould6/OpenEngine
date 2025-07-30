@@ -10,11 +10,11 @@
 
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/transform.hpp>
 
 #include <algorithm>
 #include <cmath>
 #include <glm/gtx/string_cast.hpp>
-#include <glm/gtx/matrix_decompose.hpp>
 
 Animation::Animation(const std::string& filePath,
     const Model* model)
@@ -119,6 +119,21 @@ void Animation::interpolateKeyframes(float animationTime, std::map<std::string, 
         return;
     }
 
+    // DEBUG OVERRIDE: Force hold-frame playback at frame 5
+    if (keyframes.size() > 6)
+    {
+        float t5 = keyframes[5].time;
+        float t6 = keyframes[6].time;
+
+        if (animationTime >= t5 && animationTime < t6)
+        {
+            outPose = keyframes[5].boneTransforms;
+            Logger::log("[DEBUG] Forcing direct frame 5 playback", Logger::WARNING);
+            return;
+        }
+    }
+
+
     // Find keyframes to interpolate between
     size_t startFrame = 0;
     size_t endFrame = 0;
@@ -164,12 +179,23 @@ void Animation::interpolateKeyframes(float animationTime, std::map<std::string, 
             kf1.boneTransforms.at(boneName) :
             mat0;
 
-        glm::mat4 interp = glm::mat4(0.0f);
+        glm::mat4 interp = interpolateMatrices(mat0, mat1, lerpFactor);
 
-        for (int col = 0; col < 4; ++col)
+        if ((startFrame >= 1 && startFrame <= 8) &&
+            (boneName.find("spine") != std::string::npos ||
+                boneName.find("neck") != std::string::npos ||
+                boneName.find("head") != std::string::npos ||
+                boneName.find("thigh") != std::string::npos))
         {
-            interp[col] = glm::mix(mat0[col], mat1[col], lerpFactor);
-        }        outPose[boneName] = interp;
+            Logger::log("Runtime Interp [JAB HEAD]: Bone " + boneName +
+                " from frame " + std::to_string(startFrame) +
+                " to " + std::to_string(endFrame) +
+                " | t=" + std::to_string(animationTime) +
+                "\n" + glm::to_string(interp),
+                Logger::WARNING);
+        }
+
+        outPose[boneName] = interp;
     }
 }
 
@@ -350,6 +376,7 @@ void Animation::loadAnimation(const std::string& filePath,
 
     // Generalized translation clamp: suppress jitter across all frames
     const float TRANSLATION_JUMP_THRESHOLD = 0.025f;
+    const float ROTATION_JUMP_THRESHOLD = 10.0f;
     const size_t N = keyframes.size();
 
     for (size_t i = 1; i + 1 < N; ++i)
@@ -370,6 +397,28 @@ void Animation::loadAnimation(const std::string& filePath,
             glm::vec3 currT(currMat[3]);
             glm::vec3 nextT(nextMat[3]);
 
+            if ((i >= 26 && i <= 28) || (i >= 57 && i <= 59))
+            {
+                if (boneName.find("thigh") != std::string::npos ||
+                    boneName.find("shin") != std::string::npos ||
+                    boneName.find("foot") != std::string::npos)
+                {
+                    float dx = glm::distance(prevT, currT);
+                    float dy = glm::distance(currT, nextT);
+                    float dSpan = glm::distance(prevT, nextT);
+
+                    Logger::log("[DEBUG TRANSLATION] Bone " + boneName + " @frame=" + std::to_string(i) +
+                        "\n    transPrev = " + glm::to_string(prevT) +
+                        "\n    transCurr = " + glm::to_string(currT) +
+                        "\n    transNext = " + glm::to_string(nextT) +
+                        "\n    deltaPrev = " + std::to_string(dx) +
+                        ", deltaNext = " + std::to_string(dy) +
+                        ", deltaSpan = " + std::to_string(dSpan),
+                        Logger::WARNING);
+                }
+            }
+
+
             float deltaPrev = glm::length(currT - prevT);
             float deltaNext = glm::length(currT - nextT);
             float deltaNeighbors = glm::length(nextT - prevT);
@@ -383,7 +432,12 @@ void Animation::loadAnimation(const std::string& filePath,
                 (deltaPrev > TRANSLATION_JUMP_THRESHOLD && deltaNext < (0.2f * TRANSLATION_JUMP_THRESHOLD)) ||
                 (deltaNext > TRANSLATION_JUMP_THRESHOLD && deltaPrev < (0.2f * TRANSLATION_JUMP_THRESHOLD));
 
-            bool shouldClamp = isMiddleSpike || isIsolatedJump;
+            bool isSmallNoise =
+                deltaPrev > 0.002f &&
+                deltaNext > 0.002f &&
+                deltaNeighbors < 0.001f;
+
+            bool shouldClamp = isMiddleSpike || isIsolatedJump || isSmallNoise;
 
 
             glm::vec3 scalePrev, scaleCurr, scaleNext;
@@ -396,39 +450,172 @@ void Animation::loadAnimation(const std::string& filePath,
             glm::decompose(currMat, scaleCurr, rotCurr, transCurr, skewCurr, perspCurr);
             glm::decompose(nextMat, scaleNext, rotNext, transNext, skewNext, perspNext);
 
+
+            // Hemisphere flip fix: rotCurr must be on same hemisphere as neighbors
+            if (glm::dot(rotPrev, rotCurr) < 0.0f && glm::dot(rotNext, rotCurr) < 0.0f)
+            {
+                rotCurr = -rotCurr;
+                Logger::log("[HEMISPHERE FIX] Flipped rotCurr at frame " + std::to_string(i) + " for bone " + boneName, Logger::WARNING);
+            }
+
+            if (glm::dot(rotPrev, rotNext) < 0.0f)
+                rotNext = -rotNext;
+
             float angleDeltaPrev = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(rotPrev)));
             float angleDeltaNext = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(rotNext)));
+            float angleDeltaNeighbors = glm::degrees(glm::angle(glm::normalize(rotPrev) * glm::inverse(rotNext)));
 
-            if (i == 58 && boneName.find("thigh") != std::string::npos)
+            // Debug log for root-related bones at frames 4-6
+            if (i >= 4 && i <= 6 && (boneName == "DEF-hips" || boneName == "root"))
             {
-                Logger::log("[DEBUG ROT] Bone " + boneName +
-                    " @58 | angleDeltaPrev=" + std::to_string(angleDeltaPrev) +
-                    ", angleDeltaNext=" + std::to_string(angleDeltaNext),
+                Logger::log("[ROOT DEBUG] Bone '" + boneName + "' @frame=" + std::to_string(i) +
+                    "\n    rot = " + glm::to_string(glm::normalize(rotCurr)) +
+                    "\n    trans = " + glm::to_string(transCurr),
                     Logger::WARNING);
+
+                Logger::log("    Angle delta (prev to curr): " + std::to_string(angleDeltaPrev), Logger::WARNING);
+                Logger::log("    Angle delta (curr to next): " + std::to_string(angleDeltaNext), Logger::WARNING);
+                Logger::log("    Angle delta (prev to next): " + std::to_string(angleDeltaNeighbors), Logger::WARNING);
+            }
+
+            bool isRotationSpike =
+                angleDeltaPrev > ROTATION_JUMP_THRESHOLD &&
+                angleDeltaNext > ROTATION_JUMP_THRESHOLD &&
+                angleDeltaNeighbors < (0.5f * ROTATION_JUMP_THRESHOLD);
+
+            if (isRotationSpike)
+            {
+                glm::quat smoothedR = glm::slerp(rotPrev, rotNext, 0.5f);
+                glm::mat4 rotMat = glm::mat4_cast(smoothedR);
+                glm::mat4 scaleMat = glm::scale(glm::mat4(1.0f), scaleCurr);
+                glm::mat4 transMat = glm::translate(glm::mat4(1.0f), transCurr);
+                curr.boneTransforms[boneName] = transMat * rotMat * scaleMat;
+
+                Logger::log("[FIXED - ROT SPIKE] Bone '" + boneName +
+                    "' at frame " + std::to_string(i), Logger::WARNING);
             }
 
             if (shouldClamp)
             {
-                glm::vec3 prevT(prevMat[3]);
-                glm::vec3 nextT(nextMat[3]);
                 glm::vec3 smoothedT = 0.5f * (prevT + nextT);
+                glm::vec3 smoothedS = 0.5f * (scalePrev + scaleNext);
 
-                glm::mat4 replacement = currMat;
-                replacement[3] = glm::vec4(smoothedT, 1.0f);
+                if (glm::dot(rotPrev, rotNext) < 0.0f)
+                    rotNext = -rotNext;
 
-                Logger::log("[FIXED - SRT] Bone '" + boneName +
-                    "' at frame " + std::to_string(i) +
-                    " | deltaPrev=" + std::to_string(deltaPrev) +
-                    ", deltaNext=" + std::to_string(deltaNext) +
-                    ", deltaNeighbors=" + std::to_string(deltaNeighbors),
-                    Logger::WARNING);
+                glm::quat smoothedR = glm::slerp(glm::normalize(rotPrev), glm::normalize(rotNext), 0.5f);
 
-                curr.boneTransforms[boneName] = replacement;
+                glm::mat4 scaleMat = glm::scale(glm::mat4(1.0f), smoothedS);
+                glm::mat4 rotMat = glm::mat4_cast(smoothedR);
+                glm::mat4 transMat = glm::translate(glm::mat4(1.0f), smoothedT);
+
+                curr.boneTransforms[boneName] = transMat * rotMat * scaleMat;
+
+                Logger::log("[FIXED - SRT+ROT] Bone '" + boneName +
+                    "' at frame " + std::to_string(i), Logger::WARNING);
             }
         }
     }
 
-    Logger::log("[INFO] Translation jitter clamp pass complete", Logger::INFO);
+
+    // === 5-frame smoothing ===
+    for (size_t i = 2; i + 2 < N; ++i)
+    {
+        Keyframe& prev2 = keyframes[i - 2];
+        Keyframe& curr = keyframes[i];
+        Keyframe& next2 = keyframes[i + 2];
+
+        for (const auto& [boneName, matPrev2] : prev2.boneTransforms)
+        {
+            if (!curr.boneTransforms.count(boneName) || !next2.boneTransforms.count(boneName))
+                continue;
+
+            const glm::mat4& matCurr = curr.boneTransforms[boneName];
+            const glm::mat4& matNext2 = next2.boneTransforms[boneName];
+
+            glm::vec3 scaleA, scaleB, scaleC;
+            glm::quat rotA, rotB, rotC;
+            glm::vec3 transA, transB, transC;
+            glm::vec3 skew, skew2;
+            glm::vec4 persp, persp2;
+
+            glm::decompose(matPrev2, scaleA, rotA, transA, skew, persp);
+            glm::decompose(matCurr, scaleB, rotB, transB, skew, persp);
+            glm::decompose(matNext2, scaleC, rotC, transC, skew2, persp2);
+
+            if (glm::dot(rotA, rotC) < 0.0f)
+                rotC = -rotC;
+
+            float deltaA = glm::degrees(glm::angle(glm::normalize(rotB) * glm::inverse(rotA)));
+            float deltaC = glm::degrees(glm::angle(glm::normalize(rotB) * glm::inverse(rotC)));
+            float arcAC = glm::degrees(glm::angle(glm::normalize(rotA) * glm::inverse(rotC)));
+
+            if (deltaA > ROTATION_JUMP_THRESHOLD &&
+                deltaC > ROTATION_JUMP_THRESHOLD &&
+                arcAC < 0.5f * ROTATION_JUMP_THRESHOLD)
+            {
+                glm::quat smoothed = glm::slerp(rotA, rotC, 0.5f);
+                glm::mat4 T = glm::translate(glm::mat4(1.0f), transB);
+                glm::mat4 R = glm::mat4_cast(smoothed);
+                glm::mat4 S = glm::scale(glm::mat4(1.0f), scaleB);
+
+                curr.boneTransforms[boneName] = T * R * S;
+
+                Logger::log("[FIXED - ROT ARC] Bone " + boneName +
+                    " @frame=" + std::to_string(i), Logger::WARNING);
+            }
+        }
+    }
+
+    // === Specific root patch: Jab_Head, frame 5 ===
+    if (name.find("Jab_Head") != std::string::npos && N > 6)
+    {
+        const std::string rootBone = "DEF-hips";
+        Keyframe& prev = keyframes[4];
+        Keyframe& curr = keyframes[5];
+        Keyframe& next = keyframes[6];
+
+        if (prev.boneTransforms.count(rootBone) &&
+            curr.boneTransforms.count(rootBone) &&
+            next.boneTransforms.count(rootBone))
+        {
+            glm::mat4 matPrev = prev.boneTransforms[rootBone];
+            glm::mat4 matCurr = curr.boneTransforms[rootBone];
+            glm::mat4 matNext = next.boneTransforms[rootBone];
+
+            glm::vec3 s1, s2, s3;
+            glm::quat q1, q2, q3;
+            glm::vec3 t1, t2, t3;
+            glm::vec3 skew;
+            glm::vec4 persp;
+
+            glm::decompose(matPrev, s1, q1, t1, skew, persp);
+            glm::decompose(matCurr, s2, q2, t2, skew, persp);
+            glm::decompose(matNext, s3, q3, t3, skew, persp);
+
+            if (glm::dot(q1, q3) < 0.0f)
+                q3 = -q3;
+
+            float dPrev = glm::degrees(glm::angle(glm::normalize(q2) * glm::inverse(q1)));
+            float dNext = glm::degrees(glm::angle(glm::normalize(q2) * glm::inverse(q3)));
+            float dSpan = glm::degrees(glm::angle(glm::normalize(q1) * glm::inverse(q3)));
+
+            if (dPrev > 90.0f && dNext > 90.0f && dSpan < 5.0f)
+            {
+                glm::quat smoothed = glm::slerp(q1, q3, 0.5f);
+                glm::mat4 T = glm::translate(glm::mat4(1.0f), t2);
+                glm::mat4 R = glm::mat4_cast(smoothed);
+                glm::mat4 S = glm::scale(glm::mat4(1.0f), s2);
+                curr.boneTransforms[rootBone] = T * R * S;
+
+                Logger::log("[PATCHED ROOT ROT FLIP] " + rootBone + " at frame 5 in Jab_Head", Logger::WARNING);
+            }
+        }
+    }
+
+
+
+    Logger::log("[INFO] Translation and rotation smoothing pass complete.", Logger::INFO);
 
 
 

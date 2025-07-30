@@ -34,9 +34,9 @@ void SceneTest3(GLFWwindow* window) {
 
     // Initialize the animation controller
     animationController = new AnimationController(myModel);
+    animationController->loadAnimation("Jab_Head", "animations/Jab_Head.fbx");
     animationController->loadAnimation("Idle", "animations/Idle.fbx");
     animationController->loadAnimation("Stance1", "animations/Stance1.fbx");
-    animationController->loadAnimation("Jab_Head", "animations/Jab_Head.fbx");
     animationController->setCurrentAnimation("Idle");
     Logger::log("INFO: Set current animation to Idle.", Logger::INFO);
     animationController->update(0.0f);
