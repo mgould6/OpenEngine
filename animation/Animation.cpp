@@ -692,12 +692,14 @@ void Animation::loadAnimation(const std::string& filePath,
         }
     }
 
-
     const std::unordered_set<std::string> driftBones = {
-    "DEF-heel.L", "DEF-heel.R",
-    "DEF-thigh.L", "DEF-thigh.R",
-    "DEF-shin.L", "DEF-shin.R",
-    "DEF-foot.L", "DEF-foot.R"
+        "DEF-heel.L", "DEF-heel.R",
+        "DEF-thigh.L", "DEF-thigh.R",
+        "DEF-shin.L", "DEF-shin.R",
+        "DEF-foot.L", "DEF-foot.R",
+        "DEF-hand.L", "DEF-hand.R",
+        "DEF-forearm.L", "DEF-forearm.R",
+        "DEF-finger.L", "DEF-finger.R"
     };
 
     Logger::log("[DRIFT] Applying static pose lock for known drift bones...", Logger::WARNING);
