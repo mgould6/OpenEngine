@@ -693,6 +693,60 @@ void Animation::loadAnimation(const std::string& filePath,
     }
 
 
+    const std::unordered_set<std::string> driftBones = {
+    "DEF-heel.L", "DEF-heel.R",
+    "DEF-thigh.L", "DEF-thigh.R",
+    "DEF-shin.L", "DEF-shin.R",
+    "DEF-foot.L", "DEF-foot.R"
+    };
+
+    Logger::log("[DRIFT] Applying static pose lock for known drift bones...", Logger::WARNING);
+
+    for (const std::string& bone : driftBones)
+    {
+        glm::vec3 meanT(0.0f);
+        glm::quat meanQ = glm::quat(1, 0, 0, 0);
+        glm::vec3 meanS(0.0f);
+
+        int count = 0;
+
+        // Average pose across all keyframes
+        for (const Keyframe& kf : keyframes)
+        {
+            if (!kf.boneTransforms.count(bone)) continue;
+
+            glm::vec3 scale, trans;
+            glm::quat rot;
+            glm::vec3 skew;
+            glm::vec4 persp;
+
+            glm::decompose(kf.boneTransforms.at(bone), scale, rot, trans, skew, persp);
+
+            meanT += trans;
+            meanS += scale;
+
+            if (glm::dot(rot, meanQ) < 0.0f)
+                rot = -rot; // keep hemisphere aligned
+
+            meanQ = glm::normalize(glm::slerp(meanQ, rot, 1.0f / float(++count)));
+        }
+
+        meanT /= float(count);
+        meanS /= float(count);
+
+        glm::mat4 lockT = glm::translate(glm::mat4(1.0f), meanT);
+        glm::mat4 lockR = glm::mat4_cast(meanQ);
+        glm::mat4 lockS = glm::scale(glm::mat4(1.0f), meanS);
+        glm::mat4 locked = lockT * lockR * lockS;
+
+        for (Keyframe& kf : keyframes)
+            if (kf.boneTransforms.count(bone))
+                kf.boneTransforms[bone] = locked;
+
+        Logger::log("[DRIFT] Bone '" + bone + "' locked to average pose.", Logger::WARNING);
+    }
+
+
 
 
     /* --------------------------------------------------------------
