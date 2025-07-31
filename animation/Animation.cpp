@@ -646,6 +646,52 @@ void Animation::loadAnimation(const std::string& filePath,
 
     Logger::log("[INFO] Translation and rotation smoothing pass complete.", Logger::INFO);
 
+    const size_t WINDOW = 5;
+    const float DRIFT_STD_THRESHOLD = 0.003f;
+
+    Logger::log("=== Drift Analysis Pass ===", Logger::WARNING);
+
+    for (const auto& [boneName, _] : keyframes.front().boneTransforms)
+    {
+        std::vector<glm::vec3> positions;
+        for (const Keyframe& kf : keyframes)
+        {
+            if (kf.boneTransforms.count(boneName))
+                positions.push_back(glm::vec3(kf.boneTransforms.at(boneName)[3]));
+        }
+
+        if (positions.size() < WINDOW)
+            continue;
+
+        bool allLowVariance = true;
+        for (size_t i = 0; i + WINDOW <= positions.size(); ++i)
+        {
+            glm::vec3 mean(0.0f);
+            for (size_t j = i; j < i + WINDOW; ++j)
+                mean += positions[j];
+            mean /= float(WINDOW);
+
+            float maxStd = 0.0f;
+            for (size_t j = i; j < i + WINDOW; ++j)
+            {
+                glm::vec3 delta = positions[j] - mean;
+                maxStd = std::max(maxStd, glm::length(delta));
+            }
+
+            if (maxStd > DRIFT_STD_THRESHOLD)
+            {
+                allLowVariance = false;
+                break;
+            }
+        }
+
+        if (allLowVariance)
+        {
+            Logger::log("[DRIFT] Bone: " + boneName + " has consistent low-energy jitter across " +
+                std::to_string(positions.size()) + " frames.", Logger::WARNING);
+        }
+    }
+
 
 
 
@@ -713,6 +759,9 @@ void Animation::loadAnimation(const std::string& filePath,
     Logger::log("Loaded clip '" + filePath + "' fps=" +
         std::to_string(ticksPerSecond), Logger::INFO);
 }
+
+
+
 
 // Animation.cpp
 void Animation::checkBindMismatch(const Model* model)
