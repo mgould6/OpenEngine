@@ -199,6 +199,7 @@ INFO: DEBUG: Bounding Box Center: (0.000000, -0.082552, -0.878198)
 INFO: DEBUG: Bounding Box Radius: 0.987355
 INFO: DEBUG: Adjusted Camera Position: (0.000000, -0.082552, 5.081019)
 WARNING: [FIXED - ROT SPIKE] Bone 'DEF-spine' at frame 2
+WARNING: [FIXED - SRT+ROT] Bone 'DEF-spine' at frame 2
 WARNING: [ROOT DEBUG] Bone 'root' @frame=4
     rot = quat(0.707107, {-0.707107, 0.000000, 0.000000})
     trans = vec3(0.000000, 0.000000, 0.000000)
@@ -369,10 +370,10 @@ WARNING: [DEBUG TRANSLATION] Bone DEF-thigh.R.001 @frame=28
     transCurr = vec3(0.000000, 0.227874, 0.000000)
     transNext = vec3(0.000000, 0.227874, 0.000000)
     deltaPrev = 0.000000, deltaNext = 0.000000, deltaSpan = 0.000000
-WARNING: [FIXED - ROT SPIKE] Bone 'DEF-thigh.R' at frame 30
+WARNING: [HEMISPHERE FIX] Flipped rotCurr at frame 30 for bone DEF-thigh.R
 WARNING: [FIXED - ROT SPIKE] Bone 'DEF-upper_arm.R' at frame 37
 WARNING: [FIXED - ROT SPIKE] Bone 'DEF-thigh.R' at frame 44
-WARNING: [FIXED - ROT SPIKE] Bone 'DEF-thigh.R' at frame 56
+WARNING: [HEMISPHERE FIX] Flipped rotCurr at frame 56 for bone DEF-thigh.R
 WARNING: [DEBUG TRANSLATION] Bone DEF-foot.L @frame=57
     transPrev = vec3(-0.000000, 0.198684, 0.000000)
     transCurr = vec3(-0.000000, 0.198684, 0.000000)
@@ -418,6 +419,7 @@ WARNING: [DEBUG TRANSLATION] Bone DEF-thigh.R @frame=57
     transCurr = vec3(0.018545, 0.099911, -0.031250)
     transNext = vec3(0.018545, 0.099911, -0.031250)
     deltaPrev = 0.000000, deltaNext = 0.000000, deltaSpan = 0.000000
+WARNING: [HEMISPHERE FIX] Flipped rotCurr at frame 57 for bone DEF-thigh.R
 WARNING: [DEBUG TRANSLATION] Bone DEF-thigh.R.001 @frame=57
     transPrev = vec3(0.000000, 0.227874, -0.000000)
     transCurr = vec3(0.000000, 0.227874, -0.000000)
@@ -468,13 +470,14 @@ WARNING: [DEBUG TRANSLATION] Bone DEF-thigh.R @frame=58
     transCurr = vec3(0.018545, 0.099911, -0.031250)
     transNext = vec3(0.018545, 0.099911, -0.031250)
     deltaPrev = 0.000000, deltaNext = 0.000000, deltaSpan = 0.000000
-WARNING: [FIXED - ROT SPIKE] Bone 'DEF-thigh.R' at frame 58
+WARNING: [HEMISPHERE FIX] Flipped rotCurr at frame 58 for bone DEF-thigh.R
 WARNING: [DEBUG TRANSLATION] Bone DEF-thigh.R.001 @frame=58
     transPrev = vec3(0.000000, 0.227874, -0.000000)
     transCurr = vec3(0.000000, 0.227874, -0.000000)
     transNext = vec3(0.000000, 0.227874, -0.000000)
     deltaPrev = 0.000000, deltaNext = 0.000000, deltaSpan = 0.000000
 WARNING: [FIXED - ROT ARC] Bone DEF-spine @frame=5
+WARNING: [FIXED - ROT ARC] Bone DEF-thigh.R @frame=30
 WARNING: [FIXED - ROT ARC] Bone DEF-upper_arm.R @frame=37
 WARNING: [FIXED - ROT ARC] Bone DEF-upper_arm.R @frame=38
 WARNING: [FIXED - ROT ARC] Bone DEF-thigh.R @frame=44
@@ -1760,6 +1763,6 @@ mat4x4((1.000000, 0.000000, 0.000000, 0.000000), (0.000000, -0.000000, -1.000000
 INFO: DEBUG: After Storing Bone root
 INFO: === Frame 59 logged. Exiting for clean log capture. ===
 
-C:\Users\mjgou\source\repos\OpenEngine\x64\Debug\OpenEngine.exe (process 25828) exited with code 0 (0x0).
+C:\Users\mjgou\source\repos\OpenEngine\x64\Debug\OpenEngine.exe (process 6504) exited with code 0 (0x0).
 To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
 Press any key to close this window . . .

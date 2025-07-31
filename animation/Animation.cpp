@@ -418,7 +418,6 @@ void Animation::loadAnimation(const std::string& filePath,
                 }
             }
 
-
             float deltaPrev = glm::length(currT - prevT);
             float deltaNext = glm::length(currT - nextT);
             float deltaNeighbors = glm::length(nextT - prevT);
@@ -439,7 +438,6 @@ void Animation::loadAnimation(const std::string& filePath,
 
             bool shouldClamp = isMiddleSpike || isIsolatedJump || isSmallNoise;
 
-
             glm::vec3 scalePrev, scaleCurr, scaleNext;
             glm::quat rotPrev, rotCurr, rotNext;
             glm::vec3 transPrev, transCurr, transNext;
@@ -450,8 +448,7 @@ void Animation::loadAnimation(const std::string& filePath,
             glm::decompose(currMat, scaleCurr, rotCurr, transCurr, skewCurr, perspCurr);
             glm::decompose(nextMat, scaleNext, rotNext, transNext, skewNext, perspNext);
 
-
-            // Hemisphere flip fix: rotCurr must be on same hemisphere as neighbors
+            // Hemisphere flip fix (for Jab_Head full-body flip bug)
             if (glm::dot(rotPrev, rotCurr) < 0.0f && glm::dot(rotNext, rotCurr) < 0.0f)
             {
                 rotCurr = -rotCurr;
@@ -465,7 +462,6 @@ void Animation::loadAnimation(const std::string& filePath,
             float angleDeltaNext = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(rotNext)));
             float angleDeltaNeighbors = glm::degrees(glm::angle(glm::normalize(rotPrev) * glm::inverse(rotNext)));
 
-            // Debug log for root-related bones at frames 4-6
             if (i >= 4 && i <= 6 && (boneName == "DEF-hips" || boneName == "root"))
             {
                 Logger::log("[ROOT DEBUG] Bone '" + boneName + "' @frame=" + std::to_string(i) +

@@ -416,11 +416,11 @@ void AnimationController::applyToModel(Model* model)
     static float lastDumpedTime = -1.0f;
     float currentTime = animationTime;
 
-    //if (debugFrame == 59 && shouldDump && std::abs(currentTime - lastDumpedTime) > 1e-4f) {
-    //    Logger::log("=== Frame 59 logged. Exiting for clean log capture. ===", Logger::INFO);
-    //    lastDumpedTime = currentTime;
-    //    std::exit(0);
-    //}
+    if (debugFrame == 59 && shouldDump && std::abs(currentTime - lastDumpedTime) > 1e-4f) {
+        Logger::log("=== Frame 59 logged. Exiting for clean log capture. ===", Logger::INFO);
+        lastDumpedTime = currentTime;
+        std::exit(0);
+    }
 
 
 }
