@@ -240,8 +240,13 @@ void Animation::loadAnimation(const std::string& filePath,
         return;
     }
 
+
+
     const aiAnimation* src = scene->mAnimations[0];
     durationTicks = static_cast<float>(src->mDuration);
+
+
+    this->name = filePath; // Enables Jab_Head special-case patch
 
     /* ----------- choose ticksPerSecond ------------------------ */
     if (src->mTicksPerSecond > 0.0)
@@ -448,6 +453,27 @@ void Animation::loadAnimation(const std::string& filePath,
             glm::decompose(currMat, scaleCurr, rotCurr, transCurr, skewCurr, perspCurr);
             glm::decompose(nextMat, scaleNext, rotNext, transNext, skewNext, perspNext);
 
+            // Frame 58 forced override
+            if (i == 58 && boneName == "DEF-thigh.L")
+            {
+                Logger::log("[FORCE OVERRIDE] Replacing rotCurr at frame 58 with rotPrev for DEF-thigh.R", Logger::WARNING);
+                rotCurr = rotPrev;
+            }
+
+            // Frame 58 forced override
+            if (i == 58 && boneName == "DEF-thigh.L")
+            {
+                Logger::log("[FORCE OVERRIDE] Replacing rotCurr at frame 58 with rotPrev for DEF-thigh.L", Logger::WARNING);
+                rotCurr = rotPrev;
+            }
+
+            if (i == 4 && boneName == "DEF-hips")
+            {
+                Logger::log("[FORCE OVERRIDE] Replacing rotCurr at frame 4 with rotPrev for DEF-hips", Logger::WARNING);
+                rotCurr = rotPrev;
+            }
+
+
             // Hemisphere flip fix (for Jab_Head full-body flip bug)
             if (glm::dot(rotPrev, rotCurr) < 0.0f && glm::dot(rotNext, rotCurr) < 0.0f)
             {
@@ -491,6 +517,11 @@ void Animation::loadAnimation(const std::string& filePath,
                     "' at frame " + std::to_string(i), Logger::WARNING);
             }
 
+            if (isMiddleSpike || isIsolatedJump || isSmallNoise)
+            {
+                Logger::log("[DEBUG: Candidate for Clamp] Bone " + boneName + " @frame=" + std::to_string(i), Logger::WARNING);
+            }
+
             if (shouldClamp)
             {
                 glm::vec3 smoothedT = 0.5f * (prevT + nextT);
@@ -506,6 +537,8 @@ void Animation::loadAnimation(const std::string& filePath,
                 glm::mat4 transMat = glm::translate(glm::mat4(1.0f), smoothedT);
 
                 curr.boneTransforms[boneName] = transMat * rotMat * scaleMat;
+
+
 
                 Logger::log("[FIXED - SRT+ROT] Bone '" + boneName +
                     "' at frame " + std::to_string(i), Logger::WARNING);
