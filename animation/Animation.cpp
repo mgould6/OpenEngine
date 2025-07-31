@@ -702,49 +702,62 @@ void Animation::loadAnimation(const std::string& filePath,
         "DEF-finger.L", "DEF-finger.R"
     };
 
-    Logger::log("[DRIFT] Applying static pose lock for known drift bones...", Logger::WARNING);
+    Logger::log("[DRIFT] Applying moving average smoothing for known drift bones...", Logger::WARNING);
+
+    const int SMOOTH_RADIUS = 2; // Total window = 5
 
     for (const std::string& bone : driftBones)
     {
-        glm::vec3 meanT(0.0f);
-        glm::quat meanQ = glm::quat(1, 0, 0, 0);
-        glm::vec3 meanS(0.0f);
+        Logger::log("[DRIFT] Smoothing bone: " + bone, Logger::WARNING);
 
-        int count = 0;
-
-        // Average pose across all keyframes
-        for (const Keyframe& kf : keyframes)
+        for (int i = 0; i < N; ++i)
         {
-            if (!kf.boneTransforms.count(bone)) continue;
+            std::vector<glm::vec3> transSamples;
+            std::vector<glm::quat> rotSamples;
+            std::vector<glm::vec3> scaleSamples;
+            for (int j = std::max(0, i - SMOOTH_RADIUS); j <= std::min(int(keyframes.size() - 1), i + SMOOTH_RADIUS); ++j)
+            {
+                if (!keyframes[j].boneTransforms.count(bone))
+                    continue;
 
-            glm::vec3 scale, trans;
-            glm::quat rot;
-            glm::vec3 skew;
-            glm::vec4 persp;
+                glm::vec3 t, s;
+                glm::quat r;
+                glm::vec3 skew;
+                glm::vec4 persp;
+                glm::decompose(keyframes[j].boneTransforms[bone], s, r, t, skew, persp);
 
-            glm::decompose(kf.boneTransforms.at(bone), scale, rot, trans, skew, persp);
+                // Align hemisphere for quaternions
+                if (!rotSamples.empty() && glm::dot(rotSamples.back(), r) < 0.0f)
+                    r = -r;
 
-            meanT += trans;
-            meanS += scale;
+                transSamples.push_back(t);
+                rotSamples.push_back(r);
+                scaleSamples.push_back(s);
+            }
 
-            if (glm::dot(rot, meanQ) < 0.0f)
-                rot = -rot; // keep hemisphere aligned
+            if (transSamples.empty())
+                continue;
 
-            meanQ = glm::normalize(glm::slerp(meanQ, rot, 1.0f / float(++count)));
+            glm::vec3 meanT(0.0f), meanS(0.0f);
+            glm::quat meanR = rotSamples[0];
+
+            for (size_t k = 0; k < transSamples.size(); ++k)
+            {
+                meanT += transSamples[k];
+                meanS += scaleSamples[k];
+                meanR = glm::normalize(glm::slerp(meanR, rotSamples[k], 1.0f / float(k + 1)));
+            }
+
+            meanT /= float(transSamples.size());
+            meanS /= float(scaleSamples.size());
+
+            glm::mat4 T = glm::translate(glm::mat4(1.0f), meanT);
+            glm::mat4 R = glm::mat4_cast(meanR);
+            glm::mat4 S = glm::scale(glm::mat4(1.0f), meanS);
+
+            keyframes[i].boneTransforms[bone] = T * R * S;
         }
-
-        meanT /= float(count);
-        meanS /= float(count);
-
-        glm::mat4 lockT = glm::translate(glm::mat4(1.0f), meanT);
-        glm::mat4 lockR = glm::mat4_cast(meanQ);
-        glm::mat4 lockS = glm::scale(glm::mat4(1.0f), meanS);
-        glm::mat4 locked = lockT * lockR * lockS;
-
-        for (Keyframe& kf : keyframes)
-            if (kf.boneTransforms.count(bone))
-                kf.boneTransforms[bone] = locked;
-
+    
         Logger::log("[DRIFT] Bone '" + bone + "' locked to average pose.", Logger::WARNING);
     }
 
