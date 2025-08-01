@@ -453,25 +453,27 @@ void Animation::loadAnimation(const std::string& filePath,
             glm::decompose(currMat, scaleCurr, rotCurr, transCurr, skewCurr, perspCurr);
             glm::decompose(nextMat, scaleNext, rotNext, transNext, skewNext, perspNext);
 
-            // Frame 58 forced override
-            if (i == 58 && boneName == "DEF-thigh.L")
-            {
-                Logger::log("[FORCE OVERRIDE] Replacing rotCurr at frame 58 with rotPrev for DEF-thigh.R", Logger::WARNING);
-                rotCurr = rotPrev;
-            }
+            //// Frame 58 forced override
+            //if (i == 58 && boneName == "DEF-thigh.L")
+            //{
+            //    Logger::log("[FORCE OVERRIDE] Replacing rotCurr at frame 58 with rotPrev for DEF-thigh.R", Logger::WARNING);
+            //    rotCurr = rotPrev;
+            //}
 
-            // Frame 58 forced override
-            if (i == 58 && boneName == "DEF-thigh.L")
-            {
-                Logger::log("[FORCE OVERRIDE] Replacing rotCurr at frame 58 with rotPrev for DEF-thigh.L", Logger::WARNING);
-                rotCurr = rotPrev;
-            }
+            //// Frame 58 forced override
+            //if (i == 58 && boneName == "DEF-thigh.L")
+            //{
+            //    Logger::log("[FORCE OVERRIDE] Replacing rotCurr at frame 58 with rotPrev for DEF-thigh.L", Logger::WARNING);
+            //    rotCurr = rotPrev;
+            //}
+            //
+            //// Frame 4 forced override
 
-            if (i == 4 && boneName == "DEF-hips")
-            {
-                Logger::log("[FORCE OVERRIDE] Replacing rotCurr at frame 4 with rotPrev for DEF-hips", Logger::WARNING);
-                rotCurr = rotPrev;
-            }
+            //if (i == 4 && boneName == "DEF-hips")
+            //{
+            //    Logger::log("[FORCE OVERRIDE] Replacing rotCurr at frame 4 with rotPrev for DEF-hips", Logger::WARNING);
+            //    rotCurr = rotPrev;
+            //}
 
 
             // Hemisphere flip fix (for Jab_Head full-body flip bug)
@@ -699,7 +701,12 @@ void Animation::loadAnimation(const std::string& filePath,
         "DEF-foot.L", "DEF-foot.R",
         "DEF-hand.L", "DEF-hand.R",
         "DEF-forearm.L", "DEF-forearm.R",
-        "DEF-finger.L", "DEF-finger.R"
+        "DEF-finger.L", "DEF-finger.R",
+        "DEF-upper_arm.L", "DEF-upper_arm.R",
+        "DEF-spine", "DEF-spine.001", "DEF-spine.002",
+        "DEF-neck", "DEF-head",
+        "DEF-shoulder.L", "DEF-shoulder.R",
+        "DEF-hips"
     };
 
     Logger::log("[DRIFT] Applying moving average smoothing for known drift bones...", Logger::WARNING);
