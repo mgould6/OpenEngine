@@ -109,6 +109,15 @@ glm::mat4 Animation::interpolateMatrices(const glm::mat4& a,
 /* -------------------------------------------------------------- */
 void Animation::interpolateKeyframes(float animationTime, std::map<std::string, glm::mat4>& outPose) const
 {
+
+    static const std::unordered_set<std::string> wiggleWatchBones = {
+    "DEF-hand.L", "DEF-hand.R",
+    "DEF-forearm.L", "DEF-forearm.R",
+    "DEF-upper_arm.L", "DEF-upper_arm.R",
+    "DEF-shoulder.L", "DEF-shoulder.R",
+    "DEF-neck", "DEF-head"
+    };
+
     if (keyframes.empty())
         return;
 
@@ -180,6 +189,39 @@ void Animation::interpolateKeyframes(float animationTime, std::map<std::string, 
             mat0;
 
         glm::mat4 interp = interpolateMatrices(mat0, mat1, lerpFactor);
+
+        if (wiggleWatchBones.count(boneName)) {
+            glm::vec3 s, t, skew;
+            glm::quat r;
+            glm::vec4 persp;
+            glm::decompose(interp, s, r, t, skew, persp);
+
+
+            Logger::log("[WIGGLE-CHECK] " + boneName +
+                " | Frame " + std::to_string(startFrame) +
+                " -> " + std::to_string(endFrame) +
+                " | Pos: " + glm::to_string(t) +
+                " | Rot (quat): " + glm::to_string(glm::normalize(r)),
+                Logger::WARNING);
+
+
+            // --- Optional delta log (HIGHLY recommended) ---
+            glm::quat r0, r1;
+            glm::vec3 dummyS, dummyT, dummySkew;
+            glm::vec4 dummyPersp;
+
+            glm::decompose(mat0, dummyS, r0, dummyT, dummySkew, dummyPersp);
+            glm::decompose(mat1, dummyS, r1, dummyT, dummySkew, dummyPersp);
+
+            float angleDelta = glm::degrees(glm::angle(glm::normalize(r1) * glm::inverse(glm::normalize(r0))));
+
+            Logger::log("[WIGGLE-CHECK-DELTA] " + boneName +
+                " | Frame " + std::to_string(startFrame) +
+                " -> " + std::to_string(endFrame) +
+                " | Angle Delta: " + std::to_string(angleDelta),
+                Logger::WARNING);
+        }
+
 
         if ((startFrame >= 1 && startFrame <= 8) &&
             (boneName.find("spine") != std::string::npos ||
@@ -745,18 +787,22 @@ void Animation::loadAnimation(const std::string& filePath,
             if (transSamples.empty())
                 continue;
 
-            glm::vec3 meanT(0.0f), meanS(0.0f);
-            glm::quat meanR = rotSamples[0];
+            std::vector<float> weights = { 0.1f, 0.2f, 0.4f, 0.2f, 0.1f };
 
-            for (size_t k = 0; k < transSamples.size(); ++k)
+            glm::vec3 meanT(0.0f), meanS(0.0f);
+            glm::quat meanR = rotSamples[2]; // center
+
+            for (size_t k = 0; k < weights.size(); ++k)
             {
-                meanT += transSamples[k];
-                meanS += scaleSamples[k];
-                meanR = glm::normalize(glm::slerp(meanR, rotSamples[k], 1.0f / float(k + 1)));
+                meanT += weights[k] * transSamples[k];
+                meanS += weights[k] * scaleSamples[k];
+
+                if (glm::dot(meanR, rotSamples[k]) < 0.0f)
+                    meanR = glm::normalize(glm::slerp(meanR, -rotSamples[k], weights[k]));
+                else
+                    meanR = glm::normalize(glm::slerp(meanR, rotSamples[k], weights[k]));
             }
 
-            meanT /= float(transSamples.size());
-            meanS /= float(scaleSamples.size());
 
             glm::mat4 T = glm::translate(glm::mat4(1.0f), meanT);
             glm::mat4 R = glm::mat4_cast(meanR);
