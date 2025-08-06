@@ -592,6 +592,11 @@ void Animation::loadAnimation(const std::string& filePath,
 
 
     // === 5-frame smoothing ===
+    if (N < 5)
+    {
+        Logger::log("[DRIFT] Skipping smoothing — not enough frames (" + std::to_string(N) + ")", Logger::WARNING);
+        return;  // exits loadAnimation safely
+    }
     for (size_t i = 2; i + 2 < N; ++i)
     {
         Keyframe& prev2 = keyframes[i - 2];
@@ -755,6 +760,9 @@ void Animation::loadAnimation(const std::string& filePath,
 
     const int SMOOTH_RADIUS = 2; // Total window = 5
 
+    std::vector<float> weights = { 0.1f, 0.2f, 0.4f, 0.2f, 0.1f };
+
+
     for (const std::string& bone : driftBones)
     {
         Logger::log("[DRIFT] Smoothing bone: " + bone, Logger::WARNING);
@@ -784,8 +792,15 @@ void Animation::loadAnimation(const std::string& filePath,
                 scaleSamples.push_back(s);
             }
 
-            if (transSamples.empty())
+            if (transSamples.size() != weights.size() ||
+                rotSamples.size() != weights.size() ||
+                scaleSamples.size() != weights.size())
+            {
+                Logger::log("[DRIFT] Skipping smoothing on frame " + std::to_string(i) +
+                    " for bone: " + bone + " — insufficient sample count (" +
+                    std::to_string(rotSamples.size()) + " samples)", Logger::WARNING);
                 continue;
+            }
 
             std::vector<float> weights = { 0.1f, 0.2f, 0.4f, 0.2f, 0.1f };
 
