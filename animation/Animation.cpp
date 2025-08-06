@@ -831,6 +831,20 @@ void Animation::loadAnimation(const std::string& filePath,
         }
     }
 
+    // Final step: force final frame of Idle to match first frame exactly
+    if (name.find("Idle") != std::string::npos && keyframes.size() > 1)
+    {
+        Keyframe& first = keyframes.front();
+        Keyframe& last = keyframes.back();
+
+        for (const auto& [bone, mat] : first.boneTransforms)
+        {
+            last.boneTransforms[bone] = mat;
+        }
+
+        Logger::log("[LOOP FIX] Idle final frame matched to first for seamless loop", Logger::WARNING);
+    }
+
     loaded = true;
     Logger::log("Loaded clip '" + filePath + "' fps=" +
         std::to_string(ticksPerSecond), Logger::INFO);
