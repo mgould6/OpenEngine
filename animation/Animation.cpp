@@ -128,19 +128,7 @@ void Animation::interpolateKeyframes(float animationTime, std::map<std::string, 
         return;
     }
 
-    // DEBUG OVERRIDE: Force hold-frame playback at frame 5
-    if (keyframes.size() > 6)
-    {
-        float t5 = keyframes[5].time;
-        float t6 = keyframes[6].time;
 
-        if (animationTime >= t5 && animationTime < t6)
-        {
-            outPose = keyframes[5].boneTransforms;
-            Logger::log("[DEBUG] Forcing direct frame 5 playback", Logger::WARNING);
-            return;
-        }
-    }
 
 
     // Find keyframes to interpolate between
@@ -739,6 +727,56 @@ void Animation::loadAnimation(const std::string& filePath,
             Logger::log("[DRIFT] Bone: " + boneName + " has consistent low-energy jitter across " +
                 std::to_string(positions.size()) + " frames.", Logger::WARNING);
         }
+
+        static const std::unordered_set<std::string> lockCandidates = {
+            "DEF-finger.L", "DEF-finger.R",
+            "DEF-heel.L", "DEF-heel.R"
+        };
+
+        if (allLowVariance && lockCandidates.count(boneName))
+        {
+            Logger::log("[DRIFT] Locking bone '" + boneName + "' to static pose (avg position)", Logger::WARNING);
+
+            // Compute average pose
+            glm::vec3 avgT(0.0f), avgS(0.0f);
+            glm::quat avgR = glm::quat(1, 0, 0, 0);  // identity
+            int count = 0;
+
+            for (const Keyframe& kf : keyframes)
+            {
+                if (!kf.boneTransforms.count(boneName))
+                    continue;
+
+                glm::vec3 t, s, skew;
+                glm::quat r;
+                glm::vec4 persp;
+                glm::decompose(kf.boneTransforms.at(boneName), s, r, t, skew, persp);
+
+                if (count == 0)
+                    avgR = r;
+                else if (glm::dot(avgR, r) < 0.0f)
+                    r = -r;
+
+                avgT += t;
+                avgS += s;
+                avgR = glm::normalize(glm::slerp(avgR, r, 1.0f / float(count + 1)));
+
+                ++count;
+            }
+
+            avgT /= float(count);
+            avgS /= float(count);
+
+            glm::mat4 T = glm::translate(glm::mat4(1.0f), avgT);
+            glm::mat4 R = glm::mat4_cast(avgR);
+            glm::mat4 S = glm::scale(glm::mat4(1.0f), avgS);
+            glm::mat4 lockedPose = T * R * S;
+
+            // Apply to all frames
+            for (Keyframe& kf : keyframes)
+                kf.boneTransforms[boneName] = lockedPose;
+        }
+
     }
 
     const std::unordered_set<std::string> driftBones = {
@@ -756,15 +794,28 @@ void Animation::loadAnimation(const std::string& filePath,
         "DEF-hips"
     };
 
+    const std::unordered_set<std::string> smoothingWhitelist = {
+        "DEF-thigh.L", "DEF-thigh.R",
+        "DEF-shin.L", "DEF-shin.R",
+        "DEF-forearm.L", "DEF-forearm.R",
+        "DEF-upper_arm.L", "DEF-upper_arm.R",
+        "DEF-spine", "DEF-spine.001", "DEF-spine.002",
+        "DEF-neck", "DEF-head"
+    };
+
     Logger::log("[DRIFT] Applying moving average smoothing for known drift bones...", Logger::WARNING);
 
     const int SMOOTH_RADIUS = 2; // Total window = 5
-
     std::vector<float> weights = { 0.1f, 0.2f, 0.4f, 0.2f, 0.1f };
-
 
     for (const std::string& bone : driftBones)
     {
+        if (!smoothingWhitelist.count(bone))
+        {
+            Logger::log("[DRIFT] Skipping bone (not whitelisted for smoothing): " + bone, Logger::DEBUG);
+            continue;
+        }
+
         Logger::log("[DRIFT] Smoothing bone: " + bone, Logger::WARNING);
 
         for (int i = 0; i < N; ++i)
@@ -772,18 +823,17 @@ void Animation::loadAnimation(const std::string& filePath,
             std::vector<glm::vec3> transSamples;
             std::vector<glm::quat> rotSamples;
             std::vector<glm::vec3> scaleSamples;
+
             for (int j = std::max(0, i - SMOOTH_RADIUS); j <= std::min(int(keyframes.size() - 1), i + SMOOTH_RADIUS); ++j)
             {
                 if (!keyframes[j].boneTransforms.count(bone))
                     continue;
 
-                glm::vec3 t, s;
+                glm::vec3 t, s, skew;
                 glm::quat r;
-                glm::vec3 skew;
                 glm::vec4 persp;
                 glm::decompose(keyframes[j].boneTransforms[bone], s, r, t, skew, persp);
 
-                // Align hemisphere for quaternions
                 if (!rotSamples.empty() && glm::dot(rotSamples.back(), r) < 0.0f)
                     r = -r;
 
@@ -802,8 +852,6 @@ void Animation::loadAnimation(const std::string& filePath,
                 continue;
             }
 
-            std::vector<float> weights = { 0.1f, 0.2f, 0.4f, 0.2f, 0.1f };
-
             glm::vec3 meanT(0.0f), meanS(0.0f);
             glm::quat meanR = rotSamples[2]; // center
 
@@ -818,17 +866,13 @@ void Animation::loadAnimation(const std::string& filePath,
                     meanR = glm::normalize(glm::slerp(meanR, rotSamples[k], weights[k]));
             }
 
-
             glm::mat4 T = glm::translate(glm::mat4(1.0f), meanT);
             glm::mat4 R = glm::mat4_cast(meanR);
             glm::mat4 S = glm::scale(glm::mat4(1.0f), meanS);
 
             keyframes[i].boneTransforms[bone] = T * R * S;
         }
-    
-        Logger::log("[DRIFT] Bone '" + bone + "' locked to average pose.", Logger::WARNING);
     }
-
 
 
 
