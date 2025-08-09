@@ -257,6 +257,9 @@ static bool matNearlyEqual(const glm::mat4& a,
 void Animation::loadAnimation(const std::string& filePath,
     const Model* model)
 {
+    // Ensure the model is assigned prior to baking. 
+    modelRef = model;
+
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(
         filePath,
@@ -506,6 +509,9 @@ void Animation::loadAnimation(const std::string& filePath,
             //}
 
 
+            // Step 2: Continue with hemisphere correction, drift detection, smoothing, etc.
+
+
             // Hemisphere flip fix (for Jab_Head full-body flip bug)
             if (glm::dot(rotPrev, rotCurr) < 0.0f && glm::dot(rotNext, rotCurr) < 0.0f)
             {
@@ -579,6 +585,11 @@ void Animation::loadAnimation(const std::string& filePath,
     }
 
 
+    // Step 1: Bake to dense 60 FPS timeline
+    bakeDenseKeyframes(60.0f);
+
+
+
     // === 5-frame smoothing ===
     if (N < 5)
     {
@@ -634,50 +645,50 @@ void Animation::loadAnimation(const std::string& filePath,
     }
 
     // === Specific root patch: Jab_Head, frame 5 ===
-    if (name.find("Jab_Head") != std::string::npos && N > 6)
-    {
-        const std::string rootBone = "DEF-hips";
-        Keyframe& prev = keyframes[4];
-        Keyframe& curr = keyframes[5];
-        Keyframe& next = keyframes[6];
+    //if (name.find("Jab_Head") != std::string::npos && N > 6)
+    //{
+    //    const std::string rootBone = "DEF-hips";
+    //    Keyframe& prev = keyframes[4];
+    //    Keyframe& curr = keyframes[5];
+    //    Keyframe& next = keyframes[6];
 
-        if (prev.boneTransforms.count(rootBone) &&
-            curr.boneTransforms.count(rootBone) &&
-            next.boneTransforms.count(rootBone))
-        {
-            glm::mat4 matPrev = prev.boneTransforms[rootBone];
-            glm::mat4 matCurr = curr.boneTransforms[rootBone];
-            glm::mat4 matNext = next.boneTransforms[rootBone];
+    //    if (prev.boneTransforms.count(rootBone) &&
+    //        curr.boneTransforms.count(rootBone) &&
+    //        next.boneTransforms.count(rootBone))
+    //    {
+    //        glm::mat4 matPrev = prev.boneTransforms[rootBone];
+    //        glm::mat4 matCurr = curr.boneTransforms[rootBone];
+    //        glm::mat4 matNext = next.boneTransforms[rootBone];
 
-            glm::vec3 s1, s2, s3;
-            glm::quat q1, q2, q3;
-            glm::vec3 t1, t2, t3;
-            glm::vec3 skew;
-            glm::vec4 persp;
+    //        glm::vec3 s1, s2, s3;
+    //        glm::quat q1, q2, q3;
+    //        glm::vec3 t1, t2, t3;
+    //        glm::vec3 skew;
+    //        glm::vec4 persp;
 
-            glm::decompose(matPrev, s1, q1, t1, skew, persp);
-            glm::decompose(matCurr, s2, q2, t2, skew, persp);
-            glm::decompose(matNext, s3, q3, t3, skew, persp);
+    //        glm::decompose(matPrev, s1, q1, t1, skew, persp);
+    //        glm::decompose(matCurr, s2, q2, t2, skew, persp);
+    //        glm::decompose(matNext, s3, q3, t3, skew, persp);
 
-            if (glm::dot(q1, q3) < 0.0f)
-                q3 = -q3;
+    //        if (glm::dot(q1, q3) < 0.0f)
+    //            q3 = -q3;
 
-            float dPrev = glm::degrees(glm::angle(glm::normalize(q2) * glm::inverse(q1)));
-            float dNext = glm::degrees(glm::angle(glm::normalize(q2) * glm::inverse(q3)));
-            float dSpan = glm::degrees(glm::angle(glm::normalize(q1) * glm::inverse(q3)));
+    //        float dPrev = glm::degrees(glm::angle(glm::normalize(q2) * glm::inverse(q1)));
+    //        float dNext = glm::degrees(glm::angle(glm::normalize(q2) * glm::inverse(q3)));
+    //        float dSpan = glm::degrees(glm::angle(glm::normalize(q1) * glm::inverse(q3)));
 
-            if (dPrev > 90.0f && dNext > 90.0f && dSpan < 5.0f)
-            {
-                glm::quat smoothed = glm::slerp(q1, q3, 0.5f);
-                glm::mat4 T = glm::translate(glm::mat4(1.0f), t2);
-                glm::mat4 R = glm::mat4_cast(smoothed);
-                glm::mat4 S = glm::scale(glm::mat4(1.0f), s2);
-                curr.boneTransforms[rootBone] = T * R * S;
+    //        if (dPrev > 90.0f && dNext > 90.0f && dSpan < 5.0f)
+    //        {
+    //            glm::quat smoothed = glm::slerp(q1, q3, 0.5f);
+    //            glm::mat4 T = glm::translate(glm::mat4(1.0f), t2);
+    //            glm::mat4 R = glm::mat4_cast(smoothed);
+    //            glm::mat4 S = glm::scale(glm::mat4(1.0f), s2);
+    //            curr.boneTransforms[rootBone] = T * R * S;
 
-                Logger::log("[PATCHED ROOT ROT FLIP] " + rootBone + " at frame 5 in Jab_Head", Logger::WARNING);
-            }
-        }
-    }
+    //            Logger::log("[PATCHED ROOT ROT FLIP] " + rootBone + " at frame 5 in Jab_Head", Logger::WARNING);
+    //        }
+    //    }
+    //}
 
 
 
@@ -998,4 +1009,61 @@ glm::mat4 Animation::getLocalMatrixAtTime(const std::string& bone,
             clipDurationSecs) / span : 0.0f;
 
     return interpolateMatrices(A, B, factor);
+}
+
+void Animation::bakeDenseKeyframes(float targetFPS)
+{
+
+    if (!modelRef)
+    {
+        Logger::log("[BAKE] ERROR: modelRef is null — cannot bake keyframes", Logger::ERROR);
+        return;
+    }
+
+    if (keyframes.empty() || targetFPS <= 0.0f)
+        return;
+
+    Logger::log("[BAKE] Starting dense bake at " + std::to_string((int)targetFPS) + " FPS", Logger::WARNING);
+
+    // Determine duration in seconds from the last keyframe
+    float durationSecs = keyframes.back().time;
+    if (durationSecs <= 0.0f)
+    {
+        Logger::log("[BAKE] Invalid animation duration — skipping bake", Logger::ERROR);
+        return;
+    }
+
+    // New baked keyframe list
+    std::vector<Keyframe> bakedFrames;
+
+    // Number of baked frames at targetFPS
+    int totalFrames = static_cast<int>(std::ceil(durationSecs * targetFPS));
+
+    bakedFrames.reserve(totalFrames);
+
+    for (int frameIdx = 0; frameIdx <= totalFrames; ++frameIdx)
+    {
+        float currentTime = (frameIdx / targetFPS);
+
+        // Wrap time if needed
+        if (currentTime > durationSecs)
+            currentTime = durationSecs;
+
+        // Use your existing interpolateKeyframes logic to get the pose at this exact time
+        std::map<std::string, glm::mat4> bakedPose;
+
+        interpolateKeyframes(currentTime, bakedPose);
+
+        Keyframe bakedKF;
+        bakedKF.time = currentTime;
+        bakedKF.boneTransforms = std::move(bakedPose);
+
+        bakedFrames.push_back(std::move(bakedKF));
+    }
+
+    // Replace original keyframes with baked ones
+    keyframes.swap(bakedFrames);
+
+    Logger::log("[BAKE] Dense bake complete: " + std::to_string(keyframes.size()) + " frames at " +
+        std::to_string((int)targetFPS) + " FPS", Logger::WARNING);
 }

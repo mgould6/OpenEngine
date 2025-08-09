@@ -69,6 +69,10 @@ private:
 
     const Model* modelRef = nullptr;
 
+    void bakeDenseKeyframes(float targetFPS);
+    void suppressPostBakeJitter(float transThreshold, float rotThresholdDeg, int smoothRadius);
+
+
 };
 
 #endif /* ANIMATION_H */
