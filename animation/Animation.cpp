@@ -587,6 +587,7 @@ void Animation::loadAnimation(const std::string& filePath,
 
     // Step 1: Bake to dense 60 FPS timeline
     bakeDenseKeyframes(60.0f);
+    suppressPostBakeJitter(0.003f, 1.5f, 2);
 
 
 
@@ -1066,4 +1067,94 @@ void Animation::bakeDenseKeyframes(float targetFPS)
 
     Logger::log("[BAKE] Dense bake complete: " + std::to_string(keyframes.size()) + " frames at " +
         std::to_string((int)targetFPS) + " FPS", Logger::WARNING);
+}
+
+
+void Animation::suppressPostBakeJitter(float transThreshold, float rotThresholdDeg, int smoothRadius)
+{
+    if (keyframes.empty())
+        return;
+
+    Logger::log("[JITTER] Starting post-bake jitter suppression...", Logger::WARNING);
+
+    const size_t N = keyframes.size();
+    const float rotThresholdRad = glm::radians(rotThresholdDeg);
+
+    for (const auto& [boneName, _] : keyframes.front().boneTransforms)
+    {
+        for (size_t i = 0; i < N; ++i)
+        {
+            std::vector<glm::vec3> transSamples;
+            std::vector<glm::quat> rotSamples;
+            std::vector<glm::vec3> scaleSamples;
+
+            for (int j = static_cast<int>(i) - smoothRadius; j <= static_cast<int>(i) + smoothRadius; ++j)
+            {
+                if (j < 0 || j >= static_cast<int>(N))
+                    continue;
+
+                const auto& poseMap = keyframes[j].boneTransforms;
+                auto it = poseMap.find(boneName);
+                if (it == poseMap.end())
+                    continue;
+
+                glm::vec3 t, s;
+                glm::quat r;
+                glm::vec3 skew;
+                glm::vec4 persp;
+                glm::decompose(it->second, s, r, t, skew, persp);
+
+                if (!rotSamples.empty() && glm::dot(rotSamples.back(), r) < 0.0f)
+                    r = -r; // hemisphere align
+
+                transSamples.push_back(t);
+                rotSamples.push_back(r);
+                scaleSamples.push_back(s);
+            }
+
+            if (transSamples.empty() || rotSamples.empty())
+                continue;
+
+            // Compute deltas vs. center frame
+            glm::vec3 tCenter, sCenter;
+            glm::quat rCenter;
+            {
+                glm::vec3 skew;
+                glm::vec4 persp;
+                glm::decompose(keyframes[i].boneTransforms[boneName], sCenter, rCenter, tCenter, skew, persp);
+            }
+
+            float transDelta = glm::length(tCenter - transSamples[smoothRadius]);
+            float rotDelta = std::acos(glm::min(1.0f, glm::abs(glm::dot(rCenter, rotSamples[smoothRadius])))) * 2.0f;
+
+            // If both below threshold, smooth this frame
+            if (transDelta < transThreshold && rotDelta < rotThresholdRad)
+            {
+                glm::vec3 meanT(0.0f), meanS(0.0f);
+                glm::quat meanR = rotSamples[smoothRadius]; // center
+
+                float weight = 1.0f / static_cast<float>(transSamples.size());
+                for (size_t k = 0; k < transSamples.size(); ++k)
+                {
+                    meanT += transSamples[k] * weight;
+                    meanS += scaleSamples[k] * weight;
+
+                    if (glm::dot(meanR, rotSamples[k]) < 0.0f)
+                        meanR = glm::normalize(glm::slerp(meanR, -rotSamples[k], weight));
+                    else
+                        meanR = glm::normalize(glm::slerp(meanR, rotSamples[k], weight));
+                }
+
+                glm::mat4 T = glm::translate(glm::mat4(1.0f), meanT);
+                glm::mat4 R = glm::mat4_cast(meanR);
+                glm::mat4 S = glm::scale(glm::mat4(1.0f), meanS);
+
+                keyframes[i].boneTransforms[boneName] = T * R * S;
+
+                Logger::log("[JITTER] Smoothed bone: " + boneName + " @frame=" + std::to_string(i), Logger::WARNING);
+            }
+        }
+    }
+
+    Logger::log("[JITTER] Suppression complete.", Logger::WARNING);
 }
