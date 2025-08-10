@@ -555,10 +555,26 @@ void Animation::loadAnimation(const std::string& filePath,
                     "' at frame " + std::to_string(i), Logger::WARNING);
             }
 
+            // === Generalized translation clamp: suppress jitter across all frames ===
             if (isMiddleSpike || isIsolatedJump || isSmallNoise)
             {
-                Logger::log("[DEBUG: Candidate for Clamp] Bone " + boneName + " @frame=" + std::to_string(i), Logger::WARNING);
+                Logger::log(
+                    "[PRE-BAKE-CLAMP] Bone=" + boneName +
+                    " Frame=" + std::to_string(i) +
+                    " (Translation/Rotation spike suppressed in loadAnimation)",
+                    Logger::WARNING
+                );
+
+                glm::quat rotSmoothed = glm::normalize(glm::slerp(rotPrev, rotNext, 0.5f));
+                glm::vec3 transSmoothed = (transPrev + transNext) * 0.5f;
+                glm::mat4 smoothedMat = glm::translate(glm::mat4(1.0f), transSmoothed) *
+                    glm::mat4_cast(rotSmoothed) *
+                    glm::scale(glm::mat4(1.0f), scaleCurr);
+
+                // Update the bone transform map instead of assigning to a const ref
+                curr.boneTransforms[boneName] = smoothedMat;
             }
+
 
             if (shouldClamp)
             {
@@ -587,7 +603,8 @@ void Animation::loadAnimation(const std::string& filePath,
 
     // Step 1: Bake to dense 60 FPS timeline
     bakeDenseKeyframes(60.0f);
-    suppressPostBakeJitter(0.003f, 1.5f, 2);
+    suppressPostBakeJitter(name, 0.0001f, 0.1f, 2);
+
 
 
 
@@ -1070,91 +1087,138 @@ void Animation::bakeDenseKeyframes(float targetFPS)
 }
 
 
-void Animation::suppressPostBakeJitter(float transThreshold, float rotThresholdDeg, int smoothRadius)
+void Animation::suppressPostBakeJitter(const std::string& animName, float defaultTransThreshold, float defaultRotThresholdDeg, int smoothRadius)
+
 {
-    if (keyframes.empty())
+
+    Logger::log("[DEBUG] suppressPostBakeJitter CALLED for Anim=" + animName, Logger::WARNING);
+
+    if (keyframes.size() < 3)
         return;
 
-    Logger::log("[JITTER] Starting post-bake jitter suppression...", Logger::WARNING);
+    struct BoneThresholds
+    {
+        float trans;
+        float rot; // degrees
+    };
+
+    // === Per-bone threshold map ===
+    static const std::unordered_map<std::string, BoneThresholds> thresholds = {
+        // --- Very strict (idle-prone) ---
+        {"DEF-hand.L",     {0.001f, 0.5f}},
+        {"DEF-hand.R",     {0.001f, 0.5f}},
+        {"DEF-forearm.L",  {0.0015f, 0.75f}},
+        {"DEF-forearm.R",  {0.0015f, 0.75f}},
+        {"DEF-foot.L",     {0.0015f, 0.75f}},
+        {"DEF-foot.R",     {0.0015f, 0.75f}},
+        {"DEF-head",       {0.001f, 0.5f}},
+        {"DEF-spine",      {0.0015f, 0.75f}},
+        {"DEF-spine.001",  {0.0015f, 0.75f}},
+        {"DEF-spine.002",  {0.0015f, 0.75f}},
+
+        // --- Moderate ---
+        {"DEF-upper_arm.L", {0.003f, 1.5f}},
+        {"DEF-upper_arm.R", {0.003f, 1.5f}},
+        {"DEF-thigh.L",     {0.0035f, 2.0f}},
+        {"DEF-thigh.R",     {0.0035f, 2.0f}},
+
+        // --- Looser (high motion) ---
+        {"DEF-shin.L",     {0.004f, 2.5f}},
+        {"DEF-shin.R",     {0.004f, 2.5f}},
+        {"DEF-hips",       {0.004f, 2.5f}}
+    };
 
     const size_t N = keyframes.size();
-    const float rotThresholdRad = glm::radians(rotThresholdDeg);
 
-    for (const auto& [boneName, _] : keyframes.front().boneTransforms)
+    for (size_t i = 1; i + 1 < N; ++i)
     {
-        for (size_t i = 0; i < N; ++i)
+        Keyframe& prev = keyframes[i - 1];
+        Keyframe& curr = keyframes[i];
+        Keyframe& next = keyframes[i + 1];
+
+        for (auto& [boneName, currMat] : curr.boneTransforms)
         {
-            std::vector<glm::vec3> transSamples;
-            std::vector<glm::quat> rotSamples;
-            std::vector<glm::vec3> scaleSamples;
-
-            for (int j = static_cast<int>(i) - smoothRadius; j <= static_cast<int>(i) + smoothRadius; ++j)
-            {
-                if (j < 0 || j >= static_cast<int>(N))
-                    continue;
-
-                const auto& poseMap = keyframes[j].boneTransforms;
-                auto it = poseMap.find(boneName);
-                if (it == poseMap.end())
-                    continue;
-
-                glm::vec3 t, s;
-                glm::quat r;
-                glm::vec3 skew;
-                glm::vec4 persp;
-                glm::decompose(it->second, s, r, t, skew, persp);
-
-                if (!rotSamples.empty() && glm::dot(rotSamples.back(), r) < 0.0f)
-                    r = -r; // hemisphere align
-
-                transSamples.push_back(t);
-                rotSamples.push_back(r);
-                scaleSamples.push_back(s);
-            }
-
-            if (transSamples.empty() || rotSamples.empty())
+            if (!prev.boneTransforms.count(boneName) || !next.boneTransforms.count(boneName))
                 continue;
 
-            // Compute deltas vs. center frame
-            glm::vec3 tCenter, sCenter;
-            glm::quat rCenter;
+            // Get bone-specific thresholds or default
+            auto it = thresholds.find(boneName);
+            float transThreshold = (it != thresholds.end()) ? it->second.trans : defaultTransThreshold;
+            float rotThresholdDeg = (it != thresholds.end()) ? it->second.rot : defaultRotThresholdDeg;
+
+            const glm::mat4& prevMat = prev.boneTransforms[boneName];
+            const glm::mat4& nextMat = next.boneTransforms[boneName];
+
+            glm::vec3 scalePrev, transPrev, skewPrev;
+            glm::quat rotPrev;
+            glm::vec4 perspPrev;
+            glm::decompose(prevMat, scalePrev, rotPrev, transPrev, skewPrev, perspPrev);
+
+            glm::vec3 scaleCurr, transCurr, skewCurr;
+            glm::quat rotCurr;
+            glm::vec4 perspCurr;
+            glm::decompose(currMat, scaleCurr, rotCurr, transCurr, skewCurr, perspCurr);
+
+            glm::vec3 scaleNext, transNext, skewNext;
+            glm::quat rotNext;
+            glm::vec4 perspNext;
+            glm::decompose(nextMat, scaleNext, rotNext, transNext, skewNext, perspNext);
+
+            // Hemisphere align before measuring
+            if (glm::dot(rotPrev, rotCurr) < 0.0f) rotCurr = -rotCurr;
+            if (glm::dot(rotNext, rotCurr) < 0.0f) rotCurr = -rotCurr;
+
+            float transDeltaPrev = glm::length(transCurr - transPrev);
+            float transDeltaNext = glm::length(transCurr - transNext);
+
+            float rotDeltaPrev = glm::degrees(glm::angle(glm::normalize(glm::inverse(rotPrev) * rotCurr)));
+            float rotDeltaNext = glm::degrees(glm::angle(glm::normalize(glm::inverse(rotNext) * rotCurr)));
+
+            bool transSmall = (transDeltaPrev < transThreshold && transDeltaNext < transThreshold);
+            bool rotSmall = (rotDeltaPrev < rotThresholdDeg && rotDeltaNext < rotThresholdDeg);
+
+            Logger::log("[DEBUG-JITTER] Anim=" + animName +
+                " Bone=" + boneName +
+                " Frame=" + std::to_string(i),
+                Logger::WARNING);
+            if (transSmall && rotSmall)
             {
-                glm::vec3 skew;
-                glm::vec4 persp;
-                glm::decompose(keyframes[i].boneTransforms[boneName], sCenter, rCenter, tCenter, skew, persp);
+                // Engine log for human-readable debugging
+                Logger::log(
+                    "[JITTER-SMOOTH] Anim=" + animName +
+                    " Bone=" + boneName +
+                    " Frame=" + std::to_string(i) +
+                    " tDeltaPrev=" + std::to_string(transDeltaPrev) +
+                    " tDeltaNext=" + std::to_string(transDeltaNext) +
+                    " rDeltaPrev=" + std::to_string(rotDeltaPrev) +
+                    " rDeltaNext=" + std::to_string(rotDeltaNext) +
+                    " (Thresholds: t=" + std::to_string(transThreshold) +
+                    " r=" + std::to_string(rotThresholdDeg) + ")",
+                    Logger::WARNING
+                );
+
+                // Raw line for Python parser (no severity prefix, no timestamps)
+                std::cout << "[JITTER-SMOOTH] "
+                    << animName << " "
+                    << boneName << " "
+                    << i << " "
+                    << transDeltaPrev << " "
+                    << transDeltaNext << " "
+                    << rotDeltaPrev << " "
+                    << rotDeltaNext
+                    << std::endl;
+
+                // Apply smoothing clamp
+                glm::quat rotSmoothed = glm::normalize(glm::slerp(rotPrev, rotNext, 0.5f));
+                glm::vec3 transSmoothed = (transPrev + transNext) * 0.5f;
+                glm::mat4 smoothedMat = glm::translate(glm::mat4(1.0f), transSmoothed) *
+                    glm::mat4_cast(rotSmoothed) *
+                    glm::scale(glm::mat4(1.0f), scaleCurr);
+                currMat = smoothedMat;
             }
 
-            float transDelta = glm::length(tCenter - transSamples[smoothRadius]);
-            float rotDelta = std::acos(glm::min(1.0f, glm::abs(glm::dot(rCenter, rotSamples[smoothRadius])))) * 2.0f;
 
-            // If both below threshold, smooth this frame
-            if (transDelta < transThreshold && rotDelta < rotThresholdRad)
-            {
-                glm::vec3 meanT(0.0f), meanS(0.0f);
-                glm::quat meanR = rotSamples[smoothRadius]; // center
 
-                float weight = 1.0f / static_cast<float>(transSamples.size());
-                for (size_t k = 0; k < transSamples.size(); ++k)
-                {
-                    meanT += transSamples[k] * weight;
-                    meanS += scaleSamples[k] * weight;
-
-                    if (glm::dot(meanR, rotSamples[k]) < 0.0f)
-                        meanR = glm::normalize(glm::slerp(meanR, -rotSamples[k], weight));
-                    else
-                        meanR = glm::normalize(glm::slerp(meanR, rotSamples[k], weight));
-                }
-
-                glm::mat4 T = glm::translate(glm::mat4(1.0f), meanT);
-                glm::mat4 R = glm::mat4_cast(meanR);
-                glm::mat4 S = glm::scale(glm::mat4(1.0f), meanS);
-
-                keyframes[i].boneTransforms[boneName] = T * R * S;
-
-                Logger::log("[JITTER] Smoothed bone: " + boneName + " @frame=" + std::to_string(i), Logger::WARNING);
-            }
         }
     }
-
-    Logger::log("[JITTER] Suppression complete.", Logger::WARNING);
 }

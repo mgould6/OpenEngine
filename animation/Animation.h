@@ -70,7 +70,11 @@ private:
     const Model* modelRef = nullptr;
 
     void bakeDenseKeyframes(float targetFPS);
-    void suppressPostBakeJitter(float transThreshold, float rotThresholdDeg, int smoothRadius);
+    void suppressPostBakeJitter(const std::string& animName,
+        float transThreshold,
+        float rotThresholdDeg,
+        int windowSize);
+
 
 
 };
