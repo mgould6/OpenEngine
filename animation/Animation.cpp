@@ -603,7 +603,7 @@ void Animation::loadAnimation(const std::string& filePath,
 
     // Step 1: Bake to dense 60 FPS timeline
     bakeDenseKeyframes(60.0f);
-    suppressPostBakeJitter(name, 0.0001f, 0.1f, 2);
+    suppressPostBakeJitter(name, 0.002f, 0.35f, 2);
 
 
 
