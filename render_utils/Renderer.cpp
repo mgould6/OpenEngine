@@ -510,9 +510,9 @@ void Renderer::RenderImGui()
     /* 1. Clip names and file paths */
     static const char* animNames[] = { "Idle", "Jab_Head", "Stance1" };
     static const char* animFiles[] = {
+        "animations/Idle.fbx",
         "animations/Jab_Head.fbx"
         "animations/Stance1.fbx",
-        "animations/Idle.fbx",
     };
 
     /* 2. Track current vs. previous selection */

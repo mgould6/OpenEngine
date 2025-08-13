@@ -70,10 +70,17 @@ private:
     const Model* modelRef = nullptr;
 
     void bakeDenseKeyframes(float targetFPS);
-    void suppressPostBakeJitter(const std::string& animName,
-        float transThreshold,
-        float rotThresholdDeg,
-        int windowSize);
+    void suppressPostBakeJitter();
+
+
+    struct JitterProfile {
+        float t;          // translation threshold (meters)
+        float rDeg;       // rotation threshold (degrees)
+        int   window;     // smoothing window radius
+    };
+
+    JitterProfile getProfileFor(const std::string& animName,
+        const std::string& boneName) const;
 
 
 

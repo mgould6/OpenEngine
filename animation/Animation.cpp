@@ -16,6 +16,11 @@
 #include <cmath>
 #include <glm/gtx/string_cast.hpp>
 
+#include <fstream>      // for std::ofstream
+#include <filesystem>   // for std::filesystem
+#include <string>       // for std::string
+
+
 Animation::Animation(const std::string& filePath,
     const Model* model)
     : name(filePath), modelRef(model)
@@ -603,7 +608,13 @@ void Animation::loadAnimation(const std::string& filePath,
 
     // Step 1: Bake to dense 60 FPS timeline
     bakeDenseKeyframes(60.0f);
-    suppressPostBakeJitter(name, 0.002f, 0.35f, 2);
+
+    animatedBones.clear();
+    for (const auto& [bone, _] : keyframes.front().boneTransforms)
+        animatedBones.push_back(bone);
+
+    suppressPostBakeJitter();
+
 
 
 
@@ -1086,139 +1097,140 @@ void Animation::bakeDenseKeyframes(float targetFPS)
         std::to_string((int)targetFPS) + " FPS", Logger::WARNING);
 }
 
-
-void Animation::suppressPostBakeJitter(const std::string& animName, float defaultTransThreshold, float defaultRotThresholdDeg, int smoothRadius)
-
+void Animation::suppressPostBakeJitter()
 {
-
-    Logger::log("[DEBUG] suppressPostBakeJitter CALLED for Anim=" + animName, Logger::WARNING);
-
-    if (keyframes.size() < 3)
-        return;
-
-    struct BoneThresholds
-    {
-        float trans;
-        float rot; // degrees
-    };
-
-    // === Per-bone threshold map ===
-    static const std::unordered_map<std::string, BoneThresholds> thresholds = {
-        // --- Very strict (idle-prone) ---
-        {"DEF-hand.L",     {0.001f, 0.5f}},
-        {"DEF-hand.R",     {0.001f, 0.5f}},
-        {"DEF-forearm.L",  {0.0015f, 0.75f}},
-        {"DEF-forearm.R",  {0.0015f, 0.75f}},
-        {"DEF-foot.L",     {0.0015f, 0.75f}},
-        {"DEF-foot.R",     {0.0015f, 0.75f}},
-        {"DEF-head",       {0.001f, 0.5f}},
-        {"DEF-spine",      {0.0015f, 0.75f}},
-        {"DEF-spine.001",  {0.0015f, 0.75f}},
-        {"DEF-spine.002",  {0.0015f, 0.75f}},
-
-        // --- Moderate ---
-        {"DEF-upper_arm.L", {0.003f, 1.5f}},
-        {"DEF-upper_arm.R", {0.003f, 1.5f}},
-        {"DEF-thigh.L",     {0.0035f, 2.0f}},
-        {"DEF-thigh.R",     {0.0035f, 2.0f}},
-
-        // --- Looser (high motion) ---
-        {"DEF-shin.L",     {0.004f, 2.5f}},
-        {"DEF-shin.R",     {0.004f, 2.5f}},
-        {"DEF-hips",       {0.004f, 2.5f}}
-    };
-
     const size_t N = keyframes.size();
+    if (N < 3) return;
 
-    for (size_t i = 1; i + 1 < N; ++i)
+    for (const std::string& boneName : animatedBones)
     {
-        Keyframe& prev = keyframes[i - 1];
-        Keyframe& curr = keyframes[i];
-        Keyframe& next = keyframes[i + 1];
+        JitterProfile prof = getProfileFor(this->name, boneName);
+        float tThr = prof.t;
+        float rThr = prof.rDeg;
+        int win = prof.window;
 
-        for (auto& [boneName, currMat] : curr.boneTransforms)
+        // Open log file ONCE for this bone in this animation
+        std::ofstream animLog("logs/" + this->name + ".log", std::ios::app);
+
+        // Print animation start header
+        animLog << "[ANIM START] " << this->name << std::endl;
+
+        for (size_t i = 1; i + 1 < N; ++i)
         {
-            if (!prev.boneTransforms.count(boneName) || !next.boneTransforms.count(boneName))
+            glm::mat4 prevMat = keyframes[i - 1].boneTransforms[boneName];
+            glm::mat4 currMat = keyframes[i].boneTransforms[boneName];
+            glm::mat4 nextMat = keyframes[i + 1].boneTransforms[boneName];
+
+            glm::vec3 transPrev(prevMat[3]);
+            glm::vec3 transCurr(currMat[3]);
+            glm::vec3 transNext(nextMat[3]);
+
+            float tDeltaPrev = glm::length(transCurr - transPrev);
+            float tDeltaNext = glm::length(transCurr - transNext);
+
+            glm::quat rotPrev = glm::quat_cast(prevMat);
+            glm::quat rotCurr = glm::quat_cast(currMat);
+            glm::quat rotNext = glm::quat_cast(nextMat);
+
+            float rDeltaPrevDeg = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(glm::normalize(rotPrev))));
+            float rDeltaNextDeg = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(glm::normalize(rotNext))));
+
+            bool isIsolatedSpike = (tDeltaPrev > tThr || rDeltaPrevDeg > rThr) &&
+                (tDeltaNext > tThr || rDeltaNextDeg > rThr);
+
+            float tSpan = glm::length(transNext - transPrev);
+            float rSpanDeg = glm::degrees(glm::angle(glm::normalize(rotNext) * glm::inverse(glm::normalize(rotPrev))));
+            bool neighborsAgree = (tSpan < 0.5f * tThr) && (rSpanDeg < 0.5f * rThr);
+
+            if (!isIsolatedSpike || neighborsAgree)
                 continue;
 
-            // Get bone-specific thresholds or default
-            auto it = thresholds.find(boneName);
-            float transThreshold = (it != thresholds.end()) ? it->second.trans : defaultTransThreshold;
-            float rotThresholdDeg = (it != thresholds.end()) ? it->second.rot : defaultRotThresholdDeg;
+            glm::vec3 smoothedTrans = 0.5f * (transPrev + transNext);
+            glm::quat smoothedRot = glm::slerp(rotPrev, rotNext, 0.5f);
 
-            const glm::mat4& prevMat = prev.boneTransforms[boneName];
-            const glm::mat4& nextMat = next.boneTransforms[boneName];
+            glm::mat4 smoothedMat = glm::mat4_cast(smoothedRot);
+            smoothedMat[3] = glm::vec4(smoothedTrans, 1.0f);
 
-            glm::vec3 scalePrev, transPrev, skewPrev;
-            glm::quat rotPrev;
-            glm::vec4 perspPrev;
-            glm::decompose(prevMat, scalePrev, rotPrev, transPrev, skewPrev, perspPrev);
+            keyframes[i].boneTransforms[boneName] = smoothedMat;
 
-            glm::vec3 scaleCurr, transCurr, skewCurr;
-            glm::quat rotCurr;
-            glm::vec4 perspCurr;
-            glm::decompose(currMat, scaleCurr, rotCurr, transCurr, skewCurr, perspCurr);
+            animLog << "[JITTER-SMOOTH] Anim=" << this->name
+                << " Bone=" << boneName
+                << " Frame=" << i
+                << std::endl;
 
-            glm::vec3 scaleNext, transNext, skewNext;
-            glm::quat rotNext;
-            glm::vec4 perspNext;
-            glm::decompose(nextMat, scaleNext, rotNext, transNext, skewNext, perspNext);
-
-            // Hemisphere align before measuring
-            if (glm::dot(rotPrev, rotCurr) < 0.0f) rotCurr = -rotCurr;
-            if (glm::dot(rotNext, rotCurr) < 0.0f) rotCurr = -rotCurr;
-
-            float transDeltaPrev = glm::length(transCurr - transPrev);
-            float transDeltaNext = glm::length(transCurr - transNext);
-
-            float rotDeltaPrev = glm::degrees(glm::angle(glm::normalize(glm::inverse(rotPrev) * rotCurr)));
-            float rotDeltaNext = glm::degrees(glm::angle(glm::normalize(glm::inverse(rotNext) * rotCurr)));
-
-            bool transSmall = (transDeltaPrev < transThreshold && transDeltaNext < transThreshold);
-            bool rotSmall = (rotDeltaPrev < rotThresholdDeg && rotDeltaNext < rotThresholdDeg);
-
-            Logger::log("[DEBUG-JITTER] Anim=" + animName +
-                " Bone=" + boneName +
-                " Frame=" + std::to_string(i),
-                Logger::WARNING);
-            if (transSmall && rotSmall)
-            {
-                // Engine log for human-readable debugging
-                Logger::log(
-                    "[JITTER-SMOOTH] Anim=" + animName +
-                    " Bone=" + boneName +
-                    " Frame=" + std::to_string(i) +
-                    " tDeltaPrev=" + std::to_string(transDeltaPrev) +
-                    " tDeltaNext=" + std::to_string(transDeltaNext) +
-                    " rDeltaPrev=" + std::to_string(rotDeltaPrev) +
-                    " rDeltaNext=" + std::to_string(rotDeltaNext) +
-                    " (Thresholds: t=" + std::to_string(transThreshold) +
-                    " r=" + std::to_string(rotThresholdDeg) + ")",
-                    Logger::WARNING
-                );
-
-                // Raw line for Python parser (no severity prefix, no timestamps)
-                std::cout << "[JITTER-SMOOTH] "
-                    << animName << " "
-                    << boneName << " "
-                    << i << " "
-                    << transDeltaPrev << " "
-                    << transDeltaNext << " "
-                    << rotDeltaPrev << " "
-                    << rotDeltaNext
-                    << std::endl;
-
-                // Apply smoothing clamp
-                glm::quat rotSmoothed = glm::normalize(glm::slerp(rotPrev, rotNext, 0.5f));
-                glm::vec3 transSmoothed = (transPrev + transNext) * 0.5f;
-                glm::mat4 smoothedMat = glm::translate(glm::mat4(1.0f), transSmoothed) *
-                    glm::mat4_cast(rotSmoothed) *
-                    glm::scale(glm::mat4(1.0f), scaleCurr);
-                currMat = smoothedMat;
-            }
-
-
-
+            // Optional: print "middle" detection too if you want to analyze spike shape
         }
+
+        // Print animation end marker
+        animLog << "[ANIM END] " << this->name << std::endl;
     }
+}
+
+
+
+Animation::JitterProfile Animation::getProfileFor(const std::string& animName,
+    const std::string& boneName) const
+{
+    // Global defaults (your current baseline)
+    JitterProfile p{ 0.002f, 0.35f, 2 };
+
+    // Animation-specific nudges (example: Stance1 already looks clean)
+    if (animName.find("Stance1") != std::string::npos) {
+        p.t *= 0.75f;  // slightly stricter, reduces false positives
+        p.rDeg *= 0.75f;
+    }
+
+    // Bone-class rules (ordered from specific -> general)
+    auto has = [&](const char* s) { return boneName.find(s) != std::string::npos; };
+
+    // Root/pelvis can have minor drift that looks fine; be lenient on translation.
+    if (boneName == "root" || has("pelvis")) {
+        p.t *= 2.0f;   // more tolerant on tiny root drift
+        p.rDeg *= 1.2f;
+    }
+
+    // Big mass movers (thigh, shin) - allow a touch more rot wiggle, keep T modest.
+    if (has("thigh") || has("shin")) {
+        p.t *= 1.5f;
+        p.rDeg *= 1.5f;
+    }
+
+    // Feet/toes - visually sensitive; stay strict.
+    if (has("foot") || has("toe")) {
+        p.t *= 0.75f;
+        p.rDeg *= 0.75f;
+    }
+
+    // Upper chain (shoulder/upper_arm/forearm/hand) - moderate.
+    if (has("shoulder") || has("upper_arm") || has("forearm") || has("hand")) {
+        p.t *= 1.0f;
+        p.rDeg *= 1.0f;
+    }
+
+    // Neck/head - small jitter reads as noise on camera; make a bit stricter.
+    if (has("neck") || has("head")) {
+        p.t *= 0.85f;
+        p.rDeg *= 0.85f;
+    }
+
+    // Extremely small bones (fingers etc.) - if present in other clips later.
+    if (has("fing") || has("thumb")) {
+        p.t *= 0.6f;
+        p.rDeg *= 0.6f;
+    }
+
+
+    if (boneName.find("DEF-foot") != std::string::npos)
+        return { 0.0015f, 0.35f, 2 };
+    if (boneName.find("DEF-hand") != std::string::npos)
+        return { 0.0012f, 0.35f, 2 };
+    if (boneName.find("DEF-forearm") != std::string::npos)
+        return { 0.0015f, 0.35f, 2 };
+    if (boneName.find("DEF-spine") != std::string::npos)
+        return { 0.002f, 0.25f, 2 };
+    if (boneName.find("DEF-upper_arm") != std::string::npos)
+        return { 0.002f, 0.25f, 2 };
+
+    return p;
+
 }

@@ -22,8 +22,24 @@ with open(LOG_FILE, "r", encoding="utf-8", errors="ignore") as f:
             bone_counts[bone] += 1
             bone_frames[bone].append(frame)
 
+
+
+
+
+
 # Sort bones by count
 sorted_bones = sorted(bone_counts.items(), key=lambda x: x[1], reverse=True)
+
+TOTAL_FRAMES = 60  # or parse from the log if printed
+print("Bone, Count, Rate")
+if not sorted_bones:
+    print("(No matching jitter suppression entries found.)")
+else:
+    for bone, count in sorted_bones:
+        rate = count / TOTAL_FRAMES
+        frames = sorted(set(bone_frames[bone]))
+        frames_str = ", ".join(map(str, frames))
+        print(f"{bone}, {count}, {rate:.3f} -> {frames_str}")
 
 print("=== Jitter Suppression Summary ===")
 if not sorted_bones:
