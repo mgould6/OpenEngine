@@ -18,6 +18,12 @@ struct Keyframe
     std::map<std::string, glm::mat4> boneTransforms;     /* local */
 };
 
+struct JitterProfile {
+    float t;
+    float rDeg;
+    int window;
+};
+
 class Animation
 {
 public:
@@ -46,6 +52,9 @@ public:
     void checkBindMismatch(const Model* model);
     const std::vector<Keyframe>& getKeyframes() const { return keyframes; }
 
+    JitterProfile getProfileFor(const std::string& animName, const std::string& boneName) const;
+
+
 private:
     /* helpers --------------------------------------------------- */
     void  loadAnimation(const std::string& filePath, const Model* model);
@@ -73,14 +82,9 @@ private:
     void suppressPostBakeJitter();
 
 
-    struct JitterProfile {
-        float t;          // translation threshold (meters)
-        float rDeg;       // rotation threshold (degrees)
-        int   window;     // smoothing window radius
-    };
 
-    JitterProfile getProfileFor(const std::string& animName,
-        const std::string& boneName) const;
+ 
+
 
 
 

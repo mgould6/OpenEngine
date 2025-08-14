@@ -1,4 +1,8 @@
 # jitter_heatmap.py
+import re
+import sys
+from collections import defaultdict
+
 GROUPS = {
   "root": ["root","pelvis"],
   "legs": ["thigh","shin","foot","toe"],
@@ -11,15 +15,8 @@ def group_of(bone):
         if any(k in b for k in keys):
             return g
     return "other"
-# tally per group as you parse, then print a short summary
 
-import re
-from collections import defaultdict
-
-LOG_FILE = "output.txt"
-
-
-
+LOG_FILE = sys.argv[1] if len(sys.argv) > 1 else "output.txt"
 
 # Regex patterns
 anim_pattern = re.compile(r"Set current animation to (\S+)", re.IGNORECASE)
@@ -65,5 +62,3 @@ for anim, bone_map in anim_bone_frames.items():
 print("\n=== Group Summary ===")
 for g, c in group_counts.items():
     print(f"{g}: {c} total suppressed frames")
-
-

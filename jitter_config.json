@@ -1,1 +1,28 @@
-{"default": {"t": 0.0015, "rDeg": 0.25, "window": 2}, "overrides": {}}
+{
+  "Idle": {
+    "DEF-forearm.R": {
+      "t": 0.003,
+      "rDeg": 0.3,
+      "window": 2
+    },
+    "DEF-foot.L": {
+      "t": 0.005,
+      "rDeg": 0.4,
+      "window": 3
+    }
+  },
+  "Jab_Head": {
+    "*": {
+      "t": 0.002,
+      "rDeg": 0.25,
+      "window": 2
+    }
+  },
+  "*": {
+    "*": {
+      "t": 0.002,
+      "rDeg": 0.35,
+      "window": 2
+    }
+  }
+}

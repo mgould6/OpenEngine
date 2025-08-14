@@ -1,8 +1,9 @@
 # jitter_summary.py
 import re
+import sys
 from collections import defaultdict
 
-LOG_FILE = "output.txt"
+LOG_FILE = sys.argv[1] if len(sys.argv) > 1 else "output.txt"
 
 # Updated regex to match current and old tags
 pattern = re.compile(
@@ -21,11 +22,6 @@ with open(LOG_FILE, "r", encoding="utf-8", errors="ignore") as f:
             frame = int(match.group("frame"))
             bone_counts[bone] += 1
             bone_frames[bone].append(frame)
-
-
-
-
-
 
 # Sort bones by count
 sorted_bones = sorted(bone_counts.items(), key=lambda x: x[1], reverse=True)

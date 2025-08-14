@@ -20,6 +20,9 @@
 #include <filesystem>   // for std::filesystem
 #include <string>       // for std::string
 
+#include <sstream>
+#include "../nlohmann/json.hpp"
+
 
 Animation::Animation(const std::string& filePath,
     const Model* model)
@@ -1168,69 +1171,52 @@ void Animation::suppressPostBakeJitter()
 
 
 
-Animation::JitterProfile Animation::getProfileFor(const std::string& animName,
-    const std::string& boneName) const
+
+static nlohmann::json jitterConfig;
+
+static void loadJitterConfig()
 {
-    // Global defaults (your current baseline)
-    JitterProfile p{ 0.002f, 0.35f, 2 };
+    if (!jitterConfig.is_null()) return; // Already loaded
 
-    // Animation-specific nudges (example: Stance1 already looks clean)
-    if (animName.find("Stance1") != std::string::npos) {
-        p.t *= 0.75f;  // slightly stricter, reduces false positives
-        p.rDeg *= 0.75f;
+    std::ifstream f("jitter_config.json");
+    if (f)
+    {
+        f >> jitterConfig;
     }
-
-    // Bone-class rules (ordered from specific -> general)
-    auto has = [&](const char* s) { return boneName.find(s) != std::string::npos; };
-
-    // Root/pelvis can have minor drift that looks fine; be lenient on translation.
-    if (boneName == "root" || has("pelvis")) {
-        p.t *= 2.0f;   // more tolerant on tiny root drift
-        p.rDeg *= 1.2f;
+    else
+    {
+        Logger::log("WARNING: jitter_config.json not found. Using defaults.", Logger::WARNING);
+        jitterConfig = nlohmann::json::object();  // empty fallback
     }
+}
 
-    // Big mass movers (thigh, shin) - allow a touch more rot wiggle, keep T modest.
-    if (has("thigh") || has("shin")) {
-        p.t *= 1.5f;
-        p.rDeg *= 1.5f;
-    }
+JitterProfile Animation::getProfileFor(const std::string& animName, const std::string& boneName) const
+{
+    loadJitterConfig();
 
-    // Feet/toes - visually sensitive; stay strict.
-    if (has("foot") || has("toe")) {
-        p.t *= 0.75f;
-        p.rDeg *= 0.75f;
-    }
+    auto resolve = [&](const std::string& a, const std::string& b) -> std::optional<JitterProfile> {
+        if (!jitterConfig.contains(a)) return std::nullopt;
+        auto& animBlock = jitterConfig[a];
+        if (!animBlock.contains(b)) return std::nullopt;
+        auto entry = animBlock[b];
+        return JitterProfile{
+            entry.value("t", 0.002f),
+            entry.value("rDeg", 0.35f),
+            entry.value("window", 2)
+        };
+        };
 
-    // Upper chain (shoulder/upper_arm/forearm/hand) - moderate.
-    if (has("shoulder") || has("upper_arm") || has("forearm") || has("hand")) {
-        p.t *= 1.0f;
-        p.rDeg *= 1.0f;
-    }
+    // Try exact match
+    if (auto p = resolve(animName, boneName)) return *p;
 
-    // Neck/head - small jitter reads as noise on camera; make a bit stricter.
-    if (has("neck") || has("head")) {
-        p.t *= 0.85f;
-        p.rDeg *= 0.85f;
-    }
+    // Try anim + "*"
+    if (auto p = resolve(animName, "*")) return *p;
 
-    // Extremely small bones (fingers etc.) - if present in other clips later.
-    if (has("fing") || has("thumb")) {
-        p.t *= 0.6f;
-        p.rDeg *= 0.6f;
-    }
+    // Try "* + bone"
+    if (auto p = resolve("*", boneName)) return *p;
 
+    // Fallback global default
+    if (auto p = resolve("*", "*")) return *p;
 
-    if (boneName.find("DEF-foot") != std::string::npos)
-        return { 0.0015f, 0.35f, 2 };
-    if (boneName.find("DEF-hand") != std::string::npos)
-        return { 0.0012f, 0.35f, 2 };
-    if (boneName.find("DEF-forearm") != std::string::npos)
-        return { 0.0015f, 0.35f, 2 };
-    if (boneName.find("DEF-spine") != std::string::npos)
-        return { 0.002f, 0.25f, 2 };
-    if (boneName.find("DEF-upper_arm") != std::string::npos)
-        return { 0.002f, 0.25f, 2 };
-
-    return p;
-
+    return { 0.002f, 0.35f, 2 }; // default if nothing matches
 }

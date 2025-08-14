@@ -88,7 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;C:\Users\mjgou\source\repos\OpenEngine\third_party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -106,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;C:\Users\mjgou\source\repos\OpenEngine\third_party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -124,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;C:\Users\mjgou\source\repos\OpenEngine\third_party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -142,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\OpenGL\glad\include;C:\OpenGL\glm\glm-master;C:\Program Files\Assimp\include;$(ProjectDir)animation;C:\Users\mjgou\source\repos\OpenEngine\third_party;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -268,6 +268,7 @@
     <ClInclude Include="shaders\Shader.h" />
     <ClInclude Include="shaders\ShaderManager.h" />
     <ClInclude Include="common_utils\Utils.h" />
+    <ClInclude Include="nlohmann\json.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="vcpkg\installed\x64-windows\debug\lib\assimp-vc143-mtd.lib" />
