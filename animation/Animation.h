@@ -26,6 +26,8 @@ struct JitterProfile {
 
 class Animation
 {
+    bool loaded = false;
+
 public:
     explicit Animation(const std::string& filePath,
         const Model* model);
@@ -66,7 +68,6 @@ private:
         findKeyframeIndices(float timeSeconds) const;
 
     /* data ------------------------------------------------------ */
-    bool  loaded = false;
     float durationTicks = 0.0f;
     float ticksPerSecond = 24.0f;
     float clipDurationSecs = 0.0f;

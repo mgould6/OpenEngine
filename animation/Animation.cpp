@@ -29,6 +29,8 @@ Animation::Animation(const std::string& filePath,
     : name(filePath), modelRef(model)
 {
     loadAnimation(filePath, model);
+    loaded = true;
+
 }
 
 
