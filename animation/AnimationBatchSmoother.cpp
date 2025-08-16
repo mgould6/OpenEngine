@@ -22,4 +22,5 @@ void RunBatchSmoothing(const std::vector<Animation*>& animations)
     }
 
     Logger::log("=== Batch Smoothing: Complete ===", Logger::WARNING);
+
 }

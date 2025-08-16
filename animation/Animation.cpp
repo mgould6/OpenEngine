@@ -1107,14 +1107,19 @@ void Animation::suppressPostBakeJitter()
     const size_t N = keyframes.size();
     if (N < 3) return;
 
+    // Sanitize file name for log output
+    std::string sanitizedName = this->name;
+    std::replace(sanitizedName.begin(), sanitizedName.end(), '/', '_');
+    std::replace(sanitizedName.begin(), sanitizedName.end(), '\\', '_');
+
     // Ensure logs/ directory exists
     std::filesystem::create_directories("logs");
 
-    // Open log file ONCE for the entire animation
-    std::ofstream animLog("logs/" + this->name + ".log", std::ios::app);
+    // Open log file using sanitized name
+    std::ofstream animLog("logs/" + sanitizedName + ".log", std::ios::app);
     if (!animLog.is_open())
     {
-        Logger::log("ERROR: Could not open log file for animation: " + this->name, Logger::ERROR);
+        Logger::log("ERROR: Could not open log file for animation: " + sanitizedName, Logger::ERROR);
         return;
     }
 
