@@ -1105,18 +1105,26 @@ void Animation::suppressPostBakeJitter()
     const size_t N = keyframes.size();
     if (N < 3) return;
 
+    // Ensure logs/ directory exists
+    std::filesystem::create_directories("logs");
+
+    // Open log file ONCE for the entire animation
+    std::ofstream animLog("logs/" + this->name + ".log", std::ios::app);
+    if (!animLog.is_open())
+    {
+        Logger::log("ERROR: Could not open log file for animation: " + this->name, Logger::ERROR);
+        return;
+    }
+
+    // Print animation start header
+    animLog << "[ANIM START] " << this->name << std::endl;
+
     for (const std::string& boneName : animatedBones)
     {
         JitterProfile prof = getProfileFor(this->name, boneName);
         float tThr = prof.t;
         float rThr = prof.rDeg;
         int win = prof.window;
-
-        // Open log file ONCE for this bone in this animation
-        std::ofstream animLog("logs/" + this->name + ".log", std::ios::app);
-
-        // Print animation start header
-        animLog << "[ANIM START] " << this->name << std::endl;
 
         for (size_t i = 1; i + 1 < N; ++i)
         {
@@ -1160,14 +1168,14 @@ void Animation::suppressPostBakeJitter()
                 << " Bone=" << boneName
                 << " Frame=" << i
                 << std::endl;
-
-            // Optional: print "middle" detection too if you want to analyze spike shape
         }
-
-        // Print animation end marker
-        animLog << "[ANIM END] " << this->name << std::endl;
     }
+
+    // Print animation end marker
+    animLog << "[ANIM END] " << this->name << std::endl;
+    animLog.close();
 }
+
 
 
 

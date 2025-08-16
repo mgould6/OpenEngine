@@ -570,14 +570,24 @@ void Renderer::RenderImGui()
 
     if (ImGui::Button("Run Batch Smoothing"))
     {
-        std::vector<Animation*> clipsToSmooth;
-        for (const auto& [name, anim] : animationController->getAllAnimations())
+        std::vector<Animation*> allAnims;
+        const auto& animMap = animationController->getAllAnimations();
+
+        for (const auto& [name, anim] : animMap)
+        {
             if (anim && anim->isLoaded())
-                clipsToSmooth.push_back(anim);
+            {
+                allAnims.push_back(anim);
+                Logger::log("[BATCH] Queued animation: " + name, Logger::WARNING);
+            }
+            else
+            {
+                Logger::log("[BATCH] Skipping unloaded or null animation: " + name, Logger::WARNING);
+            }
+        }
 
-        RunBatchSmoothing(clipsToSmooth);
+        RunBatchSmoothing(allAnims);
     }
-
     /* 6. store selection for next frame AFTER comparison */
     oldIndex = currentIndex;
 
