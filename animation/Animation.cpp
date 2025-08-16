@@ -1107,15 +1107,11 @@ void Animation::suppressPostBakeJitter()
     const size_t N = keyframes.size();
     if (N < 3) return;
 
-    // Sanitize file name for log output
     std::string sanitizedName = this->name;
     std::replace(sanitizedName.begin(), sanitizedName.end(), '/', '_');
     std::replace(sanitizedName.begin(), sanitizedName.end(), '\\', '_');
-
-    // Ensure logs/ directory exists
     std::filesystem::create_directories("logs");
 
-    // Open log file using sanitized name
     std::ofstream animLog("logs/" + sanitizedName + ".log", std::ios::app);
     if (!animLog.is_open())
     {
@@ -1123,7 +1119,6 @@ void Animation::suppressPostBakeJitter()
         return;
     }
 
-    // Print animation start header
     animLog << "[ANIM START] " << this->name << std::endl;
 
     for (const std::string& boneName : animatedBones)
@@ -1152,20 +1147,38 @@ void Animation::suppressPostBakeJitter()
 
             float rDeltaPrevDeg = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(glm::normalize(rotPrev))));
             float rDeltaNextDeg = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(glm::normalize(rotNext))));
+            float rSpanDeg = glm::degrees(glm::angle(glm::normalize(rotNext) * glm::inverse(glm::normalize(rotPrev))));
+            float tSpan = glm::length(transNext - transPrev);
+
+            // === Debug output for wobble inspection ===
+            if ((this->name.find("Jab_Head") != std::string::npos) &&
+                (boneName == "DEF-spine.001" || boneName == "DEF-upper_arm.L" || boneName == "root") &&
+                (i >= 3 && i <= 13))
+            {
+                float angle01 = rDeltaPrevDeg;
+                float angle12 = rDeltaNextDeg;
+                float dot01 = glm::dot(glm::normalize(rotCurr), glm::normalize(rotPrev));
+                float dot12 = glm::dot(glm::normalize(rotNext), glm::normalize(rotCurr));
+
+                animLog << "[DEBUG-WOBBLE-CHECK] Bone=" << boneName
+                    << " Frame=" << i
+                    << " angle01=" << angle01
+                    << " angle12=" << angle12
+                    << " span=" << rSpanDeg
+                    << " dot01=" << dot01
+                    << " dot12=" << dot12
+                    << std::endl;
+            }
 
             bool isIsolatedSpike = (tDeltaPrev > tThr || rDeltaPrevDeg > rThr) &&
                 (tDeltaNext > tThr || rDeltaNextDeg > rThr);
 
-            float tSpan = glm::length(transNext - transPrev);
-            float rSpanDeg = glm::degrees(glm::angle(glm::normalize(rotNext) * glm::inverse(glm::normalize(rotPrev))));
             bool neighborsAgree = (tSpan < 0.5f * tThr) && (rSpanDeg < 0.5f * rThr);
 
-            // Spike smoothing
             if (isIsolatedSpike && !neighborsAgree)
             {
                 glm::vec3 smoothedTrans = 0.5f * (transPrev + transNext);
                 glm::quat smoothedRot = glm::slerp(rotPrev, rotNext, 0.5f);
-
                 glm::mat4 smoothedMat = glm::mat4_cast(smoothedRot);
                 smoothedMat[3] = glm::vec4(smoothedTrans, 1.0f);
 
@@ -1173,12 +1186,10 @@ void Animation::suppressPostBakeJitter()
 
                 animLog << "[JITTER-SMOOTH] Anim=" << this->name
                     << " Bone=" << boneName
-                    << " Frame=" << i
-                    << std::endl;
+                    << " Frame=" << i << std::endl;
                 continue;
             }
 
-            // Additional rotational wobble detection
             bool isRotWobble = (rDeltaPrevDeg > 0.75f * rThr && rDeltaPrevDeg < rThr) &&
                 (rDeltaNextDeg > 0.75f * rThr && rDeltaNextDeg < rThr) &&
                 (rSpanDeg < 0.25f * rThr);
@@ -1187,42 +1198,31 @@ void Animation::suppressPostBakeJitter()
             {
                 glm::quat smoothedRot = glm::slerp(rotPrev, rotNext, 0.5f);
                 glm::mat4 smoothedMat = glm::mat4_cast(smoothedRot);
-                smoothedMat[3] = currMat[3]; // preserve translation
+                smoothedMat[3] = currMat[3];
 
                 keyframes[i].boneTransforms[boneName] = smoothedMat;
 
                 animLog << "[ROT-WOBBLE] Anim=" << this->name
                     << " Bone=" << boneName
-                    << " Frame=" << i
-                    << std::endl;
+                    << " Frame=" << i << std::endl;
                 continue;
             }
 
-            // === Extended rotational wobble band detection ===
-            if (i >= 1 && i + 1 < N)
+            if (detectRotationalWobbleBand(rotPrev, rotCurr, rotNext, rThr * 0.75f))
             {
-                glm::quat q0 = glm::quat_cast(keyframes[i - 1].boneTransforms[boneName]);
-                glm::quat q1 = glm::quat_cast(keyframes[i].boneTransforms[boneName]);
-                glm::quat q2 = glm::quat_cast(keyframes[i + 1].boneTransforms[boneName]);
+                glm::quat smoothedRot = glm::slerp(rotPrev, rotNext, 0.5f);
+                glm::mat4 smoothedMat = glm::mat4_cast(smoothedRot);
+                smoothedMat[3] = currMat[3];
 
-                if (detectRotationalWobbleBand(q0, q1, q2, rThr * 0.75f))
-                {
-                    glm::quat smoothedRot = glm::slerp(q0, q2, 0.5f);
-                    glm::mat4 smoothedMat = glm::mat4_cast(smoothedRot);
-                    smoothedMat[3] = keyframes[i].boneTransforms[boneName][3];  // preserve translation
+                keyframes[i].boneTransforms[boneName] = smoothedMat;
 
-                    keyframes[i].boneTransforms[boneName] = smoothedMat;
-
-                    animLog << "[WOBBLE-BAND] Anim=" << this->name
-                        << " Bone=" << boneName
-                        << " Frame=" << i
-                        << std::endl;
-                }
+                animLog << "[WOBBLE-BAND] Anim=" << this->name
+                    << " Bone=" << boneName
+                    << " Frame=" << i << std::endl;
             }
         }
     }
 
-    // Print animation end marker
     animLog << "[ANIM END] " << this->name << std::endl;
     animLog.close();
 }
@@ -1280,20 +1280,19 @@ JitterProfile Animation::getProfileFor(const std::string& animName, const std::s
 }
 
 
-bool detectRotationalWobbleBand(const glm::quat& q0, const glm::quat& q1, const glm::quat& q2, float thresholdDeg)
+bool detectRotationalWobbleBand(const glm::quat& q0, const glm::quat& q1, const glm::quat& q2, float maxSpanDeg)
 {
-    // Angular delta between q0 -> q1 and q1 -> q2
     float angle01 = glm::degrees(glm::angle(glm::normalize(q1) * glm::inverse(glm::normalize(q0))));
     float angle12 = glm::degrees(glm::angle(glm::normalize(q2) * glm::inverse(glm::normalize(q1))));
     float angleSpan = glm::degrees(glm::angle(glm::normalize(q2) * glm::inverse(glm::normalize(q0))));
 
-    // Sign-flip detection (back-and-forth flicker)
     float dot01 = glm::dot(glm::normalize(q1), glm::normalize(q0));
     float dot12 = glm::dot(glm::normalize(q2), glm::normalize(q1));
 
     bool changedDirection = (dot01 * dot12) < 0.0f;
+    bool isConfined = angleSpan < maxSpanDeg;
+    bool hasEnoughRotation = (angle01 + angle12) > 2.0f;
 
-    return changedDirection &&
-        angle01 > 0.1f && angle12 > 0.1f &&  // avoid noise
-        angleSpan < thresholdDeg;           // confined wobble band
+    return changedDirection && isConfined && hasEnoughRotation;
 }
+
