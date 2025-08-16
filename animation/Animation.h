@@ -24,6 +24,9 @@ struct JitterProfile {
     int window;
 };
 
+bool detectRotationalWobbleBand(const glm::quat& q0, const glm::quat& q1, const glm::quat& q2, float thresholdDeg);
+
+
 class Animation
 {
     bool loaded = false;
@@ -77,9 +80,7 @@ private:
 
     /* optional bookkeeping ------------------------------------- */
     std::vector<std::string> animatedBones;
-
     const Model* modelRef = nullptr;
-
     void bakeDenseKeyframes(float targetFPS);
 
 
