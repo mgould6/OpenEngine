@@ -13,6 +13,8 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include "../Animation/AnimationController.h"
+#include "../Animation/AnimationBatchSmoother.h"
+
 
 // Static variable definitions
 const int NUM_CASCADES = Renderer::NUM_CASCADES;
@@ -562,6 +564,19 @@ void Renderer::RenderImGui()
     ImGui::Checkbox("Loop Playback", &animationController->loopPlayback); // <-- NEW!
 
     ImGui::Text("Current Frame: %d", animationController->debugFrame);
+
+    ImGui::Separator();
+    ImGui::Text("Batch Tools:");
+
+    if (ImGui::Button("Run Batch Smoothing"))
+    {
+        std::vector<Animation*> clipsToSmooth;
+        for (const auto& [name, anim] : animationController->getAllAnimations())
+            if (anim && anim->isLoaded())
+                clipsToSmooth.push_back(anim);
+
+        RunBatchSmoothing(clipsToSmooth);
+    }
 
     /* 6. store selection for next frame AFTER comparison */
     oldIndex = currentIndex;

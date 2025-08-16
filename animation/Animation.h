@@ -53,6 +53,7 @@ public:
     const std::vector<Keyframe>& getKeyframes() const { return keyframes; }
 
     JitterProfile getProfileFor(const std::string& animName, const std::string& boneName) const;
+    void suppressPostBakeJitter();
 
 
 private:
@@ -79,7 +80,6 @@ private:
     const Model* modelRef = nullptr;
 
     void bakeDenseKeyframes(float targetFPS);
-    void suppressPostBakeJitter();
 
 
 

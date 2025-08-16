@@ -57,6 +57,11 @@ public:
         Model* model,
         std::map<std::string, glm::mat4>& globalBoneMatrices);
 
+
+    const std::unordered_map<std::string, Animation*>& getAllAnimations() const {
+        return animations;
+    }
+
 private:
     Model* model;
     std::unordered_map<std::string, Animation*> animations;

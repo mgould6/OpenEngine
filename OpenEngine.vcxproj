@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -221,6 +221,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\OpenGL\glad\src\glad.c" />
     <ClCompile Include="animation\Animation.cpp" />
+    <ClCompile Include="animation\AnimationBatchSmoother.cpp" />
     <ClCompile Include="animation\AnimationController.cpp" />
     <ClCompile Include="animation\DebugTools.cpp" />
     <ClCompile Include="animation\SkeletonPose.cpp" />
@@ -246,6 +247,7 @@
     <ClCompile Include="common_utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animation\AnimationBatchSmoother.h" />
     <ClInclude Include="animation\Animation.h" />
     <ClInclude Include="animation\AnimationController.h" />
     <ClInclude Include="animation\DebugTools.h" />
