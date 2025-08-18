@@ -11,6 +11,8 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/component_wise.hpp>
 
 #include <algorithm>
 #include <cmath>
@@ -114,50 +116,155 @@ glm::mat4 Animation::interpolateMatrices(const glm::mat4& a,
 
 
 
+// === Quaternion interpolation helpers ===
+static glm::quat qLog(const glm::quat& q) {
+    glm::quat nq = glm::normalize(q);
+    float a = std::acos(glm::clamp(nq.w, -1.0f, 1.0f));
+    float s = std::sin(a);
+    glm::vec3 v = (s > 1e-8f) ? (a * glm::vec3(nq.x, nq.y, nq.z) / s) : glm::vec3(0.0f);
+    return glm::quat(0.0f, v.x, v.y, v.z);
+}
+
+static glm::quat qExp(const glm::quat& q) {
+    glm::vec3 v(q.x, q.y, q.z);
+    float a = glm::length(v);
+    float s = (a > 1e-8f) ? std::sin(a) / a : 1.0f;
+    return glm::normalize(glm::quat(std::cos(a), v.x * s, v.y * s, v.z * s));
+}
+
+static void hemiAlign(glm::quat& q, const glm::quat& ref) {
+    if (glm::dot(q, ref) < 0.0f) q = -q;
+}
+
+static glm::quat squadTangent(const glm::quat& q0, const glm::quat& q1, const glm::quat& q2) {
+    glm::quat qi = q1;
+    glm::quat qm = q0;
+    glm::quat qp = q2;
+    hemiAlign(qm, qi);
+    hemiAlign(qp, qi);
+    glm::quat a = qLog(glm::inverse(qi) * qm);
+    glm::quat b = qLog(glm::inverse(qi) * qp);
+    glm::quat t = qi * qExp((-0.25f) * (a + b));
+    return glm::normalize(t);
+}
+
+static glm::quat squad(const glm::quat& q0, const glm::quat& s0,
+    const glm::quat& s1, const glm::quat& q1, float t) {
+    glm::quat q01 = glm::slerp(q0, q1, t);
+    glm::quat s01 = glm::slerp(s0, s1, t);
+    return glm::normalize(glm::slerp(q01, s01, 2.0f * t * (1.0f - t)));
+}
+
+// === Hermite-style smoothing for translations ===
+static glm::vec3 hermite(const glm::vec3& p0, const glm::vec3& m0,
+    const glm::vec3& p1, const glm::vec3& m1, float t) {
+    float t2 = t * t;
+    float t3 = t2 * t;
+    float h00 = 2 * t3 - 3 * t2 + 1;
+    float h10 = t3 - 2 * t2 + t;
+    float h01 = -2 * t3 + 3 * t2;
+    float h11 = t3 - t2;
+    return h00 * p0 + h10 * m0 + h01 * p1 + h11 * m1;
+}
+
+static glm::mat4 interpolateMatricesCubic(const glm::mat4& prevM,
+    const glm::mat4& a,
+    const glm::mat4& b,
+    const glm::mat4& nextM,
+    float t)
+{
+    // Decompose all four matrices into SRT
+    glm::vec3 sPrev, sA, sB, sNext;
+    glm::vec3 tPrev, tA, tB, tNext;
+    glm::quat rPrev, rA, rB, rNext;
+    glm::vec3 skew; glm::vec4 persp;
+
+    glm::decompose(prevM, sPrev, rPrev, tPrev, skew, persp);
+    glm::decompose(a, sA, rA, tA, skew, persp);
+    glm::decompose(b, sB, rB, tB, skew, persp);
+    glm::decompose(nextM, sNext, rNext, tNext, skew, persp);
+
+    // Align rotations for smooth interpolation
+    hemiAlign(rPrev, rA);
+    hemiAlign(rB, rA);
+    hemiAlign(rNext, rB);
+
+    // Detect fallback case (missing neighbors or identical)
+    auto matrixDiffers = [](const glm::mat4& m1, const glm::mat4& m2, float epsilon) -> bool {
+        for (int col = 0; col < 4; ++col)
+        {
+            for (int row = 0; row < 4; ++row)
+            {
+                if (std::abs(m1[col][row] - m2[col][row]) > epsilon)
+                    return true;
+            }
+        }
+        return false;
+        };
+
+    bool havePrev = matrixDiffers(prevM, a, 1e-6f);
+    bool haveNext = matrixDiffers(nextM, b, 1e-6f);
+
+
+    // === Rotation: SQUAD easing ===
+    glm::quat rotFinal;
+    if (havePrev && haveNext) {
+        glm::quat s0 = squadTangent(rPrev, rA, rB);
+        glm::quat s1 = squadTangent(rA, rB, rNext);
+        rotFinal = squad(glm::normalize(rA), glm::normalize(s0),
+            glm::normalize(s1), glm::normalize(rB), t);
+    }
+    else {
+        glm::quat rBfix = rB;
+        hemiAlign(rBfix, rA);
+        rotFinal = glm::slerp(glm::normalize(rA), glm::normalize(rBfix), t);
+    }
+
+    // === Translation: Hermite easing ===
+    glm::vec3 mA = 0.5f * (tB - tPrev);
+    glm::vec3 mB = 0.5f * (tNext - tA);
+    if (!havePrev) mA = (tB - tA);
+    if (!haveNext) mB = (tB - tA);
+    glm::vec3 tFinal = hermite(tA, mA, tB, mB, t);
+
+    // === Scale: linear ===
+    glm::vec3 sFinal = glm::mix(sA, sB, t);
+
+    // === Recompose final matrix ===
+    glm::mat4 T = glm::translate(glm::mat4(1.0f), tFinal);
+    glm::mat4 R = glm::mat4_cast(glm::normalize(rotFinal));
+    glm::mat4 S = glm::scale(glm::mat4(1.0f), sFinal);
+    return T * R * S;
+}
+
+
 /* -------------------------------------------------------------- */
 /*  Blend pose - uses union of bones in kfA and kfB               */
 /* -------------------------------------------------------------- */
 void Animation::interpolateKeyframes(float animationTime, std::map<std::string, glm::mat4>& outPose) const
 {
-
     static const std::unordered_set<std::string> wiggleWatchBones = {
-    "DEF-hand.L", "DEF-hand.R",
-    "DEF-forearm.L", "DEF-forearm.R",
-    "DEF-upper_arm.L", "DEF-upper_arm.R",
-    "DEF-shoulder.L", "DEF-shoulder.R",
-    "DEF-neck", "DEF-head"
+        "DEF-hand.L","DEF-hand.R","DEF-forearm.L","DEF-forearm.R",
+        "DEF-upper_arm.L","DEF-upper_arm.R","DEF-shoulder.L","DEF-shoulder.R",
+        "DEF-neck","DEF-head"
     };
 
-    if (keyframes.empty())
-        return;
-
-    // Handle case with only one frame (no interpolation)
-    if (keyframes.size() == 1)
-    {
+    if (keyframes.empty()) return;
+    if (keyframes.size() == 1) {
         outPose = keyframes[0].boneTransforms;
         return;
     }
 
-
-
-
-    // Find keyframes to interpolate between
-    size_t startFrame = 0;
-    size_t endFrame = 0;
-
-    for (size_t i = 0; i < keyframes.size() - 1; ++i)
-    {
-        if (animationTime < keyframes[i + 1].time)
-        {
+    // === Find keyframe pair for this time ===
+    size_t startFrame = 0, endFrame = 0;
+    for (size_t i = 0; i < keyframes.size() - 1; ++i) {
+        if (animationTime < keyframes[i + 1].time) {
             startFrame = i;
             endFrame = i + 1;
             break;
         }
     }
-
-    // Edge case: animationTime beyond last frame
-    if (endFrame == 0)
-    {
+    if (endFrame == 0) {
         startFrame = keyframes.size() - 2;
         endFrame = keyframes.size() - 1;
     }
@@ -167,71 +274,42 @@ void Animation::interpolateKeyframes(float animationTime, std::map<std::string, 
 
     float t0 = kf0.time;
     float t1 = kf1.time;
-    float lerpFactor = (animationTime - t0) / (t1 - t0);
+    float lerpFactor = (t1 > t0) ? (animationTime - t0) / (t1 - t0) : 0.0f;
+    lerpFactor = glm::clamp(lerpFactor, 0.0f, 1.0f);
 
-    // Debug output when near frame 28
-    if (animationTime >= 0.0f)
-    {
-        Logger::log("DEBUG: animationTime = " + std::to_string(animationTime), Logger::WARNING);
-        Logger::log("DEBUG: Interpolating between keyframes " + std::to_string(startFrame) +
-            " (time = " + std::to_string(t0) + ") and " +
-            std::to_string(endFrame) + " (time = " + std::to_string(t1) + ")",
-            Logger::WARNING);
-        Logger::log("DEBUG: Lerp factor = " + std::to_string(lerpFactor), Logger::WARNING);
-    }
+    // === Determine neighbor indices ===
+    size_t prevIdx = (startFrame > 0) ? (startFrame - 1) : startFrame;
+    size_t nextIdx = (endFrame + 1 < keyframes.size()) ? (endFrame + 1) : endFrame;
+
+    const Keyframe& kfPrev = keyframes[prevIdx];
+    const Keyframe& kfNext = keyframes[nextIdx];
 
     for (const auto& [boneName, mat0] : kf0.boneTransforms)
     {
-        glm::mat4 mat1 = kf1.boneTransforms.count(boneName) ?
-            kf1.boneTransforms.at(boneName) :
-            mat0;
+        const glm::mat4& a0 = mat0;
+        const glm::mat4& b1 = kf1.boneTransforms.count(boneName) ? kf1.boneTransforms.at(boneName) : a0;
 
-        glm::mat4 interp = interpolateMatrices(mat0, mat1, lerpFactor);
+        const glm::mat4& pPrev = kfPrev.boneTransforms.count(boneName) ? kfPrev.boneTransforms.at(boneName) : a0;
+        const glm::mat4& nNext = kfNext.boneTransforms.count(boneName) ? kfNext.boneTransforms.at(boneName) : b1;
+
+        // Determine if cubic easing is safe
+        bool canUseCubic = (prevIdx != startFrame || nextIdx != endFrame);
+
+        glm::mat4 interp = canUseCubic
+            ? interpolateMatricesCubic(pPrev, a0, b1, nNext, lerpFactor)
+            : interpolateMatrices(a0, b1, lerpFactor);
 
         if (wiggleWatchBones.count(boneName)) {
-            glm::vec3 s, t, skew;
-            glm::quat r;
-            glm::vec4 persp;
-            glm::decompose(interp, s, r, t, skew, persp);
-
+            glm::vec3 scale, trans;
+            glm::quat rot;
+            glm::vec3 skew; glm::vec4 persp;
+            glm::decompose(interp, scale, rot, trans, skew, persp);
 
             Logger::log("[WIGGLE-CHECK] " + boneName +
                 " | Frame " + std::to_string(startFrame) +
                 " -> " + std::to_string(endFrame) +
-                " | Pos: " + glm::to_string(t) +
-                " | Rot (quat): " + glm::to_string(glm::normalize(r)),
-                Logger::WARNING);
-
-
-            // --- Optional delta log (HIGHLY recommended) ---
-            glm::quat r0, r1;
-            glm::vec3 dummyS, dummyT, dummySkew;
-            glm::vec4 dummyPersp;
-
-            glm::decompose(mat0, dummyS, r0, dummyT, dummySkew, dummyPersp);
-            glm::decompose(mat1, dummyS, r1, dummyT, dummySkew, dummyPersp);
-
-            float angleDelta = glm::degrees(glm::angle(glm::normalize(r1) * glm::inverse(glm::normalize(r0))));
-
-            Logger::log("[WIGGLE-CHECK-DELTA] " + boneName +
-                " | Frame " + std::to_string(startFrame) +
-                " -> " + std::to_string(endFrame) +
-                " | Angle Delta: " + std::to_string(angleDelta),
-                Logger::WARNING);
-        }
-
-
-        if ((startFrame >= 1 && startFrame <= 8) &&
-            (boneName.find("spine") != std::string::npos ||
-                boneName.find("neck") != std::string::npos ||
-                boneName.find("head") != std::string::npos ||
-                boneName.find("thigh") != std::string::npos))
-        {
-            Logger::log("Runtime Interp [JAB HEAD]: Bone " + boneName +
-                " from frame " + std::to_string(startFrame) +
-                " to " + std::to_string(endFrame) +
-                " | t=" + std::to_string(animationTime) +
-                "\n" + glm::to_string(interp),
+                " | Pos: " + glm::to_string(trans) +
+                " | Rot: " + glm::to_string(glm::normalize(rot)),
                 Logger::WARNING);
         }
 
