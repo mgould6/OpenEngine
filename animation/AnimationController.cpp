@@ -418,9 +418,15 @@ void AnimationController::applyToModel(Model* model)
 
     //if (debugFrame == 59 && shouldDump && std::abs(currentTime - lastDumpedTime) > 1e-4f) {
     //    Logger::log("=== Frame 59 logged. Exiting for clean log capture. ===", Logger::INFO);
-    //    lastDumpedTime = currentTime;
+    //    lastDumpedTime = currentTime;s
     //    std::exit(0);
     //}
+
+    if (currentAnimation && currentAnimation->getName() == "Jab_Head")
+    {
+        dumpEnginePoseFrame(debugFrame, globalBoneMatrices);
+    }
+
 
 
 }
@@ -548,3 +554,35 @@ static void dumpBoneDebugTrace(
     Logger::log("Global Matrix:\n" + glm::to_string(global), Logger::WARNING);
     Logger::log("Final Skin Matrix:\n" + glm::to_string(skinMatrix), Logger::WARNING);
 }
+
+void AnimationController::dumpEnginePoseFrame(
+    int frameIdx,
+    const std::map<std::string, glm::mat4>& globalBoneMatrices)
+{
+    static std::ofstream out("logs/pose_dump_engine_Jab_Head.log");
+    if (!out.is_open()) return;
+
+    out << "\"" << frameIdx << "\": {\n";
+
+    bool first = true;
+    for (const auto& [boneName, mat] : globalBoneMatrices)
+    {
+        if (boneName.rfind("DEF-", 0) != 0)
+            continue;
+
+        if (!first) out << ",\n";
+        first = false;
+
+        out << "  \"" << boneName << "\": [\n";
+        for (int i = 0; i < 4; ++i)
+        {
+            out << "    [" << mat[i][0] << ", " << mat[i][1] << ", "
+                << mat[i][2] << ", " << mat[i][3] << "]";
+            if (i < 3) out << ",\n";
+        }
+        out << "\n  ]";
+    }
+
+    out << "\n},\n";
+}
+ 

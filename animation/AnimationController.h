@@ -62,6 +62,9 @@ public:
         return animations;
     }
 
+    void dumpEnginePoseFrame(int frameIdx, const std::map<std::string, glm::mat4>& globalBoneMatrices);
+
+
 private:
     Model* model;
     std::unordered_map<std::string, Animation*> animations;
