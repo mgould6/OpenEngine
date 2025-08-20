@@ -42,8 +42,8 @@ void SceneTest3(GLFWwindow* window) {
     animationController->loopPlayback = true;
     Logger::log("INFO: Set current animation to Idle.", Logger::INFO);
 
-    std::ofstream clear("logs/pose_dump_engine_Jab_Head.log", std::ios::trunc);
-    clear.close();
+ /*   std::ofstream clear("logs/pose_dump_engine_Jab_Head.log", std::ios::trunc);
+    clear.close();*/
 
     animationController->update(0.0f);
     animationController->applyToModel(myModel);
