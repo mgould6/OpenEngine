@@ -12,6 +12,7 @@
 #include "../animation/AnimationController.h"
 #include <glm/gtx/string_cast.hpp>
 #include <imgui.h>
+#include <fstream>
 
 void SceneTest3(GLFWwindow* window) {
     // Global variables
@@ -38,7 +39,12 @@ void SceneTest3(GLFWwindow* window) {
     animationController->loadAnimation("Idle", "animations/Idle.fbx");
     animationController->loadAnimation("Stance1", "animations/Stance1.fbx");
     animationController->setCurrentAnimation("Idle");
+    animationController->loopPlayback = true;
     Logger::log("INFO: Set current animation to Idle.", Logger::INFO);
+
+    std::ofstream clear("logs/pose_dump_engine_Jab_Head.log", std::ios::trunc);
+    clear.close();
+
     animationController->update(0.0f);
     animationController->applyToModel(myModel);
 

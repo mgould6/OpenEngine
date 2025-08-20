@@ -322,6 +322,9 @@ void AnimationController::update(float deltaTime)
 
     Logger::log("DEBUG: Frame #" + std::to_string(debugFrame) +
         " at t=" + std::to_string(animationTime), Logger::INFO);
+
+
+
 }
 
 
@@ -337,7 +340,7 @@ void AnimationController::applyToModel(Model* model)
 
     // 1. local-pose interpolation
     std::map<std::string, glm::mat4> localBoneMatrices;
-    if (lockToExactFrame && currentAnimation && debugFrame >= 0 && debugFrame < static_cast<int>(currentAnimation->getKeyframes().size())) {
+    if (lockToExactFrame && debugFrame >= 0 && debugFrame < static_cast<int>(currentAnimation->getKeyframes().size())) {
         const Keyframe& kf = currentAnimation->getKeyframes()[debugFrame];
         for (const auto& [boneName, mat] : kf.boneTransforms) {
             localBoneMatrices[boneName] = mat;
@@ -347,9 +350,13 @@ void AnimationController::applyToModel(Model* model)
         currentAnimation->interpolateKeyframes(animationTime, localBoneMatrices);
     }
 
+    // Fill missing with bind pose
     for (const auto& bone : model->getBones())
-        if (!localBoneMatrices.count(bone.name))
-            localBoneMatrices[bone.name] = model->getLocalBindPose(bone.name);
+    {
+        const std::string& name = bone.name;
+        if (!localBoneMatrices.count(name))
+            localBoneMatrices[name] = model->getLocalBindPose(name);
+    }
 
     // 2. build global transforms
     std::map<std::string, glm::mat4> globalBoneMatrices;
@@ -357,12 +364,11 @@ void AnimationController::applyToModel(Model* model)
         globalBoneMatrices[boneName] =
         buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
 
-    // 3. final skin matrices + debug logic
+    // 3. final skin matrices and debug dump
     static std::unordered_set<int> dumpedFrames;
-    static bool dumpedFrame28 = false;
 
     bool shouldDump = false;
-    int targetFrames[] = { 51, 52, 53, 54, 55, 56, 57, 58, 59};
+    int targetFrames[] = { 51, 52, 53, 54, 55, 56, 57, 58, 59 };
 
     for (int tf : targetFrames) {
         if (debugFrame == tf && !dumpedFrames.count(tf)) {
@@ -372,7 +378,6 @@ void AnimationController::applyToModel(Model* model)
             dumpBoneDebugTrace("DEF-thigh.R", debugFrame, currentAnimation, model);
             dumpBoneDebugTrace("DEF-thigh.L", debugFrame, currentAnimation, model);
             dumpBoneDebugTrace("DEF-pelvis", debugFrame, currentAnimation, model);
-
             break;
         }
     }
@@ -381,6 +386,7 @@ void AnimationController::applyToModel(Model* model)
     {
         glm::mat4 offsetMatrix = model->getBoneOffsetMatrix(boneName);
         glm::mat4 final = model->getGlobalInverseTransform() * globalScaled * offsetMatrix;
+
         if (boneName == "thigh.R" && debugFrame >= 0)
         {
             glm::vec3 pos = glm::vec3(final[3]);
@@ -397,7 +403,6 @@ void AnimationController::applyToModel(Model* model)
                 Logger::WARNING);
         }
 
-
         if (shouldDump)
         {
             glm::mat4 noScale = removeScale(globalScaled);
@@ -410,25 +415,18 @@ void AnimationController::applyToModel(Model* model)
         model->setBoneTransform(boneName, final);
     }
 
-    // Exit after frame 59 is dumped once
-    //avoids relying purely on debugFrame and guarantees that it exits only once per frame dump based on actual animation time, even if debugFrame lingers
-
-    static float lastDumpedTime = -1.0f;
-    float currentTime = animationTime;
-
-    //if (debugFrame == 59 && shouldDump && std::abs(currentTime - lastDumpedTime) > 1e-4f) {
-    //    Logger::log("=== Frame 59 logged. Exiting for clean log capture. ===", Logger::INFO);
-    //    lastDumpedTime = currentTime;s
-    //    std::exit(0);
-    //}
-
-    if (currentAnimation && currentAnimation->getName() == "Jab_Head")
-    {
-        dumpEnginePoseFrame(debugFrame, globalBoneMatrices);
+    // === Dump full pose for Jab_Head ===
+    if (currentAnimation) {
+        const std::string n = currentAnimation->getName();
+        const bool isJab = (n == "Jab_Head") || (n.find("Jab_Head") != std::string::npos);
+        if (isJab) {
+            static std::unordered_set<int> dumpedFramesAll;
+            if (!dumpedFramesAll.count(debugFrame)) {
+                dumpedFramesAll.insert(debugFrame);
+                dumpEnginePoseFrame(debugFrame, globalBoneMatrices);
+            }
+        }
     }
-
-
-
 }
 
 
@@ -586,3 +584,29 @@ void AnimationController::dumpEnginePoseFrame(
     out << "\n},\n";
 }
  
+
+void AnimationController::dumpEnginePoseFrame(int frameIdx)
+{
+    if (!currentAnimation || !model) return;
+
+    const auto& keyframes = currentAnimation->getKeyframes();
+    if (frameIdx < 0 || frameIdx >= static_cast<int>(keyframes.size())) return;
+
+    // 1. Extract local bone transforms for this frame
+    const Keyframe& kf = keyframes[frameIdx];
+    std::map<std::string, glm::mat4> localBoneMatrices;
+    for (const auto& [boneName, mat] : kf.boneTransforms)
+        localBoneMatrices[boneName] = mat;
+
+    for (const auto& bone : model->getBones())
+        if (!localBoneMatrices.count(bone.name))
+            localBoneMatrices[bone.name] = model->getLocalBindPose(bone.name);
+
+    // 2. Reconstruct global bone transforms
+    std::map<std::string, glm::mat4> globalBoneMatrices;
+    for (const auto& [boneName, _] : localBoneMatrices)
+        globalBoneMatrices[boneName] = buildGlobalTransform(boneName, localBoneMatrices, model, globalBoneMatrices);
+
+    // 3. Dump them
+    dumpEnginePoseFrame(frameIdx, globalBoneMatrices);
+}

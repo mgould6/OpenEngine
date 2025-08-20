@@ -26,6 +26,11 @@ public:
 
     bool isAnimationPlaying() const;
     void stopAnimation();
+    void resetAnimation();
+
+    const std::unordered_map<std::string, Animation*>& getAllAnimations() const {
+        return animations;
+    }
 
     bool isClipLoaded(const std::string& name) const {
         return animations.find(name) != animations.end();
@@ -49,7 +54,7 @@ public:
     bool debugStep = false;
     bool debugRewind = false;
     int debugFrame = 0;
-    bool loopPlayback = false; 
+    bool loopPlayback = false;
 
     static glm::mat4 buildGlobalTransform(
         const std::string& boneName,
@@ -57,29 +62,27 @@ public:
         Model* model,
         std::map<std::string, glm::mat4>& globalBoneMatrices);
 
+    void dumpEnginePoseFrame();
+    void dumpEnginePoseFrame(int frameIdx);    // Dumps by frame index
+    void dumpEnginePoseFrame(int frameIdx, const std::map<std::string, glm::mat4>& globalBoneMatrices); // Dumps with full pose map
 
-    const std::unordered_map<std::string, Animation*>& getAllAnimations() const {
-        return animations;
-    }
-
-    void dumpEnginePoseFrame(int frameIdx, const std::map<std::string, glm::mat4>& globalBoneMatrices);
 
 
 private:
     Model* model;
     std::unordered_map<std::string, Animation*> animations;
     Animation* currentAnimation = nullptr;
+
     float animationTime = 0.0f;
-
-    void resetAnimation();
-
-
+    float playbackTime = 0.0f;
+    bool paused = false;
+    bool hasDumpedThisRun = false;
+    int dumpFrameIndex = 0;
+    int currentClipIndex = 0;
+    bool lockToExactFrame = false;
 
     const glm::mat4& bindGlobalNoScale(const std::string& bone) const;
-
     inline static const std::vector<Keyframe> emptyKeyframeList = {};
-    bool lockToExactFrame = false; // Debug mode to bypass interpolation
-
 };
 
 #endif // ANIMATIONCONTROLLER_H
