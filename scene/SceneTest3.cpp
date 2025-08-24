@@ -36,11 +36,12 @@ void SceneTest3(GLFWwindow* window) {
     // Initialize the animation controller
     animationController = new AnimationController(myModel);
     animationController->loadAnimation("Jab_Head", "animations/Jab_Head.fbx");
+    animationController->getAllAnimations().at("Jab_Head")->suppressPostBakeJitter(); // <- Right leg smoothing
     animationController->loadAnimation("Idle", "animations/Idle.fbx");
     animationController->loadAnimation("Stance1", "animations/Stance1.fbx");
-    animationController->setCurrentAnimation("Idle");
+    animationController->setCurrentAnimation("Jab_Head"); // <- Visually test smoothed animation
     animationController->loopPlayback = true;
-    Logger::log("INFO: Set current animation to Idle.", Logger::INFO);
+    Logger::log("INFO: Set current animation to Jab_Head.", Logger::INFO);
 
  /*   std::ofstream clear("logs/pose_dump_engine_Jab_Head.log", std::ios::trunc);
     clear.close();*/

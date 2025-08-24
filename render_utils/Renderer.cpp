@@ -510,11 +510,11 @@ void Renderer::RenderImGui()
     ImGui::Begin("Animation Controller");
 
     /* 1. Clip names and file paths */
-    static const char* animNames[] = { "Idle", "Jab_Head", "Stance1" };
+    static const char* animNames[] = { "Jab_Head", "Idle",  "Stance1" };
     static const char* animFiles[] = {
-        "animations/Idle.fbx",
-        "animations/Jab_Head.fbx"
-        "animations/Stance1.fbx",
+       "animations/Jab_Head.fbx"
+       "animations/Idle.fbx",
+       "animations/Stance1.fbx",
     };
 
     /* 2. Track current vs. previous selection */
