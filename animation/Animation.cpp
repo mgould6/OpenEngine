@@ -1185,124 +1185,88 @@ void Animation::suppressPostBakeJitter()
     const size_t N = keyframes.size();
     if (N < 3) return;
 
+    // === Sanitize name for log file ===
     std::string sanitizedName = this->name;
     std::replace(sanitizedName.begin(), sanitizedName.end(), '/', '_');
     std::replace(sanitizedName.begin(), sanitizedName.end(), '\\', '_');
-    std::filesystem::create_directories("logs");
 
-    std::ofstream animLog("logs/" + sanitizedName + ".log", std::ios::app);
-    if (!animLog.is_open())
-    {
-        Logger::log("ERROR: Could not open log file for animation: " + sanitizedName, Logger::ERROR);
-        return;
-    }
+    // === Ensure logs/ directory exists ===
+    std::filesystem::create_directories("logs/animations");
 
-    animLog << "[ANIM START] " << this->name << std::endl;
+    // === Open log file ===
+    std::ofstream animLog("logs/animations/" + sanitizedName + ".log", std::ios::app);
+    if (!animLog.is_open()) return;
 
+    animLog << "=== Smoothing pass for " << sanitizedName << " ===" << std::endl;
+
+    // === Target bones: Right leg chain only ===
+    static const std::unordered_set<std::string> rightLegBones = {
+        "DEF-thigh.R", "DEF-shin.R", "DEF-foot.R", "DEF-toe.R"
+    };
+
+    // Loop over each bone
     for (const std::string& boneName : animatedBones)
     {
-        JitterProfile prof = getProfileFor(this->name, boneName);
-        float tThr = prof.t;
-        float rThr = prof.rDeg;
-        int win = prof.window;
+        if (rightLegBones.count(boneName) == 0)
+            continue; // Skip all non-leg bones
+
+        animLog << ">> Bone: " << boneName << std::endl;
 
         for (size_t i = 1; i + 1 < N; ++i)
         {
-            glm::mat4 prevMat = keyframes[i - 1].boneTransforms[boneName];
-            glm::mat4 currMat = keyframes[i].boneTransforms[boneName];
-            glm::mat4 nextMat = keyframes[i + 1].boneTransforms[boneName];
+            glm::mat4& prev = keyframes[i - 1].boneTransforms[boneName];
+            glm::mat4& curr = keyframes[i].boneTransforms[boneName];
+            glm::mat4& next = keyframes[i + 1].boneTransforms[boneName];
 
-            glm::vec3 transPrev(prevMat[3]);
-            glm::vec3 transCurr(currMat[3]);
-            glm::vec3 transNext(nextMat[3]);
+            glm::vec3 scalePrev, scaleCurr, scaleNext;
+            glm::quat rotPrev, rotCurr, rotNext;
+            glm::vec3 transPrev, transCurr, transNext;
+            glm::vec3 skew;
+            glm::vec4 persp;
 
-            float tDeltaPrev = glm::length(transCurr - transPrev);
-            float tDeltaNext = glm::length(transCurr - transNext);
+            // Decompose all three
+            glm::decompose(prev, scalePrev, rotPrev, transPrev, skew, persp);
+            glm::decompose(curr, scaleCurr, rotCurr, transCurr, skew, persp);
+            glm::decompose(next, scaleNext, rotNext, transNext, skew, persp);
 
-            glm::quat rotPrev = glm::quat_cast(prevMat);
-            glm::quat rotCurr = glm::quat_cast(currMat);
-            glm::quat rotNext = glm::quat_cast(nextMat);
+            // Hemisphere alignment for comparison
+            if (glm::dot(rotPrev, rotCurr) < 0.0f) rotCurr = -rotCurr;
+            if (glm::dot(rotNext, rotCurr) < 0.0f) rotNext = -rotNext;
 
-            float rDeltaPrevDeg = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(glm::normalize(rotPrev))));
-            float rDeltaNextDeg = glm::degrees(glm::angle(glm::normalize(rotCurr) * glm::inverse(glm::normalize(rotNext))));
-            float rSpanDeg = glm::degrees(glm::angle(glm::normalize(rotNext) * glm::inverse(glm::normalize(rotPrev))));
-            float tSpan = glm::length(transNext - transPrev);
+            // Translation deltas
+            glm::vec3 deltaPrev = transCurr - transPrev;
+            glm::vec3 deltaNext = transNext - transCurr;
+            float jump1 = glm::length(deltaPrev);
+            float jump2 = glm::length(deltaNext);
 
-            // === Debug output for wobble inspection ===
-            if ((this->name.find("Jab_Head") != std::string::npos) &&
-                (boneName == "DEF-spine.001" || boneName == "DEF-upper_arm.L" || boneName == "root") &&
-                (i >= 3 && i <= 13))
+            // Rotation delta in degrees
+            float rotDeltaDeg = glm::degrees(glm::angle(glm::normalize(rotPrev) * glm::inverse(glm::normalize(rotCurr))));
+
+            // === Noise clamp ===
+            if (jump1 < 0.002f && jump2 < 0.002f && rotDeltaDeg < 0.35f)
             {
-                float angle01 = rDeltaPrevDeg;
-                float angle12 = rDeltaNextDeg;
-                float dot01 = glm::dot(glm::normalize(rotCurr), glm::normalize(rotPrev));
-                float dot12 = glm::dot(glm::normalize(rotNext), glm::normalize(rotCurr));
-
-                animLog << "[DEBUG-WOBBLE-CHECK] Bone=" << boneName
-                    << " Frame=" << i
-                    << " angle01=" << angle01
-                    << " angle12=" << angle12
-                    << " span=" << rSpanDeg
-                    << " dot01=" << dot01
-                    << " dot12=" << dot12
-                    << std::endl;
+                // Clamp: override curr with prev
+                keyframes[i].boneTransforms[boneName] = prev;
+                animLog << "[CLAMPED] frame=" << i << " | Delta T=~" << jump1 << ", Delta R=~" << rotDeltaDeg << "°" << std::endl;
             }
 
-            bool isIsolatedSpike = (tDeltaPrev > tThr || rDeltaPrevDeg > rThr) &&
-                (tDeltaNext > tThr || rDeltaNextDeg > rThr);
-
-            bool neighborsAgree = (tSpan < 0.5f * tThr) && (rSpanDeg < 0.5f * rThr);
-
-            if (isIsolatedSpike && !neighborsAgree)
+            // === Smoothing window (+=2 frame avg) ===
+            if (i >= 2 && i + 2 < N)
             {
-                glm::vec3 smoothedTrans = 0.5f * (transPrev + transNext);
-                glm::quat smoothedRot = glm::slerp(rotPrev, rotNext, 0.5f);
-                glm::mat4 smoothedMat = glm::mat4_cast(smoothedRot);
-                smoothedMat[3] = glm::vec4(smoothedTrans, 1.0f);
+                glm::mat4 m0 = keyframes[i - 2].boneTransforms[boneName];
+                glm::mat4 m1 = keyframes[i - 1].boneTransforms[boneName];
+                glm::mat4 m2 = keyframes[i].boneTransforms[boneName];
+                glm::mat4 m3 = keyframes[i + 1].boneTransforms[boneName];
+                glm::mat4 m4 = keyframes[i + 2].boneTransforms[boneName];
 
-                keyframes[i].boneTransforms[boneName] = smoothedMat;
-
-                animLog << "[JITTER-SMOOTH] Anim=" << this->name
-                    << " Bone=" << boneName
-                    << " Frame=" << i << std::endl;
-                continue;
-            }
-
-            bool isRotWobble = (rDeltaPrevDeg > 0.75f * rThr && rDeltaPrevDeg < rThr) &&
-                (rDeltaNextDeg > 0.75f * rThr && rDeltaNextDeg < rThr) &&
-                (rSpanDeg < 0.25f * rThr);
-
-            if (isRotWobble)
-            {
-                glm::quat smoothedRot = glm::slerp(rotPrev, rotNext, 0.5f);
-                glm::mat4 smoothedMat = glm::mat4_cast(smoothedRot);
-                smoothedMat[3] = currMat[3];
-
-                keyframes[i].boneTransforms[boneName] = smoothedMat;
-
-                animLog << "[ROT-WOBBLE] Anim=" << this->name
-                    << " Bone=" << boneName
-                    << " Frame=" << i << std::endl;
-                continue;
-            }
-
-            if (detectRotationalWobbleBand(rotPrev, rotCurr, rotNext, rThr * 0.75f))
-            {
-                glm::quat smoothedRot = glm::slerp(rotPrev, rotNext, 0.5f);
-                glm::mat4 smoothedMat = glm::mat4_cast(smoothedRot);
-                smoothedMat[3] = currMat[3];
-
-                keyframes[i].boneTransforms[boneName] = smoothedMat;
-
-                animLog << "[WOBBLE-BAND] Anim=" << this->name
-                    << " Bone=" << boneName
-                    << " Frame=" << i << std::endl;
+                glm::mat4 smooth = interpolateMatricesCubic(m0, m1, m3, m4, 0.5f); // centered on m2
+                keyframes[i].boneTransforms[boneName] = smooth;
+                animLog << "[SMOOTHED] frame=" << i << std::endl;
             }
         }
     }
 
-    animLog << "[ANIM END] " << this->name << std::endl;
-    animLog.close();
+    animLog << "=== Done ===" << std::endl << std::endl;
 }
 
 
