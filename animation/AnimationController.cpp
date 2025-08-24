@@ -415,16 +415,19 @@ void AnimationController::applyToModel(Model* model)
         model->setBoneTransform(boneName, final);
     }
 
-    // === Dump full pose JSON ===
+    // === Dump full pose JSON once per animation ===
     if (currentAnimation && model)
     {
-        static bool hasDumpedJSON = false;
-        if (!hasDumpedJSON)
+        static std::unordered_set<std::string> dumpedAnimations;
+        const std::string animName = currentAnimation->getName();
+
+        if (!dumpedAnimations.count(animName))
         {
             currentAnimation->dumpEnginePoseAllFramesJSON("");
-            hasDumpedJSON = true;
+            dumpedAnimations.insert(animName);
         }
     }
+
 }
 
 
@@ -608,3 +611,4 @@ void AnimationController::dumpEnginePoseFrame(int frameIdx)
     // 3. Dump them
     dumpEnginePoseFrame(frameIdx, globalBoneMatrices);
 }
+

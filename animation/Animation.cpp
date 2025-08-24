@@ -1374,7 +1374,6 @@ bool detectRotationalWobbleBand(const glm::quat& q0, const glm::quat& q1, const 
     return changedDirection && isConfined && hasEnoughRotation;
 }
 
-#include <nlohmann/json.hpp>  // already included
 
 void Animation::dumpEnginePoseAllFramesJSON(const std::string& outputPath) const
 {
@@ -1385,16 +1384,12 @@ void Animation::dumpEnginePoseAllFramesJSON(const std::string& outputPath) const
     }
 
     nlohmann::json root;
-    root["frames"] = nlohmann::json::array();
 
     for (size_t i = 0; i < keyframes.size(); ++i)
     {
         const Keyframe& kf = keyframes[i];
-        nlohmann::json frameJson;
-        frameJson["frame"] = static_cast<int>(i);
-        frameJson["time"] = kf.time;
-
         nlohmann::json bonesJson;
+
         for (const auto& [boneName, mat] : kf.boneTransforms)
         {
             nlohmann::json matJson = nlohmann::json::array();
@@ -1403,15 +1398,14 @@ void Animation::dumpEnginePoseAllFramesJSON(const std::string& outputPath) const
                 nlohmann::json rowJson = nlohmann::json::array();
                 for (int col = 0; col < 4; ++col)
                 {
-                    rowJson.push_back(mat[col][row]);  // column-major layout
+                    rowJson.push_back(mat[col][row]);  // column-major to row-major
                 }
                 matJson.push_back(rowJson);
             }
             bonesJson[boneName] = matJson;
         }
 
-        frameJson["bones"] = bonesJson;
-        root["frames"].push_back(frameJson);
+        root[std::to_string(i)] = bonesJson;
     }
 
     std::string sanitized = this->name;
@@ -1419,10 +1413,7 @@ void Animation::dumpEnginePoseAllFramesJSON(const std::string& outputPath) const
     std::replace(sanitized.begin(), sanitized.end(), '\\', '_');
 
     std::filesystem::create_directories("logs");
-    std::ofstream outFile(outputPath.empty()
-        ? ("logs/pose_dump_" + sanitized + ".json")
-        : outputPath);
-
+    std::ofstream outFile("logs/pose_dump_" + sanitized + ".json");
     if (!outFile.is_open())
     {
         Logger::log("ERROR: Could not open output file for pose dump", Logger::ERROR);
@@ -1434,3 +1425,4 @@ void Animation::dumpEnginePoseAllFramesJSON(const std::string& outputPath) const
 
     Logger::log("Pose dump (JSON) complete for animation: " + this->name, Logger::INFO);
 }
+

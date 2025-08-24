@@ -66,7 +66,7 @@ public:
     void dumpEnginePoseFrame(int frameIdx);    // Dumps by frame index
     void dumpEnginePoseFrame(int frameIdx, const std::map<std::string, glm::mat4>& globalBoneMatrices); // Dumps with full pose map
 
-
+    void dumpEnginePoseAllFramesJSON(const std::string& outputPath) const;
 
 private:
     Model* model;
