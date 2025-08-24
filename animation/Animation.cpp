@@ -1374,3 +1374,63 @@ bool detectRotationalWobbleBand(const glm::quat& q0, const glm::quat& q1, const 
     return changedDirection && isConfined && hasEnoughRotation;
 }
 
+#include <nlohmann/json.hpp>  // already included
+
+void Animation::dumpEnginePoseAllFramesJSON(const std::string& outputPath) const
+{
+    if (!loaded || keyframes.empty())
+    {
+        Logger::log("dumpEnginePoseAllFramesJSON: animation not loaded", Logger::ERROR);
+        return;
+    }
+
+    nlohmann::json root;
+    root["frames"] = nlohmann::json::array();
+
+    for (size_t i = 0; i < keyframes.size(); ++i)
+    {
+        const Keyframe& kf = keyframes[i];
+        nlohmann::json frameJson;
+        frameJson["frame"] = static_cast<int>(i);
+        frameJson["time"] = kf.time;
+
+        nlohmann::json bonesJson;
+        for (const auto& [boneName, mat] : kf.boneTransforms)
+        {
+            nlohmann::json matJson = nlohmann::json::array();
+            for (int row = 0; row < 4; ++row)
+            {
+                nlohmann::json rowJson = nlohmann::json::array();
+                for (int col = 0; col < 4; ++col)
+                {
+                    rowJson.push_back(mat[col][row]);  // column-major layout
+                }
+                matJson.push_back(rowJson);
+            }
+            bonesJson[boneName] = matJson;
+        }
+
+        frameJson["bones"] = bonesJson;
+        root["frames"].push_back(frameJson);
+    }
+
+    std::string sanitized = this->name;
+    std::replace(sanitized.begin(), sanitized.end(), '/', '_');
+    std::replace(sanitized.begin(), sanitized.end(), '\\', '_');
+
+    std::filesystem::create_directories("logs");
+    std::ofstream outFile(outputPath.empty()
+        ? ("logs/pose_dump_" + sanitized + ".json")
+        : outputPath);
+
+    if (!outFile.is_open())
+    {
+        Logger::log("ERROR: Could not open output file for pose dump", Logger::ERROR);
+        return;
+    }
+
+    outFile << root.dump(2);  // pretty print
+    outFile.close();
+
+    Logger::log("Pose dump (JSON) complete for animation: " + this->name, Logger::INFO);
+}

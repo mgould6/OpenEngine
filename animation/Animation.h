@@ -59,6 +59,7 @@ public:
 
     JitterProfile getProfileFor(const std::string& animName, const std::string& boneName) const;
     void suppressPostBakeJitter();
+    void dumpEnginePoseAllFramesJSON(const std::string& outputPath) const;
 
 
 private:

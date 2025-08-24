@@ -415,16 +415,14 @@ void AnimationController::applyToModel(Model* model)
         model->setBoneTransform(boneName, final);
     }
 
-    // === Dump full pose for Jab_Head ===
-    if (currentAnimation) {
-        const std::string n = currentAnimation->getName();
-        const bool isJab = (n == "Jab_Head") || (n.find("Jab_Head") != std::string::npos);
-        if (isJab) {
-            static std::unordered_set<int> dumpedFramesAll;
-            if (!dumpedFramesAll.count(debugFrame)) {
-                dumpedFramesAll.insert(debugFrame);
-                dumpEnginePoseFrame(debugFrame, globalBoneMatrices);
-            }
+    // === Dump full pose JSON ===
+    if (currentAnimation && model)
+    {
+        static bool hasDumpedJSON = false;
+        if (!hasDumpedJSON)
+        {
+            currentAnimation->dumpEnginePoseAllFramesJSON("");
+            hasDumpedJSON = true;
         }
     }
 }
